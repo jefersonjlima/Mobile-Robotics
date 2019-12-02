@@ -1,0 +1,218 @@
+\documentclass[t]{beamer}
+
+\usepackage[brazil]{babel} 
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx,hyperref,url,pgfplots}
+\usetheme{Warsaw}
+\usecolortheme{crane}
+\usefonttheme[onlymath]{serif}  %amarelo
+% previsualização animacao
+\setbeamercovered{transparent}
+% texto justificado
+\usepackage{ragged2e}
+\justifying
+
+\pgfplotsset{compat=1.10}
+\usepackage{amsmath} 
+\usepackage{array,booktabs}
+\usepackage[overload]{textcase}
+
+\usepackage{mcode}              % código matlab
+
+\newcommand{\pausar}{\pause}
+\newcommand{\pratica}{
+\begin{frame}[c]
+\textit{prática ...}
+\begin{center}
+\includegraphics[width=0.5\textwidth]{images/prog.jpg}
+\end{center}
+\end{frame}
+}
+\newcommand{\titleSlide}[1]{\textbf{\MakeUppercase{#1}}}
+
+% paginas numero 
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \insertframenumber/\inserttotalframenumber
+}
+
+
+\lstloadlanguages{C}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{textcomp}
+\definecolor{listinggray}{gray}{0.9}
+\definecolor{lbcolor}{rgb}{0.9,0.9,0.9}
+\lstset{
+%	backgroundcolor=\color{lbcolor},
+	tabsize=4,
+	rulecolor=,
+	language=C,
+	    basicstyle=\ttfamily\scriptsize,
+%        basicstyle=\normalsize,
+        upquote=true,
+        aboveskip={1.5\baselineskip},
+        columns=fixed,
+        showstringspaces=false,
+        extendedchars=true,
+        breaklines=true,
+        prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+%        frame=single,
+        showtabs=false,
+        showspaces=false,
+        showstringspaces=false,
+        identifierstyle=\ttfamily,
+        keywordstyle=\color[rgb]{0,0,1},
+        commentstyle=\color[rgb]{0.133,0.545,0.133},
+        stringstyle=\color[rgb]{0.627,0.126,0.941},
+}
+\lstloadlanguages{C}
+
+
+
+% The title of the presentation:
+%  - first a short version which is visible at the bottom of each slide;
+%  - second the full title shown on the title slide;
+\logo{\includegraphics[scale=0.1]{images/logo.jpg}}
+\newcommand{\nologo}{\setbeamertemplate{logo}{}} % command to set the logo to nothing
+
+\title[SLAM]{
+  SLAM - \textit{Simultaneous Localization and Mapping}}
+
+% Optional: a subtitle to be dispalyed on the title slide
+%\subtitle{Teoria e Prática}
+
+% The author(s) of the presentation:
+%  - again first a short version to be displayed at the bottom;
+%  - next the full list of authors, which may include contact information;
+\author[Prof. Jeferson José de Lima]{
+  \textbf{Professor}: Jeferson José de Lima\\  \medskip
+  {\url{jefersonlima@utfpr.edu.br}}}
+  
+
+% The institute:
+%  - to start the name of the university as displayed on the top of each slide
+%    this can be adjusted such that you can also create a Dutch version
+%  - next the institute information as displayed on the title slide
+\institute[UTFPR-PB]{Departamento de Informática (DAINF-PB)}
+
+% Add a date and possibly the name of the event to the slides
+%  - again first a short version to be shown at the bottom of each slide
+%  - second the full date and event name for the title slide
+\date[2019.2]
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}
+  \frametitle{Sumário}
+  {\small {\small \tableofcontents}}
+\end{frame}
+
+
+\section{Informações Úteis}
+  \frametitle{Informações Úteis}
+\begin{frame}
+
+\begin{enumerate}
+\item Material disponível em: \href{https://gitlab.com/cursoseaulas/curso-arduino}{https://gitlab.com/cursoseaulas/curso-arduino} 
+\end{enumerate}
+
+\end{frame}
+
+
+\section{Coordenadas Homogêneas}
+%-----------------------------------------------------------------
+\subsection{Definição}
+\begin{frame}
+  \href{http://www.joinville.ifsc.edu.br/~michael.klug/ROB74/Aulas/aula2_trans_geometricas.pdf
+  }{material}
+\end{frame}
+%-----------------------------------------------------------------
+\section{Teorema de Bayes}
+\begin{frame}
+  \titleSlide{Estimativa de Estados}
+
+  \begin{itemize}
+    \item Estado Estimado $x$ de um sistema observado $z$ e com controle em $u$.
+    \item Objetivo:
+  \end{itemize}
+
+  \begin{equation}
+    p(x|z,u)
+  \end{equation}
+
+\end{frame}
+%-----------------------------------------------------------------
+
+\subsection{Definição}
+\begin{frame}
+  \href{http://www.joinville.ifsc.edu.br/~michael.klug/ROB74/Aulas/aula2_trans_geometricas.pdf
+  }{material}
+\end{frame}
+%-----------------------------------------------------------------
+
+
+%-----------------------------------------------------------------
+\section{Kalman Filter}
+\subsection{Introdução}
+\begin{frame}
+  teste
+\end{frame}
+%-----------------------------------------------------------------
+\begin{frame}
+  \titleSlide{Modelos Lineares}
+ 
+  \begin{itemize}
+    \item Assumindo que o modelo é linear;
+    \item Com ruído Gaussiano ()
+  \end{itemize}
+
+  \begin{align} 
+    x_t &= A_t x_{t-1} + B u_t + \epsilon_t\\ 
+    z_t &= C_t x_t + \delta_t
+    \end{align}
+
+    $A_t$ Matriz $(n \times n)$ que descreve os estados do modelo.
+
+    $B_t$ Matriz $(n \times l)$ que descreve os estados do controle.
+
+    $C_t$ Matrix $(k\times n)$ sendo os estados de $x_t$
+
+    $\epsilon_t$ Variável aleatória do processo.
+
+    $\delta_t$ Rúido aleatório com distribuição normal e covariância de $R_t$ e $Q_t$ respectivamente.
+
+\end{frame}
+%-----------------------------------------------------------------
+\subsection{KF, EKF e UKF}
+\begin{frame}
+  teste
+\end{frame}
+%-----------------------------------------------------------------
+\begin{frame}[allowframebreaks]
+
+\textbf{Referências}
+
+\begin{itemize}
+\begin{small}
+\item http://www.embarcados.com.br/arduino-entradasaidas-digitais/
+\item \href{https://www.youtube.com/watch?v=DE6Jn2cB4J4&list=PLgnQpQtFTOGQrZ4O5QzbIHgl3b1JHimN_&index=5}{aula kalman} 
+\end{small}
+\end{itemize}
+
+
+
+
+
+%\small{\textbf{Referências}
+%        \bibliographystyle{amsalpha}
+%        \bibliography{reflatex.bib}}
+\end{frame}
+%-----------------------------------------------------------------
+\end{document}

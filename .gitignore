@@ -1,0 +1,12 @@
+# latex output files
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
+*.gz
+*.pdf
+*.fdb*
+*.fls
