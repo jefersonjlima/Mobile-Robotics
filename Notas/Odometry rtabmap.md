@@ -24,19 +24,6 @@ rtabmap-databaseViewer ~/.ros/rtabmap.db
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 # References
 * http://wiki.ros.org/rtabmap_ros/Tutorials/HandHeldMapping
 * https://github.com/introlab/rtabmap/wiki/Kinect-mapping
