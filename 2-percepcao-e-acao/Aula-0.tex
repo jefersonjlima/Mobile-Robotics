@@ -159,17 +159,44 @@ em nosso caso, $A \cup B \cup C = \{2,3,4,5,6\} \text{ e } A \cap B \cap C = \va
 \subsection{Probabilidades condicionais e conjuntas}
 \begin{frame}
 
-A probabilidade condicional de $B$ dado $A$
-
-\begin{equation}
-	P(B | A) = \frac{P(A \cap B)}{P(A)},\text{ se } P(A) > 0
-\end{equation}
-
-
 \begin{itemize}
-	\item Se $X$ e $Y$ são independentes, temos:
+	\item A probabilidade condicional de $B$ dado $A$
+
 	\begin{equation}
-		P(x \cap y) = P(x)P(y)
+		P(B | A) = \frac{P(A \cap B)}{P(A)},\text{ se } P(A) > 0
+	\end{equation}
+
+	\item Partição de um espaço amostral
+
+	Seja $B$ um evento qualquer do espaço amostral. Então os eventos $A_1 \cap B, A_2 \cap B,\cdots, A_m \cap B$, são todos
+	mutuamente exclusivos e $B=\cup_{i=1}^{m}(A_i \cap B)$
+	
+	\item Probabilidade Total
+	
+	Se os eventos $A_1,A_2,\cdots,A_m$ formam uma partição do espaço amostral $\Omega$ e $B$ é um outro evento qualquer
+	desse espaço, então:
+	\begin{equation}
+		P(B) = \sum\limits_{i=0}^{m}P(B|A_i)P(A_i)
+	\end{equation}
+
+
+\end{itemize}
+\end{frame}
+
+%-----------------------------------------------------------------
+
+\begin{frame}
+	Dizemos também, que a expressão $P(x_i, y_j) = P(X = x_i , Y = y_j)$ define a função de probabilidade conjunta da
+	v.a. bidimensional discreta $( X, Y )$ se:
+
+	a) $P(x_i, y_i) \geq 0 \text{ para todo par }(i,j)$
+	
+	b) $\sum\limits_{i,j} P(x_i, y_i) = 1 $
+
+	\begin{itemize}
+	\item Se $X$ e $Y$ os espaços amostrais, bem como, $x_i$, $y_i$ os eventos. Dado que $X$ e $Y$ são independentes, temos:
+	\begin{equation}
+		P(x,y) = P(x)P(y)
 	\end{equation}
 	\item $P(x|y)$ é a probabilidade de $x$ dado $y$:
 	\begin{equation}
@@ -184,6 +211,7 @@ A probabilidade condicional de $B$ dado $A$
 \end{itemize}
 
 \end{frame}
+
 %%-----------------------------------------------------------------
 \subsection{O problema de Monty Hall}
 \begin{frame}[c]
