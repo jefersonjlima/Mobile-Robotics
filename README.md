@@ -1,23 +1,54 @@
 # Robótica Móvel
 
-## Repositório para os materiais de Robótica Móvel
+Repositório para os materiais de Robótica Móvel
 
 ### Datas importantes:
-- Avaliação 1: 
-- Avaliação 2: 
-- Recuperação: 
+- Trabalho 1 - Modelagem e Controle
+
 
 ### Cálculo da média:
-M = (N1 + N2) / 2
+
 
 onde:
-- N1 = A1 * 0,9 + Exercícios1 * 0,1
-- N2 = A2 * 0,9 + Exercicios2 * 0,1
+- N1 = T1 * 0,7 + Exercícios1 * 0,3
+- N2 = T2 * 0,7 + Exercicios2 * 0,3
 
 ### Atendimento:
 Quinta, 09:20 às 10:00, S105
 Quinta, 14:40 às 15:30, S105
 
 
+# Sumário
 
-### Bibliografia básica:
+1. Introdução a Robótica Móvel
+    - Aula 0 - Apresentação Disciplina
+    - Aula X - Contexto Histórico
+    - Aula X - Robótica e Aplicações
+    - Aula X - Cinemática
+    - Aula X - Dinâmica
+
+
+2. Percepção e Ação
+    - Aula 0 - Percepção
+    - Aula X - Sensores
+    - Aula X - Atuadores
+    - Aula X - Revisão Metodo Bayes
+    - Introdução ao Filtro de Kalman
+
+3. Ambiente de Simulação
+    - Introdução ROS - Robotics Operating System
+
+4. Paradigmas de Controle
+    - Aula 0 - Revisão Controle Clássico
+    - AUla X - Controle Moderno
+
+
+
+5. Localização e Mapeamento
+    - Aula 0 - Adaptive Monte Carlo localization (AMCL)
+    - Odometria:
+        - Visual
+        
+
+# Bibliografia básica:
+
