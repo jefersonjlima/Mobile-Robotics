@@ -56,3 +56,4 @@
 
 ## Aulas de Robótica
 https://www.doc.ic.ac.uk/~ajd/Robotics/RoboticsResources/
+https://www.youtube.com/user/behnamasadi/videos
