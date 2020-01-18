@@ -48,7 +48,8 @@
 * http://ais.informatik.uni-freiburg.de/teaching/ws12/mapping/pdf/
 * http://ais.informatik.uni-freiburg.de/teaching/ss16/robotics/slides/
 
-
+# Kalman Filter
+* https://www.udacity.com/course/cs373 (great teacher)
 
 ## Interesting subjects
 * Photogrammetry

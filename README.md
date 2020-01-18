@@ -35,20 +35,26 @@ Quinta, 14:40 às 15:30, S105
     - Aula X - Revisão Metodo Bayes
     - Introdução ao Filtro de Kalman
 
-3. Ambiente de Simulação
-    - Introdução ROS - Robotics Operating System
 
 4. Paradigmas de Controle
     - Aula 0 - Revisão Controle Clássico
     - AUla X - Controle Moderno
 
 
+3. Ambiente de Simulação
+    - Introdução ROS - Robotics Operating System
 
 5. Localização e Mapeamento
     - Aula 0 - Adaptive Monte Carlo localization (AMCL)
     - Odometria:
         - Visual
-        
+
+
+6. Tópicos Extra
+    - Hidden Markov Model
+        - Viterbi Algorithm
+        - Forward e Backward Algorithm
+        - Baum-Welch Algorithm
 
 # Bibliografia básica:
 
