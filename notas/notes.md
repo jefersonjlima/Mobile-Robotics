@@ -54,7 +54,22 @@
 ## Interesting subjects
 * Photogrammetry
 
+## Controle
+* Introduction-to-Mobile-Ro(z-lib.org).pdf
+
 
 ## Aulas de Robótica
 https://www.doc.ic.ac.uk/~ajd/Robotics/RoboticsResources/
 https://www.youtube.com/user/behnamasadi/videos
+
+
+## test latex
+
+$$x_{1,2} = {-b\pm\sqrt{b^2 - 4ac} \over 2a}.$$
+
+$$T^{\mu\nu}=\begin{pmatrix}
+\varepsilon&0&0&0\\
+0&\varepsilon/3&0&0\\
+0&0&\varepsilon/3&0\\
+0&0&0&\varepsilon/3
+\end{pmatrix},$$
