@@ -1,9 +1,51 @@
 ## Planejamento Aulas - Disciplina Robótica Móvel
 
-Tabela de planejamento:
+### Temas de aula
 
-   - Aula 0 - Revisão Controle Clássico
-    - AUla X - Controle Moderno
+1. Introdução a Robótica Móvel
+
+        Contexto Histórico
+        Robótica e Aplicações
+        Cinemática e Dinâmica
+
+
+2. Percepção e Ação
+        
+        Percepção
+        Sensores
+        Atuadores
+        Revisão Metodo Bayes
+        Introdução ao Filtro de Kalman
+
+4. Paradigmas de Controle
+        
+        Revisão Controle Clássico
+        Controle Moderno
+
+3. Ambiente de Simulação
+        
+        Introdução ROS - Robotics Operating System
+
+5. Localização e Mapeamento
+    
+        Adaptive Monte Carlo localization (AMCL)
+        Odometria:
+            Visual
+                Camera RGB-D
+                Calibração
+                Aruco
+        Localização com Filtro de Kalman
+
+6. Tópicos Extra
+
+        Hidden Markov Model
+            Viterbi Algorithm
+            Forward e Backward Algorithm
+            Baum-Welch Algorithm
+
+
+
+### Tabela de planejamento:
 
 |Aula|Dia| Tipo de Aula|Tópico | Tema| 
 |---|---|---|---|---|
