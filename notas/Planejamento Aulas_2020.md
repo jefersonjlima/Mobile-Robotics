@@ -4,18 +4,36 @@
 
 1. Introdução a Robótica Móvel
 
+        Fundamentos
         Contexto Histórico
         Robótica e Aplicações
-        Cinemática e Dinâmica
+        Cinemática e Dinâmica(a)(b)(c)
 
+> a. [Tese](https://www.overleaf.com/project/5c36e5b5f3af951f1e907ccf)
+>
+> b. [WHEELED MOBILE ROBOTICS - Examples Matlab](https://booksite.elsevier.com/9780128042045/manuscript.php)
+>
+> c. [Aula UFMG](https://homepages.dcc.ufmg.br/~doug/cursos/lib/exe/fetch.php?media=cursos:introrobotica:2019-1:aula07a-descricao-espacial-transformacoes-parte-1.pdf)
+> 
+> d. Otimo Cinematica - [Roland_Siegwart,_Illah_R._Nourbakhsh]_Introductio(z-lib.org)
 
 2. Percepção e Ação
         
         Percepção
-        Sensores
+        Sensores(a)
+            Reflexão
         Atuadores
+            Ponte H
+            Motor Polulu(b)
         Revisão Metodo Bayes
         Introdução ao Filtro de Kalman
+        Arduino - Praticas(c)
+
+> a. [Robótica Móvel Campinas](http://www.gasi.sorocaba.unesp.br/assimoes/lectures/rm/)
+> 
+> b. [Polulu Datasheet](https://www.pololu.com/file/0J1487/pololu-micro-metal-gearmotors-rev-4-2.pdf) 
+>
+> [Learning Robotics using Python]()
 
 4. Paradigmas de Controle
         
@@ -42,7 +60,9 @@
             Viterbi Algorithm
             Forward e Backward Algorithm
             Baum-Welch Algorithm
+            PSO *
 
+> [Triangulation problem solved by PSO](https://booksite.elsevier.com/9780128042045/content/src/Chapter5.zip)
 
 
 ### Tabela de planejamento:
