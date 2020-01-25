@@ -4,7 +4,8 @@
 \usepackage{graphicx,hyperref,url,pgfplots}
 \usetheme{Warsaw}
 % \usecolortheme{crane}
-\usefonttheme[onlymath]{serif}
+%\usefonttheme[onlymath]{serif}
+\usefonttheme{professionalfonts}
 % previsualização animacao
 \setbeamercovered{invisible}
 % texto justificado
@@ -47,17 +48,20 @@
 \newcommand{\nologo}{\setbeamertemplate{logo}{}} % command to set the logo to nothing
 
 \title[\textit{Introdução à robótica móvel}]{
-  Introdução à Robótica}
+  Cinemática Direta}
 
 % Optional: a subtitle to be dispalyed on the title slide
-\subtitle{Caracteristicas e aplicações}
+\subtitle{Descrição espacial e Transformações}
 
 % The author(s) of the presentation:
 %  - again first a short version to be displayed at the bottom;
 %  - next the full list of authors, which may include contact information;
-\author[Professor: Jeferson José de Lima]{
-  \textbf{Professor}: Jeferson José de Lima \\\medskip
-  {\small \url{jefersonlima@utfpr.edu.br}}}
+% \author[Professor: Jeferson José de Lima]{
+%   \textbf{Professor}: Jeferson José de Lima \\\medskip
+%   {\small \url{jefersonlima@utfpr.edu.br}}}
+
+  \author[Professor: Jeferson José de Lima]{
+	\textbf{Professor}: Jeferson José de Lima}
 
 % The institute:
 %  - to start the name of the university as displayed on the top of each slide
@@ -111,23 +115,109 @@
 \end{frame}
 
 %-----------------------------------------------------------------
-\section{Seção 1}
-\begin{frame}
-
-\end{frame}
-%%-----------------------------------------------------------------
-\subsection{Subseção}
+\section{Sistema de Coordenada}
+\subsection{Sistema Coordenadas Universais}
 \begin{frame}[c]
+	\begin{center}
+		\includegraphics[width=0.8\textwidth]{images/mecanismos.jpg}
+	\end{center}
+\end{frame}
+%%-----------------------------------------------------------------
+
+\begin{frame}[c]
+	\begin{itemize}
+		\item coordenada como um vetor de posição $\mathbb{R}^{3 \times 1}$, composto pelas coordenadas $X,Y$ e $Z$.
+		\item um ponto ${}^A\mathbf{P}$ representa a distância ao longo dos eixos do plano $\{A\}$. Os elementos individuais de ${}^A\mathbf{P}$ podem ser visto pela equação \eqref{eq:cine1}.
+	\end{itemize}
+
+	\begin{columns}[c]
+			\begin{column}{0.6\textwidth}
+			\begin{figure}
+				\centering
+				\begin{tikzpicture}[scale=0.6]]
+				\node(p0) at (0,0){};
+				\draw [->] (p0.center) --++(0,3) node[right] {$ Y_A$};
+				\draw [->, rotate =120] (p0.center) --++(0,3) node[below] {$ Z_A$};
+				\draw [->, rotate =240] (p0.center) --++(0,3) node[below] {$ X_A$};
+				\draw [->] (p0.center) --++(2.5,0.5) node(B)[above,rotate=30] {${}^A\mathbf{P}$};
+				\node at (-1.5,2.5) {$\{A\}$};
+				\end{tikzpicture}
+				\caption{Vetor em relação ao plano $\{A\}$}
+				\label{fig:cine1f}
+				\end{figure}
+		\end{column}
+		\begin{column}{0.4\textwidth}
+			\begin{equation}\label{eq:cine1}
+				{}^A\mathbf{P} = \begin{bmatrix}
+				p_x\\ p_y \\ p_z
+				\end{bmatrix}.
+				\end{equation}			
+		\end{column}
+	\end{columns}
+
+\end{frame}
+%%-----------------------------------------------------------------
+\begin{frame}[t]
+	\begin{itemize}
+		\item O vetor definido por ${}^A\mathbf{P}$ pode ser rotacionado pela matriz de rotação $\mathbf{R}$, conforme a equação \eqref{eq:cine2}.
+
+		\begin{equation}\label{eq:cine2}
+			{}_A^B
+			\mathbf{R} = 
+			\begin{bmatrix}
+			r_{11} & r_{11} & r_{11}\\
+			r_{21} & r_{21} & r_{21}\\
+			r_{31} & r_{31} & r_{31}\\
+			\end{bmatrix}
+			\end{equation}
+	
+	\end{itemize}
+
+	\begin{exampleblock}{Considera os exemplos}
+		\begin{equation*}
+			\mathbf{R}(\theta) = 
+			\begin{bmatrix}
+				\cos \theta &-\sin \theta \\\sin \theta &\cos \theta
+			\end{bmatrix}
+			\end{equation*}
+		e igual:
+		\begin{equation*}
+			\mathbf{R}_z(\theta) = 
+			\begin{bmatrix}
+			\cos(\theta) & \sin(\theta) & 0\\
+			\sin(\theta) & \cos(\theta) & 0\\
+			0 & 0 & 1\\ 
+			\end{bmatrix}
+			\end{equation*}
+	\end{exampleblock}
+
+\end{frame}
+%%-----------------------------------------------------------------
+
+\begin{frame}[t]
+	\begin{itemize}
+		\item O vetor definido por ${}^A\mathbf{P}$ pode ser rotacionado pela matriz de rotação $\mathbf{R}$, conforme a equação \eqref{eq:cine2}.
+
+		\begin{equation}\label{eq:cine2}
+			{}_A^B
+			\mathbf{R} = 
+			\begin{bmatrix}
+			r_{11} & r_{11} & r_{11}\\
+			r_{21} & r_{21} & r_{21}\\
+			r_{31} & r_{31} & r_{31}\\
+			\end{bmatrix}
+			\end{equation}
+	
+	\end{itemize}
 
 
 \end{frame}
 %%-----------------------------------------------------------------
+
 \begin{frame}[c]
 	\textbf{PIC ou Arduino?}
-	\newline
-
 	\begin{center}
-		\includegraphics[width=0.8\textwidth]{images/logo.jpg}
+		\includegraphics[width=1.3\textwidth]{images/logo.jpg}
 	\end{center}
 \end{frame}
 %-----------------------------------------------------------------

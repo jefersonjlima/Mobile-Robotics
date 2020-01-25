@@ -59,8 +59,7 @@
 ## Controle
 * Introduction-to-Mobile-Ro(z-lib.org).pdf
 
-
 ## Aulas de Robótica
-https://www.doc.ic.ac.uk/~ajd/Robotics/RoboticsResources/
-https://www.youtube.com/user/behnamasadi/videos
-
+* https://www.doc.ic.ac.uk/~ajd/Robotics/RoboticsResources/
+* https://www.youtube.com/user/behnamasadi/videos
+* https://docs.duckietown.org/DT19/learning_materials/out/index.html
