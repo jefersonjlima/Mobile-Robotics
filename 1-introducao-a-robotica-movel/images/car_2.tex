@@ -20,28 +20,25 @@
 ]
     %% Free body diagram of M
     \begin{scope}[rotate=\iangle]
-        \node[M,transform shape] (M) {\centerofmass};
+        \node[] (M) {};
+        %\node[below] at (M) {${}^B_A\mathbf{P}$}
         % Draw axes and help lines
         {[axis,->]
-            \draw (M) -- ++(0,2) node(y1_axis)[right] {$y'$};
-            \draw (M) -- ++(2,0) node[right] {$x'$};
+            \draw (M.center) -- ++(0,2) node(y1_axis)[right] {$y'$};
+            \draw (M.center) -- ++(2,0) node[right] {$x'$};
             % Indicate angle. The code is a bit awkward.
             \draw[solid,shorten >=0.5pt] (\down-\iangle:\arcr)
                 arc(\down-\iangle:\down:\arcr);
-            \node at (\down-0.5*\iangle:1.3*\arcr) {$\phi$};
+            \node[xshift=10, green]at (\down-0.5*\iangle:1.3*\arcr) {$\mathbf{R}_z(\phi)$};
         }
         % Forces
         {[force,->]
             % Assuming that Mg = 1. The normal force will therefore be cos(alpha)
-            \draw (M.east) -- ++(1,0) node[above, blue] {$v$};
+            \draw (M.center) -- ++(1,0) node[above, blue] {$v$};
         }
     \end{scope}
     % Draw gravity force. The code is put outside the rotated
     % scope for simplicity. No need to do any angle calculations. 
-    \begin{scope}[rotate=\iangle] % wheels
-        \draw[wheel] (M.south west) rectangle ++(.4,-.1) node[below]{$v_R$};
-        \draw[wheel] (M.north west) rectangle ++(.4,.1)  node[left]{$v_L$};
-    \end{scope}
     \draw[axis,] (M.center) -- ++(1,0) node[below] {};
     %%
     \node[right, gray,font=\small, xshift=8] at (y1_axis) {$\{B\}$};
@@ -50,4 +47,6 @@
     \draw[, ->] (-2,-1) -- ++(0,4) node(y_axis)[right] {$y$};
     \draw[gray, ->] (-2,-1) -- ++(-1,-1) node[left] {$z$};
     \node[left, gray,font=\small, xshift=-10] at (y_axis) {$\{A\}$};
+    \draw [densely dashed,red,] (-2,-1)-- (M.center) node[below, midway] {${}^A\mathbf{Q}$};
 \end{tikzpicture}
+

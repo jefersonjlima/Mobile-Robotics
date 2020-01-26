@@ -3,6 +3,7 @@
 \usepackage[brazil]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
+\usefonttheme[onlymath]{serif}
 \usepackage[scale=2]{ccicons}
 
 \usepackage{graphicx,hyperref,url,pgfplots}
@@ -14,6 +15,11 @@
 \newcommand{\pausar}{\pause}
 \newcommand{\df}[1]{\,\mathrm{d}#1}
 \newcommand{\parcial}[3]{\dfrac{\partial^{#1}#2}{\partial #3^{#1}}}
+
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{scopes}
+\usepackage{verbatim}
 
 \title{Cinemática e Dinâmica}
 \subtitle{Equações de Movimento}
@@ -337,63 +343,42 @@
         \end{column}
     \end{columns}   
 \end{frame}
-
+ 
 
 
 \begin{frame}
-    \def\iangle{35} % Angle of the inclined plane
-\def\down{0}
-\def\arcr{0.7cm} % Radius of the arc used to indicate angles
-\newcommand\centerofmass{%
-    \tikz[radius=0.2em] {%
-        \fill (0,0) -- ++(0.2em,0) arc [start angle=0,end angle=90] -- ++(0,-0.4em) arc [start angle=270, end angle=180];%
-        \draw (0,0) circle;%
-    }%
-}
+    \begin{columns}
+        \begin{column}[c]{0.5\textwidth}
+            \input{images/car.tex}
+        \end{column}
+        \begin{column}[c]{0.5\textwidth}
+            \input{images/car_2.tex}
+        \end{column}
+    \end{columns}
+    \begin{equation*}
+        \begin{bmatrix}
+        {}^B_A\mathbf{P}\\ 1
+        \end{bmatrix}
+        =
+        \underbrace {
+        \left[
+        \begin{matrix}
+        & \color{green}{{}_B^A\mathbf{R}_z(\phi)}& \\ \hline
+        0 & 0 & 0\\
+        \end{matrix} \right.
+        \left.
+        \vline
+        \begin{matrix}
+        \color{red}{{}^A\mathbf{Q}}\\ \hline
+        1
+        \end{matrix} \right]
+        }_{{}^A_B\mathcal{A}}
+        \begin{bmatrix}
+        {}^B\mathbf{P}\\
+        1
+        \end{bmatrix}
+    \end{equation*}
 
-\begin{tikzpicture}[
-    force/.style={>=latex,draw=blue,fill=blue},
-    axis/.style={densely dashed,gray,font=\small},
-    M/.style={rectangle,draw,fill=lightgray,minimum size=0.7cm,thin},
-    m/.style={rectangle,draw=black,fill=lightgray,minimum size=0.3cm,thin},
-    plane/.style={draw=black,fill=blue!10},
-    string/.style={draw=red, thick},
-    pulley/.style={thick},
-    wheel/.style={fill=black, rounded corners=1.5pt},
-]
-    %% Free body diagram of M
-    \begin{scope}[rotate=\iangle]
-        \node[M,transform shape] (M) {\centerofmass};
-        % Draw axes and help lines
-        {[axis,->]
-            \draw (M) -- ++(0,2) node(y1_axis)[right] {$y'$};
-            \draw (M) -- ++(2,0) node[right] {$x'$};
-            % Indicate angle. The code is a bit awkward.
-            \draw[solid,shorten >=0.5pt] (\down-\iangle:\arcr)
-                arc(\down-\iangle:\down:\arcr);
-            \node at (\down-0.5*\iangle:1.3*\arcr) {$\phi$};
-        }
-        % Forces
-        {[force,->]
-            % Assuming that Mg = 1. The normal force will therefore be cos(alpha)
-            \draw (M.east) -- ++(1,0) node[above, gray] {$v$};
-        }
-    \end{scope}
-    % Draw gravity force. The code is put outside the rotated
-    % scope for simplicity. No need to do any angle calculations. 
-    \begin{scope}[rotate=\iangle]
-        \draw[wheel] (M.south west) rectangle ++(.4,-.1);
-        \draw[wheel] (M.north west) rectangle ++(.4,.1);
-    \end{scope}
-    \draw[axis,] (M.center) -- ++(1,0) node[below] {};
-    %
-    \node[left, gray,font=\small, xshift=-8] at (y1_axis) {$\{B\}$};
-    %%
-    \draw[, ->] (-2,-1) -- ++(4,0) node[below] {$x$};
-    \draw[, ->] (-2,-1) -- ++(0,4) node(y_axis)[right] {$y$};
-    \draw[densely dashed,gray, ->] (-2,-1) -- ++(-1,-1) node[left] {$z$};
-    \node[left, gray,font=\small, xshift=-10] at (y_axis) {$\{A\}$};
-\end{tikzpicture}
 \end{frame}
 
 
