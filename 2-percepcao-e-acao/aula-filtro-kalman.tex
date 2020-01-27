@@ -9,7 +9,11 @@
 \usepackage{graphicx,hyperref,url,pgfplots}
 \usepackage{amsmath} 
 \usepackage{array,booktabs}
-\pgfplotsset{compat=1.15} 
+\pgfplotsset{compat=1.15}
+\pgfplotsset{width=7cm}
+\pgfplotsset{%
+  colormap={whitered}{color(0cm)=(white);
+  color(1cm)=(orange!75!red)}
 
 \setbeamercovered{invisible}
 \newcommand{\pausar}{\pause}
@@ -40,11 +44,8 @@
 	morekeywords={models, lambda, forms}}
 
 
-
-% --------------------------------------------------------------------------------------------
-
-\title{Cinemática e Dinâmica}
-\subtitle{Equações de Movimento}
+\title{Filtro de Kalman}
+\subtitle{Introdução - Sistemas Lineares}
 \date{\today}
 \author{Jeferson Lima}
 \institute{\url{http://gitlab.com/jeferson.lima}}
@@ -74,493 +75,151 @@
 	\end{block}
 \end{frame}
 
-\begin{frame}{Descrição de Posição e Orientação}
-\begin{center}
-    \includegraphics[width=0.8\textwidth]{images/mecanismos.jpg}
-\end{center}
-\end{frame}
+%-----------------------------------------------------------------
 
-
-\begin{frame}{Descrição de Posição e Orientação}
-    \begin{itemize}
-		\item coordenada como um vetor de posição $\mathbb{R}^{3 \times 1}$, composto pelas coordenadas $X,Y$ e $Z$.
-		\item um ponto ${}^A\mathbf{P}$ representa a distância ao longo dos eixos do plano $\{A\}$. Os elementos individuais de ${}^A\mathbf{P}$ podem ser visto pela equação \eqref{eq:cine1}.
-	\end{itemize}
-	\begin{columns}[c]
-			\begin{column}{0.6\textwidth}
-			\begin{figure}
-				\centering
-				\begin{tikzpicture}[scale=0.8]
-				\node(p0) at (0,0){};
-				\draw [->] (p0.center) --++(0,3) node[right] {$ Y_A$};
-				\draw [->, rotate =120] (p0.center) --++(0,3) node[below] {$ Z_A$};
-				\draw [->, rotate =240] (p0.center) --++(0,3) node[below] {$ X_A$};
-				\draw [->] (p0.center) --++(2.5,0.5) node(B)[above,rotate=30] {${}^A\mathbf{P}$};
-				\node at (-1.5,2.5) {$\{A\}$};
-				\end{tikzpicture}
-				\caption{Vetor em relação ao plano $\{A\}$}
-				\label{fig:cine1f}
-				\end{figure}
-		\end{column}
-		\begin{column}{0.3\textwidth}
-			\begin{equation}\label{eq:cine1}
-				{}^A\mathbf{P} = \begin{bmatrix}
-				p_x\\ p_y \\ p_z
-				\end{bmatrix}
-				\end{equation}			
-		\end{column}
-	\end{columns}
-\end{frame}
-
-
-
-\begin{frame}{Translação Rotação e Transformação}
-  \framesubtitle{Matriz de Rotação}
+\begin{frame}{Teorema de Bayes}
+    \framesubtitle{Revisão}    
   \begin{itemize}
-    \item O vetor definido por ${}^A\mathbf{P}$ pode ser rotacionado pela matriz de rotação $\mathbf{R}$, conforme a equação \eqref{eq:cine2}.
-    \begin{equation}\label{eq:cine2}
-        {}_A^B
-        \mathbf{R} = 
-        \begin{bmatrix}
-        r_{11} & r_{11} & r_{11}\\
-        r_{21} & r_{21} & r_{21}\\
-        r_{31} & r_{31} & r_{31}\\
-        \end{bmatrix}
-        \end{equation}
-\end{itemize}
+    \item Estado Estimado $x$ de um sistema observado $z$ e com controle em $u$.
+    \item Objetivo:
+  \end{itemize}
 
-\begin{block}{Considera os exemplos}
-    \begin{equation*}
-        \mathbf{R}(\theta) = 
-        \begin{bmatrix}
-            \cos \theta &-\sin \theta \\\sin \theta &\cos \theta
-        \end{bmatrix}
-        \end{equation*}
-    ou:
-    \begin{equation*}
-        \mathbf{R}_z(\theta) = 
-        \begin{bmatrix}
-        \cos(\theta) & \sin(\theta) & 0\\
-        \sin(\theta) & \cos(\theta) & 0\\
-        0 & 0 & 1\\ 
-        \end{bmatrix} \text{, eixo $Z$ fixo}
-        \end{equation*}
-\end{block}
-
+  \begin{equation}
+    p(x|z,u)
+  \end{equation}
 \end{frame}
 
 
-
-\begin{frame}{Translação Rotação e Transformação}
-    \framesubtitle{Matriz de Rotação}
+\begin{frame}{Filtro Bayes}
+    \framesubtitle{Revisão}
+    
     \begin{block}{}
         \begin{equation*}
-            \mathbf{R}_x(\theta) = 
-            \begin{bmatrix}
-            1 & 0 & 0\\
-            0 & \cos(\theta) & -\sin(\theta)\\
-            0 & \sin(\theta) & \cos(\theta)\\ 
-            \end{bmatrix} \text{, eixo $x$ fixo}
-        \end{equation*}
-        \begin{equation*}
-            \mathbf{R}_y(\theta) = 
-            \begin{bmatrix}
-            \cos(\theta) & 0 & \sin(\theta) \\
-            0 & 1 & 0\\
-            -\sin(\theta)  & 0 & \cos(\theta)\\ 
-            \end{bmatrix} \text{, eixo $y$ fixo}
-        \end{equation*}
-        \begin{equation*}
-            \mathbf{R}_z(\theta) = 
-            \begin{bmatrix}
-            \cos(\theta) & \sin(\theta) & 0\\
-            \sin(\theta) & \cos(\theta) & 0\\
-            0 & 0 & 1\\ 
-            \end{bmatrix} \text{, eixo $z$ fixo}
+            bel(x_t) = \eta p(z_t| x_t) \int p(x_t| u_t, x_{t-1}) bel(x_{t-1})dx_{t-1}
         \end{equation*}
     \end{block}
-  \end{frame}
 
-  \begin{frame}{Translação Rotação e Transformação}
-    \framesubtitle{Matriz de Rotação - Exercício}
-\end{frame}
-
-\begin{frame}{Translação Rotação e Transformação}
-    \framesubtitle{Rotação de um coordenada}
     \begin{itemize}
-        \item A rotação, em torno e $Z $, de um angulo qualquer $\theta$ em ${}^AP$ é descrita como na equação \eqref{eq:cine3}. 
-        \begin{equation}\label{eq:cine3}
-            {}^B\mathbf{P} = {}_A^B \mathbf{R}(\theta) {}^A\mathbf{P} = 
-            \begin{bmatrix}
-            \cos(\theta) & \sin(\theta) & 0 & 0\\
-            \sin(\theta) & \cos(\theta) & 0 & 0\\
-            0 & 0 & 1 & 0\\ 
-            0 & 0 & 0 & 1\\
-            \end{bmatrix}.
-            \begin{bmatrix}
-            {}^Ap_x\\
-            {}^Ap_y\\
-            {}^Ap_z\\
-            1
-            \end{bmatrix}
-            \end{equation}
-    \end{itemize}
-\end{frame}
-
-
-\begin{frame}{Translação Rotação e Transformação}
-    \framesubtitle{Translação}
-    \begin{itemize}
-        \item O Deslocamento é chamado de translação, e dá-se pelo operador translacional $\mathbf{D}_A(q)$, onde ${}^A\mathbf{Q}$ representa uma translação entre os planos $\{A\}$ e $\{B\}$ e é expresso pela equação \eqref{eq:cine4}.
-        \begin{equation}\label{eq:cine4}
-        {}^A\mathbf{Q} =
-        \begin{bmatrix}
-        q_x\\ q_y \\ q_z
-        \end{bmatrix}, \qquad \mathrm{e} \qquad
-        \mathbf{D}_A = 
-        \begin{bmatrix}
-        1 & 0 & 0 & q_x\\
-        0 & 1 & 0 & q_y\\
-        0 & 0 & 1 & q_z\\
-        0 & 0 & 0 & 1
-        \end{bmatrix}.
-        \end{equation}
-    \item Adota-se agora a notação para translação e rotação de um vetor, conforme a equação \eqref{eq:cine5}. Observa-se que a matriz $\mathbf{D}_A$ foi incorporada pela nova notação.
-        \begin{equation}\label{eq:cine5}
-        \begin{bmatrix}
-        {}^B_A\mathbf{P}\\ 1
-        \end{bmatrix}
-        =
-        \underbrace {
-        \left[
-        \begin{matrix}
-        & {}_B^A\mathbf{R}& \\ \hline
-        0 & 0 & 0\\
-        \end{matrix} \right.
-        \left.
-        \vline
-        \begin{matrix}
-        {}^A\mathbf{Q}\\ \hline
-        1
-        \end{matrix} \right]
-        }_{{}^A_B\mathcal{A}}
-        \begin{bmatrix}
-        {}^B\mathbf{P}\\
-        1
-        \end{bmatrix}
-        \end{equation}
-    \end{itemize}
-\end{frame}
-
-
-\begin{frame}{Translação Rotação e Transformação}
-    \framesubtitle{Operação de Translação e Rotação}
-    \begin{itemize}
-        \item Aplicando se a transformação homogênea da coordenada ${}^AP$ pelos operadores de rotação e translação temos ${}^BP$
-        \begin{figure}[!ht]
-        \centering
-        \begin{tikzpicture}[scale=0.7]
-        \node(p0) at (0,0){};
-        \draw [->] (p0.center) --++(0,3) node[right] {$\hat Y_A$};
-        \draw [->, rotate =120] (p0.center) --++(0,3) node[below] {$\hat Z_A$};
-        \draw [->, rotate =240] (p0.center) --++(0,3) node[below] {$\hat X_A$};
-        \draw [->] (p0.center) --++(1.5,4) node(B)[above,rotate=30] {${}^A\mathbf{P}$ ou ${}^A\mathbf{P}_{BORG}$};
-        \node(p1) at (6,1){};
-        \draw [->, rotate =30] (p1.center) --++(0,3) node[right,rotate=30] {$\hat Y_B$};
-        \draw [->, rotate =150] (p1.center) --++(0,3) node[below,rotate=30] {$\hat Z_B$};
-        \draw [->, rotate =270] (p1.center) --++(0,3) node[below,rotate=30] {$\hat X_B$};
-        \draw [->, rotate =30] (p1.center) --++(1.5,4) node(B)[above,rotate=30] {${}^B\mathbf{P}$};
-        \draw [dotted,-latex] (p0)  -- (p1) node[midway, fill=white]{${}^A\mathbf{Q}$};
-        \draw [-latex,dashed] (p0)  -- (B);
-        \node at (-1.5,2.5) {$\{A\}$};
-        \node at (4,2.5)  [rotate=30]   {$\{B\}$};
-        \end{tikzpicture}
-        \label{fig:cine2}
-        \end{figure}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Translação Rotação e Transformação}
-    \framesubtitle{Transformação Homogênea}
-    \begin{itemize}
-        \item Na forma generalizada, a transformação homogênea ${}^{i}_0\mathbf{T}$ pode ser expressa por uma sucessiva pode ser encontrada fazendo o produto das sucessivas transformações de ${}^{i-1}_0\mathcal{A}_i$. Conforme é mostrado na equação \eqref{fig:cine3}.
-        \begin{equation}\label{fig:cine3}
-        \begin{array}{lcl}
-        {}^i_0\mathbf{T} &= & {}^0_1\mathcal{A}{}^1_2\mathcal{A} \cdots {}^{i-1}_i\mathcal{A} = \prod \limits^i_{j=1}{}^{j-1}_i\mathcal{A}, \quad \mathrm{para\;}i=1,2,\cdots,n\\[.2cm]
-        & = &
-        \begin{bmatrix}
-        x_i & y_i & z_i & p_i\\
-        0 & 0 & 0 & 1
-        \end{bmatrix} = 
-        \begin{bmatrix}
-        {}^i_0\mathbf{R} & {}^i_0\mathbf{P}\\
-        \mathbf{0} & 1
-        \end{bmatrix}
-        \end{array}
-        \end{equation}      
-        \item onde, ${}^i_0\mathbf{P}$ é o vetor de orientação do referencial $i$ em relação a base $0$.
-    \end{itemize}
-
-\end{frame}
-
-\begin{frame}{Translação Rotação e Transformação}
-\framesubtitle{Exercício: Braço Robótico 2DOF}
-
-    \begin{columns}
-        \begin{column}[c]{0.5\textwidth}
-            \begin{figure}[!ht]
-                \input{images/robot.tex}
-                \caption{Robo 2DOF}
-            \end{figure}
-        \end{column}
-        \begin{column}[c]{0.5\textwidth}
-            
-
-        \end{column}
-    \end{columns}
-
-\end{frame}
-
-
-
-\begin{frame}{Translação Rotação e Transformação}
-    \framesubtitle{Exemplo Prático}
-    \begin{enumerate}
-        \item Considerando que $v_{t-1}$ é um vetor unitário em $\mathbf{P}_{x,y,z}=\{1,0,0\}$ e sobre uma deslocamento de $\mathbf{Q}=\{2,1,0\}$ e rotação $\mathbf{R_z(\phi)}=20^o$, qual será a posição final de $v$ no plano $\{A\}$?
-    \end{enumerate}
-    \begin{columns}
-        \begin{column}[c]{0.5\textwidth}
-            \input{images/car_1.tex}
-        \end{column}
-        \begin{column}[c]{0.5\textwidth}
-            \input{images/car_2.tex}
-        \end{column}
-    \end{columns}
-    Transformação Homogênea:
-    \begin{equation*}
-        \begin{bmatrix}
-        \color{purple}{{}^B_A\mathbf{P}}\\ 1
-        \end{bmatrix}
-        =
-        \left[
-        \begin{matrix}
-        & \color{green}{{}_B^A\mathbf{R}_z(\phi)}& \\ \hline
-        0 & 0 & 0\\
-        \end{matrix} \right.
-        \left.
-        \vline
-        \begin{matrix}
-        \color{red}{{}^A\mathbf{Q}}\\ \hline
-        1
-        \end{matrix} \right]
-        \begin{bmatrix}
-        {}^B\mathbf{P}\\
-        1
-        \end{bmatrix}
-    \end{equation*}
-\end{frame}
-
-
-
-\begin{frame}{Model Cinemático}
-    \framesubtitle{Conceitos}
-    \begin{itemize}
-        \item \textbf{Cinemática direta}
-        \begin{itemize}
-            \item Informado o conjunto de entradas de controle, como o robô se movimenta?
-            \item Coordenadas generalizadas
-        \end{itemize} 
-        \item \textbf{Cinemática inversa}
-        \begin{itemize}
-            \item Informado o tipo de movimento desejado,
-        quais devem ser as entradas de controle?
-        \end{itemize}
-        \item \textbf{Um robô é modelado como um corpo rígido}
-        \begin{itemize}
-            \item 3 variáveis $x, y,\phi$ (plano)
-            \item 6 variáveis $x,y,z, \alpha, \beta, \phi$ (espaço)
-        \end{itemize}
-        \item Deve-se estabelecer uma relação entre o referencial local (robô) e o referencial global
-        \begin{itemize}
-            \item Referencial global: $\{U\} , \{I\}$ ou $\{W\}$
-        \end{itemize}         
-    \end{itemize}
-\end{frame}
-
-
-
-\begin{frame}{Modelo Cinemático}
-    \framesubtitle{Conceitos}
-    \begin{columns}
-        \begin{column}[c]{0.5\textwidth}
-            \centering
-            \input{images/car_0.tex}
-        \end{column}
-        \begin{column}[c]{0.5\textwidth}
-            \centering
-            \begin{itemize}
-                \item Posição:
-                \newline
-                
-                $\mathbf{x} = \begin{bmatrix}
-                    x \\
-                    y
-                \end{bmatrix}$
-                \newline
-
-                \item Configuração:
-                \newline
-
-                $\mathbf{q} = 
-                \begin{bmatrix}
-                    x \\
-                    y\\
-                    \phi
-                \end{bmatrix}, \text{ e } 
-                \dot{\mathbf{q}} = 
-                \begin{bmatrix}
-                    \dot{x} \\
-                    \dot{y}\\
-                    \dot{\phi}
-                \end{bmatrix}$            
-        \end{itemize}
-        \end{column}
-    \end{columns}   
-\end{frame}
-
-
-
-\begin{frame}{Modelo Cinemático}
-    \framesubtitle{Tipo de Rodas}
-    \begin{center}
-        \includegraphics[width=0.8\textwidth]{images/tipo_de_rodas.png}
-    \end{center}
-\end{frame}
-
-\begin{frame}{Modelo Cinemático}
-    \framesubtitle{Robô Diferencial}
-    \begin{itemize}
-        \item Restrição não-holonômica
-        \begin{itemize}
-            \item O robô pode mover-se apenas na direção normal ao eixo das rodas motrizes
-        \end{itemize}
-    % \begin{equation*}
-    %     \dot{x}\sin(\phi) - \dot{y}\cos(\phi) = 0
-    % \end{equation*}
-    \item As próprias rodas já inserem as restrições!
-    \end{itemize}
-    \centering
-    \input{images/car_3.tex}
-\end{frame}
-
-\begin{frame}{Modelo Cinemático}
-    \framesubtitle{Energia Cinética}
-    \begin{itemize}
-        \item A equação de energia cinética ($]mathcal{T}$) é dada por:
-        \begin{equation}
-        \mathcal{T} = \sum\limits_{i=0}^{N} \frac{1}{2} m {}_{i}^{i+1} \dot{\mathbf{P}}^T \cdot {}_{i}^{i+1}\dot{\mathbf{P}}+ J\boldmath{\omega}_i^T\cdot \boldmath{\omega}_i,
-        \end{equation}
-        \newline
-
-        Onde:
-        \newline
+        \item Predição
         
-        \begin{tabular}{l | l}
-            \hline
-            $m_i$ & Massa \\ \hline
-            $\mathbf{\omega}_i$ & Velocidade Angular \\ \hline
-            $\mathbf{J}$ & Inercia \\ \hline
-        \end{tabular}
+        \begin{equation*}
+            \overline{bel}(x_t) = \int p(x_t| u_t, x_{t-1}) bel(x_{t-1})dx_{t-1}
+        \end{equation*}
 
+        \item Correção
+
+        \begin{equation*}
+            bel(x_t) = \eta p(z_t| x_t) \int p(x_t| u_t, x_{t}) \overline{bel}(x_{t})dx_{t-1}
+        \end{equation*}
     \end{itemize}
 \end{frame}
 
 
-\begin{frame}{Modelo Cinemático}
-    \framesubtitle{Robô Diferencial}
-    restricoes
-    
-    % https://edisciplinas.usp.br/pluginfile.php/3280265/mod_resource/content/1/Aula%203%20-%20SEM5911%20Robo%CC%81tica%20Mo%CC%81vel.pdf
+\begin{frame}{Distribuição Normal (Gaussiana)}
+    \framesubtitle{Revisão}  
+    \begin{itemize}
+        \item Uma Variável:
+    \end{itemize}
+
+    \begin{block}{}
+        \begin{equation*}
+            f(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}}\cdot 
+        \exp\left\{-\frac{(x-\mu)^2}{2\sigma^2}\right\}
+        \end{equation*}
+    \end{block}
+
+    \input{images/gauss_1d.tex}
 \end{frame}
 
 
-\begin{frame}{Modelo Dinâmico}
-   
+\begin{frame}{Distribuição Normal (Gaussiana)}
+    \framesubtitle{Revisão}  
+    \begin{itemize}
+        \item Bivariável:
+    \end{itemize}
+
+    \begin{tikzpicture}[
+        declare function = {mu1=1;},
+        declare function = {mu2=2;},
+        declare function = {sigma1=0.5;},
+        declare function = {sigma2=1;},
+        declare function = {normal(\m,\s)=1/(2*\s*sqrt(pi))*exp(-(x-\m)^2/(2*\s^2));},
+        declare function = {bivar(\ma,\sa,\mb,\sb)=
+          1/(2*pi*\sa*\sb) * exp(-((x-\ma)^2/\sa^2 + (y-\mb)^2/\sb^2))/2;}]
+        \begin{axis}[
+          colormap name  = whitered,
+          width          = 15cm,
+          view           = {45}{65},
+          enlargelimits  = false,
+          grid           = major,
+          domain         = -1:4,
+          y domain       = -1:4,
+          samples        = 26,
+          xlabel         = $x_1$,
+          ylabel         = $x_2$,
+          zlabel         = {$P$},
+          colorbar,
+          colorbar style = {
+            at     = {(1,0)},
+            anchor = south west,
+            height = 0.25*\pgfkeysvalueof{/pgfplots/parent axis height},
+            title  = {$P(x_1,x_2)$}
+          }
+        ]
+          \addplot3 [surf] {bivar(mu1,sigma1,mu2,sigma2)};
+          \addplot3 [domain=-1:4,samples=31, samples y=0, thick, smooth]
+            (x,4,{normal(mu1,sigma1)});
+          \addplot3 [domain=-1:4,samples=31, samples y=0, thick, smooth]
+            (-1,x,{normal(mu2,sigma2)});
+      
+          \draw [black!50] (axis cs:-1,0,0) -- (axis cs:4,0,0);
+          \draw [black!50] (axis cs:0,-1,0) -- (axis cs:0,4,0);
+      
+          \node at (axis cs:-1,1,0.18) [pin=165:$P(x_1)$] {};
+          \node at (axis cs:1.5,4,0.32) [pin=-15:$P(x_2)$] {};
+        \end{axis}
+      \end{tikzpicture}
+
+
+
 \end{frame}
 
 
 
-\begin{frame}{Modelo Dinâmico}
-    \framesubtitle{}
-    \
-    \begin{equation}
-        \mathcal{L}= \mathcal{T} - \mathcal{V}
-    \end{equation}
-    \begin{equation}\label{eq:hamiles3}
-        \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\dot{q}_i}\right) - \frac{d \mathcal{L}}{d q_i} + \parcial{}{R}{\dot{q}_i}= 0, \quad i = 1,2,...,n
-        \end{equation}
-    
+\begin{frame}{Modelos Lineares}
+    \begin{itemize}
+        \item Assumindo que o modelo é linear;
+        \item Com ruído Gaussiano ()
+    \end{itemize}
+
+    \begin{align} 
+        x_t &= A_t x_{t-1} + B u_t + \epsilon_t\\ 
+        z_t &= C_t x_t + \delta_t
+        \end{align}
+
+        $A_t$ Matriz $(n \times n)$ que descreve os estados do modelo.
+
+        $B_t$ Matriz $(n \times l)$ que descreve os estados do controle.
+
+        $C_t$ Matrix $(k\times n)$ sendo os estados de $x_t$
+
+        $\epsilon_t$ Variável aleatória do processo.
+
+        $\delta_t$ Rúido aleatório com distribuição normal e covariância de $R_t$ e $Q_t$ respectivamente.
+
 \end{frame}
 
 
-
-\begin{frame}[c]{Modelagem de um Uniciclo}
-    \framesubtitle{}
-    \centering
-    \includegraphics[width=0.8\textwidth]{images/unicycle.jpg}
+\begin{frame}{KF, EKF e UKF}
+  teste
 \end{frame}
-
-
-
-\begin{frame}[c]{Modelagem de um Uniciclo}
-    \framesubtitle{}
-    \begin{columns}
-        \begin{column}[c]{0.4\textwidth}
-            \centering
-            \scalebox{-1}[1]{\includegraphics[width=0.6\textwidth]{images/unicycle_2.jpg}}
-        \end{column}
-        \begin{column}[c]{0.6\textwidth}
-            \centering
-            \includegraphics[width=.6\textwidth]{images/unicycle_model.jpg}
-        \end{column}
-    \end{columns}   
-\end{frame}
- 
-
-\begin{frame}[fragile]{Exemplo Slide com código}
-
-	\begin{lstlisting}[language=Python]
-			... 
-			for i in range(m-1):
-					for j in range(i+1, m):
-						[r,c] = np.where(M2 == M1[i,j])
-						for k in range(len(r)):
-							VT[(i)*n + r[k]] = 1;
-							VT[(i)*n + c[k]] = 1;
-							VT[(j)*n + r[k]] = 1;
-							VT[(j)*n + c[k]] = 1;
-							if M is None:
-								M = np.copy(VT)
-							else:
-								M = np.concatenate((M, VT), 1)
-							VT = np.zeros((n*m,1), int)
-		return M
-	\end{lstlisting}
-\end{frame}
-
-
-
 
 \begin{frame}[t]{Referências}
     \begin{itemize}
-        \item Craig, John J. "Robótica. 3ª edição." Rev. Atual (2012).
-        \item https://def.fe.up.pt/dinamica/ 
-        \item http://efisica.if.usp.br/mecanica/avancado/dinamica/
-        \item VIEIRA, Frederico Carvalho. Controle dinâmico de robôs móveis com acionamento diferencial. 2006. Dissertação de Mestrado. Universidade Federal do Rio Grande do Norte.
-        \item http://www.ece.ufrgs.br/~fetter/ele00070/mobrob/model.pdf
-        \item http://web.mit.edu/jlramos/www/Arquivos/ReportDifferentialDrive.pdf
-        \item https://pdf.sciencedirectassets.com/314898/1-s2.0-S1474667015X61039/1-s2.0-S1474667015397172/main.pdf?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEAIaCXVzLWVhc3QtMSJIMEYCIQCx8ypsAiEq0q1m%2Fy2lf68MGoSjWDEv5YCQuD82N5xp5AIhANTSz4cDW9MFVU8XMl0z%2FNHxKXv7TXFzzCnKv1s18VNsKr0DCJv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQAhoMMDU5MDAzNTQ2ODY1IgwdaXQ99nTVfkaGntAqkQO5yo6gJFwbU7apr6XwA927KDm12w05800N7%2FfWaJK1x%2F19%2FwmeQWS5XL19TyYaLeLlbNMxMrWBfsFEKrhOe93BNw2ADgF7NxWbdRhsrYdNL4sq85a20LveNcy27Jf%2BBwg%2FDC4C4qj6giuUc%2FaZwIhIlmzsogSKSUNc9%2BaXMu5eVJHvm43cKl%2B1qG38xVN0t5%2Bp83KR1NZpqK7RYODFrGow3YarmmJKvx5kiXJT4KC1Df3tqkVhzNHCKLSyN7sjjExGIqkkM6bNNSbjK5k1WeIfI1QICaK0%2F88W4rXkuz4EruqegsFxSXiU9A5K3Q3ISR7pdrtVONpKi57EZgbSmCkzb8QJ5Mv5yDSA9ygyFn6qhepkt1j2UbU9NlVxT86rHdBOb7SDV4sporHjEA6Fu2EG9IPvQBE%2FHYxJQUe0GrNf%2BwA7HNsZDvcbHbbqpRRis2f4YddtT%2Bn%2BTOJyYe0a7HNloIvkqJz%2F6ikKGhYRlka6Zmu%2Fwsy2f%2BsvvqIB3JfHVtSENT4GpEc8Bj6iZ7Zodv0DXDDeh7nxBTrqAYwjHCtfGLLEVl%2FWGSQEIP%2FQLE0wfbPtucKi52zdoCWa6v8mvxbbkX6EGNfuVkSlnCVK2QFKxcQlTfoPmAkG%2Fl%2BuICpzOr7VkJEXjr%2BJHBRtQba%2B6QkMFa0vFSXOdCTItwn98DqGNbPAyYPOhJGKjAPh%2BT9zwRRn0pFnAq5top2ObIGJp2NneOigmkRT29GIg95ttqz%2BynxgPHPlxAedpj59%2FPHKtv6i429VR7wrhSGEagLyHQ6C409r5uA0LwWNBqa0A5kaT7ZSYXvwEc5rx9%2F3PXjP1pPQEhcpNd7ALAYCr0%2Fv2M7ySAFKiA%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20200127T023739Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIAQ3PHCVTY7LZGTWVI%2F20200127%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=77bdd6e8cbe566663f102dbdaa5d0be6cb29a5d4c274d72a2e8da34a360c40ee&hash=43303e4f893f2743f2cf87299cc35e4edfcc6742a2b48c9a81845adef28675fd&host=68042c943591013ac2b2430a89b270f6af2c76d8dfd086a07176afe7c76c2c61&pii=S1474667015397172&tid=spdf-0435203f-78a0-4402-915c-9fd142382733&sid=fc56fe816e9da24f2b5b5053ec9a5c279ea1gxrqa&type=client
-        \item https://www.if.ufrj.br/~pef/aulas_seminarios/notas_de_aula/tort_2015_1/MA_aula_8.pdf
+        \item http://www.embarcados.com.br/arduino-entradasaidas-digitais/
+        \item \href{https://www.youtube.com/watch?v=DE6Jn2cB4J4&list=PLgnQpQtFTOGQrZ4O5QzbIHgl3b1JHimN_&index=5}{aula kalman} 
+        \item \href{https://www.youtube.com/watch?v=QZ5q59H2qaI}{Fusion Odometry and IMU}
+        \item http://www.ic.uff.br/~bianca/ia-20091/aulas/IA-Aula11.ppt (crença)
     \end{itemize}
 \end{frame}
 \end{document}
