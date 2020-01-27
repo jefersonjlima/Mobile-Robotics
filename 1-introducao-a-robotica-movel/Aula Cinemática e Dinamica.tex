@@ -20,6 +20,9 @@
 \usepackage{xcolor}
 \usetikzlibrary{scopes}
 \usepackage{verbatim}
+\usetikzlibrary{patterns}
+
+
 
 \title{Cinemática e Dinâmica}
 \subtitle{Equações de Movimento}
@@ -92,7 +95,7 @@
 
 
 
-\begin{frame}{{Translação Rotação e Transformação}}
+\begin{frame}{Translação Rotação e Transformação}
   \framesubtitle{Matriz de Rotação}
   \begin{itemize}
     \item O vetor definido por ${}^A\mathbf{P}$ pode ser rotacionado pela matriz de rotação $\mathbf{R}$, conforme a equação \eqref{eq:cine2}.
@@ -129,9 +132,7 @@
 
 
 
-
-
-\begin{frame}{{Translação Rotação e Transformação}}
+\begin{frame}{Translação Rotação e Transformação}
     \framesubtitle{Matriz de Rotação}
     \begin{block}{}
         \begin{equation*}
@@ -159,11 +160,13 @@
             \end{bmatrix} \text{, eixo $z$ fixo}
         \end{equation*}
     \end{block}
-  
   \end{frame}
 
+  \begin{frame}{Translação Rotação e Transformação}
+    \framesubtitle{Matriz de Rotação - Exercício}
+\end{frame}
 
-\begin{frame}{{Translação Rotação e Transformação}}
+\begin{frame}{Translação Rotação e Transformação}
     \framesubtitle{Rotação de um coordenada}
     \begin{itemize}
         \item A rotação, em torno e $Z $, de um angulo qualquer $\theta$ em ${}^AP$ é descrita como na equação \eqref{eq:cine3}. 
@@ -186,7 +189,7 @@
 \end{frame}
 
 
-\begin{frame}{{Translação Rotação e Transformação}}
+\begin{frame}{Translação Rotação e Transformação}
     \framesubtitle{Translação}
     \begin{itemize}
         \item O Deslocamento é chamado de translação, e dá-se pelo operador translacional $\mathbf{D}_A(q)$, onde ${}^A\mathbf{Q}$ representa uma translação entre os planos $\{A\}$ e $\{B\}$ e é expresso pela equação \eqref{eq:cine4}.
@@ -231,7 +234,7 @@
 \end{frame}
 
 
-\begin{frame}{{Translação Rotação e Transformação}}
+\begin{frame}{Translação Rotação e Transformação}
     \framesubtitle{Operação de Translação e Rotação}
     \begin{itemize}
         \item Aplicando se a transformação homogênea da coordenada ${}^AP$ pelos operadores de rotação e translação temos ${}^BP$
@@ -242,12 +245,12 @@
         \draw [->] (p0.center) --++(0,3) node[right] {$\hat Y_A$};
         \draw [->, rotate =120] (p0.center) --++(0,3) node[below] {$\hat Z_A$};
         \draw [->, rotate =240] (p0.center) --++(0,3) node[below] {$\hat X_A$};
-        \draw [->, dotted] (p0.center) --++(1.5,4) node(B)[above,rotate=30] {${}^A\mathbf{P}$ ou ${}^A\mathbf{P}_{BORG}$};
+        \draw [->] (p0.center) --++(1.5,4) node(B)[above,rotate=30] {${}^A\mathbf{P}$ ou ${}^A\mathbf{P}_{BORG}$};
         \node(p1) at (6,1){};
         \draw [->, rotate =30] (p1.center) --++(0,3) node[right,rotate=30] {$\hat Y_B$};
         \draw [->, rotate =150] (p1.center) --++(0,3) node[below,rotate=30] {$\hat Z_B$};
         \draw [->, rotate =270] (p1.center) --++(0,3) node[below,rotate=30] {$\hat X_B$};
-        \draw [->] (p1.center) --++(1.5,4) node(B)[above,rotate=30] {${}^B\mathbf{P}$};
+        \draw [->, rotate =30] (p1.center) --++(1.5,4) node(B)[above,rotate=30] {${}^B\mathbf{P}$};
         \draw [dotted,-latex] (p0)  -- (p1) node[midway, fill=white]{${}^A\mathbf{Q}$};
         \draw [-latex,dashed] (p0)  -- (B);
         \node at (-1.5,2.5) {$\{A\}$};
@@ -258,7 +261,7 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}{{Translação Rotação e Transformação}}
+\begin{frame}{Translação Rotação e Transformação}
     \framesubtitle{Transformação Homogênea}
     \begin{itemize}
         \item Na forma generalizada, a transformação homogênea ${}^{i}_0\mathbf{T}$ pode ser expressa por uma sucessiva pode ser encontrada fazendo o produto das sucessivas transformações de ${}^{i-1}_0\mathcal{A}_i$. Conforme é mostrado na equação \eqref{fig:cine3}.
@@ -281,48 +284,208 @@
 
 \end{frame}
 
-\begin{frame}{{Translação Rotação e Transformação}}
-\framesubtitle{Exemplo Numérico}
+\begin{frame}{Translação Rotação e Transformação}
+\framesubtitle{Exercício: Braço Robótico 2DOF}
+
+    \begin{columns}
+        \begin{column}[c]{0.5\textwidth}
+            \begin{figure}[!ht]
+                \input{images/robot.tex}
+                \caption{Robo 2DOF}
+            \end{figure}
+        \end{column}
+        \begin{column}[c]{0.5\textwidth}
+            
+
+        \end{column}
+    \end{columns}
 
 \end{frame}
 
-\begin{frame}{Exercicios}
+
+
+\begin{frame}{Translação Rotação e Transformação}
+    \framesubtitle{Exemplo Prático}
     \begin{enumerate}
-        \item A
-        \item B
+        \item Considerando que $v_{t-1}$ é um vetor unitário em $\mathbf{P}_{x,y,z}=\{1,0,0\}$ e sobre uma deslocamento de $\mathbf{Q}=\{2,1,0\}$ e rotação $\mathbf{R_z(\phi)}=20^o$, qual será a posição final de $v$ no plano $\{A\}$?
     \end{enumerate}
+    \begin{columns}
+        \begin{column}[c]{0.5\textwidth}
+            \input{images/car_1.tex}
+        \end{column}
+        \begin{column}[c]{0.5\textwidth}
+            \input{images/car_2.tex}
+        \end{column}
+    \end{columns}
+    Transformação Homogênea:
+    \begin{equation*}
+        \begin{bmatrix}
+        \color{purple}{{}^B_A\mathbf{P}}\\ 1
+        \end{bmatrix}
+        =
+        \left[
+        \begin{matrix}
+        & \color{green}{{}_B^A\mathbf{R}_z(\phi)}& \\ \hline
+        0 & 0 & 0\\
+        \end{matrix} \right.
+        \left.
+        \vline
+        \begin{matrix}
+        \color{red}{{}^A\mathbf{Q}}\\ \hline
+        1
+        \end{matrix} \right]
+        \begin{bmatrix}
+        {}^B\mathbf{P}\\
+        1
+        \end{bmatrix}
+    \end{equation*}
 \end{frame}
 
 
-\begin{frame}{{Cinemática}}
-    \framesubtitle{}
-    \begin{itemize}
-        \item A equação de cinemática  \ref{ex:cinematica}, temos:
 
-        \begin{equation}
-        \mathcal{T} = \sum\limits_{i=0}^{N} \frac{1}{2} m {}_{i}^{i+1} \dot{\mathbf{P}}^T \cdot {}_{i}^{i+1}\dot{\mathbf{P}}+ J\boldmath{\omega}_i^T\cdot \boldmath{\omega}_i,
-        \end{equation}
+\begin{frame}{Model Cinemático}
+    \framesubtitle{Conceitos}
+    \begin{itemize}
+        \item \textbf{Cinemática direta}
+        \begin{itemize}
+            \item Informado o conjunto de entradas de controle, como o robô se movimenta?
+            \item Coordenadas generalizadas
+        \end{itemize} 
+        \item \textbf{Cinemática inversa}
+        \begin{itemize}
+            \item Informado o tipo de movimento desejado,
+        quais devem ser as entradas de controle?
+        \end{itemize}
+        \item \textbf{Um robô é modelado como um corpo rígido}
+        \begin{itemize}
+            \item 3 variáveis $x, y,\phi$ (plano)
+            \item 6 variáveis $x,y,z, \alpha, \beta, \phi$ (espaço)
+        \end{itemize}
+        \item Deve-se estabelecer uma relação entre o referencial local (robô) e o referencial global
+        \begin{itemize}
+            \item Referencial global: $\{U\} , \{I\}$ ou $\{W\}$
+        \end{itemize}         
     \end{itemize}
 \end{frame}
 
 
 
-\begin{frame}{{Dinâmica}}
-    \framesubtitle{}
+\begin{frame}{Modelo Cinemático}
+    \framesubtitle{Conceitos}
+    \begin{columns}
+        \begin{column}[c]{0.5\textwidth}
+            \centering
+            \input{images/car_0.tex}
+        \end{column}
+        \begin{column}[c]{0.5\textwidth}
+            \centering
+            \begin{itemize}
+                \item Posição:
+                \newline
+                
+                $\mathbf{x} = \begin{bmatrix}
+                    x \\
+                    y
+                \end{bmatrix}$
+                \newline
 
-    \begin{equation}
-        \mathcal{L}= \mathcal{T} - \mathcal{V}
-    \end{equation}
-    
-    \begin{equation}\label{eq:hamiles3}
-        \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\dot{q}_i}\right) - \frac{d \mathcal{L}}{d q_i} + \parcial{}{R}{\dot{q}_i}= 0, \quad i = 1,2,...,n
-        \end{equation}
-        
+                \item Configuração:
+                \newline
+
+                $\mathbf{q} = 
+                \begin{bmatrix}
+                    x \\
+                    y\\
+                    \phi
+                \end{bmatrix}, \text{ e } 
+                \dot{\mathbf{q}} = 
+                \begin{bmatrix}
+                    \dot{x} \\
+                    \dot{y}\\
+                    \dot{\phi}
+                \end{bmatrix}$            
+        \end{itemize}
+        \end{column}
+    \end{columns}   
 \end{frame}
 
 
 
-\begin{frame}[c]{{Modelagem de um Uniciclo}}
+\begin{frame}{Modelo Cinemático}
+    \framesubtitle{Tipo de Rodas}
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{images/tipo_de_rodas.png}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Modelo Cinemático}
+    \framesubtitle{Robô Diferencial}
+    \begin{itemize}
+        \item Restrição não-holonômica
+        \begin{itemize}
+            \item O robô pode mover-se apenas na direção normal ao eixo das rodas motrizes
+        \end{itemize}
+    % \begin{equation*}
+    %     \dot{x}\sin(\phi) - \dot{y}\cos(\phi) = 0
+    % \end{equation*}
+    \item As próprias rodas já inserem as restrições!
+    \end{itemize}
+    \centering
+    \input{images/car_3.tex}
+\end{frame}
+
+\begin{frame}{Modelo Cinemático}
+    \framesubtitle{Energia Cinética}
+    \begin{itemize}
+        \item A equação de energia cinética ($]mathcal{T}$) é dada por:
+        \begin{equation}
+        \mathcal{T} = \sum\limits_{i=0}^{N} \frac{1}{2} m {}_{i}^{i+1} \dot{\mathbf{P}}^T \cdot {}_{i}^{i+1}\dot{\mathbf{P}}+ J\boldmath{\omega}_i^T\cdot \boldmath{\omega}_i,
+        \end{equation}
+        \newline
+
+        Onde:
+        \newline
+        
+        \begin{tabular}{l | l}
+            \hline
+            $m_i$ & Massa \\ \hline
+            $\mathbf{\omega}_i$ & Velocidade Angular \\ \hline
+            $\mathbf{J}$ & Inercia \\ \hline
+        \end{tabular}
+
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Modelo Cinemático}
+    \framesubtitle{Robô Diferencial}
+    restricoes
+    
+    % https://edisciplinas.usp.br/pluginfile.php/3280265/mod_resource/content/1/Aula%203%20-%20SEM5911%20Robo%CC%81tica%20Mo%CC%81vel.pdf
+\end{frame}
+
+
+\begin{frame}{Modelo Dinâmico}
+   
+\end{frame}
+
+
+
+\begin{frame}{Modelo Dinâmico}
+    \framesubtitle{}
+    \
+    \begin{equation}
+        \mathcal{L}= \mathcal{T} - \mathcal{V}
+    \end{equation}
+    \begin{equation}\label{eq:hamiles3}
+        \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\dot{q}_i}\right) - \frac{d \mathcal{L}}{d q_i} + \parcial{}{R}{\dot{q}_i}= 0, \quad i = 1,2,...,n
+        \end{equation}
+    
+\end{frame}
+
+
+
+\begin{frame}[c]{Modelagem de um Uniciclo}
     \framesubtitle{}
     \centering
     \includegraphics[width=0.8\textwidth]{images/unicycle.jpg}
@@ -330,7 +493,7 @@
 
 
 
-\begin{frame}[c]{{Modelagem de um Uniciclo}}
+\begin{frame}[c]{Modelagem de um Uniciclo}
     \framesubtitle{}
     \begin{columns}
         \begin{column}[c]{0.4\textwidth}
@@ -345,47 +508,23 @@
 \end{frame}
  
 
-
 \begin{frame}
-    \begin{columns}
-        \begin{column}[c]{0.5\textwidth}
-            \input{images/car.tex}
-        \end{column}
-        \begin{column}[c]{0.5\textwidth}
-            \input{images/car_2.tex}
-        \end{column}
-    \end{columns}
-    \begin{equation*}
-        \begin{bmatrix}
-        {}^B_A\mathbf{P}\\ 1
-        \end{bmatrix}
-        =
-        \underbrace {
-        \left[
-        \begin{matrix}
-        & \color{green}{{}_B^A\mathbf{R}_z(\phi)}& \\ \hline
-        0 & 0 & 0\\
-        \end{matrix} \right.
-        \left.
-        \vline
-        \begin{matrix}
-        \color{red}{{}^A\mathbf{Q}}\\ \hline
-        1
-        \end{matrix} \right]
-        }_{{}^A_B\mathcal{A}}
-        \begin{bmatrix}
-        {}^B\mathbf{P}\\
-        1
-        \end{bmatrix}
-    \end{equation*}
+    % Define a variable as a length
 
 \end{frame}
 
 
 
+
 \begin{frame}[t]{Referências}
     \begin{itemize}
-        \item Craig, John J. "Robótica. 3ª edição." Rev. Atual (2012).      
+        \item Craig, John J. "Robótica. 3ª edição." Rev. Atual (2012).
+        \item https://def.fe.up.pt/dinamica/ 
+        \item http://efisica.if.usp.br/mecanica/avancado/dinamica/
+        \item VIEIRA, Frederico Carvalho. Controle dinâmico de robôs móveis com acionamento diferencial. 2006. Dissertação de Mestrado. Universidade Federal do Rio Grande do Norte.
+        \item http://www.ece.ufrgs.br/~fetter/ele00070/mobrob/model.pdf
+        \item http://web.mit.edu/jlramos/www/Arquivos/ReportDifferentialDrive.pdf
+        \item https://pdf.sciencedirectassets.com/314898/1-s2.0-S1474667015X61039/1-s2.0-S1474667015397172/main.pdf?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEAIaCXVzLWVhc3QtMSJIMEYCIQCx8ypsAiEq0q1m%2Fy2lf68MGoSjWDEv5YCQuD82N5xp5AIhANTSz4cDW9MFVU8XMl0z%2FNHxKXv7TXFzzCnKv1s18VNsKr0DCJv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQAhoMMDU5MDAzNTQ2ODY1IgwdaXQ99nTVfkaGntAqkQO5yo6gJFwbU7apr6XwA927KDm12w05800N7%2FfWaJK1x%2F19%2FwmeQWS5XL19TyYaLeLlbNMxMrWBfsFEKrhOe93BNw2ADgF7NxWbdRhsrYdNL4sq85a20LveNcy27Jf%2BBwg%2FDC4C4qj6giuUc%2FaZwIhIlmzsogSKSUNc9%2BaXMu5eVJHvm43cKl%2B1qG38xVN0t5%2Bp83KR1NZpqK7RYODFrGow3YarmmJKvx5kiXJT4KC1Df3tqkVhzNHCKLSyN7sjjExGIqkkM6bNNSbjK5k1WeIfI1QICaK0%2F88W4rXkuz4EruqegsFxSXiU9A5K3Q3ISR7pdrtVONpKi57EZgbSmCkzb8QJ5Mv5yDSA9ygyFn6qhepkt1j2UbU9NlVxT86rHdBOb7SDV4sporHjEA6Fu2EG9IPvQBE%2FHYxJQUe0GrNf%2BwA7HNsZDvcbHbbqpRRis2f4YddtT%2Bn%2BTOJyYe0a7HNloIvkqJz%2F6ikKGhYRlka6Zmu%2Fwsy2f%2BsvvqIB3JfHVtSENT4GpEc8Bj6iZ7Zodv0DXDDeh7nxBTrqAYwjHCtfGLLEVl%2FWGSQEIP%2FQLE0wfbPtucKi52zdoCWa6v8mvxbbkX6EGNfuVkSlnCVK2QFKxcQlTfoPmAkG%2Fl%2BuICpzOr7VkJEXjr%2BJHBRtQba%2B6QkMFa0vFSXOdCTItwn98DqGNbPAyYPOhJGKjAPh%2BT9zwRRn0pFnAq5top2ObIGJp2NneOigmkRT29GIg95ttqz%2BynxgPHPlxAedpj59%2FPHKtv6i429VR7wrhSGEagLyHQ6C409r5uA0LwWNBqa0A5kaT7ZSYXvwEc5rx9%2F3PXjP1pPQEhcpNd7ALAYCr0%2Fv2M7ySAFKiA%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20200127T023739Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIAQ3PHCVTY7LZGTWVI%2F20200127%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=77bdd6e8cbe566663f102dbdaa5d0be6cb29a5d4c274d72a2e8da34a360c40ee&hash=43303e4f893f2743f2cf87299cc35e4edfcc6742a2b48c9a81845adef28675fd&host=68042c943591013ac2b2430a89b270f6af2c76d8dfd086a07176afe7c76c2c61&pii=S1474667015397172&tid=spdf-0435203f-78a0-4402-915c-9fd142382733&sid=fc56fe816e9da24f2b5b5053ec9a5c279ea1gxrqa&type=client
     \end{itemize}
 \end{frame}
 \end{document}
