@@ -1,0 +1,195 @@
+\documentclass{beamer}
+\usetheme{simple}
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usefonttheme[onlymath]{serif}
+\usepackage[scale=2]{ccicons}
+
+\usepackage{graphicx,hyperref,url,pgfplots}
+\usepackage{amsmath} 
+\usepackage{array,booktabs}
+\pgfplotsset{compat=1.15} 
+
+\setbeamercovered{invisible}
+\newcommand{\pausar}{\pause}
+\newcommand{\df}[1]{\,\mathrm{d}#1}
+\newcommand{\parcial}[3]{\dfrac{\partial^{#1}#2}{\partial #3^{#1}}}
+
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{scopes}
+\usepackage{verbatim}
+\usetikzlibrary{patterns}
+
+\usepackage{listings}
+	\definecolor{codegreen}{rgb}{0,0.6,0}
+	\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+	\definecolor{codepurple}{rgb}{0.58,0,0.82}
+	\definecolor{backcolour}{rgb}{0.92,0.92,0.92}
+	\lstset{language=Python, 
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\fontsize{8}{11}\ttfamily,
+	frame=lines,
+%	numbers=left,
+	tabsize=2,
+	morekeywords={models, lambda, forms}}
+
+
+
+% --------------------------------------------------------------------------------------------
+
+\title{Cinemática e Dinâmica}
+\subtitle{Equações de Movimento}
+\date{\today}
+\author{Jeferson Lima}
+\institute{\url{http://gitlab.com/jeferson.lima}}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Informações Úteis}
+	\begin{block}{Material disponível em:}
+		\href{Robótica Móvel - Wiki}{https://gitlab.com/cursoseaulas/robotica-movel/-/wikis/home}
+	\end{block}
+	\pausar
+	\begin{block}{Datas Importantes}
+		\begin{itemize}
+		\item Entrega
+		\item Envio
+		\end{itemize}
+	\end{block}
+	\pausar
+	\begin{block}{Requisitos da Disciplina}
+		\begin{itemize}
+		\item Teoria de Controle
+		\item Linguagem de Programação - \textbf{Python} ou \textbf{C++}
+		\item Eletrônica
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+
+
+\begin{frame}{Eventos Especiais}
+União, interseção e complementação de eventos:
+
+\begin{itemize}
+	\item $A  \cup B$ é o evento que ocorre se (e somente se) pelo menos um dos eventos, $A$ ou $B$, ocorrer.
+	\item $A \cap B$ é o evento que ocorre se ambos, $A$ e $B$, ocorrerem simultaneamente.
+	\item $A^c$ , chamado evento complementar de $A$, é o evento cujos resultados pertencem a $\Omega$ mas não a $A$.
+\end{itemize}
+
+\begin{exampleblock}{Para}
+	Um espaço amostral $\Omega$ associado a um experimento aleatório, e sejam $A$ e $B$ dois eventos
+	contidos em $\Omega$. Diremos que $A$ e $B$ são mutuamente exclusivos se eles não possuem elementos comuns,
+	isto é, se $A \cap B = \varnothing$.
+\end{exampleblock}
+
+\end{frame}
+
+
+
+\begin{frame}
+\begin{block}{Exemplo}
+
+	Consideremos o lançamento de um dado equilibrado.
+	
+	Sejam $A= \{\text{número par}\} , B = \{\text{número maior que}\} \text{ e } C =\{ 3 \}$.
+	
+	Então $A =\{ 2,4,6 \} , B = \{ 5,6 \} \text{ e } C = \{ 3 \}$.
+
+	Também temos:
+
+	$A \cup B =\{ 2,4,5,6 \}$
+	
+	$A \cap B= \{ 6 \}$
+	
+	$A \cup C = \{ 2,3,4,6 \}$
+	
+	$A \cap C = B \cap C = \varnothing$
+	
+	$B \cup C = \{ 3,5,6 \}$.
+
+	Também, $A^c = \{ 1,3,5\} , B^c = \{ 1,2,3,4 \} \text{ e } C^c = \{ 1,2,4,5,6\}$.
+
+	Naturalmente, a álgebra de Boole aplicada a eventos pode ser usada em qualquer número deles. Assim,
+em nosso caso, $A \cup B \cup C = \{2,3,4,5,6\} \text{ e } A \cap B \cap C = \varnothing$.
+	
+\end{block}
+\end{frame}
+
+
+
+\begin{frame}{Probabilidades condicionais e conjuntas}
+\begin{itemize}
+	\item A probabilidade condicional de $B$ dado $A$
+
+	\begin{equation}
+		P(B | A) = \frac{P(A \cap B)}{P(A)},\text{ se } P(A) > 0
+	\end{equation}
+
+	\item Partição de um espaço amostral
+
+	Seja $B$ um evento qualquer do espaço amostral. Então os eventos $A_1 \cap B, A_2 \cap B,\cdots, A_m \cap B$, são todos
+	mutuamente exclusivos e $B=\cup_{i=1}^{m}(A_i \cap B)$
+	
+	\item Probabilidade Total
+	
+	Se os eventos $A_1,A_2,\cdots,A_m$ formam uma partição do espaço amostral $\Omega$ e $B$ é um outro evento qualquer
+	desse espaço, então:
+	\begin{equation}
+		P(B) = \sum\limits_{i=0}^{m}P(B|A_i)P(A_i)
+	\end{equation}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+	Dizemos também, que a expressão $P(x_i, y_j) = P(X = x_i , Y = y_j)$ define a função de probabilidade conjunta da
+	v.a. bidimensional discreta $( X, Y )$ se:
+
+	a) $P(x_i, y_i) \geq 0 \text{ para todo par }(i,j)$
+	
+	b) $\sum\limits_{i,j} P(x_i, y_i) = 1 $
+
+	\begin{itemize}
+	\item Se $X$ e $Y$ os espaços amostrais, bem como, $x_i$, $y_i$ os eventos. Dado que $X$ e $Y$ são independentes, temos:
+	\begin{equation}
+		P(x,y) = P(x)P(y)
+	\end{equation}
+	\item $P(x|y)$ é a probabilidade de $x$ dado $y$:
+	\begin{equation}
+		P(x|y) = \frac{P(x,y)}{P(y)}
+	\end{equation}
+	
+	da mesma forma que
+
+	\begin{equation}
+		P(x,y) = P(x|y)P(y)
+	\end{equation}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}[c]{Teorema de Bayes}
+\end{frame}
+
+
+\begin{frame}[c]{O problema de Monty Hall}
+\end{frame}
+
+
+\begin{frame}[t]{Referências}
+    \begin{itemize}
+        \item PINHEIRO, Joao et al. Probabilidade e estatística: quantificando a incerteza. Elsevier Brasil, 2013.
+        
+    \end{itemize}
+\end{frame}
+\end{document}
