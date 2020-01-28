@@ -11,9 +11,7 @@
 \usepackage{array,booktabs}
 \pgfplotsset{compat=1.15}
 \pgfplotsset{width=7cm}
-\pgfplotsset{%
-  colormap={whitered}{color(0cm)=(white);
-  color(1cm)=(orange!75!red)}
+
 
 \setbeamercovered{invisible}
 \newcommand{\pausar}{\pause}
@@ -100,13 +98,13 @@
     \end{block}
 
     \begin{itemize}
-        \item Predição
+        \item Predição:
         
         \begin{equation*}
             \overline{bel}(x_t) = \int p(x_t| u_t, x_{t-1}) bel(x_{t-1})dx_{t-1}
         \end{equation*}
 
-        \item Correção
+        \item Correção:
 
         \begin{equation*}
             bel(x_t) = \eta p(z_t| x_t) \int p(x_t| u_t, x_{t}) \overline{bel}(x_{t})dx_{t-1}
@@ -118,96 +116,119 @@
 \begin{frame}{Distribuição Normal (Gaussiana)}
     \framesubtitle{Revisão}  
     \begin{itemize}
-        \item Uma Variável:
+        \item \textbf{Uma Variável:} $\color{blue}{p(x) \sim N(\mu, \sigma^2)}$
     \end{itemize}
 
     \begin{block}{}
         \begin{equation*}
-            f(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}}\cdot 
+            p(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}}\cdot 
         \exp\left\{-\frac{(x-\mu)^2}{2\sigma^2}\right\}
         \end{equation*}
     \end{block}
 
+    \centering
     \input{images/gauss_1d.tex}
 \end{frame}
 
 
 \begin{frame}{Distribuição Normal (Gaussiana)}
-    \framesubtitle{Revisão}  
+    \framesubtitle{Revisão}
     \begin{itemize}
-        \item Bivariável:
+        \item Bivariável: $\color{blue}{p(\mathbf{x}) \sim N(\mu, \sum)}$
     \end{itemize}
-
-    \begin{tikzpicture}[
-        declare function = {mu1=1;},
-        declare function = {mu2=2;},
-        declare function = {sigma1=0.5;},
-        declare function = {sigma2=1;},
-        declare function = {normal(\m,\s)=1/(2*\s*sqrt(pi))*exp(-(x-\m)^2/(2*\s^2));},
-        declare function = {bivar(\ma,\sa,\mb,\sb)=
-          1/(2*pi*\sa*\sb) * exp(-((x-\ma)^2/\sa^2 + (y-\mb)^2/\sb^2))/2;}]
-        \begin{axis}[
-          colormap name  = whitered,
-          width          = 15cm,
-          view           = {45}{65},
-          enlargelimits  = false,
-          grid           = major,
-          domain         = -1:4,
-          y domain       = -1:4,
-          samples        = 26,
-          xlabel         = $x_1$,
-          ylabel         = $x_2$,
-          zlabel         = {$P$},
-          colorbar,
-          colorbar style = {
-            at     = {(1,0)},
-            anchor = south west,
-            height = 0.25*\pgfkeysvalueof{/pgfplots/parent axis height},
-            title  = {$P(x_1,x_2)$}
-          }
-        ]
-          \addplot3 [surf] {bivar(mu1,sigma1,mu2,sigma2)};
-          \addplot3 [domain=-1:4,samples=31, samples y=0, thick, smooth]
-            (x,4,{normal(mu1,sigma1)});
-          \addplot3 [domain=-1:4,samples=31, samples y=0, thick, smooth]
-            (-1,x,{normal(mu2,sigma2)});
-      
-          \draw [black!50] (axis cs:-1,0,0) -- (axis cs:4,0,0);
-          \draw [black!50] (axis cs:0,-1,0) -- (axis cs:0,4,0);
-      
-          \node at (axis cs:-1,1,0.18) [pin=165:$P(x_1)$] {};
-          \node at (axis cs:1.5,4,0.32) [pin=-15:$P(x_2)$] {};
-        \end{axis}
-      \end{tikzpicture}
-
-
-
+    \centering
+    \input{images/gauss_2d.tex}
 \end{frame}
 
 
 
-\begin{frame}{Modelos Lineares}
+\begin{frame}{Distribuição Normal (Gaussiana)}
+    \framesubtitle{Revisão}
     \begin{itemize}
-        \item Assumindo que o modelo é linear;
-        \item Com ruído Gaussiano ()
+        \item Bivariável: $\color{blue}{p(\mathbf{x}) \sim N(\mu, \sum)}$
+    \begin{equation*}
+        p(\mathbf{x}) = \frac{1}{(2\pi)^{\frac{d}{2}\|\sum\|^{\frac{1}{2}}}}\exp\left\{-\frac{1}{2} (\mathbf{x}-\mu)^T\sum{}^{-1}(\mathbf{x}-\mu)\right\}
+    \end{equation*}
+    
+    \item Para um sistema de duas Variável:
+    
+    \begin{equation*}
+        p(\mathbf{x}) \sim N(\mu, \sum)
+    \end{equation*}
+    logo:     
+    \begin{equation*}
+        \begin{pmatrix}
+            X_1 \\
+            X_2
+        \end{pmatrix}  \sim \mathcal{N} \left( \begin{pmatrix}
+            \mu_1 \\
+            \mu_2
+        \end{pmatrix} , \begin{pmatrix}
+            \sigma^2_1 &  \rho \sigma_1 \sigma_2 \\
+            \rho \sigma_1 \sigma_2 &  \sigma^2_2
+        \end{pmatrix} \right)
+    \end{equation*}
     \end{itemize}
+\end{frame}
 
-    \begin{align} 
-        x_t &= A_t x_{t-1} + B u_t + \epsilon_t\\ 
-        z_t &= C_t x_t + \delta_t
+
+\begin{frame}{Distribuição Normal (Gaussiana)}
+    \framesubtitle{Propriedades}
+    \begin{itemize}
+        \item Caso Univariavel:
+    \end{itemize}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/tmp0.png}
+\end{frame}
+
+
+\begin{frame}{Distribuição Normal (Gaussiana)}
+    \framesubtitle{Propriedades}
+    \begin{itemize}
+        \item Caso Multivariável:
+    \end{itemize}
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/tmp1.png}
+\end{frame}
+
+
+
+
+\begin{frame}{Filtro Discreto de Kalman}
+    \framesubtitle{Modelo determinísticoe estocástico}
+    \begin{itemize}
+        \item Num modelo determinístico o resultado do sistema é pré determinado em função dos dados de entrada, exemplo:
+        \begin{align*} 
+            x_t &= A_t x_{t-1} + B u_t\\ 
+            z_t &= C_t x_t
+        \end{align*}
+
+        \item Num modelo estocástico o Resultado do sistema não depende somente dos dados de entrada, mas também de outros fatores, normalmente
+        aleatórios:
+        \begin{align} 
+            x_t &= A_t x_{t-1} + B u_t +  \varepsilon_t\\ 
+            z_t &= C_t x_t + \delta_t
         \end{align}
 
-        $A_t$ Matriz $(n \times n)$ que descreve os estados do modelo.
+        \begin{itemize}
+            \item $A_t$ Matriz $(n \times n)$ que descreve os estados do modelo.
+            \item $B_t$ Matriz $(n \times l)$ que descreve os estados do controle.
+            \item $C_t$ Matrix $(k\times n)$ sendo os estados de $x_t$.
+            \item $ \varepsilon_t$ Variável aleatória do processo.
+            \item $\delta_t$ Rúido aleatório com distribuição normal e covariância de $R_t$ e $Q_t$.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
 
-        $B_t$ Matriz $(n \times l)$ que descreve os estados do controle.
 
-        $C_t$ Matrix $(k\times n)$ sendo os estados de $x_t$
+\begin{frame}{Filtro Discreto de Kalman}
+    \framesubtitle{Representação Grafica}
 
-        $\epsilon_t$ Variável aleatória do processo.
-
-        $\delta_t$ Rúido aleatório com distribuição normal e covariância de $R_t$ e $Q_t$ respectivamente.
+    \input{images/gauss_1da.tex}
 
 \end{frame}
+
+
 
 
 \begin{frame}{KF, EKF e UKF}

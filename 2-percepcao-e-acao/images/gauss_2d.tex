@@ -2,7 +2,6 @@
   colormap={whitered}{color(0cm)=(white);
   color(1cm)=(orange!75!red)}
 }
-\begin{document}
 \begin{tikzpicture}[
   declare function = {mu1=1;},
   declare function = {mu2=2;},
@@ -10,7 +9,7 @@
   declare function = {sigma2=1;},
   declare function = {normal(\m,\s)=1/(2*\s*sqrt(pi))*exp(-(x-\m)^2/(2*\s^2));},
   declare function = {bivar(\ma,\sa,\mb,\sb)=
-    1/(2*pi*\sa*\sb) * exp(-((x-\ma)^2/\sa^2 + (y-\mb)^2/\sb^2))/2;}]
+    1/(2*pi*\sa*\sb) * exp(-((x-\ma)^2/\sa^2 + (y-\mb)^2/\sb^2))/2;},scale=0.6]
   \begin{axis}[
     colormap name  = whitered,
     width          = 15cm,
