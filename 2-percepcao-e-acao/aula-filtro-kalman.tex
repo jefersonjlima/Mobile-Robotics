@@ -7,8 +7,10 @@
 \usepackage[scale=2]{ccicons}
 
 \usepackage{graphicx,hyperref,url,pgfplots}
+\usepackage{media9}
 \usepackage{amsmath} 
 \usepackage{array,booktabs}
+\usepackage{pdfpages}
 \pgfplotsset{compat=1.15}
 \pgfplotsset{width=7cm}
 
@@ -76,24 +78,24 @@
 %-----------------------------------------------------------------
 
 \begin{frame}{Teorema de Bayes}
-    \framesubtitle{Revisão}    
+    \framesubtitle{Revisão} {Revisão}
   \begin{itemize}
     \item Estado Estimado $x$ de um sistema observado $z$ e com controle em $u$.
     \item Objetivo:
   \end{itemize}
 
   \begin{equation}
-    p(x|z,u)
+    P(x|z,u)
   \end{equation}
 \end{frame}
 
 
-\begin{frame}{Filtro Bayes}
+\begin{frame}{Bayes Filter}
     \framesubtitle{Revisão}
     
     \begin{block}{}
         \begin{equation*}
-            bel(x_t) = \eta p(z_t| x_t) \int p(x_t| u_t, x_{t-1}) bel(x_{t-1})dx_{t-1}
+            \text{Bel}(x_t) = \eta P(z_t| x_t) \int P(x_t| u_t, x_{t-1}) \text{Bel}(x_{t-1})\text{d}x_{t-1}
         \end{equation*}
     \end{block}
 
@@ -101,13 +103,13 @@
         \item Predição:
         
         \begin{equation*}
-            \overline{bel}(x_t) = \int p(x_t| u_t, x_{t-1}) bel(x_{t-1})dx_{t-1}
+            \overline{\text{Bel}}(x_t) = \int P(x_t| u_t, x_{t-1}) \text{Bel}(x_{t-1})\text{d}x_{t-1}
         \end{equation*}
 
         \item Correção:
 
         \begin{equation*}
-            bel(x_t) = \eta p(z_t| x_t) \int p(x_t| u_t, x_{t}) \overline{bel}(x_{t})dx_{t-1}
+            \text{Bel}(x_t) = \eta P(z_t| x_t) \int P(x_t| u_t, x_{t}) \overline{\text{Bel}}(x_{t})\text{d}x_{t-1}
         \end{equation*}
     \end{itemize}
 \end{frame}
@@ -116,12 +118,12 @@
 \begin{frame}{Distribuição Normal (Gaussiana)}
     \framesubtitle{Revisão}  
     \begin{itemize}
-        \item \textbf{Uma Variável:} $\color{blue}{p(x) \sim N(\mu, \sigma^2)}$
+        \item \textbf{Uma Variável:} $\color{blue}{P(x) \sim N(\mu, \sigma^2)}$
     \end{itemize}
 
     \begin{block}{}
         \begin{equation*}
-            p(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}}\cdot 
+            P(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}}\cdot 
         \exp\left\{-\frac{(x-\mu)^2}{2\sigma^2}\right\}
         \end{equation*}
     \end{block}
@@ -194,12 +196,12 @@
 
 
 
-\begin{frame}{Filtro Discreto de Kalman}
+\begin{frame}{Kalman filter}
     \framesubtitle{Modelo determinísticoe estocástico}
     \begin{itemize}
         \item Num modelo determinístico o resultado do sistema é pré determinado em função dos dados de entrada, exemplo:
         \begin{align*} 
-            x_t &= A_t x_{t-1} + B u_t\\ 
+            x_t &= A_t x_{t-1} + B_t u_t\\ 
             z_t &= C_t x_t
         \end{align*}
 
@@ -221,18 +223,113 @@
 \end{frame}
 
 
-\begin{frame}{Filtro Discreto de Kalman}
+\begin{frame}{Kalman filter}
     \framesubtitle{Representação Grafica}
-
     \input{images/gauss_1da.tex}
+\end{frame}
 
+\begin{frame}{Kalman filter}
+    \framesubtitle{Revisão}
+
+    \setlength\extrarowheight{5pt}
+        \begin{tabular}{r l}
+            $\color{blue}{\text{Bel}}(x_t)$ & = $P(x_t| u_1, z_1,  \cdots, z_t)$ \\
+            Bayes & = $\eta P(z_t|x_t,  u_1, z_1,  \cdots,  u_t)P(x_t, u_1, z_1, \cdots, u_t)$ \\
+            Markov & = $\eta P(z_t|x_t)P(x_t, u_1, z_1, \cdots, u_t)$ \\
+            Prob. Total & = $\eta P(z_t|x_t)\displaystyle\int P(x_t| u_1, z_1, \cdots, u_t,x_{t-1})$ \\
+                        &  \quad \quad \quad $P(x_{t-1}| u_1, z_1, \cdots, u_t)\text{d}x_{t-1}$\\
+            Markov & = $\eta P(z_t|x_t)$ $\displaystyle\int P(x_t| u_t,x_{t-1})P(x_{t-1}| u_1, z_1, \cdots, u_t)\text{d}x_{t-1}$ \\
+            Markov & = $\eta P(z_t|x_t)$ $\displaystyle\int P(x_t| u_t,x_{t-1})\color{blue}{P(x_{t-1}| u_1, z_1, \cdots, z_{t-1}})\color{gray}{\text{d}x_{t-1}}$ \\
+        \end{tabular}   
+    \begin{block}{Bayes Filter}
+        \begin{equation*}
+            \color{blue}{\text{Bel}}(x_t)  \color{gray}{=\eta P(z_t|x_t)\displaystyle\int P(x_t| u_t,x_{t-1})}\color{blue}{\color{blue}{\text{Bel}}(x_{t-1})}\color{gray}{)\text{d}x_{t-1}}
+        \end{equation*}
+    \end{block}
 \end{frame}
 
 
 
 
-\begin{frame}{KF, EKF e UKF}
-  teste
+\begin{frame}[c]{Kalman filter}
+    \framesubtitle{Algoritmo do Filtro de Kalman}
+
+    \begin{itemize}
+        \item Iniciando as Variável:
+        \begin{equation}
+            \text{Bel}(x_0) = N\left(x_0, \mu_o, {\sum} _0\right)
+        \end{equation}
+        \item Tempo de convergência do filtro.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[c]{Kalman filter}
+    \framesubtitle{Algoritmo do Filtro de Kalman}
+    \begin{itemize}
+        \item Com base na equação:
+        \begin{equation*}
+            \color{blue}{\text{Bel}}(x_t)  \color{gray}{=\eta P(z_t|x_t)\displaystyle\int P(x_t| u_t,x_{t-1})}\color{blue}{\color{blue}{\text{Bel}}(x_{t-1})}\color{gray}{)\text{d}x_{t-1}}
+        \end{equation*}
+        \item E considerando que o sistema abaixo é linear e observável:
+        \begin{equation*}
+            \begin{split}
+                x_t &= A_t x_{t-1} + B_t u_t\\ 
+                z_t &= C_t x_t
+            \end{split}
+        \end{equation*}
+        \item Um sistem é observável se o posto da matriz $\mathcal {O}$ é igual a $n$.
+        \begin{equation*}
+            \mathcal {O}={\begin{bmatrix}C_t\\C_tA_t\\C_tA^{2}_t\\\vdots \\C_tA^{n-1}_t\end{bmatrix}, \quad \text{rank}(\mathcal {O}}) = n
+        \end{equation*}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}[c]{Kalman filter}
+    \framesubtitle{Algoritmo do Filtro de Kalman}
+    \begin{itemize}
+        \item Temos a função de probabilidade do sistema, expressa por:
+        \begin{equation*}
+            p(x_t| u_t, x_{t-1})= N\left(x_t; A_tx_{t-1}+ B_tu_t, Q_t\right)
+        \end{equation*}   
+        \item ou seja:
+        \begin{equation*}
+            \overline{\text{Bel}}(x_t)  = \displaystyle\int\underbrace{P(x_t|u_t, x_{t-1})}_{\sim N\left(x_t; A_t x_{t-1}+ B_tu_t, Q_t\right)} \overbrace{\text{Bel}(x_{t-1})}^{\sim N\left(x_{t-1}; \mu_{t-1}, \sum {}_{t-1}\right)}\text{d}x_{t-1}
+        \end{equation*}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}[c]{Kalman filter}
+    \framesubtitle{Algoritmo do Filtro de Kalman}
+    \begin{itemize}
+        \item Resolvendo a integral:
+        \begin{equation*}
+            p(x_t| u_t, x_{t-1})= N\left(x_t; A_tx_{t-1}+ B_tu_t, Q_t\right)
+        \end{equation*}   
+        \item ou seja:
+        \begin{equation*}
+            \overline{\text{Bel}}(x_t)  = \displaystyle\int\underbrace{P(x_t|u_t, x_{t-1})}_{\sim N(x_t; A_t x_{t-1}+ B_tu_t, Q_t)} \overbrace{\text{Bel}(x_{t-1})}^{\sim N(x_{t-1}; \mu_{t-1}, \sum {}_{t-1})}\text{d}x_{t-1}
+        \end{equation*}
+    \end{itemize}
+\end{frame}
+
+
+
+
+%% TODO write equations and remove it
+\foreach\x in{2,3,4,5,6}{
+    \begin{frame}[c]{Kalman filter}
+        \framesubtitle{Algoritmo do Filtro de Kalman}
+        \centering
+        \includegraphics[width=0.8\textwidth]{images/tmp\x}
+    \end{frame}
+}
+
+
+
+\begin{frame}{Extended Kalman filter}
+
 \end{frame}
 
 \begin{frame}[t]{Referências}
@@ -244,3 +341,7 @@
     \end{itemize}
 \end{frame}
 \end{document}
+
+
+
+% https://classroom.udacity.com/courses/ud810/

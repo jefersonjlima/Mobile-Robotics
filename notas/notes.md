@@ -63,3 +63,12 @@
 * https://www.doc.ic.ac.uk/~ajd/Robotics/RoboticsResources/
 * https://www.youtube.com/user/behnamasadi/videos
 * https://docs.duckietown.org/DT19/learning_materials/out/index.html
+
+
+# Desafio 
+### KF C Vision
+    * https://www.mathworks.com/videos/
+introduction-to-kalman-filters-for-object-tracking-79674.html
+
+# Udacity Courses
+* [Introduction to Computer Vision](https://classroom.udacity.com/courses/ud810/lessons/3325568562/concepts/33096786050923)

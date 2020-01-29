@@ -6,7 +6,7 @@
     hplot/.style={ycomb, mark=o, dashed}, ,scale=0.8]
   
     \begin{axis}[
-      width=7.5cm, height=5.5cm,
+      width=8cm, height=5.5cm,
       samples=50,
       legend style={draw=none, fill=none},
       domain=-6:9,
@@ -16,6 +16,7 @@
       \addplot [smooth, thick, red] {normalpdf(x,-2,2)} node[] {};
     \end{axis}
   \end{tikzpicture}
+  \pausar
   \begin{tikzpicture}[
     declare function={
       normalpdf(\x,\mu,\sigma)=
@@ -24,7 +25,7 @@
     hplot/.style={ycomb, mark=o, dashed}, ,scale=0.8]
   
     \begin{axis}[
-      width=7.5cm, height=5.5cm,
+      width=8cm, height=5.5cm,
       samples=50,
       legend style={draw=none, fill=none},
       domain=-6:9,
@@ -32,9 +33,11 @@
       xmin=-7, xmax=11]
   
       \addplot [smooth, thick, red] {normalpdf(x,-2,2)} node[] {};
-      \addplot [smooth, green] {normalpdf(x,0,2)} node[] {};
+      \addplot [smooth, black] {normalpdf(x,0,2)} node[] {};
     \end{axis}
   \end{tikzpicture}
+
+  \pausar
 
 \begin{columns}
 
@@ -48,7 +51,7 @@
       hplot/.style={ycomb, mark=o, dashed}, ,scale=0.8]
     
       \begin{axis}[
-        width=7.5cm, height=5.5cm,
+        width=8cm, height=5.5cm,
         samples=50,
         legend style={draw=none, fill=none},
         domain=-6:9,
@@ -56,17 +59,26 @@
         xmin=-7, xmax=11]
     
         \addplot [smooth, thick, red] {normalpdf(x,-2,2)} node[] {};
-        \addplot [smooth, green] {normalpdf(x,0,2)} node[] {};
+        \addplot [smooth, black] {normalpdf(x,0,2)} node[] {};
         \addplot [smooth, blue] {normalpdf(x,-1,0.6)} node[] {};
       \end{axis}
     \end{tikzpicture}
   \end{column}
 
+  \pausar
+
   \begin{column}{0.5\textwidth}
-    \begin{block}{}
-      \begin{equation*}
-        bel(x_t) = \eta p(z_t| x_t) \int p(x_t| u_t, x_{t-1}) bel(x_{t-1})dx_{t-1}
-    \end{equation*}
-    \end{block}
+      Como encontrar a solução para o grafico azul?
+
+      \pausar
+        $\color{blue}{p(x_t|z_{t}, u_t)}  \color{gray}{=\eta} \color{red}{p(z_t| x_t)}\color{black}{p(x_t| z_{t-1}, u_t)}$
+
+        onde:
+        \begin{tabular}{l  l}
+          $z_t$: & estado observado no tempo $t$\\ 
+          $u_t$: & ação no tempo $t$\\
+          $x_t$: & estado do sistema em $t$        
+        \end{tabular}
+    
   \end{column}
 \end{columns}
