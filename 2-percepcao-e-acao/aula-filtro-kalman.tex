@@ -136,7 +136,7 @@
 \begin{frame}{Distribuição Normal (Gaussiana)}
     \framesubtitle{Revisão}
     \begin{itemize}
-        \item Bivariável: $\color{blue}{p(\mathbf{x}) \sim N(\mu, \sum)}$
+        \item Bivariável: $\color{blue}{P(\mathbf{x}) \sim N(\mu, \sum)}$
     \end{itemize}
     \centering
     \input{images/gauss_2d.tex}
@@ -149,7 +149,7 @@
     \begin{itemize}
         \item Bivariável: $\color{blue}{p(\mathbf{x}) \sim N(\mu, \sum)}$
     \begin{equation*}
-        p(\mathbf{x}) = \frac{1}{(2\pi)^{\frac{d}{2}\|\sum\|^{\frac{1}{2}}}}\exp\left\{-\frac{1}{2} (\mathbf{x}-\mu)^T\sum{}^{-1}(\mathbf{x}-\mu)\right\}
+        P(\mathbf{x}) = \frac{1}{(2\pi)^{\frac{d}{2}\|\sum\|^{\frac{1}{2}}}}\exp\left\{-\frac{1}{2} (\mathbf{x}-\mu)^T\sum{}^{-1}(\mathbf{x}-\mu)\right\}
     \end{equation*}
     
     \item Para um sistema de duas Variável:
@@ -249,10 +249,8 @@
 \end{frame}
 
 
-
-
 \begin{frame}[c]{Kalman filter}
-    \framesubtitle{Algoritmo do Filtro de Kalman}
+    \framesubtitle{Algoritmo}
 
     \begin{itemize}
         \item Iniciando as Variável:
@@ -264,7 +262,7 @@
 \end{frame}
 
 \begin{frame}[c]{Kalman filter}
-    \framesubtitle{Algoritmo do Filtro de Kalman}
+    \framesubtitle{Algoritmo}
     \begin{itemize}
         \item Com base na equação:
         \begin{equation*}
@@ -286,7 +284,7 @@
 
 
 \begin{frame}[c]{Kalman filter}
-    \framesubtitle{Algoritmo do Filtro de Kalman}
+    \framesubtitle{Algoritmo - Fase de Predição}
     \begin{itemize}
         \item Temos a função de probabilidade do sistema, expressa por:
         \begin{equation*}
@@ -301,24 +299,136 @@
 
 
 \begin{frame}[c]{Kalman filter}
-    \framesubtitle{Algoritmo do Filtro de Kalman}
+    \framesubtitle{Algoritmo - Fase de Predição}
+    \begin{tabular}{p{1.5cm} l l}
+        $\overline{\text{Bel}}(x_t)$  & = $\displaystyle\int P(x_t|u_t, x_{t-1})$ & $\text{Bel}(x_{t-1})\text{d}x_{t-1}$ \\
+        & \quad\quad\quad\quad\quad $\Downarrow$ & \quad\quad\quad$\Downarrow$ \\
+        & $\sim N\left(x_t; A_t x_{t-1}+ B_tu_t, Q_t\right)$ & $\sim N\left(x_{t-1}; \mu_{t-1}, \sum {}_{t-1}\right)$ \\
+        & \quad\quad\quad\quad\quad $\Downarrow$ & \\
+    \end{tabular}
+
+    \begin{block}{Relembrando ...}
+        \begin{equation*}
+            P(\mathbf{x}) = \frac{1}{(2\pi)^{\frac{d}{2}\|\sum\|^{\frac{1}{2}}}}\exp\left\{-\frac{1}{2} (\mathbf{x}-\mu)^T\sum{}^{-1}(\mathbf{x}-\mu)\right\}
+        \end{equation*}        
+    \end{block}
+
+    \begin{tabular}{p{1.2cm} l}
+        & $\quad\quad\quad\quad\quad \Downarrow$\\
+        $\overline{\text{Bel}}(x_t)$  & = $\eta \displaystyle\int \exp\left\{  -\frac{1}{2} \left(x_t - A_t x_{t-1} - B_t\right)^T Q_t \left(x_t - A_t x_{t-1} - B_t\right)  \right\}$ \\
+    \end{tabular}
+        
+    \begin{tabular}{p{2.3cm} l}
+        & $\exp\left\{ -\displaystyle\frac{1}{2} \left(x_{t-1} - \mu_{t-1}\right)^T \sum {}_{t-1} \left(x_{t-1} - \mu_{t-1}\right)  \right\}\text{d}x_{t-1}$
+    \end{tabular}    
+
+\end{frame}
+
+
+
+\begin{frame}[c]{Kalman filter}
+    \framesubtitle{Algoritmo - Fase de Predição}
+
     \begin{itemize}
-        \item Resolvendo a integral:
+        \item Continuando ...
+    \end{itemize}
+
+    \begin{tabular}{p{1.2cm} l}      
+        $\overline{\text{Bel}}(x_t)$  & = $\eta \displaystyle\int \exp\left\{  -\frac{1}{2} \left(x_t - A_t x_{t-1} - B_t\right)^T Q_t \left(x_t - A_t x_{t-1} - B_t\right)  \right\}$ \\
+    \end{tabular}
+        
+    \begin{tabular}{p{2.3cm} l}
+        & $\exp\left\{ -\displaystyle\frac{1}{2} \left(x_{t-1} - \mu_{t-1}\right)^T \sum {}_{t-1} \left(x_{t-1} - \mu_{t-1}\right)  \right\}\text{d}x_{t-1}$
+    \end{tabular}    
+
+    \begin{block}{Predição}
+        \begin{equation}
+            \overline{\text{Bel}} = 
+            \left\{
+            \begin{split}
+                    \overline{\mu}_t & = A_t\mu_{t-1} + B_t u_t\\
+                    \overline{\sum}_t & = A_t {\sum}_{t-1} A_t^T+ Q_t\\
+            \end{split} \right.
+        \end{equation}
+    \end{block} 
+\end{frame}
+
+
+\begin{frame}[c]{Kalman filter}
+    \framesubtitle{Algoritmo - Measurement Update}
+    \begin{itemize}
+        \item Temos a função de probabilidade do sistema, expressa por:
         \begin{equation*}
             p(x_t| u_t, x_{t-1})= N\left(x_t; A_tx_{t-1}+ B_tu_t, Q_t\right)
         \end{equation*}   
         \item ou seja:
         \begin{equation*}
-            \overline{\text{Bel}}(x_t)  = \displaystyle\int\underbrace{P(x_t|u_t, x_{t-1})}_{\sim N(x_t; A_t x_{t-1}+ B_tu_t, Q_t)} \overbrace{\text{Bel}(x_{t-1})}^{\sim N(x_{t-1}; \mu_{t-1}, \sum {}_{t-1})}\text{d}x_{t-1}
+            \overline{\text{Bel}}(x_t)  = \displaystyle\int\underbrace{P(x_t|u_t, x_{t-1})}_{\sim N\left(x_t; A_t x_{t-1}+ B_tu_t, Q_t\right)} \overbrace{\text{Bel}(x_{t-1})}^{\sim N\left(x_{t-1}; \mu_{t-1}, \sum {}_{t-1}\right)}\text{d}x_{t-1}
         \end{equation*}
     \end{itemize}
 \end{frame}
 
 
+\begin{frame}[c]{Kalman filter}
+    \framesubtitle{Algoritmo - Fase de Predição}
+    \begin{tabular}{p{1.5cm} l l}
+        $\overline{\text{Bel}}(x_t)$  & = $\displaystyle\int P(x_t|u_t, x_{t-1})$ & $\text{Bel}(x_{t-1})\text{d}x_{t-1}$ \\
+        & \quad\quad\quad\quad\quad $\Downarrow$ & \quad\quad\quad$\Downarrow$ \\
+        & $\sim N\left(x_t; A_t x_{t-1}+ B_tu_t, Q_t\right)$ & $\sim N\left(x_{t-1}; \mu_{t-1}, \sum {}_{t-1}\right)$ \\
+        & \quad\quad\quad\quad\quad $\Downarrow$ & \\
+    \end{tabular}
+
+    \begin{block}{Relembrando ...}
+        \begin{equation*}
+            P(\mathbf{x}) = \frac{1}{(2\pi)^{\frac{d}{2}\|\sum\|^{\frac{1}{2}}}}\exp\left\{-\frac{1}{2} (\mathbf{x}-\mu)^T\sum{}^{-1}(\mathbf{x}-\mu)\right\}
+        \end{equation*}        
+    \end{block}
+
+    \begin{tabular}{p{1.2cm} l}
+        & $\quad\quad\quad\quad\quad \Downarrow$\\
+        $\overline{\text{Bel}}(x_t)$  & = $\eta \displaystyle\int \exp\left\{  -\frac{1}{2} \left(x_t - A_t x_{t-1} - B_t\right)^T Q_t \left(x_t - A_t x_{t-1} - B_t\right)  \right\}$ \\
+    \end{tabular}
+        
+    \begin{tabular}{p{2.3cm} l}
+        & $\exp\left\{ -\displaystyle\frac{1}{2} \left(x_{t-1} - \mu_{t-1}\right)^T \sum {}_{t-1} \left(x_{t-1} - \mu_{t-1}\right)  \right\}\text{d}x_{t-1}$
+    \end{tabular}    
+\end{frame}
+
+
+
+\begin{frame}[c]{Kalman filter}
+    \framesubtitle{Algoritmo - Fase de Predição}
+
+    \begin{itemize}
+        \item Continuando ...
+    \end{itemize}
+
+    \begin{tabular}{p{1.2cm} l}      
+        $\overline{\text{Bel}}(x_t)$  & = $\eta \displaystyle\int \exp\left\{  -\frac{1}{2} \left(x_t - A_t x_{t-1} - B_t\right)^T Q_t \left(x_t - A_t x_{t-1} - B_t\right)  \right\}$ \\
+    \end{tabular}
+        
+    \begin{tabular}{p{2.3cm} l}
+        & $\exp\left\{ -\displaystyle\frac{1}{2} \left(x_{t-1} - \mu_{t-1}\right)^T \sum {}_{t-1} \left(x_{t-1} - \mu_{t-1}\right)  \right\}\text{d}x_{t-1}$
+    \end{tabular}    
+
+    \begin{block}{Predição}
+        \begin{equation}
+            \overline{\text{Bel}} = 
+            \left\{
+            \begin{split}
+                    \overline{\mu}_t & = A_t\mu_{t-1} + B_t u_t\\
+                    \overline{\sum}_t & = A_t {\sum}_{t-1} A_t^T+ Q_t\\
+            \end{split} \right.
+        \end{equation}
+    \end{block} 
+
+
+\end{frame}
+
 
 
 %% TODO write equations and remove it
-\foreach\x in{2,3,4,5,6}{
+\foreach\x in{4,5,6}{
     \begin{frame}[c]{Kalman filter}
         \framesubtitle{Algoritmo do Filtro de Kalman}
         \centering
