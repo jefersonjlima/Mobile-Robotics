@@ -25,6 +25,8 @@
 \usetikzlibrary{scopes}
 \usepackage{verbatim}
 \usetikzlibrary{patterns}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 
 \usepackage{listings}
 	\definecolor{codegreen}{rgb}{0,0.6,0}
@@ -284,7 +286,7 @@
 
 
 \begin{frame}[c]{Kalman filter}
-    \framesubtitle{Algoritmo - Fase de Predição}
+    \framesubtitle{Algoritmo - Prediction}
     \begin{itemize}
         \item Temos a função de probabilidade do sistema, expressa por:
         \begin{equation*}
@@ -299,7 +301,7 @@
 
 
 \begin{frame}[c]{Kalman filter}
-    \framesubtitle{Algoritmo - Fase de Predição}
+    \framesubtitle{Algoritmo - Prediction}
     \begin{tabular}{p{1.5cm} l l}
         $\overline{\text{Bel}}(x_t)$  & = $\displaystyle\int P(x_t|u_t, x_{t-1})$ & $\text{Bel}(x_{t-1})\text{d}x_{t-1}$ \\
         & \quad\quad\quad\quad\quad $\Downarrow$ & \quad\quad\quad$\Downarrow$ \\
@@ -327,7 +329,7 @@
 
 
 \begin{frame}[c]{Kalman filter}
-    \framesubtitle{Algoritmo - Fase de Predição}
+    \framesubtitle{Algoritmo - Prediction}
 
     \begin{itemize}
         \item Continuando ...
@@ -341,14 +343,14 @@
         & $\exp\left\{ -\displaystyle\frac{1}{2} \left(x_{t-1} - \mu_{t-1}\right)^T \sum {}_{t-1} \left(x_{t-1} - \mu_{t-1}\right)  \right\}\text{d}x_{t-1}$
     \end{tabular}    
 
-    \begin{block}{Predição}
+    \begin{block}{Prediction}
         \begin{equation}
             \overline{\text{Bel}} = 
             \left\{
-            \begin{split}
+            \begin{aligned}
                     \overline{\mu}_t & = A_t\mu_{t-1} + B_t u_t\\
                     \overline{\sum}_t & = A_t {\sum}_{t-1} A_t^T+ Q_t\\
-            \end{split} \right.
+            \end{aligned} \right.
         \end{equation}
     \end{block} 
 \end{frame}
@@ -357,90 +359,95 @@
 \begin{frame}[c]{Kalman filter}
     \framesubtitle{Algoritmo - Measurement Update}
     \begin{itemize}
-        \item Temos a função de probabilidade do sistema, expressa por:
+        \item Considerando a saída do sistema:
         \begin{equation*}
-            p(x_t| u_t, x_{t-1})= N\left(x_t; A_tx_{t-1}+ B_tu_t, Q_t\right)
+            z_t = C_t x_t + \delta_t
+        \end{equation*}
+        \item Apresentadas as equações lineares do observador de estados, temos a função de probalilidade:
+        \begin{equation*}
+            P(z_t| x_t)= N\left(z_t; C_t x_t, R_t\right)
         \end{equation*}   
         \item ou seja:
         \begin{equation*}
-            \overline{\text{Bel}}(x_t)  = \displaystyle\int\underbrace{P(x_t|u_t, x_{t-1})}_{\sim N\left(x_t; A_t x_{t-1}+ B_tu_t, Q_t\right)} \overbrace{\text{Bel}(x_{t-1})}^{\sim N\left(x_{t-1}; \mu_{t-1}, \sum {}_{t-1}\right)}\text{d}x_{t-1}
+            \text{Bel}(x_t)  = \eta \underbrace{P(z_t|x_t)}_{\sim N\left(z_t; C_t x_t, Q_t^{-1}\right)} \overbrace{\overline{\text{Bel}}(x_t)}^{\sim N\left(x_t; \overline{\mu}_t, \overline{\sum}_t\right)}
         \end{equation*}
     \end{itemize}
 \end{frame}
 
 
 \begin{frame}[c]{Kalman filter}
-    \framesubtitle{Algoritmo - Fase de Predição}
-    \begin{tabular}{p{1.5cm} l l}
-        $\overline{\text{Bel}}(x_t)$  & = $\displaystyle\int P(x_t|u_t, x_{t-1})$ & $\text{Bel}(x_{t-1})\text{d}x_{t-1}$ \\
-        & \quad\quad\quad\quad\quad $\Downarrow$ & \quad\quad\quad$\Downarrow$ \\
-        & $\sim N\left(x_t; A_t x_{t-1}+ B_tu_t, Q_t\right)$ & $\sim N\left(x_{t-1}; \mu_{t-1}, \sum {}_{t-1}\right)$ \\
-        & \quad\quad\quad\quad\quad $\Downarrow$ & \\
+    \framesubtitle{Algoritmo -  Measurement Update}
+    \begin{tabular}{p{1.5cm} l l l}
+        $\text{Bel}(x_t)$  & = $\eta$ & $P(z_t| x_t)$ & $\overline{\text{Bel}}(x_t)$ \\
+        & & $\quad \Downarrow$ & $\quad\Downarrow$ \\
+        & & $\sim N\left(z_t; C_t x_t, Q_t\right)$ & $\sim N\left(x_t; \overline{\mu}_t, \overline{\sum}_t\right)$ \\
+        & & $\quad \Downarrow$ &  \\
     \end{tabular}
 
-    \begin{block}{Relembrando ...}
-        \begin{equation*}
-            P(\mathbf{x}) = \frac{1}{(2\pi)^{\frac{d}{2}\|\sum\|^{\frac{1}{2}}}}\exp\left\{-\frac{1}{2} (\mathbf{x}-\mu)^T\sum{}^{-1}(\mathbf{x}-\mu)\right\}
-        \end{equation*}        
-    \end{block}
-
-    \begin{tabular}{p{1.2cm} l}
-        & $\quad\quad\quad\quad\quad \Downarrow$\\
-        $\overline{\text{Bel}}(x_t)$  & = $\eta \displaystyle\int \exp\left\{  -\frac{1}{2} \left(x_t - A_t x_{t-1} - B_t\right)^T Q_t \left(x_t - A_t x_{t-1} - B_t\right)  \right\}$ \\
+   \begin{tabular}{p{1.5cm} l l}
+        $\text{Bel}(x_t)$  & = $\eta$ & $\exp\left\{  -\displaystyle\frac{1}{2} \left(z_t - C_t x_t\right)^T R_t \left(z_t - C_t x_t\right)  \right\}$ \\
     \end{tabular}
-        
-    \begin{tabular}{p{2.3cm} l}
-        & $\exp\left\{ -\displaystyle\frac{1}{2} \left(x_{t-1} - \mu_{t-1}\right)^T \sum {}_{t-1} \left(x_{t-1} - \mu_{t-1}\right)  \right\}\text{d}x_{t-1}$
-    \end{tabular}    
+    
+    \begin{tabular}{p{2.5cm} l}
+        & $\exp\left\{ -\displaystyle\frac{1}{2} \left(x_t - \overline{\mu}_t\right)^T \overline{\sum}_t^{-1} \left(x_t - \mu_t\right) \right\}$
+    \end{tabular}  
+
+    \begin{block}{Measurement Update}
+        \begin{equation}
+            \overline{\text{Bel}} = 
+            \left\{
+            \begin{aligned}
+                    \mu_t & = \overline{\mu}_t + K_t(z_t -C_t \overline{\mu}_t)\\
+                    \sum_t & = (I-K_tC_t)\overline{\sum}_t \\
+            \end{aligned} \right.
+        \end{equation}
+
+        \begin{equation}
+            \text{Com }
+            K_t = \overline{\sum}_tC_t^T(C_t\overline{\sum}_tC_t^T+R_t)^{-1}
+        \end{equation}
+    \end{block} 
 \end{frame}
 
 
 
 \begin{frame}[c]{Kalman filter}
-    \framesubtitle{Algoritmo - Fase de Predição}
-
-    \begin{itemize}
-        \item Continuando ...
-    \end{itemize}
-
-    \begin{tabular}{p{1.2cm} l}      
-        $\overline{\text{Bel}}(x_t)$  & = $\eta \displaystyle\int \exp\left\{  -\frac{1}{2} \left(x_t - A_t x_{t-1} - B_t\right)^T Q_t \left(x_t - A_t x_{t-1} - B_t\right)  \right\}$ \\
-    \end{tabular}
-        
-    \begin{tabular}{p{2.3cm} l}
-        & $\exp\left\{ -\displaystyle\frac{1}{2} \left(x_{t-1} - \mu_{t-1}\right)^T \sum {}_{t-1} \left(x_{t-1} - \mu_{t-1}\right)  \right\}\text{d}x_{t-1}$
-    \end{tabular}    
-
-    \begin{block}{Predição}
-        \begin{equation}
-            \overline{\text{Bel}} = 
-            \left\{
-            \begin{split}
-                    \overline{\mu}_t & = A_t\mu_{t-1} + B_t u_t\\
-                    \overline{\sum}_t & = A_t {\sum}_{t-1} A_t^T+ Q_t\\
-            \end{split} \right.
-        \end{equation}
-    \end{block} 
-
-
+    \framesubtitle{Algoritmo}
+    \begin{algorithm}[H]
+        \caption{Kalman-filter}
+        \label{array-sum}
+        \begin{algorithmic}[1]
+        \Procedure{Prediction}{$\mu_{t-1}, {\sum}_{t-1}, u_t, z_t$}
+            \State $\overline{\mu}_t = A_t\mu_{t-1} + B_t u_t$
+            \State $ \overline{\sum}_t = A_t {\sum}_{t-1} A_t^T+ Q_t$ 
+            \State \textbf{Return} $\left(\overline{\mu}_t, \overline{\sum}_t\right)$
+        \EndProcedure
+        \Procedure{MeasurementUpdate}{$A$}
+            \State $K_t = \overline{\sum}_tC_t^T(C_t\overline{\sum}_tC_t^T+R_t)^{-1}$
+            \State $\mu_t  = \overline{\mu}_t + K_t(z_t -C_t)$
+            \State{$\sum_t = (I-K_tC_t)\overline{\sum}_t$}
+            \State \textbf{Return} $\left(\mu_t, \sum_t\right)$
+        \EndProcedure
+        \end{algorithmic}
+    \end{algorithm}
 \end{frame}
 
 
 
-%% TODO write equations and remove it
-\foreach\x in{4,5,6}{
-    \begin{frame}[c]{Kalman filter}
-        \framesubtitle{Algoritmo do Filtro de Kalman}
-        \centering
-        \includegraphics[width=0.8\textwidth]{images/tmp\x}
-    \end{frame}
-}
-
-
-
-\begin{frame}{Extended Kalman filter}
-
+\begin{frame}[c]{Kalman filter}
+    \framesubtitle{Exercício}
 \end{frame}
+
+
+\begin{frame}[c]{Kalman filter}
+    \framesubtitle{Desafio Carro Autonomo x Ciclista}
+\end{frame}
+
+
+
+% \begin{frame}{Extended Kalman filter}
+
+% \end{frame}
 
 \begin{frame}[t]{Referências}
     \begin{itemize}
@@ -454,4 +461,4 @@
 
 
 
-% https://classroom.udacity.com/courses/ud810/
+% % https://classroom.udacity.com/courses/ud810/
