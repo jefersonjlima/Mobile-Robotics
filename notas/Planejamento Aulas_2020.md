@@ -16,6 +16,8 @@
 > c. [Aula UFMG](https://homepages.dcc.ufmg.br/~doug/cursos/lib/exe/fetch.php?media=cursos:introrobotica:2019-1:aula07a-descricao-espacial-transformacoes-parte-1.pdf)
 > 
 > d. Otimo Cinematica - [Roland_Siegwart,_Illah_R._Nourbakhsh]_Introductio(z-lib.org)
+> 
+> e. [Wheeled Mobile Robot Motion Control](https://ethz.ch/content/dam/ethz/special-interest/mavt/robotics-n-intelligent-systems/asl-dam/documents/lectures/autonomous_mobile_robots/spring-2019/3%20ETH%20Lecture%20%20Mobile%20Robots%20Kinematics%20add%20ons%202019%20RS.pdf)
 
 2. Percepção e Ação
         
@@ -52,7 +54,9 @@
                 Camera RGB-D
                 Calibração
                 Aruco
-        Localização com Filtro de Kalman
+        Graph-Based SLAM*
+        EKF SLAM
+> \* [Graph-Based SLAM](http://www.cs.columbia.edu/~allen/F17/NOTES/slam_pka.pdf)
 
 6. Tópicos Extra
 

@@ -71,8 +71,7 @@
 
 # Desafio 
 ### KF C Vision
-    * https://www.mathworks.com/videos/
-introduction-to-kalman-filters-for-object-tracking-79674.html
+* https://www.mathworks.com/videos/introduction-to-kalman-filters-for-object-tracking-79674.html
 
 # Udacity Courses
 * [Introduction to Computer Vision](https://classroom.udacity.com/courses/ud810/lessons/3325568562/concepts/33096786050923)
@@ -80,3 +79,7 @@ introduction-to-kalman-filters-for-object-tracking-79674.html
 
 # sensores
 * https://ethz.ch/content/dam/ethz/special-interest/mavt/robotics-n-intelligent-systems/asl-dam/documents/lectures/autonomous_mobile_robots/spring-2019/Perception%20I%20-%20Sensors%20add%20ons%202019%20RS.pdf
+
+
+# Similar courses
+* a
