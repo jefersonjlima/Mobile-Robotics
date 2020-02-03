@@ -63,7 +63,11 @@
 * https://www.doc.ic.ac.uk/~ajd/Robotics/RoboticsResources/
 * https://www.youtube.com/user/behnamasadi/videos
 * https://docs.duckietown.org/DT19/learning_materials/out/index.html
+* https://asl.ethz.ch/education/lectures/autonomous_mobile_robots/spring-2019.html
 
+
+## Monte Carlo
+* http://sisne.org/Disciplinas/Grad/FisComput/metodo-de-monte.pdf
 
 # Desafio 
 ### KF C Vision
@@ -72,3 +76,7 @@ introduction-to-kalman-filters-for-object-tracking-79674.html
 
 # Udacity Courses
 * [Introduction to Computer Vision](https://classroom.udacity.com/courses/ud810/lessons/3325568562/concepts/33096786050923)
+
+
+# sensores
+* https://ethz.ch/content/dam/ethz/special-interest/mavt/robotics-n-intelligent-systems/asl-dam/documents/lectures/autonomous_mobile_robots/spring-2019/Perception%20I%20-%20Sensors%20add%20ons%202019%20RS.pdf
