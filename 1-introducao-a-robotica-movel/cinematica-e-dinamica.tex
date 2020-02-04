@@ -74,18 +74,61 @@
 	\end{block}
 \end{frame}
 
-\begin{frame}{Descrição de Posição e Orientação}
-\begin{center}
-    \includegraphics[width=0.8\textwidth]{images/mecanismos.jpg}
-\end{center}
 
-\href{http://www.joinville.ifsc.edu.br/~michael.klug/ROB74/Aulas/aula2_trans_geometricas.pdf
-}{material}
-
+\begin{frame}{Modelagem Cinemática e Dinâmica}
+    \framesubtitle{Introdução}
+    \begin{itemize}
+        \item Tipo de Modelos:
+        \begin{itemize}
+            \item \textbf{\textcolor{blue}{Modelo Cinemático}};
+            \item Modelo Dinâmico;
+        \end{itemize}
+    \end{itemize}
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{images/mecanismos.jpg}
+    \end{center}
 \end{frame}
 
 
-\begin{frame}{Descrição de Posição e Orientação}
+\begin{frame}{Modelagem Cinemática e Dinâmica}
+    \framesubtitle{Conceitos}
+    \begin{itemize}
+        \item A cinemática é a área da Física que estuda o movimento dos corpos.
+        \item Em robótica móvel a cinemática estabelece relações entre o deslocamento
+        (locomoção) do robô e a atuação a ele imposta.
+        \item A cinemática direta estabelece modelos que estimam o deslocamento do robô
+        dada uma atuação, por exemplo, velocidades imposta às suas rodas.
+        \item A cinemática reversa estabelece modelos que estimam a atuação necessária
+        para que o robô realize um determinado deslocamento, por exemplo, percorrer
+        uma trajetória.
+        \item Comumente, os modelos cinemáticos são baseados em equações diferenciais
+        de primeira ordem não lineares. Tais modelos são linearizados e discretizados
+        no tempo quanto utilizados em aplicações robótica. \href{http://143.106.148.168:9080/Cursos/IA368N/01-16/cinematica2.pdf}{[1]}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Modelagem Cinemática}
+    \framesubtitle{Introdução}
+    \setlength\extrarowheight{5pt}
+    \begin{itemize}
+        \item \textbf{Tipo de Modelos}:
+        \begin{itemize}
+            \item \textbf{\textcolor{blue}{Modelo Cinemático}};
+            \item Modelo Dinâmico;
+        \end{itemize}
+        \item \textbf{\textcolor{blue}{Modelo Cinemático}}
+        \begin{itemize}
+            \item Modelagem Cinemática Direta e Inversa para robôs;
+            \item Transformação homogênea;
+            \item Nonholonomic constraints
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Modelagem Cinemática}
+    \framesubtitle{Transformação homogênea}
     \begin{itemize}
 		\item coordenada como um vetor de posição $\mathbb{R}^{3 \times 1}$, composto pelas coordenadas $X,Y$ e $Z$.
 		\item um ponto ${}^A\mathbf{P}$ representa a distância ao longo dos eixos do plano $\{A\}$. Os elementos individuais de ${}^A\mathbf{P}$ podem ser visto pela equação \eqref{eq:cine1}.
@@ -118,8 +161,8 @@
 
 
 
-\begin{frame}{Translação Rotação e Transformação}
-  \framesubtitle{Matriz de Rotação}
+\begin{frame}{Modelagem Cinemática}
+    \framesubtitle{Transformação homogênea - Matriz de Rotação}
   \begin{itemize}
     \item O vetor definido por ${}^A\mathbf{P}$ pode ser rotacionado pela matriz de rotação $\mathbf{R}$, conforme a equação \eqref{eq:cine2}.
     \begin{equation}\label{eq:cine2}
@@ -155,8 +198,8 @@
 
 
 
-\begin{frame}{Translação Rotação e Transformação}
-    \framesubtitle{Matriz de Rotação}
+\begin{frame}{Modelagem Cinemática}
+    \framesubtitle{Transformação homogênea - Matriz de Rotação}
     \begin{block}{}
         \begin{equation*}
             \mathbf{R}_x(\theta) = 
@@ -185,12 +228,12 @@
     \end{block}
   \end{frame}
 
-  \begin{frame}{Translação Rotação e Transformação}
-    \framesubtitle{Matriz de Rotação - Exercício}
+  \begin{frame}{Modelagem Cinemática}
+    \framesubtitle{Transformação homogênea - Matriz de Rotação - Exercício}
 \end{frame}
 
-\begin{frame}{Translação Rotação e Transformação}
-    \framesubtitle{Rotação de um coordenada}
+\begin{frame}{Modelagem Cinemática}
+    \framesubtitle{Transformação homogênea -Rotação de um coordenada}
     \begin{itemize}
         \item A rotação, em torno e $Z $, de um angulo qualquer $\theta$ em ${}^AP$ é descrita como na equação \eqref{eq:cine3}. 
         \begin{equation}\label{eq:cine3}
@@ -211,9 +254,35 @@
     \end{itemize}
 \end{frame}
 
+\begin{frame}{Modelagem Cinemática}
+    \framesubtitle{Transformação homogênea - Translação}
+    \begin{itemize}
+        \item Operador de translação $\mathbf{D}$:
+        \begin{figure}[!ht]
+        \centering
+        \begin{tikzpicture}[scale=0.7]
+        \node(p0) at (0,0){};
+        \draw [->] (p0.center) --++(0,3) node[right] {$\hat Y_A$};
+        \draw [->, rotate =120] (p0.center) --++(0,3) node[below] {$\hat Z_A$};
+        \draw [->, rotate =240] (p0.center) --++(0,3) node[below] {$\hat X_A$};
+        \draw [->] (p0.center) --++(1.5,4) node(B)[above,rotate=30] {${}^A\mathbf{P}$ ou ${}^A\mathbf{P}_{BORG}$};
+        \node(p1) at (6,1){};
+        \draw [->, rotate =30] (p1.center) --++(0,3) node[right,rotate=30] {$\hat Y_B$};
+        \draw [->, rotate =150] (p1.center) --++(0,3) node[below,rotate=30] {$\hat Z_B$};
+        \draw [->, rotate =270] (p1.center) --++(0,3) node[below,rotate=30] {$\hat X_B$};
+        \draw [->, rotate =30] (p1.center) --++(1.5,4) node(B)[above,rotate=30] {${}^B\mathbf{P}$};
+        \draw [dotted,-latex] (p0)  -- (p1) node[midway, fill=white]{${}^A\mathbf{Q}$};
+        \draw [-latex,dashed] (p0)  -- (B);
+        \node at (-1.5,2.5) {$\{A\}$};
+        \node at (4,2.5)  [rotate=30]   {$\{B\}$};
+        \end{tikzpicture}
+        \end{figure}
+    \end{itemize}
+\end{frame}
 
-\begin{frame}{Translação Rotação e Transformação}
-    \framesubtitle{Translação}
+
+\begin{frame}{Modelagem Cinemática}
+    \framesubtitle{Transformação homogênea - Translação}
     \begin{itemize}
         \item O Deslocamento é chamado de translação, e dá-se pelo operador translacional $\mathbf{D}_A(q)$, onde ${}^A\mathbf{Q}$ representa uma translação entre os planos $\{A\}$ e $\{B\}$ e é expresso pela equação \eqref{eq:cine4}.
         \begin{equation}\label{eq:cine4}
@@ -257,8 +326,8 @@
 \end{frame}
 
 
-\begin{frame}{Translação Rotação e Transformação}
-    \framesubtitle{Operação de Translação e Rotação}
+\begin{frame}{Modelagem Cinemática}
+    \framesubtitle{Transformação homogênea - Operadores}
     \begin{itemize}
         \item Aplicando se a transformação homogênea da coordenada ${}^AP$ pelos operadores de rotação e translação temos ${}^BP$
         \begin{figure}[!ht]
@@ -284,8 +353,8 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Translação Rotação e Transformação}
-    \framesubtitle{Transformação Homogênea}
+\begin{frame}{Modelagem Cinemática}
+    \framesubtitle{Transformação homogênea - Transformação Homogênea}
     \begin{itemize}
         \item Na forma generalizada, a transformação homogênea ${}^{i}_0\mathbf{T}$ pode ser expressa por uma sucessiva pode ser encontrada fazendo o produto das sucessivas transformações de ${}^{i-1}_0\mathcal{A}_i$. Conforme é mostrado na equação \eqref{fig:cine3}.
         \begin{equation}\label{fig:cine3}
@@ -307,28 +376,9 @@
 
 \end{frame}
 
-\begin{frame}{Translação Rotação e Transformação}
-\framesubtitle{Exercício: Braço Robótico 2DOF}
 
-    \begin{columns}
-        \begin{column}[c]{0.5\textwidth}
-            \begin{figure}[!ht]
-                \input{images/robot.tex}
-                \caption{Robo 2DOF}
-            \end{figure}
-        \end{column}
-        \begin{column}[c]{0.5\textwidth}
-            
-
-        \end{column}
-    \end{columns}
-
-\end{frame}
-
-
-
-\begin{frame}{Translação Rotação e Transformação}
-    \framesubtitle{Exemplo Prático}
+\begin{frame}{Modelagem Cinemática}
+    \framesubtitle{Transformação homogênea - Exemplo Prático}
     \begin{enumerate}
         \item Considerando que $v_{t-1}$ é um vetor unitário em $\mathbf{P}_{x,y,z}=\{1,0,0\}$ e sobre uma deslocamento de $\mathbf{Q}=\{2,1,0\}$ e rotação $\mathbf{R_z(\phi)}=20^o$, qual será a posição final de $v$ no plano $\{A\}$?
     \end{enumerate}
@@ -366,19 +416,28 @@
 
 
 
-\begin{frame}{Model Cinemático}
+
+\begin{frame}{Modelagem Cinemática}
+    \framesubtitle{Transformação homogênea - Exercício: Braço Robótico 2DOF}
+    
+        \begin{columns}
+            \begin{column}[c]{0.5\textwidth}
+                \begin{figure}[!ht]
+                    \input{images/robot.tex}
+                    \caption{Robo 2DOF}
+                \end{figure}
+            \end{column}
+            \begin{column}[c]{0.5\textwidth}
+                a
+            \end{column}
+        \end{columns}
+\end{frame}
+
+
+
+\begin{frame}{Cinemática de Robôs}
     \framesubtitle{Conceitos}
     \begin{itemize}
-        \item \textbf{Cinemática direta}
-        \begin{itemize}
-            \item Informado o conjunto de entradas de controle, como o robô se movimenta?
-            \item Coordenadas generalizadas
-        \end{itemize} 
-        \item \textbf{Cinemática inversa}
-        \begin{itemize}
-            \item Informado o tipo de movimento desejado,
-        quais devem ser as entradas de controle?
-        \end{itemize}
         \item \textbf{Um robô é modelado como um corpo rígido}
         \begin{itemize}
             \item 3 variáveis $x, y,\phi$ (plano)
@@ -386,26 +445,9 @@
         \end{itemize}
         \item Deve-se estabelecer uma relação entre o referencial local (robô) e o referencial global
         \begin{itemize}
-            \item Referencial global: $\{U\} , \{I\}$ ou $\{W\}$
+            \item Referencial global, exemplo $\{I\}$, ou $\{W\}$;
+            \item \item Referencial local, exemplo $\{M\}$, ou $\{A\}$;
         \end{itemize}         
-    \end{itemize}
-\end{frame}
-
-
-\begin{frame}{Cinemática de Robôs}
-    \framesubtitle{Conceitos}
-    \begin{itemize}
-        \item A cinemática é a área da Física que estuda o movimento dos corpos.
-        \item Em robótica móvel a cinemática estabelece relações entre o deslocamento
-        (locomoção) do robô e a atuação a ele imposta.
-        \item A cinemática direta estabelece modelos que estimam o deslocamento do robô
-        dada uma atuação, por exemplo, velocidades imposta às suas rodas.
-        \item A cinemática reversa estabelece modelos que estimam a atuação necessária
-        para que o robô realize um determinado deslocamento, por exemplo, percorrer
-        uma trajetória.
-        \item Comumente, os modelos cinemáticos são baseados em equações diferenciais
-        de primeira ordem não lineares. Tais modelos são linearizados e discretizados
-        no tempo quanto utilizados em aplicações robótica. \href{http://143.106.148.168:9080/Cursos/IA368N/01-16/cinematica2.pdf}{[1]}
     \end{itemize}
 \end{frame}
 
@@ -522,18 +564,6 @@ rotation) [Wheeled Mobile Robotics]
                     y\\
                     \phi
                 \end{bmatrix}$
-                \newline
-
-                bem como as velocidades:
-                \newline
-
-                $\dot{\mathbf{q}} = 
-                \begin{bmatrix}
-                    \dot{x} \\
-                    \dot{y}\\
-                    \dot{\phi}
-                \end{bmatrix} =
-                f(l, r, \dot{\phi}, \dot{v}_{M_L}, \dot{v}_{M_R})$            
         \end{itemize}
         \end{column}
     \end{columns}   
@@ -575,7 +605,6 @@ rotation) [Wheeled Mobile Robotics]
 
 \begin{frame}{Cinemática de Robôs}
     \framesubtitle{Robô Diferencial}
-
     \begin{itemize}
         \item Analisando a velocidade angular de $\omega$, temos:
     
@@ -590,8 +619,8 @@ rotation) [Wheeled Mobile Robotics]
 
         \begin{equation*}
             \begin{split}
-                \boxed{\omega (t) = \frac{ v_R(t) - v_L(t)}{L}} & \text{, e }
-                \boxed{R(t)  = \frac{L v_R(t) + v_L(t)}{2 v_R(t) - v_L(t)}} \\
+                \omega (t) = \frac{ v_R(t) - v_L(t)}{L} & \text{, e }
+                R(t)  = \frac{L v_R(t) + v_L(t)}{2 v_R(t) - v_L(t)} \\
             \end{split}
         \end{equation*}
 
@@ -600,9 +629,86 @@ rotation) [Wheeled Mobile Robotics]
         \begin{equation}
                 v (t) =\omega (t) R(t) = \frac{ v_R(t) - v_L(t)}{2}
         \end{equation}
-
     \end{itemize}
+\end{frame}
 
+
+
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Robô Diferencial}
+    \begin{itemize}
+        \item As velocidades tangenciais $v_L(t)=r\omega_L(t)$ e $v_R(t)=r\omega_R(t)$, temos então a cinemática interna do robô (\textcolor{red}{coordenadas locais}):
+        
+        \begin{equation*}
+            \boxed{
+            \begin{bmatrix}
+                \dot{x}_M(t) \\
+                \dot{y}_M(t) \\
+                \dot{\phi}(t)
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+                \dot{v}_M(t) \\
+                \dot{v}_M(t) \\
+                \dot{\omega}(t)
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+                \frac{r}{2} & \frac{r}{2}\\
+                -\frac{r}{L} & \frac{r}{L}
+            \end{bmatrix}
+            \begin{bmatrix}
+                \omega_L(t)\\
+                \omega_R(t)
+            \end{bmatrix}}
+        \end{equation*}
+
+        \item e em \textcolor{red}{coordenadas globais}:
+        
+        \begin{equation*}
+            \boxed{
+            \begin{bmatrix}
+                \dot{x}(t) \\
+                \dot{y}(t) \\
+                \dot{\phi}(t)
+            \end{bmatrix}
+            = 
+            \begin{bmatrix}
+                \cos(\phi(t)) & 0\\
+                \sin(\phi(t)) & 0 \\
+                0 & 1
+            \end{bmatrix}
+            \begin{bmatrix}
+                v(t)\\
+                \omega(t)
+            \end{bmatrix}}
+        \end{equation*}
+        
+        onde as variáveis $v(t)$ e $\omega(t$
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Robô Diferencial}
+    \begin{itemize}
+        \item Mas o \textit{encoder} fornece apenas a posição das rodas, como calcular a velocidade?
+        
+        ... \textbf{Aproximação de Euler}, Aproximação de Tustin, Transformação Bilinear...
+
+        \begin{equation*}
+            \begin{split}
+                x_{k+1} &= x_k + v_k T_s\cos(\phi_k) \\
+                y_{k+1} &= y_k + v_k T_s\sin(\phi_k) \\
+                \phi_{k+1} &= \phi_k + \omega_k T_s \\
+            \end{split}
+        \end{equation*}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Robô Diferencial}
 \end{frame}
 
 
@@ -661,9 +767,21 @@ rotation) [Wheeled Mobile Robotics]
 \end{frame}
 
 
-\begin{frame}{Modelo Dinâmico}
-   
+\begin{frame}{Modelagem Dinâmica}
+    \begin{itemize}
+        \item Euler
+        \item Lagrange
+    \end{itemize}
 \end{frame}
+
+
+\begin{frame}{Modelagem Dinâmica}
+
+    \includegraphics[page=6, width=1\textwidth]{../temp/1/5-dynamics.pdf}
+
+\end{frame}
+
+
 
 
 
