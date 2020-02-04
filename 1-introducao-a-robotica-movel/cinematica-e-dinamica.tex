@@ -572,39 +572,6 @@ rotation) [Wheeled Mobile Robotics]
 
 \begin{frame}{Cinemática de Robôs}
     \framesubtitle{Robô Diferencial}
-
-    \begin{itemize}
-        \item Analisando a velocidade angular de $\omega$, temos:
-    
-        \begin{equation*}
-            \begin{split}
-                \omega & = \frac{v_L(t)}{R(t)-\frac{L}{2}} \\
-                \omega & = \frac{v_R(t)}{R(t)+\frac{L}{2}} \\
-            \end{split}
-        \end{equation*}
-
-        logo:
-
-        \begin{equation*}
-            \begin{split}
-                \boxed{\omega (t) = \frac{ v_R(t) - v_L(t)}{L}} & \text{, e }
-                \boxed{R(t)  = \frac{L v_R(t) + v_L(t)}{2 v_R(t) - v_L(t)}} \\
-            \end{split}
-        \end{equation*}
-
-        assim, a velocidade tangencial do veiculo é dada por:
-
-        \begin{equation}
-                v (t) =\omega (t) R(t) = \frac{ v_R(t) - v_L(t)}{2}
-        \end{equation}
-
-    \end{itemize}
-
-\end{frame}
-
-
-\begin{frame}{Cinemática de Robôs}
-    \framesubtitle{Robô Diferencial}
     \begin{itemize}
         \item Analisando a velocidade angular de $\omega$, temos:
     
@@ -655,6 +622,7 @@ rotation) [Wheeled Mobile Robotics]
             =
             \begin{bmatrix}
                 \frac{r}{2} & \frac{r}{2}\\
+                0 & 0 \\
                 -\frac{r}{L} & \frac{r}{L}
             \end{bmatrix}
             \begin{bmatrix}
