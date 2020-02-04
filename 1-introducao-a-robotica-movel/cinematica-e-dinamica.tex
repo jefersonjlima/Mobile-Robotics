@@ -392,13 +392,114 @@
 \end{frame}
 
 
-
-\begin{frame}{Modelo Cinemático}
+\begin{frame}{Cinemática de Robôs}
     \framesubtitle{Conceitos}
+    \begin{itemize}
+        \item A cinemática é a área da Física que estuda o movimento dos corpos.
+        \item Em robótica móvel a cinemática estabelece relações entre o deslocamento
+        (locomoção) do robô e a atuação a ele imposta.
+        \item A cinemática direta estabelece modelos que estimam o deslocamento do robô
+        dada uma atuação, por exemplo, velocidades imposta às suas rodas.
+        \item A cinemática reversa estabelece modelos que estimam a atuação necessária
+        para que o robô realize um determinado deslocamento, por exemplo, percorrer
+        uma trajetória.
+        \item Comumente, os modelos cinemáticos são baseados em equações diferenciais
+        de primeira ordem não lineares. Tais modelos são linearizados e discretizados
+        no tempo quanto utilizados em aplicações robótica. \href{http://143.106.148.168:9080/Cursos/IA368N/01-16/cinematica2.pdf}{[1]}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Conceitos}
+    \begin{itemize}
+        \item O modelo cinemático não leva em conta a inércia do robô, deformações em
+        sua estrutura, forças oriundas do deslocamento (atrito, escorregamento, etc.),
+        e demais fatores internos e externos que possam afetar a locomoção.
+        \item Os modelos dinâmicos são capazes de incorporar estas variáveis, mas são
+        muito mais complexos que os modelos cinemáticos.
+        \item Os modelos cinemáticos são suficientes quando a locamoção se dá a baixas
+        velocidades e em piso plano e horizontal que propicie contato adequado para
+        não haver escorregamento.
+        \item Apesar do modelo cinemático ser inerentemente um modelo aproximado,
+        podemos corrigir seus resultados a partir dos sensores do robô. Os algoritmos
+        de localização robótica fazem exatamente isto.\href{http://143.106.148.168:9080/Cursos/IA368N/01-16/cinematica2.pdf}{[1]}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Diversos modelos de cinemática}
+    \begin{itemize}
+        \item \textbf{Cinemática Externa} describes robot position and orientation according to
+some reference coordinate frame.
+        \item \textbf{Cinemática Interna} explains the relation between system internal variables
+(e.g., wheel rotation and robot motion)
+        \item \textbf{Cinemática Direta e Inversa}. A direct kinematics describes
+robot states as a function of its inputs (wheel speeds, joints motion,
+wheel steering, etc.). From inverse kinematics one can design a motion
+planning, which means that the robot inputs can be calculated for a
+desired robot state sequence.
+        \item \textbf{Restrições de movimento} appear when a system has less input variables than
+degrees of freedom (DOFs). Holonomic constraints prohibit certain
+robot poses while a nonholonomic constraint prohibits certain robot
+velocities (the robot can drive only in the direction of the wheels’
+rotation) [Wheeled Mobile Robotics]
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Cinemática Externa}
+    \begin{itemize}
+        \item O deslocamento de um robô deve ser expresso em relação a um sistema de
+        coordenadas (referencial) inercial (global). No plano, utilizamos coordenadas
+        cartesianas (eixos X e Y).
+    \end{itemize}
+
+    \begin{columns}
+        \begin{column}[c]{0.5\textwidth}
+            \input{images/car_1a.tex}
+        \end{column}
+        \begin{column}[c]{0.5\textwidth}
+            \input{images/car_2a.tex}
+        \end{column}
+    \end{columns}
+
+    \begin{equation*}
+        \begin{bmatrix}
+            \color{purple}{x_I}\\ \color{purple}{y_I} \\ \color{purple}{z_I}\\1
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+        \color{purple}{{}^M_I\mathbf{P}}\\ 1
+        \end{bmatrix}
+        =
+        \left[
+        \begin{matrix}
+        & \color{green}{{}_M^I\mathbf{R}_z(\phi)}& \\ \hline
+        0 & 0 & 0\\
+        \end{matrix} \right.
+        \left.
+        \vline
+        \begin{matrix}
+        \color{red}{{}^I\mathbf{Q}}\\ \hline
+        1
+        \end{matrix} \right]
+        \begin{bmatrix}
+        {}^M\mathbf{P}\\
+        1
+        \end{bmatrix}
+    \end{equation*}
+
+\end{frame}
+
+
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Cinemática Interna}
     \begin{columns}
         \begin{column}[c]{0.5\textwidth}
             \centering
-            \input{images/car_0.tex}
+            \input{images/car_0a.tex}
         \end{column}
         \begin{column}[c]{0.5\textwidth}
             \centering
@@ -412,7 +513,7 @@
                 \end{bmatrix}$
                 \newline
 
-                \item Configuração:
+                \item Configuração (localização e orientação):
                 \newline
 
                 $\mathbf{q} = 
@@ -420,16 +521,88 @@
                     x \\
                     y\\
                     \phi
-                \end{bmatrix}, \text{ e } 
-                \dot{\mathbf{q}} = 
+                \end{bmatrix}$
+                \newline
+
+                bem como as velocidades:
+                \newline
+
+                $\dot{\mathbf{q}} = 
                 \begin{bmatrix}
                     \dot{x} \\
                     \dot{y}\\
                     \dot{\phi}
-                \end{bmatrix}$            
+                \end{bmatrix} =
+                f(l, r, \dot{\phi}, \dot{v}_{M_L}, \dot{v}_{M_R})$            
         \end{itemize}
         \end{column}
     \end{columns}   
+\end{frame}
+
+
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Robô Diferencial}
+
+    \begin{itemize}
+        \item Analisando a velocidade angular de $\omega$, temos:
+    
+        \begin{equation*}
+            \begin{split}
+                \omega & = \frac{v_L(t)}{R(t)-\frac{L}{2}} \\
+                \omega & = \frac{v_R(t)}{R(t)+\frac{L}{2}} \\
+            \end{split}
+        \end{equation*}
+
+        logo:
+
+        \begin{equation*}
+            \begin{split}
+                \boxed{\omega (t) = \frac{ v_R(t) - v_L(t)}{L}} & \text{, e }
+                \boxed{R(t)  = \frac{L v_R(t) + v_L(t)}{2 v_R(t) - v_L(t)}} \\
+            \end{split}
+        \end{equation*}
+
+        assim, a velocidade tangencial do veiculo é dada por:
+
+        \begin{equation}
+                v (t) =\omega (t) R(t) = \frac{ v_R(t) - v_L(t)}{2}
+        \end{equation}
+
+    \end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Robô Diferencial}
+
+    \begin{itemize}
+        \item Analisando a velocidade angular de $\omega$, temos:
+    
+        \begin{equation*}
+            \begin{split}
+                \omega & = \frac{v_L(t)}{R(t)-\frac{L}{2}} \\
+                \omega & = \frac{v_R(t)}{R(t)+\frac{L}{2}} \\
+            \end{split}
+        \end{equation*}
+
+        logo:
+
+        \begin{equation*}
+            \begin{split}
+                \boxed{\omega (t) = \frac{ v_R(t) - v_L(t)}{L}} & \text{, e }
+                \boxed{R(t)  = \frac{L v_R(t) + v_L(t)}{2 v_R(t) - v_L(t)}} \\
+            \end{split}
+        \end{equation*}
+
+        assim, a velocidade tangencial do veiculo é dada por:
+
+        \begin{equation}
+                v (t) =\omega (t) R(t) = \frac{ v_R(t) - v_L(t)}{2}
+        \end{equation}
+
+    \end{itemize}
+
 \end{frame}
 
 
