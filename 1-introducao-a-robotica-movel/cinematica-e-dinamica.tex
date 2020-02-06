@@ -434,6 +434,80 @@
 \end{frame}
 
 
+\begin{frame}{Modelagem Cinemática}
+    \framesubtitle{Coordenadas Generalizadas}
+    \begin{itemize}
+        \item Consider a fixed or mobile robot with generalized coordinates q 1 ; q 2 ; . . .; q n in the
+        joint (or actuation) space and x 1 ; x 2 ; . . .; x m in the task space. Define the vectors:
+
+        \begin{equation*}
+            \mathbf{q} = 
+            \begin{bmatrix}
+                q_1 \\q_2 \\ \cdot  \\ q_n
+            \end{bmatrix}
+            \text{, }
+            \mathbf{p} = 
+            \begin{bmatrix}
+                x_1 \\x_2 \\ \cdot  \\ x_nm
+            \end{bmatrix}
+        \end{equation*}
+
+        \item \textbf{Cinemática Direta e Inversa}. A direct kinematics describes
+robot states as a function of its inputs (wheel speeds, joints motion,
+wheel steering, etc.). From inverse kinematics one can design a motion
+planning, which means that the robot inputs can be calculated for a
+desired robot state sequence.
+
+    \end{itemize}        
+\end{frame}
+
+
+
+\begin{frame}{Modelagem Cinemática}
+    \framesubtitle{Coordenadas Generalizadas}
+    \begin{itemize}
+        \item A relação entre as Cinemática Direta e Cinemática inversa é Cinemática Direta é obtido através da Matriz Jacobiana do Robô.
+        
+        \begin{equation*}
+            \mathbf{p} = \mathbf{J}{\mathbf{q}}
+            \text{ e, }
+            \mathbf{q} = \mathbf{J}^{-1}{\mathbf{p}}
+        \end{equation*}
+
+        bem como:
+
+        \begin{equation*}
+            \frac{\text{d}\mathbf{p}}{\text{d}t} = \mathbf{J}\frac{\text{d}\dot{\mathbf{q}}}{\text{d}t}
+        \end{equation*}
+
+        onde $J$ é dado por:
+        \begin{equation*}
+            \mathbf{J}
+            =
+            \frac{d \mathbf{f}}{d \mathbf{q}}
+            =
+            \left[ \frac{\partial \mathbf{f}}{\partial q_1}
+            \cdots \frac{\partial \mathbf{f}}{\partial q_n} \right]
+            =
+            \begin{bmatrix}
+            \frac{\partial f_1}{\partial q_1} & \cdots &
+            \frac{\partial f_1}{\partial q_n} \\
+            \vdots & \ddots & \vdots \\
+            \frac{\partial f_m}{\partial q_1} & \cdots &
+            \frac{\partial f_m}{\partial q_n}
+            \end{bmatrix}
+        \end{equation*}
+    \end{itemize}        
+\end{frame}
+
+        
+
+\begin{frame}{Modelagem Cinemática}
+    \framesubtitle{Cinemática Direta e Inversa - Exercício: Braço Robótico 2DOF}
+    
+
+\end{frame}
+
 
 \begin{frame}{Cinemática de Robôs}
     \framesubtitle{Conceitos}
@@ -476,11 +550,6 @@
 some reference coordinate frame.
         \item \textbf{Cinemática Interna} explains the relation between system internal variables
 (e.g., wheel rotation and robot motion)
-        \item \textbf{Cinemática Direta e Inversa}. A direct kinematics describes
-robot states as a function of its inputs (wheel speeds, joints motion,
-wheel steering, etc.). From inverse kinematics one can design a motion
-planning, which means that the robot inputs can be calculated for a
-desired robot state sequence.
         \item \textbf{Restrições de movimento} appear when a system has less input variables than
 degrees of freedom (DOFs). Holonomic constraints prohibit certain
 robot poses while a nonholonomic constraint prohibits certain robot
@@ -631,7 +700,8 @@ rotation) [Wheeled Mobile Robotics]
             \end{bmatrix}}
         \end{equation*}
 
-        \item e em \textcolor{red}{coordenadas globais}:
+        \item e em \textcolor{red}{coordenadas globais}
+        \footnote{adicionar o modelo em funcao das velocidades das rodas}:
         
         \begin{equation*}
             \boxed{
@@ -652,7 +722,9 @@ rotation) [Wheeled Mobile Robotics]
             \end{bmatrix}}
         \end{equation*}
         
-        onde as variáveis $v(t)$ e $\omega(t$
+        onde as variáveis $v(t)$ e $\omega(t)$
+
+        
     \end{itemize}
 \end{frame}
 
@@ -677,6 +749,9 @@ rotation) [Wheeled Mobile Robotics]
 
 \begin{frame}{Cinemática de Robôs}
     \framesubtitle{Robô Diferencial}
+    
+    continuar ...
+
 \end{frame}
 
 
@@ -736,11 +811,107 @@ rotation) [Wheeled Mobile Robotics]
 
 
 \begin{frame}{Modelagem Dinâmica}
+
+    Robot dynamic modeling deals with the derivation of the dynamic equations of the robot motion.
+
+    \begin{block}{}
+        The kinematic model only describes static transformation of some robot ve-
+        locities (pseudo velocities) to the velocities expressed in global coordinates.
+        However, the dynamic motion model of the mechanical system includes
+        dynamic properties such as system motion caused by external forces and
+        system inertia.
+    \end{block}
+
     \begin{itemize}
-        \item Euler
-        \item Lagrange
+        \item Método de Euler
+        \item Método de Lagrange 
     \end{itemize}
 \end{frame}
+
+
+% \item A equação de energia cinética ($\mathcal{T}$) é dada por:
+% \begin{equation}
+% \mathcal{T} = \sum\limits_{i=0}^{N} \frac{1}{2} m {}_{i}^{i+1} \dot{\mathbf{P}}^T \cdot {}_{i}^{i+1}\dot{\mathbf{P}}+ J\mathbf{\omega}_i^T\cdot \mathbf{\omega}_i,
+% \end{equation}
+% \newline
+
+% Onde:
+% \newline
+
+% \begin{tabular}{l | l}
+%     \hline
+%     $m_i$ & Massa \\ \hline
+%     $\mathbf{\omega}_i$ & Velocidade Angular \\ \hline
+%     $\mathbf{J}$ & Inercia \\ \hline
+% \end{tabular}
+
+
+
+
+\begin{frame}{Modelo Dinâmico}
+    \framesubtitle{Formulação de Lagrange}
+   
+    \begin{itemize}
+        \item Para Sistemas Holonômicos:
+        \begin{equation}
+            \mathcal{L}= \mathcal{T} - \mathcal{V}
+        \end{equation}
+
+        \begin{equation}
+            \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\dot{q}_k}\right)
+            -\parcial{}{\mathcal{L}}{q_k}
+            +\tau_{d_k}
+            = f_k, \quad k = 1,2,...,n
+        \end{equation}
+
+        \item Para Sistemas Não-Holonômicos \footnote{where index k describes the general coordinates q k (k = 1, . . . , n), L
+        defines the Lagrangian (difference between kinetic and potential energy
+        of the system), P is the power dissipation function due to friction and
+        damping in the system, g k are the forces due to gravitation,$\tau$ d k are the
+        system disturbances, and f k are the general forces (external influences to the
+        system) related to the general coordinate q k . Eq. (2.46) is valid only for a
+        nonconstrained system, that is, for the system without constraints that has n
+        DOFs and no velocity constraints.}:
+        \begin{equation}
+            \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\dot{q}_k}\right)
+            -\parcial{}{\mathcal{L}}{q_k}
+            +\tau_{d_k}
+            = f_k - \sum\limits^{m}_{j=1}\lambda_j a_{jk} 
+        \end{equation}
+    \end{itemize}   
+\end{frame}
+
+
+\begin{frame}{Modelo Dinâmico}
+    \framesubtitle{Formulação de Lagrange}
+    \begin{itemize}
+        \item A dynamic model (2.47) of some mechanical system with constraints
+        can be expressed in matrix form as follows:
+
+        \begin{equation}
+            \mathbf{M(q)\ddot{q}+ C(q, \dot{q})+ F(\dot{q})+G(q) = E(q)u -A}^T\mathbf{(q)}\boldsymbol{\lambda}
+        \end{equation}
+        \item  onde:
+    \end{itemize}
+
+ 
+    \center{
+    \scriptsize{
+    \begin{tabular}{| p{0.05\textwidth} | p{0.8\textwidth} |}
+        \hline
+        & Vector of generalized coordinates (dimension n x 1)\\ \hline
+        & Positive-definite matrix of masses and inertia (dimension n x n)\\ \hline
+        & Vector of Coriolis and centrifugal forces (dimension n x 1)\\ \hline
+        & Vector of friction and dumping forces (dimension n x 1)\\ \hline
+        & Vector of forces and torques due to gravity (dimension n x 1)\\ \hline
+        & Vector of unknown disturbances including unmodeled dynamics (dimension n x 1)\\ \hline
+        & Transformation matrix from actuator space to generalized coordinate space (dimension n x r)\\ \hline
+        & Input vector (dimension r x 1)\\ \hline
+        & Matrix of kinematic constraint coefficients (dimension m x n)\\ \hline
+        & Vector of constraint forces (Lagrange multipliers) (dimension m x 1)\\ \hline
+    \end{tabular}}}
+\end{frame}
+
 
 
 \begin{frame}{Modelagem Dinâmica}
@@ -753,17 +924,6 @@ rotation) [Wheeled Mobile Robotics]
 
 
 
-\begin{frame}{Modelo Dinâmico}
-    \framesubtitle{}
-    \
-    \begin{equation}
-        \mathcal{L}= \mathcal{T} - \mathcal{V}
-    \end{equation}
-    \begin{equation}\label{eq:hamiles3}
-        \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\dot{q}_i}\right) - \frac{d \mathcal{L}}{d q_i} + \parcial{}{R}{\dot{q}_i}= 0, \quad i = 1,2,...,n
-        \end{equation}
-    
-\end{frame}
 
 
 
