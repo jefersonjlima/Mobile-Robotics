@@ -829,21 +829,34 @@ rotation) [Wheeled Mobile Robotics]
 \end{frame}
 
 
-% \item A equação de energia cinética ($\mathcal{T}$) é dada por:
-% \begin{equation}
-% \mathcal{T} = \sum\limits_{i=0}^{N} \frac{1}{2} m {}_{i}^{i+1} \dot{\mathbf{P}}^T \cdot {}_{i}^{i+1}\dot{\mathbf{P}}+ J\mathbf{\omega}_i^T\cdot \mathbf{\omega}_i,
-% \end{equation}
-% \newline
+\begin{frame}{Modelo Dinâmico}
+    \framesubtitle{Formulação de Lagrange}
 
-% Onde:
-% \newline
+    \begin{itemize}
 
-% \begin{tabular}{l | l}
-%     \hline
-%     $m_i$ & Massa \\ \hline
-%     $\mathbf{\omega}_i$ & Velocidade Angular \\ \hline
-%     $\mathbf{J}$ & Inercia \\ \hline
-% \end{tabular}
+        \item energias
+
+        \begin{equation}
+            \mathcal{L}= \mathcal{T} - \mathcal{V}
+        \end{equation}
+
+        \item A equação de energia cinética ($\mathcal{T}$) é dada por:
+        \begin{equation}
+        \mathcal{T} = \sum\limits_{i=0}^{N} \frac{1}{2} m {}_{i}^{i+1} \dot{\mathbf{P}}^T \cdot {}_{i}^{i+1}\dot{\mathbf{P}}+ J\mathbf{\omega}_i^T\cdot \mathbf{\omega}_i,
+        \end{equation}
+        \newline
+
+        Onde:
+        \newline
+
+        \begin{tabular}{l | l}
+            \hline
+            $m_i$ & Massa \\ \hline
+            $\mathbf{\omega}_i$ & Velocidade Angular \\ \hline
+            $\mathbf{J}$ & Inercia \\ \hline
+        \end{tabular}
+    \end{itemize}
+\end{frame}
 
 
 
@@ -853,10 +866,6 @@ rotation) [Wheeled Mobile Robotics]
    
     \begin{itemize}
         \item Para Sistemas Holonômicos:
-        \begin{equation}
-            \mathcal{L}= \mathcal{T} - \mathcal{V}
-        \end{equation}
-
         \begin{equation}
             \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\dot{q}_k}\right)
             -\parcial{}{\mathcal{L}}{q_k}
@@ -999,3 +1008,6 @@ rotation) [Wheeled Mobile Robotics]
     \end{itemize}
 \end{frame}
 \end{document}
+
+
+% https://en.wikipedia.org/wiki/Inverted_pendulum
