@@ -64,7 +64,7 @@
 * https://www.youtube.com/user/behnamasadi/videos
 * https://docs.duckietown.org/DT19/learning_materials/out/index.html
 * https://asl.ethz.ch/education/lectures/autonomous_mobile_robots/spring-2019.html
-
+* http://www.cpdee.ufmg.br/~torres/wp-content/uploads/2018/02/
 
 ## Monte Carlo
 * http://sisne.org/Disciplinas/Grad/FisComput/metodo-de-monte.pdf

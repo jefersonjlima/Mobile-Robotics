@@ -10,6 +10,9 @@
 \usepackage{amsmath} 
 \usepackage{array,booktabs}
 \pgfplotsset{compat=1.15} 
+\usepackage{pifont}
+\newcommand{\cmark}{\textcolor{green}{\ding{51}}}%
+\newcommand{\xmark}{\textcolor{red}{\ding{55}}}%
 
 \setbeamercovered{invisible}
 \newcommand{\pausar}{\pause}
@@ -779,28 +782,6 @@ rotation) [Wheeled Mobile Robotics]
     \input{images/car_3.tex}
 \end{frame}
 
-\begin{frame}{Modelo Cinemático}
-    \framesubtitle{Energia Cinética}
-    \begin{itemize}
-        \item A equação de energia cinética ($\mathcal{T}$) é dada por:
-        \begin{equation}
-        \mathcal{T} = \sum\limits_{i=0}^{N} \frac{1}{2} m {}_{i}^{i+1} \dot{\mathbf{P}}^T \cdot {}_{i}^{i+1}\dot{\mathbf{P}}+ J\mathbf{\omega}_i^T\cdot \mathbf{\omega}_i,
-        \end{equation}
-        \newline
-
-        Onde:
-        \newline
-        
-        \begin{tabular}{l | l}
-            \hline
-            $m_i$ & Massa \\ \hline
-            $\mathbf{\omega}_i$ & Velocidade Angular \\ \hline
-            $\mathbf{J}$ & Inercia \\ \hline
-        \end{tabular}
-
-    \end{itemize}
-\end{frame}
-
 
 \begin{frame}{Modelo Cinemático}
     \framesubtitle{Robô Diferencial}
@@ -834,27 +815,35 @@ rotation) [Wheeled Mobile Robotics]
 
     \begin{itemize}
 
-        \item energias
+        \item Equilíbrio de Energias:
 
         \begin{equation}
             \mathcal{L}= \mathcal{T} - \mathcal{V}
         \end{equation}
 
         \item A equação de energia cinética ($\mathcal{T}$) é dada por:
+        
         \begin{equation}
-        \mathcal{T} = \sum\limits_{i=0}^{N} \frac{1}{2} m {}_{i}^{i+1} \dot{\mathbf{P}}^T \cdot {}_{i}^{i+1}\dot{\mathbf{P}}+ J\mathbf{\omega}_i^T\cdot \mathbf{\omega}_i,
-        \end{equation}
-        \newline
+        \mathcal{T} = \sum\limits_{i=0}^{N-1} \frac{1}{2} {}_{i}^{i+1}\dot{\mathbf{P}}^T\cdot m_{i}\cdot {}_{i}^{i+1}\dot{\mathbf{P}}+ \mathbf{\omega}_i^T\cdot \mathbf{J}_i \cdot \mathbf{\omega}_i
+    \end{equation}
 
-        Onde:
-        \newline
+        \begin{block}{ou para um robô em uma superfície:} 
+       
+            \begin{equation*}
+                \boxed{
+                \mathcal{T} = \frac{m}{2}\left(\dot{x}^2+\dot{y}^2 \right)+ \frac{J}{2}\dot{\phi}^2}
+                \text{, e  }
+                \boxed{\mathcal{V} = 0}
+            \end{equation*}
+        \scriptsize{
+            onde: 
 
-        \begin{tabular}{l | l}
-            \hline
-            $m_i$ & Massa \\ \hline
-            $\mathbf{\omega}_i$ & Velocidade Angular \\ \hline
-            $\mathbf{J}$ & Inercia \\ \hline
-        \end{tabular}
+            \begin{tabular}{l|l}
+                $m$ & Massa \\
+                $\mathbf{\omega}$ & Velocidade Angular \\
+                $J$ & Inércia \\
+            \end{tabular}}
+        \end{block}
     \end{itemize}
 \end{frame}
 
@@ -873,14 +862,8 @@ rotation) [Wheeled Mobile Robotics]
             = f_k, \quad k = 1,2,...,n
         \end{equation}
 
-        \item Para Sistemas Não-Holonômicos \footnote{where index k describes the general coordinates q k (k = 1, . . . , n), L
-        defines the Lagrangian (difference between kinetic and potential energy
-        of the system), P is the power dissipation function due to friction and
-        damping in the system, g k are the forces due to gravitation,$\tau$ d k are the
-        system disturbances, and f k are the general forces (external influences to the
-        system) related to the general coordinate q k . Eq. (2.46) is valid only for a
-        nonconstrained system, that is, for the system without constraints that has n
-        DOFs and no velocity constraints.}:
+        \item Para Sistemas Não-Holonômicos \footnote{onde $k$ é o index das coordenadas generalizadas de $g_k$, $P$ representas as energias dissipativas (Atrito),
+        $\tau_d$ representa qualquer disturbio no sistema, $f_k$ são as forças externas que agem no sistema e $a_{jk}$ são os coeficientes das restrições de movimento.}
         \begin{equation}
             \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\dot{q}_k}\right)
             -\parcial{}{\mathcal{L}}{q_k}
@@ -894,46 +877,49 @@ rotation) [Wheeled Mobile Robotics]
 \begin{frame}{Modelo Dinâmico}
     \framesubtitle{Formulação de Lagrange}
     \begin{itemize}
-        \item A dynamic model (2.47) of some mechanical system with constraints
-        can be expressed in matrix form as follows:
+        \item O modelo dinâmico de um robô movel com restrições de movimento pode ser expresso pelo sistema de matrizes abaixo:
 
         \begin{equation}
             \mathbf{M(q)\ddot{q}+ C(q, \dot{q})+ F(\dot{q})+G(q) = E(q)u -A}^T\mathbf{(q)}\boldsymbol{\lambda}
         \end{equation}
-        \item  onde:
     \end{itemize}
 
- 
-    \center{
-    \scriptsize{
-    \begin{tabular}{| p{0.05\textwidth} | p{0.8\textwidth} |}
-        \hline
-        & Vector of generalized coordinates (dimension n x 1)\\ \hline
-        & Positive-definite matrix of masses and inertia (dimension n x n)\\ \hline
-        & Vector of Coriolis and centrifugal forces (dimension n x 1)\\ \hline
-        & Vector of friction and dumping forces (dimension n x 1)\\ \hline
-        & Vector of forces and torques due to gravity (dimension n x 1)\\ \hline
-        & Vector of unknown disturbances including unmodeled dynamics (dimension n x 1)\\ \hline
-        & Transformation matrix from actuator space to generalized coordinate space (dimension n x r)\\ \hline
-        & Input vector (dimension r x 1)\\ \hline
-        & Matrix of kinematic constraint coefficients (dimension m x n)\\ \hline
-        & Vector of constraint forces (Lagrange multipliers) (dimension m x 1)\\ \hline
-    \end{tabular}}}
+    \begin{block}{}
+        \scriptsize{
+            onde:
+        \begin{tabular}{ r | l }
+            $\mathbf{q}$& Vetor das coordenadas generalizadas\\ 
+            $\mathbf{M(q)}$& Matriz de massa e inercia\\ 
+            $\mathbf{C(q, \dot{q})}$& Vetor de força Coriolis e centrifuga\\ 
+            $\mathbf{F(\dot{q})}$& Vetor de atrito\\ 
+            $\mathbf{G(q)}$& Vector da força gravitacional\\ 
+            $\mathbf{E(q)}$ & Matriz dos tranformação dos atuadores\\ 
+            $\mathbf{u}$ & Vetor de entrada \\ 
+            $\mathbf{A}^T\mathbf{(q)}$& Matriz de restrições de movimento\\ 
+            $\boldsymbol{\lambda}$ & Multiplicador de Lagrange\\ 
+        \end{tabular}}
+    \end{block}
 \end{frame}
 
 
 
 \begin{frame}{Modelagem Dinâmica}
-
-    \includegraphics[page=6, width=1\textwidth]{../temp/1/5-dynamics.pdf}
+    \framesubtitle{Formulação de Lagrange - Exemplo Robô Diferencial}
+    
 
 \end{frame}
 
 
-
-
-
-
+\begin{frame}{Modelagem Dinâmica}
+    \framesubtitle{Formulação de Lagrange - Multiplicador de Lagrange}
+        A solução para $\lambda_i$ pode ser encontrada por:
+        \begin{itemize} 
+            \item Método 1: Explicit Computation of Constraint Forces \xmark
+            \item Método 2: Redução de Order \xmark
+            \item Método 3: Equações de Euler-Lagrange Modificadas \xmark
+            \item Método 4: Pseudo-velocidades \cmark
+        \end{itemize}
+\end{frame}
 
 
 \begin{frame}[c]{Modelagem de um Uniciclo}
@@ -989,6 +975,7 @@ rotation) [Wheeled Mobile Robotics]
 \begin{frame}[t]{Referências}
     \begin{itemize}
         \item Craig, John J. "Robótica. 3ª edição." Rev. Atual (2012).
+        % \item http://www.cpdee.ufmg.br/~torres/wp-content/uploads/2018/02/nonholonomic_constraints.pdf
         % \item https://def.fe.up.pt/dinamica/ 
         % \item http://efisica.if.usp.br/mecanica/avancado/dinamica/
         % \item VIEIRA, Frederico Carvalho. Controle dinâmico de robôs móveis com acionamento diferencial. 2006. Dissertação de Mestrado. Universidade Federal do Rio Grande do Norte.
