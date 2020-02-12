@@ -9,7 +9,7 @@
 \usepackage{graphicx,hyperref,url,pgfplots}
 \usepackage{amsmath} 
 \usepackage{array,booktabs}
-\pgfplotsset{compat=1.15} 
+\pgfplotsset{compat=1.15}  
 \usepackage{pifont}
 \newcommand{\cmark}{\textcolor{green}{\ding{51}}}%
 \newcommand{\xmark}{\textcolor{red}{\ding{55}}}%
@@ -475,7 +475,13 @@ desired robot state sequence.
         bem como:
 
         \begin{equation*}
-            \frac{\text{d}\mathbf{p}}{\text{d}t} = \mathbf{J}\frac{\text{d}\dot{\mathbf{q}}}{\text{d}t}
+            \frac{\text{d}\mathbf{p}}{\text{d}t} = \mathbf{J}\frac{\text{d}\mathbf{q}}{\text{d}t}
+        \end{equation*}
+
+        ou também: 
+
+        \begin{equation*}\label{eq:jacob}
+            \mathbf{\dot{p}} =  \mathbf{S}(q)\mathbf{\dot{v}}
         \end{equation*}
 
         onde $J$ é dado por:
@@ -906,13 +912,60 @@ rotation) [Wheeled Mobile Robotics]
     \framesubtitle{Formulação de Lagrange - Multiplicador de Lagrange}
         A solução para $\lambda_i$ pode ser encontrada por:
         \begin{itemize} 
-            \item Método 1: Calculo das Forças de restrições \xmark
+            \item Método 1: Pseudo-velocidades \cmark
             \item Método 2: Redução de Order \xmark
             \item Método 3: Equações de Euler-Lagrange Modificadas \xmark
-            \item Método 4: Pseudo-velocidades \cmark
+            \item Método 4: Calculo das Forças de restrições \xmark
         \end{itemize}
 \end{frame}
 % http://www.cpdee.ufmg.br/~torres/wp-content/uploads/2018/02/nonholonomic_constraints.pdf
+
+
+\begin{frame}{Modelagem Dinâmica}
+    \framesubtitle{Formulação de Lagrange}
+
+    \begin{itemize}
+        \item Pseudo-velocidades
+        
+        \begin{equation*}
+            \mathbf{\dot{x}} = 
+            \begin{bmatrix}
+                \mathbf{Sv} \\
+                \mathbf{-\tilde{M}}^{-1}\mathbf{\tilde{V}}
+            \end{bmatrix} 
+            +
+            \begin{bmatrix}
+                \mathbf{0}_{n \times r} \\
+                \mathbf{\tilde{M}}^{-1}\mathbf{\tilde{E}}
+            \end{bmatrix} \mathbf{u}
+        \end{equation*}
+
+        sendo: 
+
+        \begin{equation*}
+            \begin{split}
+                \mathbf{\tilde{V}} & = 
+                \mathbf{S}^T\mathbf{M}\mathbf{\dot{S}v} + \mathbf{S}^T (\mathbf{V + F + G})\\
+                \mathbf{\tilde{M}} & = \mathbf{S}^T\mathbf{M}\mathbf{S}
+            \end{split}
+        \end{equation*}
+
+    \end{itemize}
+
+    \begin{block}{}
+        \scriptsize{
+            onde:
+        \begin{tabular}{ r | l }
+            $\mathbf{x}$& Vetor de estados \\
+            $\mathbf{S}$& Matriz Jacobiana de \eqref{eq:jacob},  $\boxed{\mathbf{\dot{p}} = \mathbf{S}(q)\mathbf{\dot{v}}}$ \\
+            $\mathbf{\tilde{V}}$& Vetor de estados \\
+            $\mathbf{\tilde{M}}$& Vetor de estados \\
+            $\mathbf{\tilde{E}}$& Vetor de estados \\
+        \end{tabular}}
+    \end{block}
+
+\end{frame}
+
 
 \begin{frame}[c]{Modelagem de um Uniciclo}
     \framesubtitle{}
