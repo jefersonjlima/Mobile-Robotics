@@ -11,3 +11,4 @@
 *.fdb*
 *.fls
 temp/
+.ipynb_checkpoints/
