@@ -5,6 +5,7 @@
 \usepackage{lmodern}
 \usefonttheme[onlymath]{serif}
 \usepackage[scale=2]{ccicons}
+\usepackage[makeroom]{cancel}
 
 \usepackage{graphicx,hyperref,url,pgfplots}
 \usepackage{amsmath} 
@@ -922,50 +923,83 @@ rotation) [Wheeled Mobile Robotics]
 
 
 \begin{frame}{Modelagem Dinâmica}
-    \framesubtitle{Formulação de Lagrange}
+    \framesubtitle{Formulação de Lagrange - Pseudo-velocidades}
 
     \begin{itemize}
-        \item Pseudo-velocidades
+        \item O objetivo é resolver as restrições de $\lambda_i$: 
+
+        \begin{equation}\label{eq:rmrestri}
+            \mathbf{M(q)\ddot{q}+ C(q, \dot{q})+ F(\dot{q})+G(q) = E(q)u} - \textcolor{red}{\cancel{\mathbf{A}\mathbf{(q)}^T\boldsymbol{\lambda}}}
+        \end{equation}
         
+        \item reelembrando:
+
+        \begin{equation*}
+            \mathbf{\dot{q}} = \mathbf{S}(q)\mathbf{v}
+        \end{equation*}
+
+        \item bem como:
+
+        \begin{equation}\label{eq:aprox_accel}
+            \mathbf{\ddot{q}} = \mathbf{\dot{S}}(q)\mathbf{v} + \mathbf{S}(q)\mathbf{\dot{v}}
+        \end{equation}
+
+        \item Subustituindo \eqref{eq:rmrestri} em \eqref{eq:aprox_accel} e aplicando a relãção $\mathbf{A}(q)\mathbf{S}(q)=0$, temos a equação de aceleração do sistema:
+
+        \begin{equation}\label{eq:pseudovelo}
+            \mathbf{\dot{v}} = \mathbf{\tilde{M}}^{-1}\left(\mathbf{\tilde{E}u - \tilde{V}} \right)
+        \end{equation}
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Modelagem Dinâmica}
+    \framesubtitle{Formulação de Lagrange - Pseudo-velocidades}
+    \begin{itemize}
+        \item \eqref{eq:pseudovelo} na forma de equação:
         \begin{equation*}
             \mathbf{\dot{x}} = 
             \begin{bmatrix}
-                \mathbf{Sv} \\
+                \mathbf{S}(q)\mathbf{v} \\
                 \mathbf{-\tilde{M}}^{-1}\mathbf{\tilde{V}}
             \end{bmatrix} 
             +
             \begin{bmatrix}
-                \mathbf{0}_{n \times r} \\
+                \mathbf{0} \\
                 \mathbf{\tilde{M}}^{-1}\mathbf{\tilde{E}}
             \end{bmatrix} \mathbf{u}
         \end{equation*}
 
-        sendo: 
+        \item onde:
 
         \begin{equation*}
             \begin{split}
                 \mathbf{\tilde{V}} & = 
-                \mathbf{S}^T\mathbf{M}\mathbf{\dot{S}v} + \mathbf{S}^T (\mathbf{V + F + G})\\
-                \mathbf{\tilde{M}} & = \mathbf{S}^T\mathbf{M}\mathbf{S}
+                \mathbf{S}(q)^T\mathbf{M}\mathbf{\dot{S}}(q)\mathbf{v} + \mathbf{S}(q)^T (\mathbf{V + F + G})\\
+                \mathbf{\tilde{M}} & = \mathbf{S}(q)^T\mathbf{M}\mathbf{S}(q)\\
+                \mathbf{\tilde{E}} & = \mathbf{S}(q)^T\mathbf{E}\mathbf{S}
             \end{split}
         \end{equation*}
 
+        \begin{block}{}
+            \scriptsize{
+                onde:
+            \begin{tabular}{ r | l }
+                $\mathbf{x}$& Vetor de estados \\
+                $\mathbf{S}$& Matriz Jacobiana \\
+            \end{tabular}}
+        \end{block}
+    
+
     \end{itemize}
-
-    \begin{block}{}
-        \scriptsize{
-            onde:
-        \begin{tabular}{ r | l }
-            $\mathbf{x}$& Vetor de estados \\
-            $\mathbf{S}$& Matriz Jacobiana de \eqref{eq:jacob},  $\boxed{\mathbf{\dot{p}} = \mathbf{S}(q)\mathbf{\dot{v}}}$ \\
-            $\mathbf{\tilde{V}}$& Vetor de estados \\
-            $\mathbf{\tilde{M}}$& Vetor de estados \\
-            $\mathbf{\tilde{E}}$& Vetor de estados \\
-        \end{tabular}}
-    \end{block}
-
 \end{frame}
 
+
+
+\begin{frame}{Modelagem Dinâmica}
+    \framesubtitle{Formulação de Lagrange - Exemplo Robô Diferencial}
+\end{frame}
 
 \begin{frame}[c]{Modelagem de um Uniciclo}
     \framesubtitle{}
