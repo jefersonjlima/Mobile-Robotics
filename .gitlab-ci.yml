@@ -9,7 +9,8 @@ pdf_stage:
   script:
     - tex --version
     - cd ./1-introducao-a-robotica-movel/
-    - pdflatex -output-directory ./../docs/api/static/ cinematica-e-dinamica.tex  # build the pdf just as you would on your computer
+    - pdflatex cinematica-e-dinamica.tex  # build the pdf just as you would on your computer
+    - mv cinematica-e-dinamica.pdf  ../docs/api/static/
   artifacts:
     paths: 
       - ./docs/api/static/  # instruct GitLab to keep the main.pdf file
