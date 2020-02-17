@@ -26,7 +26,7 @@ pages:
     - ls
     - hugo version
     - cd ./pdf_output/
-    - mv *.pdf ../docs/api/static/
+    - cp *.pdf ../docs/api/static/
     - cd ../docs/api
     - hugo
     - mv public ../../public
