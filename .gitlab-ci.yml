@@ -8,12 +8,13 @@ pdf_stage:
   image: timnn/texlive  # use a Docker image for LaTeX from https://hub.docker.com/
   script:
     - tex --version
+    - mkdir output
     - cd ./1-introducao-a-robotica-movel
     - pdflatex cinematica-e-dinamica.tex  # build the pdf just as you would on your computer
-    - mv cinematica-e-dinamica.pdf  ../docs/api/static
+    - mv cinematica-e-dinamica.pdf  ../output
   artifacts:
     paths: 
-      - docs/api/static  # instruct GitLab to keep the main.pdf file
+      - output  # instruct GitLab to keep the main.pdf file
   only:
     - master
 
@@ -22,9 +23,10 @@ pages:
   stage: pages
   image: registry.gitlab.com/pages/hugo:latest
   script:
-    - ls
-    - ls ./docs/api/static
-    - cd ./docs/api
+    - ls output
+    - cd output
+    - mv *.pdf ../docs/api/static
+    - cd ../docs/api
     - hugo
     - mv public ../../public
   artifacts:
@@ -32,3 +34,5 @@ pages:
       - public
   only:
     - master
+
+    
