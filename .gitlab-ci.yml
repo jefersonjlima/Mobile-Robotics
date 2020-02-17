@@ -22,6 +22,7 @@ publish_stage:
   stage: pages
   image: registry.gitlab.com/pages/hugo:latest
   script:
+    - ls
     - cd ./docs/api
     - hugo
     - mv public ../../public
