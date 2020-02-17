@@ -1,21 +1,21 @@
-stages:
-  - pdf
-  - pages
+# stages:
+#   - pdf
+#   - pages
 
 
-pdf_stage:
-  stage: pdf
-  image: timnn/texlive  # use a Docker image for LaTeX from https://hub.docker.com/
-  script:
-    - tex --version
-    - cd ./1-introducao-a-robotica-movel/
-    - pdflatex cinematica-e-dinamica.tex  # build the pdf just as you would on your computer
-    - mv cinematica-e-dinamica.pdf ../
-  artifacts:
-    paths: 
-      - cinematica-e-dinamica.pdf  # instruct GitLab to keep the main.pdf file
-  only:
-    - master
+# pdf_stage:
+#   stage: pdf
+#   image: timnn/texlive  # use a Docker image for LaTeX from https://hub.docker.com/
+#   script:
+#     - tex --version
+#     - cd ./1-introducao-a-robotica-movel/
+#     - pdflatex cinematica-e-dinamica.tex  # build the pdf just as you would on your computer
+#     - mv cinematica-e-dinamica.pdf ../
+#   artifacts:
+#     paths: 
+#       - cinematica-e-dinamica.pdf  # instruct GitLab to keep the main.pdf file
+#   only:
+#     - master
 
 
 publish_stage:
