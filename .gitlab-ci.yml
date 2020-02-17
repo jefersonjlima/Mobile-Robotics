@@ -8,10 +8,8 @@ pdf_stage:
   image: timnn/texlive  # use a Docker image for LaTeX from https://hub.docker.com/
   script:
     - tex --version
-    - mkdir pdf_output
     - cd ./1-introducao-a-robotica-movel/
-    - pdflatex cinematica-e-dinamica.tex  # build the pdf just as you would on your computer
-    - cp -r *.pdf ./../docs/api/static/
+    - pdflatex -output-directory ./../docs/api/static/ cinematica-e-dinamica.tex  # build the pdf just as you would on your computer
   artifacts:
     paths: 
       - ./docs/api/static/  # instruct GitLab to keep the main.pdf file
