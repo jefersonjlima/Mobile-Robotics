@@ -1,3 +1,7 @@
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+
 compile_pdf:
   stage: build
   image: timnn/texlive  # use a Docker image for LaTeX from https://hub.docker.com/
@@ -9,3 +13,19 @@ compile_pdf:
   artifacts:
     paths: 
       - cinematica-e-dinamica.pdf  # instruct GitLab to keep the main.pdf file
+  only:
+  - master
+
+pages:
+  stage: publish
+  image: registry.gitlab.com/pages/hugo:latest
+  script:
+  - cd ./docs/api
+  - hugo
+  - mv public ../../public
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
+
