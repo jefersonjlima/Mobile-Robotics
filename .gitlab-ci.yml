@@ -1,28 +1,19 @@
-# stages:
-#   - pdf
-#   - pages
+# All available Hugo versions are listed here: https://gitlab.com/pages/hugo/container_registry
+image: registry.gitlab.com/pages/hugo:latest
 
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
 
-# pdf_stage:
-#   stage: pdf
-#   image: timnn/texlive  # use a Docker image for LaTeX from https://hub.docker.com/
-#   script:
-#     - tex --version
-#     - cd ./1-introducao-a-robotica-movel/
-#     - pdflatex cinematica-e-dinamica.tex  # build the pdf just as you would on your computer
-#     - mv cinematica-e-dinamica.pdf ../
-#   artifacts:
-#     paths: 
-#       - cinematica-e-dinamica.pdf  # instruct GitLab to keep the main.pdf file
-#   only:
-#     - master
+test:
+  script:
+  - hugo
+  except:
+  - master
 
-
-publish_stage:
+pages:
   stage: pages
   image: registry.gitlab.com/pages/hugo:latest
   script:
-    - ls
     - cd ./docs/api
     - hugo
     - mv public ../../public
