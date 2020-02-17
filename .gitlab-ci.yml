@@ -11,9 +11,7 @@ pdf_stage:
     - mkdir pdf_output
     - cd ./1-introducao-a-robotica-movel/
     - pdflatex cinematica-e-dinamica.tex  # build the pdf just as you would on your computer
-    - cd ..
-    - cp -r ./1-introducao-a-robotica-movel/*.pdf ./docs/api/static/
-    - cp -rl ./1-introducao-a-robotica-movel/*.pdf ./docs/api/static/
+    - cp -r *.pdf ./../docs/api/static/
   artifacts:
     paths: 
       - ./docs/api/static/  # instruct GitLab to keep the main.pdf file
