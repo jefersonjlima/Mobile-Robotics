@@ -24,8 +24,10 @@ pages:
   image: registry.gitlab.com/pages/hugo:latest
   script:
     - ls
-    - mv ./pdf_output/*.pdf ./docs/api/static/
-    - cd ./docs/api
+    - hugo version
+    - cd ./pdf_output/
+    - mv *.pdf ../docs/api/static/
+    - cd ../docs/api
     - hugo
     - mv public ../../public
   artifacts:
