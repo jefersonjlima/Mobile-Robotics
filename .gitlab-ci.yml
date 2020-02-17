@@ -25,9 +25,8 @@ pages:
   script:
     - ls
     - hugo version
-    - cd ./pdf_output/
-    - cp *.pdf ../docs/api/static/
-    - cd ../docs/api
+    - cp ./pdf_output/inematica-e-dinamica.pdf ./docs/api/static/
+    - cd ./docs/api
     - hugo
     - mv public ../../public
   artifacts:
