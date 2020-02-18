@@ -8,5 +8,5 @@ features = [ "simple", "white" ]
 min_version = "0.61.0"
 
 [author]
-name = "Jeferson Lima"
+name = "Linlin Yan"
 homepage = "http://yanlinlin.cn/"
