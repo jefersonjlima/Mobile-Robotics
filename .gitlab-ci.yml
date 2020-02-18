@@ -2,7 +2,6 @@ stages:
   - pdf
   - pages
 
-
 pdf_stage:
   stage: pdf
   image: timnn/texlive  # use a Docker image for LaTeX from https://hub.docker.com/
@@ -18,12 +17,11 @@ pdf_stage:
   only:
     - master
 
-
 pages:
   stage: pages
   image: registry.gitlab.com/pages/hugo:latest
   script:
-    - cd ./docs/api
+    - cd ./docs/hugoapi
     - hugo
     - mv public ../../public
   artifacts:
