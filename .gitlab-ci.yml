@@ -1,3 +1,6 @@
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
 stages:
   - pdf
   - pages
@@ -17,14 +20,11 @@ pdf_stage:
   only:
     - master
 
-
-variables:
-  GIT_SUBMODULE_STRATEGY: recursive
 pages:
   stage: pages
   image: registry.gitlab.com/pages/hugo:latest
   script:
-    - cd ./docs/hugoapi
+    - cd ./docs/api
     - hugo
     - mv public ../../public
   artifacts:
