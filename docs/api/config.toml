@@ -2,6 +2,6 @@ baseURL = "https://cursoseaulas.gitlab.io/robotica-movel"
 author = "Jeferson Lima"
 githubUrl = "https://gitlab.com/cursoseaulas/robotica-movel"
 languageCode = "pt-br"
-title = "Robótica Móvel"
+title = "Disciplina de Robótica Móvel"
 theme = "simple-style"
 
