@@ -3,7 +3,6 @@ variables:
 
 stages:
   - pdf
-  - pages
 
 pdf_stage:
   stage: pdf
@@ -19,18 +18,3 @@ pdf_stage:
       - output  # instruct GitLab to keep the main.pdf file
   only:
     - master
-
-pages:
-  stage: pages
-  image: registry.gitlab.com/pages/hugo:latest
-  script:
-    - cd docs/api/themes/hugo-theme-learn/exampleSite/
-    - hugo --themesDir ../..
-    - mv public ../../../../../public
-  artifacts:
-    paths:
-      - public
-  only:
-    - master
-
-    
