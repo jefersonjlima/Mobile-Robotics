@@ -1,0 +1,7 @@
+baseURL = "https://cursoseaulas.gitlab.io/robotica-movel"
+languageCode = "en-us"
+title = "Robotica"
+theme = "elephants"
+
+[params]
+    sitename = "Robotica Movel"
