@@ -2,8 +2,8 @@ variables:
   GIT_SUBMODULE_STRATEGY: recursive
 
 stages:
-  - pdf
   - pages
+  - pdf
 
 pdf_stage:
   stage: pdf
