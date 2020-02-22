@@ -81,5 +81,5 @@
 * https://ethz.ch/content/dam/ethz/special-interest/mavt/robotics-n-intelligent-systems/asl-dam/documents/lectures/autonomous_mobile_robots/spring-2019/Perception%20I%20-%20Sensors%20add%20ons%202019%20RS.pdf
 
 
-# Similar courses
-* a
+# Job
+* http://wiki.ros.org/Jobs
