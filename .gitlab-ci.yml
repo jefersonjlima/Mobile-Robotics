@@ -18,7 +18,7 @@ pdf_stage:
     paths: 
       - output  # instruct GitLab to keep the main.pdf file
   only:
-    - branch
+    - master
 
 
 pages:
@@ -32,5 +32,5 @@ pages:
     paths:
       - public
   only:
-    - branch
+    - master
 
