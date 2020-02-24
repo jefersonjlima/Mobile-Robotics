@@ -20,6 +20,7 @@ pages:
   stage: deploy
   image: alpine:latest
   script:
+    - find ./ -name '*.pdf'
     - find ./ -name '*.pdf' -exec mv -t ./public {} +
   artifacts:
     paths:
