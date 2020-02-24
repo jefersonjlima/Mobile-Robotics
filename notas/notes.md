@@ -83,3 +83,6 @@
 
 # Job
 * http://wiki.ros.org/Jobs
+
+# Projects
+* https://electricdiylab.com/diy-self-balancing-robot/

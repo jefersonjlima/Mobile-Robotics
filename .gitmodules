@@ -1,0 +1,3 @@
+[submodule "template-beamer"]
+	path = template-beamer
+	url = git@gitlab.com:cursoseaulas/template-beamer.git
