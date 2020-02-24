@@ -1,5 +1,5 @@
 stages:
-  - pages
+  - pdf
   - deploy
 
 pdf_stage:
