@@ -1,0 +1,29 @@
+stages:
+  - pages
+  - deploy
+
+pdf_stage:
+  stage: pdf
+  image: timnn/texlive  # use a Docker image for LaTeX from https://hub.docker.com/
+  script:
+    - tex --version
+    - mkdir output
+    - cd ./1-introducao-a-robotica-movel
+    - pdflatex cinematica-e-dinamica.tex  # build the pdf just as you would on your computer
+    - mv cinematica-e-dinamica.pdf  ../output
+  artifacts:
+    paths: 
+      - output  # instruct GitLab to keep the main.pdf file
+  only:
+    - master
+
+pages:
+  stage: deploy
+  image: alpine:latest
+  script:
+  - cp ./output/cinematica-e-dinamica.pdf ./public
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
