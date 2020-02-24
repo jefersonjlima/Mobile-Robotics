@@ -7,12 +7,10 @@ pdf_stage:
   image: timnn/texlive  # use a Docker image for LaTeX from https://hub.docker.com/
   script:
     - tex --version
-    - mkdir output
-    - find ./ -name '*aula.tex' -exec pdflatex {} \;
-    - find ./ -name '*.pdf' -exec mv -t ./output {} \;
+    - find ./ -name '*aula.tex' -exec pdflatex -output-directory ./public {} \;
   artifacts:
     paths: 
-      - output  # instruct GitLab to keep the main.pdf file
+      - public  # instruct GitLab to keep the main.pdf file
   only:
     - master
 
@@ -20,8 +18,7 @@ pages:
   stage: deploy
   image: alpine:latest
   script:
-    - find ./ -name '*.pdf'
-    - find ./ -name '*.pdf' -exec mv -t ./public {} +
+    - echo 'deploy page!!!'
   artifacts:
     paths:
     - public
