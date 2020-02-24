@@ -1,6 +1,6 @@
 stages:
   - pdf
-  - deploy
+  - pages
 
 pdf_stage:
   stage: pdf
@@ -8,6 +8,7 @@ pdf_stage:
   script:
     - tex --version
     - find ./ -name '*aula.tex' -exec pdflatex {} \;
+    - sleep 30
     - find ./ -name '*.pdf' -exec mv -t ./public {} \;
   artifacts:
     paths: 
@@ -16,7 +17,7 @@ pdf_stage:
     - master
 
 pages:
-  stage: deploy
+  stage: pages
   image: alpine:latest
   script:
     - echo 'deploy page!!!'
