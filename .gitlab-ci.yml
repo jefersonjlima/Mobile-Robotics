@@ -8,9 +8,10 @@ pdf_stage:
   script:
     - tex --version
     - cp 1-introducao-a-robotica-movel/beamerthemesimple.sty ./
+    - ls
     - find ./ -name '*aula.tex' -exec pdflatex {} \;
-    - sleep 30
     - find ./ -name '*.pdf' -exec mv -t ./public {} \;
+    - ls ./public/
   artifacts:
     paths: 
       - public  # instruct GitLab to keep the main.pdf file
@@ -22,7 +23,7 @@ pages:
   image: alpine:latest
   script:
     - echo 'deploy page!!!'
-    - ls ./public/*.pdf
+    - ls ./public/
   artifacts:
     paths:
     - public
