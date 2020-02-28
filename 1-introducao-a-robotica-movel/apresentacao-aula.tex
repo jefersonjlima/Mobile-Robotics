@@ -1,0 +1,116 @@
+\documentclass{beamer}
+\usetheme{simple}
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc} 
+\usepackage{lmodern}
+\usefonttheme[onlymath]{serif}
+\usepackage[scale=2]{ccicons}
+ 
+\usepackage{graphicx,hyperref,url,pgfplots}
+\usepackage{amsmath} 
+\usepackage{array,booktabs}
+\pgfplotsset{compat=1.15} 
+
+\setbeamercovered{invisible}
+\newcommand{\pausar}{\pause}
+\newcommand{\df}[1]{\,\mathrm{d}#1}
+\newcommand{\parcial}[3]{\dfrac{\partial^{#1}#2}{\partial #3^{#1}}}
+
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{scopes}
+\usepackage{verbatim}
+\usetikzlibrary{patterns}
+
+\usepackage{listings}
+	\definecolor{codegreen}{rgb}{0,0.6,0}
+	\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+	\definecolor{codepurple}{rgb}{0.58,0,0.82}
+	\definecolor{backcolour}{rgb}{0.92,0.92,0.92}
+	\lstset{language=Python, 
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\fontsize{8}{11}\ttfamily,
+	frame=lines,
+%	numbers=left,
+	tabsize=2,
+	morekeywords={models, lambda, forms}}
+
+
+
+% --------------------------------------------------------------------------------------------
+
+\title{Robótica Móvel}
+\subtitle{Visão Geral}
+\date{\today}
+\author[Jeferson José de Lima]{
+  \textbf{Professor}: Jeferson José de Lima}
+\institute[UTFPR-PB]{Departamento de Informática (DAINF)}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}{Informações Úteis}
+	\begin{block}{Material disponível em:}
+		\begin{enumerate}
+			\item \href{Robótica Móvel - Wiki}{https://gitlab.com/cursoseaulas/robotica-movel/-/wikis/home}
+			\item Moodle - Robótica Móvel
+		\end{enumerate}
+	\end{block}
+	\begin{block}{Dinâmica de Aula}
+		\begin{enumerate}
+			\item Aulas Teóricas: \textcolor{red}{Segunda-feira}
+			\item Aulas Práticas: \textcolor{blue}{Sexta-feira}
+		\end{enumerate}
+	\end{block}
+	\begin{block}{Requisitos da Disciplina}
+		\begin{itemize}
+		\item Teoria de Controle
+		\item Eletrônica
+		\item Linguagem de Programação - \textbf{Python} e \textbf{C++}
+		\item Noções básicas de Mecânica
+		\end{itemize}
+	\end{block}
+\end{frame}
+
+
+\begin{frame}{Plano de Aula}
+	\begin{block}{Ementa da Disciplina}
+		\begin{enumerate}
+			\item Introdução a Robótica Móvel
+			\item Percepção e Ação
+			\item Paradigmas de Controle
+			\item Ambiente de Simulação
+			\item Localização e Mapeamento
+		\end{enumerate}
+	\end{block}
+
+	\begin{block}{Avaliações}
+		\begin{enumerate}
+			\item Desenvolvimento do Projeto Prático
+				\begin{itemize}
+					\item Competição Livre - FPV
+					\item Controle e Telemetria
+					\item Mapeamento e Localização
+				\end{itemize}
+			\item Relatórios
+		\end{enumerate}
+	\end{block}
+
+\end{frame}
+
+
+
+\begin{frame}[t]{Referências}
+    \begin{itemize}
+        \item Introduction to Mobile Robot Control (contexto historico)
+    \end{itemize}
+\end{frame}
+\end{document}
+
+
+% https://ethz.ch/content/dam/ethz/special-interest/mavt/robotics-n-intelligent-systems/rsl-dam/documents/RobotDynamics2016/0-introduction.pdf

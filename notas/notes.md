@@ -86,3 +86,4 @@
 
 # Projects
 * https://electricdiylab.com/diy-self-balancing-robot/
+* https://www.youtube.com/watch?v=T6r7EZKZW-E
