@@ -1,0 +1,35 @@
+stages:
+  - pdf
+  - pages
+
+pdf_stage:
+  stage: pdf
+  image: timnn/texlive  # use a Docker image for LaTeX from https://hub.docker.com/
+  script:
+    - tex --version
+    - find ./ -name '*_image.tex' -exec mv -t ./ {} \;
+    - find ./ -name '*.jpeg' -exec mv -t ./ {} \;
+    - find ./ -name '*.jpg' -exec mv  -t ./ {} \;
+    - find ./ -name '*.png' -exec mv  -t ./ {} \;
+    - cp 1-introducao-a-robotica-movel/beamerthemesimple.sty ./
+    - ls
+    - find ./ -name '*aula.tex' -exec pdflatex {} \;
+    - find ./ -name '*.pdf' -exec mv -t ./public {} \;
+    - ls ./public/
+  artifacts:
+    paths: 
+      - public  # instruct GitLab to keep the main.pdf file
+  only:
+    - master
+
+pages:
+  stage: pages
+  image: alpine:latest
+  script:
+    - echo 'deploy page!!!'
+    - ls ./public/
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
