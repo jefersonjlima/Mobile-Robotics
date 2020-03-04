@@ -7,6 +7,11 @@ pdf_stage:
   image: timnn/texlive  # use a Docker image for LaTeX from https://hub.docker.com/
   script:
     - tex --version
+    - mkdir images
+    - find ./ -name '*_image.tex' -exec mv -t ./images {} \;
+    - find ./ -name '*.jpeg' -exec mv -t ./images {} \;
+    - find ./ -name '*.jpg' -exec mv  -t ./images {} \;
+    - find ./ -name '*.png' -exec mv  -t ./images {} \;
     - cp 1-introducao-a-robotica-movel/beamerthemesimple.sty ./
     - ls
     - find ./ -name '*aula.tex' -exec pdflatex {} \;

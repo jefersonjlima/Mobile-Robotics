@@ -4,20 +4,20 @@
 \usepackage[utf8]{inputenc} 
 \usepackage{lmodern}
 \usepackage{ragged2e}
-\usefonttheme[onlymath]{serif}
+\usefonttheme[onlymath]{serif} 
 \usepackage[scale=2]{ccicons}
-  
+
 \usepackage{graphicx,hyperref,url,pgfplots}
 \usepackage{amsmath} 
 \usepackage{array,booktabs}
 \usepackage{bibentry}
-\usepackage[alf,abnt-etal-list=0,abnt-etal-cite=3]{abntex2cite}
-\usepackage[normalem]{ulem}
-
+%\usepackage[alf,abnt-etal-list=0,abnt-etal-cite=3]{abntex2cite}
+\usepackage[normalem]{ulem} 
 \pgfplotsset{compat=1.13}  
 
-\setbeamercovered{invisible}
-\newcommand{\pausar}{\pause}
+\setbeamercovered{invisible} 
+% \newcommand{\pausar}{\pause}
+\newcommand{\pausar}{""}
 \newcommand{\df}[1]{\,\mathrm{d}#1}
 \newcommand{\parcial}[3]{\dfrac{\partial^{#1}#2}{\partial #3^{#1}}}
 
@@ -128,7 +128,7 @@
               \end{itemize}
     \end{itemize}
     \begin{center}
-        \includegraphics[width=0.8\textwidth]{../images/mecanismos.jpg}
+        \includegraphics[width=0.8\textwidth]{./images/mecanismos.jpg}
     \end{center}
 \end{frame}
 
@@ -138,10 +138,17 @@
 	\begin{block}{Percepção e Ação}
 	\end{block}
 	\begin{center}
-		\includegraphics[width=0.6\textwidth]{../images/autonomous-car.png}\footnotetext{https://edisciplinas.usp.br/course/view.php?id=72434}
+		\includegraphics[width=0.6\textwidth]{./images/autonomous-car.png}
+		
+		fonte: \footnote{https://edisciplinas.usp.br/course/view.php?id=72434}
 	\end{center}
-	\pausar
-	\begin{itemize}
+\end{frame}
+
+\begin{frame}[t]{Ementa da Disciplina}
+	\framesubtitle{Robótica Móvel}
+	\begin{block}{Percepção e Ação}
+	\end{block}
+	\begin{itemize} 
 		\item Sensores (Ultrasom, LIDAR, Camera Stereo ...) \pausar
 		\item Algoritmos para Fusão de Sensores \pausar
 		\item Atuadores (Motor CC, Encoders, ...)
@@ -154,7 +161,7 @@
 	\begin{block}{Percepção e Ação}
 	\end{block}
 	\begin{center}
-		\includegraphics[width=0.9\textwidth]{../images/autonomous-car_2.png}
+		\includegraphics[width=0.9\textwidth]{./images/autonomous-car_2.png}
 	\end{center}
 \end{frame}
 
@@ -178,7 +185,7 @@
 	\begin{itemize}
 		\item  Robot Operating System (ROS)
 		\begin{center}
-			\includegraphics[width=0.7\textwidth]{../images/ros_msgs.png}	
+			\includegraphics[width=0.7\textwidth]{./images/ros_msgs.png}	
 		\end{center}
 	\end{itemize}
 \end{frame}
@@ -193,7 +200,7 @@
 	\begin{itemize}
 		\item  Robot Operating System (ROS)
 		\begin{center}
-			\includegraphics[width=0.7\textwidth]{../images/ros_example.png}	
+			\includegraphics[width=0.7\textwidth]{./images/ros_example.png}	
 		\end{center}
 	\end{itemize}
 \end{frame}
@@ -207,7 +214,7 @@
 	\begin{itemize}
 		\item  Robot Operating System (ROS)
 		\begin{center}
-			\includegraphics[width=0.7\textwidth]{../images/ros_example_2.png}	
+			\includegraphics[width=0.7\textwidth]{./images/ros_example_2.png}	
 		\end{center}
 	\end{itemize}
 \end{frame}
@@ -219,7 +226,7 @@
 	\begin{block}{Localização e Mapeamento}
 	\end{block}
 	\begin{center}
-		\includegraphics[width=0.7\textwidth]{../images/slam-example.png}	
+		\includegraphics[width=0.7\textwidth]{./images/slam-example.png}	
 	\end{center}
 \end{frame}
 
@@ -249,17 +256,7 @@
 			\hline
 		\end{tabular}
 	\end{block}
-\end{frame}
-
-
-
-\begin{frame}{Métodos de Avaliação}
-	\begin{block}{Trabalho Final}
-	\end{block}
-	\begin{itemize}
-		\item \href{https://www.youtube.com/watch?v=uCaOzrZ8wls}{}
-	\end{itemize}
-\end{frame}
+\end{frame} 
 
 
 \begin{frame}{Literatura de Referência}
@@ -268,7 +265,7 @@
 		\item Percepção e Ação
 		\item Paradigmas de Controle
 		\item Ambiente de Simulação
-		\item Localização e Mapeamento\footnote{\cite{thrun2000probabilistic}}
+		\item Localização e Mapeamento
 	\end{itemize} 
 \end{frame}
 
