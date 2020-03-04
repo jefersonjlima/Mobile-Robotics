@@ -10,5 +10,7 @@
 *.pdf
 *.fdb*
 *.fls
+*.bbl
+*.blg
 temp/
 .ipynb_checkpoints/

@@ -1,0 +1,19 @@
+\frametitle{Exemplo Slide com código}
+
+    \begin{lstlisting}[language=Python]
+			...
+			for i in range(m-1):
+					for j in range(i+1, m):
+						[r,c] = np.where(M2 == M1[i,j])
+						for k in range(len(r)):
+							VT[(i)*n + r[k]] = 1;
+							VT[(i)*n + c[k]] = 1;
+							VT[(j)*n + r[k]] = 1;
+							VT[(j)*n + c[k]] = 1;
+							if M is None:
+								M = np.copy(VT)
+							else:
+								M = np.concatenate((M, VT), 1)
+							VT = np.zeros((n*m,1), int)
+		return M
+	\end{lstlisting}

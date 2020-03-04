@@ -4,7 +4,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern} 
 \usefonttheme[onlymath]{serif}
-\usepackage[scale=2]{ccicons}
+\usepackage[scale=2]{ccicons} 
 
 \usepackage{graphicx,hyperref,url,pgfplots}
 \usepackage{media9}
@@ -122,16 +122,14 @@
     \begin{itemize}
         \item \textbf{Uma Variável:} $\color{blue}{P(x) \sim N(\mu, \sigma^2)}$
     \end{itemize}
-
     \begin{block}{}
         \begin{equation*}
             P(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}}\cdot 
         \exp\left\{-\frac{(x-\mu)^2}{2\sigma^2}\right\}
         \end{equation*}
     \end{block}
-
     \centering
-    \input{images/gauss_1d.tex}
+    \input{../images/gauss_1d.tex}
 \end{frame}
 
 
@@ -141,7 +139,7 @@
         \item Bivariável: $\color{blue}{P(\mathbf{x}) \sim N(\mu, \textstyle\sum)}$
     \end{itemize}
     \centering
-    \input{images/gauss_2d.tex}
+    \input{../images/gauss_2d.tex}
 \end{frame}
 
 
@@ -208,14 +206,12 @@
             x_t &= A_t x_{t-1} + B_t u_t\\ 
             z_t &= C_t x_t
         \end{align*}
-
         \item Num \textcolor{blue}{modelo estocástico} o resultado do sistema não depende somente dos dados de entrada, mas também de outros fatores, normalmente
         aleatórios:
         \begin{align} 
             x_t &= A_t x_{t-1} + B u_t +  \varepsilon_t\\ 
             z_t &= C_t x_t + \delta_t
         \end{align}
-
         \begin{itemize}
             \item $A_t$ Matriz $(n \times n)$ que descreve os estados do modelo.
             \item $B_t$ Matriz $(n \times l)$ que descreve os estados do controle.
@@ -229,12 +225,11 @@
 
 \begin{frame}{Kalman filter}
     \framesubtitle{Representação Grafica}
-    \input{images/gauss_1da.tex}
+    \input{../images/gauss_1da.tex}
 \end{frame}
 
 \begin{frame}{Kalman filter}
     \framesubtitle{Revisão}
-
     \setlength\extrarowheight{5pt}
         \begin{tabular}{r l}
             $\color{blue}{\text{Bel}}(x_t)$ & = $P(x_t| u_1, z_1,  \cdots, z_t)$ \\
@@ -255,7 +250,6 @@
 
 \begin{frame}[c]{Kalman filter}
     \framesubtitle{Algoritmo}
-
     \begin{itemize}
         \item Iniciando as Variável:
         \begin{equation}
@@ -310,18 +304,15 @@
         & $\sim N\left(x_t; A_t x_{t-1}+ B_tu_t, Q_t\right)$ & $\sim N\left(x_{t-1}; \mu_{t-1}, \textstyle\sum {}_{t-1}\right)$ \\
         & \quad\quad\quad\quad\quad $\Downarrow$ & \\
     \end{tabular}
-
     \begin{block}{Relembrando ...}
         \begin{equation*}
             P(\mathbf{x}) = \frac{1}{(2\pi)^{\frac{d}{2}\|\sum\|^{\frac{1}{2}}}}\exp\left\{-\frac{1}{2} (\mathbf{x}-\mu)^T\textstyle\sum{}^{-1}(\mathbf{x}-\mu)\right\}
         \end{equation*}        
     \end{block}
-
     \begin{tabular}{p{1.2cm} l}
         & $\quad\quad\quad\quad\quad \Downarrow$\\
         $\overline{\text{Bel}}(x_t)$  & = $\eta \displaystyle\int \exp\left\{  -\frac{1}{2} \left(x_t - A_t x_{t-1} - B_t\right)^T Q_t \left(x_t - A_t x_{t-1} - B_t\right)  \right\}$ \\
     \end{tabular}
-        
     \begin{tabular}{p{2.3cm} l}
         & $\exp\left\{ -\displaystyle\frac{1}{2} \left(x_{t-1} - \mu_{t-1}\right)^T \textstyle\sum {}_{t-1} \left(x_{t-1} - \mu_{t-1}\right)  \right\}\text{d}x_{t-1}$
     \end{tabular}    
@@ -452,12 +443,6 @@
 % \end{frame}
 
 \begin{frame}[t]{Referências}
-    \begin{itemize}
-        \item http://www.embarcados.com.br/arduino-entradasaidas-digitais/
-        \item \href{https://www.youtube.com/watch?v=DE6Jn2cB4J4&list=PLgnQpQtFTOGQrZ4O5QzbIHgl3b1JHimN_&index=5}{aula kalman} 
-        \item \href{https://www.youtube.com/watch?v=QZ5q59H2qaI}{Fusion Odometry and IMU}
-        \item http://www.ic.uff.br/~bianca/ia-20091/aulas/IA-Aula11.ppt (crença)
-    \end{itemize}
 \end{frame}
 \end{document}
 

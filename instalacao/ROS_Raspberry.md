@@ -22,7 +22,7 @@ When it was connected
 
 ```bash
 $ pifi list seen
-$  pifi add <ssid> [<password>]
+$ pifi add <ssid> [<password>]
 ```
 
 ```bash
@@ -37,3 +37,11 @@ $ vncserver :1 -geometry 1024x600 -depth 16 -pixelformat rgb565
 
 
 # Install Jetson Nano
+
+
+# Example Autonomuous Car
+```bash
+$ source ~/catvehicle_ws/devel/setup.bash
+$ roslaunch catvehicle catvehicle_canyonview.launch
+$ gzclient
+```
