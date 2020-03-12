@@ -229,6 +229,8 @@
 
 \begin{frame}{Modelagem Cinemática}
     \framesubtitle{Transformação homogênea - Matriz de Rotação - Exercício}
+
+    
 \end{frame}
 
 \begin{frame}[t]{Modelagem Cinemática}
@@ -442,650 +444,650 @@
 
 
 
-% \begin{frame}{Modelagem Cinemática}
-%     \framesubtitle{Transformação homogênea - Exercício: Braço Robótico 2DOF}
+\begin{frame}{Modelagem Cinemática}
+    \framesubtitle{Transformação homogênea - Exercício: Braço Robótico 2DOF}
 
-%     \begin{columns}
-%         \begin{column}[c]{0.5\textwidth}
-%             \begin{figure}[!ht]
-%                 \input{./images/robot_image.tex}
-%                 \caption{Robo 2DOF}
-%             \end{figure}
-%         \end{column}
-%         \begin{column}[c]{0.5\textwidth}
-%             Manipulador com base fixa
-%         \end{column}
-%     \end{columns}
-% \end{frame}
+    \begin{columns}
+        \begin{column}[c]{0.5\textwidth}
+            \begin{figure}[!ht]
+                \input{./images/robot_image.tex}
+                \caption{Robo 2DOF}
+            \end{figure}
+        \end{column}
+        \begin{column}[c]{0.5\textwidth}
+            Manipulador com base fixa
+        \end{column}
+    \end{columns}
+\end{frame}
 
 
-% \begin{frame}{Modelagem Cinemática}
-%     \framesubtitle{Coordenadas Generalizadas}
+\begin{frame}{Modelagem Cinemática}
+    \framesubtitle{Coordenadas Generalizadas}
+    \begin{itemize}
+        \item Consider a fixed or mobile robot with generalized coordinates q 1 ; q 2 ; . . .; q n in the
+              joint (or actuation) space and x 1 ; x 2 ; . . .; x m in the task space. Define the vectors:
+
+              \begin{equation*}
+                  \mathbf{q} =
+                  \begin{bmatrix}
+                      q_1 \\q_2 \\ \cdot  \\ q_n
+                  \end{bmatrix}
+                  \text{, }
+                  \mathbf{p} =
+                  \begin{bmatrix}
+                      x_1 \\x_2 \\ \cdot  \\ x_nm
+                  \end{bmatrix}
+              \end{equation*}
+
+        \item \textbf{Cinemática Direta e Inversa}. A direct kinematics describes
+              robot states as a function of its inputs (wheel speeds, joints motion,
+              wheel steering, etc.). From inverse kinematics one can design a motion
+              planning, which means that the robot inputs can be calculated for a
+              desired robot state sequence.
+
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Modelagem Cinemática}
+    \framesubtitle{Coordenadas Generalizadas}
+    \begin{itemize}
+        \item A relação entre as Cinemática Direta e Cinemática inversa é Cinemática Direta é obtido através da Matriz Jacobiana do Robô.
+
+              \begin{equation*}
+                  \mathbf{p} = \mathbf{J}{\mathbf{q}}
+                  \text{ e, }
+                  \mathbf{q} = \mathbf{J}^{-1}{\mathbf{p}}
+              \end{equation*}
+
+              bem como:
+
+              \begin{equation*}
+                  \frac{\text{d}\mathbf{p}}{\text{d}t} = \mathbf{J}\frac{\text{d}\mathbf{q}}{\text{d}t}
+              \end{equation*}
+
+              ou também:
+
+              \begin{equation*}\label{eq:jacob}
+                  \mathbf{\dot{p}} =  \mathbf{S}(q)\mathbf{\dot{v}}
+              \end{equation*}
+
+              onde $J$ é dado por:
+              \begin{equation*}
+                  \mathbf{J}
+                  =
+                  \frac{d \mathbf{f}}{d \mathbf{q}}
+                  =
+                  \left[ \frac{\partial \mathbf{f}}{\partial q_1}
+                      \cdots \frac{\partial \mathbf{f}}{\partial q_n} \right]
+                  =
+                  \begin{bmatrix}
+                      \frac{\partial f_1}{\partial q_1} & \cdots &
+                      \frac{\partial f_1}{\partial q_n}                   \\
+                      \vdots                            & \ddots & \vdots \\
+                      \frac{\partial f_m}{\partial q_1} & \cdots &
+                      \frac{\partial f_m}{\partial q_n}
+                  \end{bmatrix}
+              \end{equation*}
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Modelagem Cinemática}
+    \framesubtitle{Cinemática Direta e Inversa - Exercício: Braço Robótico 2DOF}
+
+
+\end{frame}
+
+
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Conceitos}
+    \begin{itemize}
+        \item \textbf{Um robô é modelado como um corpo rígido}
+              \begin{itemize}
+                  \item 3 variáveis $x, y,\phi$ (plano)
+                  \item 6 variáveis $x,y,z, \alpha, \beta, \phi$ (espaço)
+              \end{itemize}
+        \item Deve-se estabelecer uma relação entre o referencial local (robô) e o referencial global
+              \begin{itemize}
+                  \item Referencial global, exemplo $\{I\}$, ou $\{W\}$;
+                  \item \item Referencial local, exemplo $\{M\}$, ou $\{A\}$;
+              \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Conceitos}
+    \begin{itemize}
+        \item O modelo cinemático não leva em conta a inércia do robô, deformações em
+              sua estrutura, forças oriundas do deslocamento (atrito, escorregamento, etc.),
+              e demais fatores internos e externos que possam afetar a locomoção.
+        \item Os modelos dinâmicos são capazes de incorporar estas variáveis, mas são
+              muito mais complexos que os modelos cinemáticos.
+        \item Os modelos cinemáticos são suficientes quando a locamoção se dá a baixas
+              velocidades e em piso plano e horizontal que propicie contato adequado para
+              não haver escorregamento.
+        \item Apesar do modelo cinemático ser inerentemente um modelo aproximado,
+              podemos corrigir seus resultados a partir dos sensores do robô. Os algoritmos
+              de localização robótica fazem exatamente isto.\href{http://143.106.148.168:9080/Cursos/IA368N/01-16/cinematica2.pdf}{[1]}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Diversos modelos de cinemática}
+    \begin{itemize}
+        \item \textbf{Cinemática Externa} describes robot position and orientation according to
+              some reference coordinate frame.
+        \item \textbf{Cinemática Interna} explains the relation between system internal variables
+              (e.g., wheel rotation and robot motion)
+        \item \textbf{Restrições de movimento} appear when a system has less input variables than
+              degrees of freedom (DOFs). Holonomic constraints prohibit certain
+              robot poses while a nonholonomic constraint prohibits certain robot
+              velocities (the robot can drive only in the direction of the wheels’
+              rotation) [Wheeled Mobile Robotics]
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Cinemática Externa}
+    \begin{itemize}
+        \item O deslocamento de um robô deve ser expresso em relação a um sistema de
+              coordenadas (referencial) inercial (global). No plano, utilizamos coordenadas
+              cartesianas (eixos X e Y).
+    \end{itemize}
+
+    \begin{columns}
+        \begin{column}[c]{0.5\textwidth}
+            \input{./images/car_1a_image.tex}
+        \end{column}
+        \begin{column}[c]{0.5\textwidth}
+            \input{./images/car_2a_image.tex}
+        \end{column}
+    \end{columns}
+
+    \begin{equation*}
+        \begin{bmatrix}
+            \color{purple}{x_I} \\ \color{purple}{y_I} \\ \color{purple}{z_I}\\1
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            \color{purple}{{}^M_I\mathbf{P}} \\ 1
+        \end{bmatrix}
+        =
+        \left[
+            \begin{matrix}
+                  & \color{green}{{}_M^I\mathbf{R}_z(\phi)} &   \\ \hline
+                0 & 0                                       & 0 \\
+            \end{matrix} \right.
+            \left.
+            \vline
+            \begin{matrix}
+                \color{red}{{}^I\mathbf{Q}} \\ \hline
+                1
+            \end{matrix} \right]
+        \begin{bmatrix}
+            {}^M\mathbf{P} \\
+            1
+        \end{bmatrix}
+    \end{equation*}
+
+\end{frame}
+
+
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Cinemática Interna}
+    \begin{columns}
+        \begin{column}[c]{0.5\textwidth}
+            \centering
+            \input{./images/car_0a_image.tex}
+        \end{column}
+        \begin{column}[c]{0.5\textwidth}
+            \centering
+            \begin{itemize}
+                \item Posição:
+                      \newline
+
+                      $\mathbf{x} = \begin{bmatrix}
+                              x \\
+                              y
+                          \end{bmatrix}$
+                      \newline
+
+                \item Configuração (localização e orientação):
+                      \newline
+
+                      $\mathbf{q} =
+                          \begin{bmatrix}
+                              x \\
+                              y \\
+                              \phi
+                          \end{bmatrix}$
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Robô Diferencial}
+    \begin{itemize}
+        \item Analisando a velocidade angular de $\omega$, temos:
+
+              \begin{equation*}
+                  \begin{split}
+                      \omega & = \frac{v_L(t)}{R(t)-\frac{L}{2}} \\
+                      \omega & = \frac{v_R(t)}{R(t)+\frac{L}{2}} \\
+                  \end{split}
+              \end{equation*}
+
+              logo:
+
+              \begin{equation*}
+                  \begin{split}
+                      \omega (t) = \frac{ v_R(t) - v_L(t)}{L} & \text{, e }
+                      R(t)  = \frac{L v_R(t) + v_L(t)}{2 v_R(t) - v_L(t)} \\
+                  \end{split}
+              \end{equation*}
+
+              assim, a velocidade tangencial do veiculo é dada por:
+
+              \begin{equation}
+                  v (t) =\omega (t) R(t) = \frac{ v_R(t) - v_L(t)}{2}
+              \end{equation}
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Robô Diferencial}
+    \begin{itemize}
+        \item As velocidades tangenciais $v_L(t)=r\omega_L(t)$ e $v_R(t)=r\omega_R(t)$, temos então a cinemática interna do robô (\textcolor{red}{coordenadas locais}):
+
+              \begin{equation*}
+                  \boxed{
+                      \begin{bmatrix}
+                          \dot{x}_M(t) \\
+                          \dot{y}_M(t) \\
+                          \dot{\phi}(t)
+                      \end{bmatrix}
+                      =
+                      \begin{bmatrix}
+                          \dot{v}_M(t) \\
+                          \dot{v}_M(t) \\
+                          \dot{\omega}(t)
+                      \end{bmatrix}
+                      =
+                      \begin{bmatrix}
+                          \frac{r}{2}  & \frac{r}{2} \\
+                          0            & 0           \\
+                          -\frac{r}{L} & \frac{r}{L}
+                      \end{bmatrix}
+                      \begin{bmatrix}
+                          \omega_L(t) \\
+                          \omega_R(t)
+                      \end{bmatrix}}
+              \end{equation*}
+
+        \item e em \textcolor{red}{coordenadas globais}
+              \footnote{adicionar o modelo em funcao das velocidades das rodas}:
+
+              \begin{equation*}
+                  \boxed{
+                      \begin{bmatrix}
+                          \dot{x}(t) \\
+                          \dot{y}(t) \\
+                          \dot{\phi}(t)
+                      \end{bmatrix}
+                      =
+                      \begin{bmatrix}
+                          \cos(\phi(t)) & 0 \\
+                          \sin(\phi(t)) & 0 \\
+                          0             & 1
+                      \end{bmatrix}
+                      \begin{bmatrix}
+                          v(t) \\
+                          \omega(t)
+                      \end{bmatrix}}
+              \end{equation*}
+
+              onde as variáveis $v(t)$ e $\omega(t)$
+
+
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Robô Diferencial}
+    \begin{itemize}
+        \item Mas o \textit{encoder} fornece apenas a posição das rodas, como calcular a velocidade?
+
+              ... \textbf{Aproximação de Euler}, Aproximação de Tustin, Transformação Bilinear...
+
+              \begin{equation*}
+                  \begin{split}
+                      x_{k+1} &= x_k + v_k T_s\cos(\phi_k) \\
+                      y_{k+1} &= y_k + v_k T_s\sin(\phi_k) \\
+                      \phi_{k+1} &= \phi_k + \omega_k T_s \\
+                  \end{split}
+              \end{equation*}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Robô Diferencial}
+
+    continuar ...
+
+\end{frame}
+
+
+
+\begin{frame}{Modelo Cinemático}
+    \framesubtitle{Tipo de Rodas}
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{./images/tipo_de_rodas.png}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Modelo Cinemático}
+    \framesubtitle{Robô Diferencial}
+    \begin{itemize}
+        \item Restrição não-holonômica
+              \begin{itemize}
+                  \item O robô pode mover-se apenas na direção normal ao eixo das rodas motrizes
+              \end{itemize}
+              % \begin{equation*}
+              %     \dot{x}\sin(\phi) - \dot{y}\cos(\phi) = 0
+              % \end{equation*}
+        \item As próprias rodas já inserem as restrições!
+    \end{itemize}
+    \centering
+    \input{./images/car_3_image.tex}
+\end{frame}
+
+
+\begin{frame}{Modelo Cinemático}
+    \framesubtitle{Robô Diferencial}
+    restricoes
+
+    % https://edisciplinas.usp.br/pluginfile.php/3280265/mod_resource/content/1/Aula%203%20-%20SEM5911%20Robo%CC%81tica%20Mo%CC%81vel.pdf
+\end{frame}
+
+
+\begin{frame}{Modelagem Dinâmica}
+
+    Robot dynamic modeling deals with the derivation of the dynamic equations of the robot motion.
+
+    \begin{block}{}
+        The kinematic model only describes static transformation of some robot ve-
+        locities (pseudo velocities) to the velocities expressed in global coordinates.
+        However, the dynamic motion model of the mechanical system includes
+        dynamic properties such as system motion caused by external forces and
+        system inertia.
+    \end{block}
+
+    \begin{itemize}
+        \item Método de Euler
+        \item Método de Lagrange
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Modelo Dinâmico}
+    \framesubtitle{Formulação de Lagrange}
+
+    \begin{itemize}
+
+        \item Equilíbrio de Energias:
+
+              \begin{equation}
+                  \mathcal{L}= \mathcal{T} - \mathcal{V}
+              \end{equation}
+
+        \item A equação de energia cinética ($\mathcal{T}$) é dada por:
+
+              \begin{equation}
+                  \mathcal{T} = \sum\limits_{i=0}^{N-1} \frac{1}{2} {}_{i}^{i+1}\dot{\mathbf{P}}^T\cdot m_{i}\cdot {}_{i}^{i+1}\dot{\mathbf{P}}+ \mathbf{\omega}_i^T\cdot \mathbf{J}_i \cdot \mathbf{\omega}_i
+              \end{equation}
+
+              \begin{block}{ou para um robô em uma superfície:}
+
+                  \begin{equation*}
+                      \boxed{
+                          \mathcal{T} = \frac{m}{2}\left(\dot{x}^2+\dot{y}^2 \right)+ \frac{J}{2}\dot{\phi}^2}
+                      \text{, e  }
+                      \boxed{\mathcal{V} = 0}
+                  \end{equation*}
+                  \scriptsize{
+                      onde:
+                      \begin{tabular}{l|l}
+                          $m$               & Massa              \\
+                          $\mathbf{\omega}$ & Velocidade Angular \\
+                          $J$               & Inércia            \\
+                      \end{tabular}}
+              \end{block}
+    \end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}{Modelo Dinâmico}
+    \framesubtitle{Formulação de Lagrange}
+
+    \begin{itemize}
+        \item Para Sistemas Holonômicos:
+              \begin{equation}
+                  \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\dot{q}_k}\right)
+                  -\parcial{}{\mathcal{L}}{q_k}
+                  +\tau_{d_k}
+                  = f_k, \quad k = 1,2,...,n
+              \end{equation}
+
+        \item Para Sistemas Não-Holonômicos \footnote{onde $k$ é o index das coordenadas generalizadas de $g_k$, $P$ representas as energias dissipativas (Atrito),
+                  $\tau_d$ representa qualquer disturbio no sistema, $f_k$ são as forças externas que agem no sistema e $a_{jk}$ são os coeficientes das restrições de movimento.}
+              \begin{equation}
+                  \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\dot{q}_k}\right)
+                  -\parcial{}{\mathcal{L}}{q_k}
+                  +\tau_{d_k}
+                  = f_k - \sum\limits^{m}_{j=1}\lambda_j a_{jk}
+              \end{equation}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Modelo Dinâmico}
+    \framesubtitle{Formulação de Lagrange}
+    \begin{itemize}
+        \item O modelo dinâmico de um robô movel com restrições de movimento pode ser expresso pelo sistema de matrizes abaixo:
+
+              \begin{equation}
+                  \mathbf{M(q)\ddot{q}+ C(q, \dot{q})+ F(\dot{q})+G(q) = E(q)u -A}^T\mathbf{(q)}\boldsymbol{\lambda}
+              \end{equation}
+    \end{itemize}
+
+    \begin{block}{}
+        \scriptsize{
+            onde:
+            \begin{tabular}{ r | l }
+                $\mathbf{q}$               & Vetor das coordenadas generalizadas   \\
+                $\mathbf{M(q)}$            & Matriz de massa e inercia             \\
+                $\mathbf{C(q, \dot{q})}$   & Vetor de força Coriolis e centrifuga  \\
+                $\mathbf{F(\dot{q})}$      & Vetor de atrito                       \\
+                $\mathbf{G(q)}$            & Vector da força gravitacional         \\
+                $\mathbf{E(q)}$            & Matriz dos tranformação dos atuadores \\
+                $\mathbf{u}$               & Vetor de entrada                      \\
+                $\mathbf{A}^T\mathbf{(q)}$ & Matriz de restrições de movimento     \\
+                $\boldsymbol{\lambda}$     & Multiplicador de Lagrange             \\
+            \end{tabular}}
+    \end{block}
+\end{frame}
+
+
+
+\begin{frame}{Modelagem Dinâmica}
+    \framesubtitle{Formulação de Lagrange - Exemplo Robô Diferencial}
+\end{frame}
+
+
+\begin{frame}{Modelagem Dinâmica}
+    \framesubtitle{Formulação de Lagrange - Multiplicador de Lagrange}
+    A solução para $\lambda_i$ pode ser encontrada por:
+    \begin{itemize}
+        \item Método 1: Pseudo-velocidades \cmark
+        \item Método 2: Redução de Order \xmark
+        \item Método 3: Equações de Euler-Lagrange Modificadas \xmark
+        \item Método 4: Calculo das Forças de restrições \xmark
+    \end{itemize}
+\end{frame}
+% http://www.cpdee.ufmg.br/~torres/wp-content/uploads/2018/02/nonholonomic_constraints.pdf
+
+
+\begin{frame}{Modelagem Dinâmica}
+    \framesubtitle{Formulação de Lagrange - Pseudo-velocidades}
+
+    \begin{itemize}
+        \item O objetivo é resolver as restrições de $\lambda_i$:
+
+              \begin{equation}\label{eq:rmrestri}
+                  \mathbf{M(q)\ddot{q}+ C(q, \dot{q})+ F(\dot{q})+G(q) = E(q)u} - \textcolor{red}{\cancel{\mathbf{A}\mathbf{(q)}^T\boldsymbol{\lambda}}}
+              \end{equation}
+
+        \item reelembrando:
+
+              \begin{equation*}
+                  \mathbf{\dot{q}} = \mathbf{S}(q)\mathbf{v}
+              \end{equation*}
+
+        \item bem como:
+
+              \begin{equation}\label{eq:aprox_accel}
+                  \mathbf{\ddot{q}} = \mathbf{\dot{S}}(q)\mathbf{v} + \mathbf{S}(q)\mathbf{\dot{v}}
+              \end{equation}
+
+        \item Subustituindo \eqref{eq:rmrestri} em \eqref{eq:aprox_accel} e aplicando a relãção $\mathbf{A}(q)\mathbf{S}(q)=0$, temos a equação de aceleração do sistema:
+
+              \begin{equation}\label{eq:pseudovelo}
+                  \mathbf{\dot{v}} = \mathbf{\tilde{M}}^{-1}\left(\mathbf{\tilde{E}u - \tilde{V}} \right)
+              \end{equation}
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Modelagem Dinâmica}
+    \framesubtitle{Formulação de Lagrange - Pseudo-velocidades}
+    \begin{itemize}
+        \item \eqref{eq:pseudovelo} na forma de equação:
+              \begin{equation*}
+                  \mathbf{\dot{x}} =
+                  \begin{bmatrix}
+                      \mathbf{S}(q)\mathbf{v} \\
+                      \mathbf{-\tilde{M}}^{-1}\mathbf{\tilde{V}}
+                  \end{bmatrix}
+                  +
+                  \begin{bmatrix}
+                      \mathbf{0} \\
+                      \mathbf{\tilde{M}}^{-1}\mathbf{\tilde{E}}
+                  \end{bmatrix} \mathbf{u}
+              \end{equation*}
+
+        \item onde:
+
+              \begin{equation*}
+                  \begin{split}
+                      \mathbf{\tilde{V}} & =
+                      \mathbf{S}(q)^T\mathbf{M}\mathbf{\dot{S}}(q)\mathbf{v} + \mathbf{S}(q)^T (\mathbf{V + F + G})\\
+                      \mathbf{\tilde{M}} & = \mathbf{S}(q)^T\mathbf{M}\mathbf{S}(q)\\
+                      \mathbf{\tilde{E}} & = \mathbf{S}(q)^T\mathbf{E}\mathbf{S}
+                  \end{split}
+              \end{equation*}
+
+              \begin{block}{}
+                  \scriptsize{
+                      onde:
+                      \begin{tabular}{ r | l }
+                          $\mathbf{x}$ & Vetor de estados \\
+                          $\mathbf{S}$ & Matriz Jacobiana \\
+                      \end{tabular}}
+              \end{block}
+
+
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Modelagem Dinâmica}
+    \framesubtitle{Formulação de Lagrange - Exemplo Robô Diferencial}
+\end{frame}
+
+\begin{frame}[c]{Modelagem de um Uniciclo}
+    \framesubtitle{}
+    \centering
+    \includegraphics[width=0.8\textwidth]{./images/unicycle.jpg}
+\end{frame}
+
+
+
+\begin{frame}[c]{Modelagem de um Uniciclo}
+    \framesubtitle{}
+    \begin{columns}
+        \begin{column}[c]{0.4\textwidth}
+            \centering
+            \scalebox{-1}[1]{\includegraphics[width=0.6\textwidth]{./images/unicycle_2.jpg}}
+        \end{column}
+        \begin{column}[c]{0.6\textwidth}
+            \centering
+            \includegraphics[width=.6\textwidth]{./images/unicycle_model.jpg}
+        \end{column}
+    \end{columns}
+    example: Comparative Analysis between Fuzzy Logic
+    Control, LQR Control with Kalman Filter and PID
+    Control for a Two Wheeled Inverted Pendulum
+\end{frame}
+
+
+
+% \begin{frame}[t]{Referências}
 %     \begin{itemize}
-%         \item Consider a fixed or mobile robot with generalized coordinates q 1 ; q 2 ; . . .; q n in the
-%               joint (or actuation) space and x 1 ; x 2 ; . . .; x m in the task space. Define the vectors:
+%         \item Craig, John J. "Robótica. 3ª edição." Rev. Atual (2012).
+%               % \item http://www.cpdee.ufmg.br/~torres/wp-content/uploads/2018/02/nonholonomic_constraints.pdf
+%               % \item https://def.fe.up.pt/dinamica/ 
+%               % \item http://efisica.if.usp.br/mecanica/avancado/dinamica/
+%               % \item VIEIRA, Frederico Carvalho. Controle dinâmico de robôs móveis com acionamento diferencial. 2006. Dissertação de Mestrado. Universidade Federal do Rio Grande do Norte.
+%               % \item http://www.ece.ufrgs.br/~fetter/ele00070/mobrob/model.pdf
 
-%               \begin{equation*}
-%                   \mathbf{q} =
-%                   \begin{bmatrix}
-%                       q_1 \\q_2 \\ \cdot  \\ q_n
-%                   \end{bmatrix}
-%                   \text{, }
-%                   \mathbf{p} =
-%                   \begin{bmatrix}
-%                       x_1 \\x_2 \\ \cdot  \\ x_nm
-%                   \end{bmatrix}
-%               \end{equation*}
+%               % \item https://pdf.sciencedirectassets.com/314898/1-s2.0-S1474667015X61039/1-s2.0-S1474667015397172/main.pdf?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEAIaCXVzLWVhc3QtMSJIMEYCIQCx8ypsAiEq0q1m%2Fy2lf68MGoSjWDEv5YCQuD82N5xp5AIhANTSz4cDW9MFVU8XMl0z%2FNHxKXv7TXFzzCnKv1s18VNsKr0DCJv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQAhoMMDU5MDAzNTQ2ODY1IgwdaXQ99nTVfkaGntAqkQO5yo6gJFwbU7apr6XwA927KDm12w05800N7%2FfWaJK1x%2F19%2FwmeQWS5XL19TyYaLeLlbNMxMrWBfsFEKrhOe93BNw2ADgF7NxWbdRhsrYdNL4sq85a20LveNcy27Jf%2BBwg%2FDC4C4qj6giuUc%2FaZwIhIlmzsogSKSUNc9%2BaXMu5eVJHvm43cKl%2B1qG38xVN0t5%2Bp83KR1NZpqK7RYODFrGow3YarmmJKvx5kiXJT4KC1Df3tqkVhzNHCKLSyN7sjjExGIqkkM6bNNSbjK5k1WeIfI1QICaK0%2F88W4rXkuz4EruqegsFxSXiU9A5K3Q3ISR7pdrtVONpKi57EZgbSmCkzb8QJ5Mv5yDSA9ygyFn6qhepkt1j2UbU9NlVxT86rHdBOb7SDV4sporHjEA6Fu2EG9IPvQBE%2FHYxJQUe0GrNf%2BwA7HNsZDvcbHbbqpRRis2f4YddtT%2Bn%2BTOJyYe0a7HNloIvkqJz%2F6ikKGhYRlka6Zmu%2Fwsy2f%2BsvvqIB3JfHVtSENT4GpEc8Bj6iZ7Zodv0DXDDeh7nxBTrqAYwjHCtfGLLEVl%2FWGSQEIP%2FQLE0wfbPtucKi52zdoCWa6v8mvxbbkX6EGNfuVkSlnCVK2QFKxcQlTfoPmAkG%2Fl%2BuICpzOr7VkJEXjr%2BJHBRtQba%2B6QkMFa0vFSXOdCTItwn98DqGNbPAyYPOhJGKjAPh%2BT9zwRRn0pFnAq5top2ObIGJp2NneOigmkRT29GIg95ttqz%2BynxgPHPlxAedpj59%2FPHKtv6i429VR7wrhSGEagLyHQ6C409r5uA0LwWNBqa0A5kaT7ZSYXvwEc5rx9%2F3PXjP1pPQEhcpNd7ALAYCr0%2Fv2M7ySAFKiA%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20200127T023739Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIAQ3PHCVTY7LZGTWVI%2F20200127%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=77bdd6e8cbe566663f102dbdaa5d0be6cb29a5d4c274d72a2e8da34a360c40ee&hash=43303e4f893f2743f2cf87299cc35e4edfcc6742a2b48c9a81845adef28675fd&host=68042c943591013ac2b2430a89b270f6af2c76d8dfd086a07176afe7c76c2c61&pii=S1474667015397172&tid=spdf-0435203f-78a0-4402-915c-9fd142382733&sid=fc56fe816e9da24f2b5b5053ec9a5c279ea1gxrqa&type=client
+%               % \item https://www.if.ufrj.br/~pef/aulas_seminarios/notas_de_aula/tort_2015_1/MA_aula_8.
+%               % \item https://edisciplinas.usp.br/pluginfile.php/3280273/mod_resource/content/1/Aula%204%20-%20SEM5911%20Robo%CC%81tica%20Mo%CC%81vel.pdf
+%               % \item https://edisciplinas.usp.br/pluginfile.php/3280265/mod_resource/content/1/Aula%203%20-%20SEM5911%20Robo%CC%81tica%20Mo%CC%81vel.pdf
+%               % \item https://homepages.dcc.ufmg.br/~doug/cursos/lib/exe/fetch.php?media=cursos:introrobotica:2018-1:aula14-representacao-modelos-cinematicos.pdf
 
-%         \item \textbf{Cinemática Direta e Inversa}. A direct kinematics describes
-%               robot states as a function of its inputs (wheel speeds, joints motion,
-%               wheel steering, etc.). From inverse kinematics one can design a motion
-%               planning, which means that the robot inputs can be calculated for a
-%               desired robot state sequence.
+%               %% Nao holomonicos
+%               % https://pdfs.semanticscholar.org/4e98/09960be9ec7f1ad8fadf61dad8cb1c8818d0.pdf
+%               % https://www.if.ufrj.br/~pef/aulas_seminarios/notas_de_aula/tort_2015_1/MA_aula_8.pdf
+%               % http://web.mit.edu/jlramos/www/Arquivos/ReportDifferentialDrive.pdf
 
 %     \end{itemize}
 % \end{frame}
-
-
-
-% \begin{frame}{Modelagem Cinemática}
-%     \framesubtitle{Coordenadas Generalizadas}
-%     \begin{itemize}
-%         \item A relação entre as Cinemática Direta e Cinemática inversa é Cinemática Direta é obtido através da Matriz Jacobiana do Robô.
-
-%               \begin{equation*}
-%                   \mathbf{p} = \mathbf{J}{\mathbf{q}}
-%                   \text{ e, }
-%                   \mathbf{q} = \mathbf{J}^{-1}{\mathbf{p}}
-%               \end{equation*}
-
-%               bem como:
-
-%               \begin{equation*}
-%                   \frac{\text{d}\mathbf{p}}{\text{d}t} = \mathbf{J}\frac{\text{d}\mathbf{q}}{\text{d}t}
-%               \end{equation*}
-
-%               ou também:
-
-%               \begin{equation*}\label{eq:jacob}
-%                   \mathbf{\dot{p}} =  \mathbf{S}(q)\mathbf{\dot{v}}
-%               \end{equation*}
-
-%               onde $J$ é dado por:
-%               \begin{equation*}
-%                   \mathbf{J}
-%                   =
-%                   \frac{d \mathbf{f}}{d \mathbf{q}}
-%                   =
-%                   \left[ \frac{\partial \mathbf{f}}{\partial q_1}
-%                       \cdots \frac{\partial \mathbf{f}}{\partial q_n} \right]
-%                   =
-%                   \begin{bmatrix}
-%                       \frac{\partial f_1}{\partial q_1} & \cdots &
-%                       \frac{\partial f_1}{\partial q_n}                   \\
-%                       \vdots                            & \ddots & \vdots \\
-%                       \frac{\partial f_m}{\partial q_1} & \cdots &
-%                       \frac{\partial f_m}{\partial q_n}
-%                   \end{bmatrix}
-%               \end{equation*}
-%     \end{itemize}
-% \end{frame}
-
-
-
-% \begin{frame}{Modelagem Cinemática}
-%     \framesubtitle{Cinemática Direta e Inversa - Exercício: Braço Robótico 2DOF}
-
-
-% \end{frame}
-
-
-% \begin{frame}{Cinemática de Robôs}
-%     \framesubtitle{Conceitos}
-%     \begin{itemize}
-%         \item \textbf{Um robô é modelado como um corpo rígido}
-%               \begin{itemize}
-%                   \item 3 variáveis $x, y,\phi$ (plano)
-%                   \item 6 variáveis $x,y,z, \alpha, \beta, \phi$ (espaço)
-%               \end{itemize}
-%         \item Deve-se estabelecer uma relação entre o referencial local (robô) e o referencial global
-%               \begin{itemize}
-%                   \item Referencial global, exemplo $\{I\}$, ou $\{W\}$;
-%                   \item \item Referencial local, exemplo $\{M\}$, ou $\{A\}$;
-%               \end{itemize}
-%     \end{itemize}
-% \end{frame}
-
-
-% \begin{frame}{Cinemática de Robôs}
-%     \framesubtitle{Conceitos}
-%     \begin{itemize}
-%         \item O modelo cinemático não leva em conta a inércia do robô, deformações em
-%               sua estrutura, forças oriundas do deslocamento (atrito, escorregamento, etc.),
-%               e demais fatores internos e externos que possam afetar a locomoção.
-%         \item Os modelos dinâmicos são capazes de incorporar estas variáveis, mas são
-%               muito mais complexos que os modelos cinemáticos.
-%         \item Os modelos cinemáticos são suficientes quando a locamoção se dá a baixas
-%               velocidades e em piso plano e horizontal que propicie contato adequado para
-%               não haver escorregamento.
-%         \item Apesar do modelo cinemático ser inerentemente um modelo aproximado,
-%               podemos corrigir seus resultados a partir dos sensores do robô. Os algoritmos
-%               de localização robótica fazem exatamente isto.\href{http://143.106.148.168:9080/Cursos/IA368N/01-16/cinematica2.pdf}{[1]}
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{Cinemática de Robôs}
-%     \framesubtitle{Diversos modelos de cinemática}
-%     \begin{itemize}
-%         \item \textbf{Cinemática Externa} describes robot position and orientation according to
-%               some reference coordinate frame.
-%         \item \textbf{Cinemática Interna} explains the relation between system internal variables
-%               (e.g., wheel rotation and robot motion)
-%         \item \textbf{Restrições de movimento} appear when a system has less input variables than
-%               degrees of freedom (DOFs). Holonomic constraints prohibit certain
-%               robot poses while a nonholonomic constraint prohibits certain robot
-%               velocities (the robot can drive only in the direction of the wheels’
-%               rotation) [Wheeled Mobile Robotics]
-%     \end{itemize}
-% \end{frame}
-
-
-% \begin{frame}{Cinemática de Robôs}
-%     \framesubtitle{Cinemática Externa}
-%     \begin{itemize}
-%         \item O deslocamento de um robô deve ser expresso em relação a um sistema de
-%               coordenadas (referencial) inercial (global). No plano, utilizamos coordenadas
-%               cartesianas (eixos X e Y).
-%     \end{itemize}
-
-%     \begin{columns}
-%         \begin{column}[c]{0.5\textwidth}
-%             \input{./images/car_1a_image.tex}
-%         \end{column}
-%         \begin{column}[c]{0.5\textwidth}
-%             \input{./images/car_2a_image.tex}
-%         \end{column}
-%     \end{columns}
-
-%     \begin{equation*}
-%         \begin{bmatrix}
-%             \color{purple}{x_I} \\ \color{purple}{y_I} \\ \color{purple}{z_I}\\1
-%         \end{bmatrix}
-%         =
-%         \begin{bmatrix}
-%             \color{purple}{{}^M_I\mathbf{P}} \\ 1
-%         \end{bmatrix}
-%         =
-%         \left[
-%             \begin{matrix}
-%                   & \color{green}{{}_M^I\mathbf{R}_z(\phi)} &   \\ \hline
-%                 0 & 0                                       & 0 \\
-%             \end{matrix} \right.
-%             \left.
-%             \vline
-%             \begin{matrix}
-%                 \color{red}{{}^I\mathbf{Q}} \\ \hline
-%                 1
-%             \end{matrix} \right]
-%         \begin{bmatrix}
-%             {}^M\mathbf{P} \\
-%             1
-%         \end{bmatrix}
-%     \end{equation*}
-
-% \end{frame}
-
-
-% \begin{frame}{Cinemática de Robôs}
-%     \framesubtitle{Cinemática Interna}
-%     \begin{columns}
-%         \begin{column}[c]{0.5\textwidth}
-%             \centering
-%             \input{./images/car_0a_image.tex}
-%         \end{column}
-%         \begin{column}[c]{0.5\textwidth}
-%             \centering
-%             \begin{itemize}
-%                 \item Posição:
-%                       \newline
-
-%                       $\mathbf{x} = \begin{bmatrix}
-%                               x \\
-%                               y
-%                           \end{bmatrix}$
-%                       \newline
-
-%                 \item Configuração (localização e orientação):
-%                       \newline
-
-%                       $\mathbf{q} =
-%                           \begin{bmatrix}
-%                               x \\
-%                               y \\
-%                               \phi
-%                           \end{bmatrix}$
-%             \end{itemize}
-%         \end{column}
-%     \end{columns}
-% \end{frame}
-
-
-% \begin{frame}{Cinemática de Robôs}
-%     \framesubtitle{Robô Diferencial}
-%     \begin{itemize}
-%         \item Analisando a velocidade angular de $\omega$, temos:
-
-%               \begin{equation*}
-%                   \begin{split}
-%                       \omega & = \frac{v_L(t)}{R(t)-\frac{L}{2}} \\
-%                       \omega & = \frac{v_R(t)}{R(t)+\frac{L}{2}} \\
-%                   \end{split}
-%               \end{equation*}
-
-%               logo:
-
-%               \begin{equation*}
-%                   \begin{split}
-%                       \omega (t) = \frac{ v_R(t) - v_L(t)}{L} & \text{, e }
-%                       R(t)  = \frac{L v_R(t) + v_L(t)}{2 v_R(t) - v_L(t)} \\
-%                   \end{split}
-%               \end{equation*}
-
-%               assim, a velocidade tangencial do veiculo é dada por:
-
-%               \begin{equation}
-%                   v (t) =\omega (t) R(t) = \frac{ v_R(t) - v_L(t)}{2}
-%               \end{equation}
-%     \end{itemize}
-% \end{frame}
-
-
-
-% \begin{frame}{Cinemática de Robôs}
-%     \framesubtitle{Robô Diferencial}
-%     \begin{itemize}
-%         \item As velocidades tangenciais $v_L(t)=r\omega_L(t)$ e $v_R(t)=r\omega_R(t)$, temos então a cinemática interna do robô (\textcolor{red}{coordenadas locais}):
-
-%               \begin{equation*}
-%                   \boxed{
-%                       \begin{bmatrix}
-%                           \dot{x}_M(t) \\
-%                           \dot{y}_M(t) \\
-%                           \dot{\phi}(t)
-%                       \end{bmatrix}
-%                       =
-%                       \begin{bmatrix}
-%                           \dot{v}_M(t) \\
-%                           \dot{v}_M(t) \\
-%                           \dot{\omega}(t)
-%                       \end{bmatrix}
-%                       =
-%                       \begin{bmatrix}
-%                           \frac{r}{2}  & \frac{r}{2} \\
-%                           0            & 0           \\
-%                           -\frac{r}{L} & \frac{r}{L}
-%                       \end{bmatrix}
-%                       \begin{bmatrix}
-%                           \omega_L(t) \\
-%                           \omega_R(t)
-%                       \end{bmatrix}}
-%               \end{equation*}
-
-%         \item e em \textcolor{red}{coordenadas globais}
-%               \footnote{adicionar o modelo em funcao das velocidades das rodas}:
-
-%               \begin{equation*}
-%                   \boxed{
-%                       \begin{bmatrix}
-%                           \dot{x}(t) \\
-%                           \dot{y}(t) \\
-%                           \dot{\phi}(t)
-%                       \end{bmatrix}
-%                       =
-%                       \begin{bmatrix}
-%                           \cos(\phi(t)) & 0 \\
-%                           \sin(\phi(t)) & 0 \\
-%                           0             & 1
-%                       \end{bmatrix}
-%                       \begin{bmatrix}
-%                           v(t) \\
-%                           \omega(t)
-%                       \end{bmatrix}}
-%               \end{equation*}
-
-%               onde as variáveis $v(t)$ e $\omega(t)$
-
-
-%     \end{itemize}
-% \end{frame}
-
-
-% \begin{frame}{Cinemática de Robôs}
-%     \framesubtitle{Robô Diferencial}
-%     \begin{itemize}
-%         \item Mas o \textit{encoder} fornece apenas a posição das rodas, como calcular a velocidade?
-
-%               ... \textbf{Aproximação de Euler}, Aproximação de Tustin, Transformação Bilinear...
-
-%               \begin{equation*}
-%                   \begin{split}
-%                       x_{k+1} &= x_k + v_k T_s\cos(\phi_k) \\
-%                       y_{k+1} &= y_k + v_k T_s\sin(\phi_k) \\
-%                       \phi_{k+1} &= \phi_k + \omega_k T_s \\
-%                   \end{split}
-%               \end{equation*}
-%     \end{itemize}
-% \end{frame}
-
-
-% \begin{frame}{Cinemática de Robôs}
-%     \framesubtitle{Robô Diferencial}
-
-%     continuar ...
-
-% \end{frame}
-
-
-
-% \begin{frame}{Modelo Cinemático}
-%     \framesubtitle{Tipo de Rodas}
-%     \begin{center}
-%         \includegraphics[width=0.8\textwidth]{./images/tipo_de_rodas.png}
-%     \end{center}
-% \end{frame}
-
-% \begin{frame}{Modelo Cinemático}
-%     \framesubtitle{Robô Diferencial}
-%     \begin{itemize}
-%         \item Restrição não-holonômica
-%               \begin{itemize}
-%                   \item O robô pode mover-se apenas na direção normal ao eixo das rodas motrizes
-%               \end{itemize}
-%               % \begin{equation*}
-%               %     \dot{x}\sin(\phi) - \dot{y}\cos(\phi) = 0
-%               % \end{equation*}
-%         \item As próprias rodas já inserem as restrições!
-%     \end{itemize}
-%     \centering
-%     \input{./images/car_3_image.tex}
-% \end{frame}
-
-
-% \begin{frame}{Modelo Cinemático}
-%     \framesubtitle{Robô Diferencial}
-%     restricoes
-
-%     % https://edisciplinas.usp.br/pluginfile.php/3280265/mod_resource/content/1/Aula%203%20-%20SEM5911%20Robo%CC%81tica%20Mo%CC%81vel.pdf
-% \end{frame}
-
-
-% \begin{frame}{Modelagem Dinâmica}
-
-%     Robot dynamic modeling deals with the derivation of the dynamic equations of the robot motion.
-
-%     \begin{block}{}
-%         The kinematic model only describes static transformation of some robot ve-
-%         locities (pseudo velocities) to the velocities expressed in global coordinates.
-%         However, the dynamic motion model of the mechanical system includes
-%         dynamic properties such as system motion caused by external forces and
-%         system inertia.
-%     \end{block}
-
-%     \begin{itemize}
-%         \item Método de Euler
-%         \item Método de Lagrange
-%     \end{itemize}
-% \end{frame}
-
-
-% \begin{frame}{Modelo Dinâmico}
-%     \framesubtitle{Formulação de Lagrange}
-
-%     \begin{itemize}
-
-%         \item Equilíbrio de Energias:
-
-%               \begin{equation}
-%                   \mathcal{L}= \mathcal{T} - \mathcal{V}
-%               \end{equation}
-
-%         \item A equação de energia cinética ($\mathcal{T}$) é dada por:
-
-%               \begin{equation}
-%                   \mathcal{T} = \sum\limits_{i=0}^{N-1} \frac{1}{2} {}_{i}^{i+1}\dot{\mathbf{P}}^T\cdot m_{i}\cdot {}_{i}^{i+1}\dot{\mathbf{P}}+ \mathbf{\omega}_i^T\cdot \mathbf{J}_i \cdot \mathbf{\omega}_i
-%               \end{equation}
-
-%               \begin{block}{ou para um robô em uma superfície:}
-
-%                   \begin{equation*}
-%                       \boxed{
-%                           \mathcal{T} = \frac{m}{2}\left(\dot{x}^2+\dot{y}^2 \right)+ \frac{J}{2}\dot{\phi}^2}
-%                       \text{, e  }
-%                       \boxed{\mathcal{V} = 0}
-%                   \end{equation*}
-%                   \scriptsize{
-%                       onde:
-%                       \begin{tabular}{l|l}
-%                           $m$               & Massa              \\
-%                           $\mathbf{\omega}$ & Velocidade Angular \\
-%                           $J$               & Inércia            \\
-%                       \end{tabular}}
-%               \end{block}
-%     \end{itemize}
-% \end{frame}
-
-
-
-
-% \begin{frame}{Modelo Dinâmico}
-%     \framesubtitle{Formulação de Lagrange}
-
-%     \begin{itemize}
-%         \item Para Sistemas Holonômicos:
-%               \begin{equation}
-%                   \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\dot{q}_k}\right)
-%                   -\parcial{}{\mathcal{L}}{q_k}
-%                   +\tau_{d_k}
-%                   = f_k, \quad k = 1,2,...,n
-%               \end{equation}
-
-%         \item Para Sistemas Não-Holonômicos \footnote{onde $k$ é o index das coordenadas generalizadas de $g_k$, $P$ representas as energias dissipativas (Atrito),
-%                   $\tau_d$ representa qualquer disturbio no sistema, $f_k$ são as forças externas que agem no sistema e $a_{jk}$ são os coeficientes das restrições de movimento.}
-%               \begin{equation}
-%                   \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\dot{q}_k}\right)
-%                   -\parcial{}{\mathcal{L}}{q_k}
-%                   +\tau_{d_k}
-%                   = f_k - \sum\limits^{m}_{j=1}\lambda_j a_{jk}
-%               \end{equation}
-%     \end{itemize}
-% \end{frame}
-
-
-% \begin{frame}{Modelo Dinâmico}
-%     \framesubtitle{Formulação de Lagrange}
-%     \begin{itemize}
-%         \item O modelo dinâmico de um robô movel com restrições de movimento pode ser expresso pelo sistema de matrizes abaixo:
-
-%               \begin{equation}
-%                   \mathbf{M(q)\ddot{q}+ C(q, \dot{q})+ F(\dot{q})+G(q) = E(q)u -A}^T\mathbf{(q)}\boldsymbol{\lambda}
-%               \end{equation}
-%     \end{itemize}
-
-%     \begin{block}{}
-%         \scriptsize{
-%             onde:
-%             \begin{tabular}{ r | l }
-%                 $\mathbf{q}$               & Vetor das coordenadas generalizadas   \\
-%                 $\mathbf{M(q)}$            & Matriz de massa e inercia             \\
-%                 $\mathbf{C(q, \dot{q})}$   & Vetor de força Coriolis e centrifuga  \\
-%                 $\mathbf{F(\dot{q})}$      & Vetor de atrito                       \\
-%                 $\mathbf{G(q)}$            & Vector da força gravitacional         \\
-%                 $\mathbf{E(q)}$            & Matriz dos tranformação dos atuadores \\
-%                 $\mathbf{u}$               & Vetor de entrada                      \\
-%                 $\mathbf{A}^T\mathbf{(q)}$ & Matriz de restrições de movimento     \\
-%                 $\boldsymbol{\lambda}$     & Multiplicador de Lagrange             \\
-%             \end{tabular}}
-%     \end{block}
-% \end{frame}
-
-
-
-% \begin{frame}{Modelagem Dinâmica}
-%     \framesubtitle{Formulação de Lagrange - Exemplo Robô Diferencial}
-% \end{frame}
-
-
-% \begin{frame}{Modelagem Dinâmica}
-%     \framesubtitle{Formulação de Lagrange - Multiplicador de Lagrange}
-%     A solução para $\lambda_i$ pode ser encontrada por:
-%     \begin{itemize}
-%         \item Método 1: Pseudo-velocidades \cmark
-%         \item Método 2: Redução de Order \xmark
-%         \item Método 3: Equações de Euler-Lagrange Modificadas \xmark
-%         \item Método 4: Calculo das Forças de restrições \xmark
-%     \end{itemize}
-% \end{frame}
-% % http://www.cpdee.ufmg.br/~torres/wp-content/uploads/2018/02/nonholonomic_constraints.pdf
-
-
-% \begin{frame}{Modelagem Dinâmica}
-%     \framesubtitle{Formulação de Lagrange - Pseudo-velocidades}
-
-%     \begin{itemize}
-%         \item O objetivo é resolver as restrições de $\lambda_i$:
-
-%               \begin{equation}\label{eq:rmrestri}
-%                   \mathbf{M(q)\ddot{q}+ C(q, \dot{q})+ F(\dot{q})+G(q) = E(q)u} - \textcolor{red}{\cancel{\mathbf{A}\mathbf{(q)}^T\boldsymbol{\lambda}}}
-%               \end{equation}
-
-%         \item reelembrando:
-
-%               \begin{equation*}
-%                   \mathbf{\dot{q}} = \mathbf{S}(q)\mathbf{v}
-%               \end{equation*}
-
-%         \item bem como:
-
-%               \begin{equation}\label{eq:aprox_accel}
-%                   \mathbf{\ddot{q}} = \mathbf{\dot{S}}(q)\mathbf{v} + \mathbf{S}(q)\mathbf{\dot{v}}
-%               \end{equation}
-
-%         \item Subustituindo \eqref{eq:rmrestri} em \eqref{eq:aprox_accel} e aplicando a relãção $\mathbf{A}(q)\mathbf{S}(q)=0$, temos a equação de aceleração do sistema:
-
-%               \begin{equation}\label{eq:pseudovelo}
-%                   \mathbf{\dot{v}} = \mathbf{\tilde{M}}^{-1}\left(\mathbf{\tilde{E}u - \tilde{V}} \right)
-%               \end{equation}
-%     \end{itemize}
-% \end{frame}
-
-
-
-% \begin{frame}{Modelagem Dinâmica}
-%     \framesubtitle{Formulação de Lagrange - Pseudo-velocidades}
-%     \begin{itemize}
-%         \item \eqref{eq:pseudovelo} na forma de equação:
-%               \begin{equation*}
-%                   \mathbf{\dot{x}} =
-%                   \begin{bmatrix}
-%                       \mathbf{S}(q)\mathbf{v} \\
-%                       \mathbf{-\tilde{M}}^{-1}\mathbf{\tilde{V}}
-%                   \end{bmatrix}
-%                   +
-%                   \begin{bmatrix}
-%                       \mathbf{0} \\
-%                       \mathbf{\tilde{M}}^{-1}\mathbf{\tilde{E}}
-%                   \end{bmatrix} \mathbf{u}
-%               \end{equation*}
-
-%         \item onde:
-
-%               \begin{equation*}
-%                   \begin{split}
-%                       \mathbf{\tilde{V}} & =
-%                       \mathbf{S}(q)^T\mathbf{M}\mathbf{\dot{S}}(q)\mathbf{v} + \mathbf{S}(q)^T (\mathbf{V + F + G})\\
-%                       \mathbf{\tilde{M}} & = \mathbf{S}(q)^T\mathbf{M}\mathbf{S}(q)\\
-%                       \mathbf{\tilde{E}} & = \mathbf{S}(q)^T\mathbf{E}\mathbf{S}
-%                   \end{split}
-%               \end{equation*}
-
-%               \begin{block}{}
-%                   \scriptsize{
-%                       onde:
-%                       \begin{tabular}{ r | l }
-%                           $\mathbf{x}$ & Vetor de estados \\
-%                           $\mathbf{S}$ & Matriz Jacobiana \\
-%                       \end{tabular}}
-%               \end{block}
-
-
-%     \end{itemize}
-% \end{frame}
-
-
-
-% \begin{frame}{Modelagem Dinâmica}
-%     \framesubtitle{Formulação de Lagrange - Exemplo Robô Diferencial}
-% \end{frame}
-
-% \begin{frame}[c]{Modelagem de um Uniciclo}
-%     \framesubtitle{}
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{./images/unicycle.jpg}
-% \end{frame}
-
-
-
-% \begin{frame}[c]{Modelagem de um Uniciclo}
-%     \framesubtitle{}
-%     \begin{columns}
-%         \begin{column}[c]{0.4\textwidth}
-%             \centering
-%             \scalebox{-1}[1]{\includegraphics[width=0.6\textwidth]{./images/unicycle_2.jpg}}
-%         \end{column}
-%         \begin{column}[c]{0.6\textwidth}
-%             \centering
-%             \includegraphics[width=.6\textwidth]{./images/unicycle_model.jpg}
-%         \end{column}
-%     \end{columns}
-%     example: Comparative Analysis between Fuzzy Logic
-%     Control, LQR Control with Kalman Filter and PID
-%     Control for a Two Wheeled Inverted Pendulum
-% \end{frame}
-
-
-
-% % \begin{frame}[t]{Referências}
-% %     \begin{itemize}
-% %         \item Craig, John J. "Robótica. 3ª edição." Rev. Atual (2012).
-% %               % \item http://www.cpdee.ufmg.br/~torres/wp-content/uploads/2018/02/nonholonomic_constraints.pdf
-% %               % \item https://def.fe.up.pt/dinamica/ 
-% %               % \item http://efisica.if.usp.br/mecanica/avancado/dinamica/
-% %               % \item VIEIRA, Frederico Carvalho. Controle dinâmico de robôs móveis com acionamento diferencial. 2006. Dissertação de Mestrado. Universidade Federal do Rio Grande do Norte.
-% %               % \item http://www.ece.ufrgs.br/~fetter/ele00070/mobrob/model.pdf
-
-% %               % \item https://pdf.sciencedirectassets.com/314898/1-s2.0-S1474667015X61039/1-s2.0-S1474667015397172/main.pdf?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEAIaCXVzLWVhc3QtMSJIMEYCIQCx8ypsAiEq0q1m%2Fy2lf68MGoSjWDEv5YCQuD82N5xp5AIhANTSz4cDW9MFVU8XMl0z%2FNHxKXv7TXFzzCnKv1s18VNsKr0DCJv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQAhoMMDU5MDAzNTQ2ODY1IgwdaXQ99nTVfkaGntAqkQO5yo6gJFwbU7apr6XwA927KDm12w05800N7%2FfWaJK1x%2F19%2FwmeQWS5XL19TyYaLeLlbNMxMrWBfsFEKrhOe93BNw2ADgF7NxWbdRhsrYdNL4sq85a20LveNcy27Jf%2BBwg%2FDC4C4qj6giuUc%2FaZwIhIlmzsogSKSUNc9%2BaXMu5eVJHvm43cKl%2B1qG38xVN0t5%2Bp83KR1NZpqK7RYODFrGow3YarmmJKvx5kiXJT4KC1Df3tqkVhzNHCKLSyN7sjjExGIqkkM6bNNSbjK5k1WeIfI1QICaK0%2F88W4rXkuz4EruqegsFxSXiU9A5K3Q3ISR7pdrtVONpKi57EZgbSmCkzb8QJ5Mv5yDSA9ygyFn6qhepkt1j2UbU9NlVxT86rHdBOb7SDV4sporHjEA6Fu2EG9IPvQBE%2FHYxJQUe0GrNf%2BwA7HNsZDvcbHbbqpRRis2f4YddtT%2Bn%2BTOJyYe0a7HNloIvkqJz%2F6ikKGhYRlka6Zmu%2Fwsy2f%2BsvvqIB3JfHVtSENT4GpEc8Bj6iZ7Zodv0DXDDeh7nxBTrqAYwjHCtfGLLEVl%2FWGSQEIP%2FQLE0wfbPtucKi52zdoCWa6v8mvxbbkX6EGNfuVkSlnCVK2QFKxcQlTfoPmAkG%2Fl%2BuICpzOr7VkJEXjr%2BJHBRtQba%2B6QkMFa0vFSXOdCTItwn98DqGNbPAyYPOhJGKjAPh%2BT9zwRRn0pFnAq5top2ObIGJp2NneOigmkRT29GIg95ttqz%2BynxgPHPlxAedpj59%2FPHKtv6i429VR7wrhSGEagLyHQ6C409r5uA0LwWNBqa0A5kaT7ZSYXvwEc5rx9%2F3PXjP1pPQEhcpNd7ALAYCr0%2Fv2M7ySAFKiA%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20200127T023739Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIAQ3PHCVTY7LZGTWVI%2F20200127%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=77bdd6e8cbe566663f102dbdaa5d0be6cb29a5d4c274d72a2e8da34a360c40ee&hash=43303e4f893f2743f2cf87299cc35e4edfcc6742a2b48c9a81845adef28675fd&host=68042c943591013ac2b2430a89b270f6af2c76d8dfd086a07176afe7c76c2c61&pii=S1474667015397172&tid=spdf-0435203f-78a0-4402-915c-9fd142382733&sid=fc56fe816e9da24f2b5b5053ec9a5c279ea1gxrqa&type=client
-% %               % \item https://www.if.ufrj.br/~pef/aulas_seminarios/notas_de_aula/tort_2015_1/MA_aula_8.
-% %               % \item https://edisciplinas.usp.br/pluginfile.php/3280273/mod_resource/content/1/Aula%204%20-%20SEM5911%20Robo%CC%81tica%20Mo%CC%81vel.pdf
-% %               % \item https://edisciplinas.usp.br/pluginfile.php/3280265/mod_resource/content/1/Aula%203%20-%20SEM5911%20Robo%CC%81tica%20Mo%CC%81vel.pdf
-% %               % \item https://homepages.dcc.ufmg.br/~doug/cursos/lib/exe/fetch.php?media=cursos:introrobotica:2018-1:aula14-representacao-modelos-cinematicos.pdf
-
-% %               %% Nao holomonicos
-% %               % https://pdfs.semanticscholar.org/4e98/09960be9ec7f1ad8fadf61dad8cb1c8818d0.pdf
-% %               % https://www.if.ufrj.br/~pef/aulas_seminarios/notas_de_aula/tort_2015_1/MA_aula_8.pdf
-% %               % http://web.mit.edu/jlramos/www/Arquivos/ReportDifferentialDrive.pdf
-
-% %     \end{itemize}
-% % \end{frame}
-% % \end{document}
+% \end{document}
 
  
-% % https://en.wikipedia.org/wiki/Inverted_pendulum
+% https://en.wikipedia.org/wiki/Inverted_pendulum
 
 
 
-% % \begin{frame}[t, allowframebreaks]
-% % 	\frametitle{Referências}
-% % 	\bibliography{../template-beamer/reflatex/reflatex.bib}
-% % \end{frame}
+% \begin{frame}[t, allowframebreaks]
+% 	\frametitle{Referências}
+% 	\bibliography{../template-beamer/reflatex/reflatex.bib}
+% \end{frame}
   
 \end{document}
