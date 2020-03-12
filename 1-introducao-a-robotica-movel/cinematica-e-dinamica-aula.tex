@@ -126,11 +126,27 @@
 \end{frame}
 
 
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Conceitos}
+    \textbf{Um robô é modelado como um corpo rígido}
+        \begin{itemize}
+            \item 3 variáveis $x, y,\phi$ (plano)
+            \item 6 variáveis $x,y,z, \alpha, \beta, \phi$ (espaço)
+        \end{itemize}
+    Deve-se estabelecer uma relação entre o sistema de referencia local (robô) e o sistema de referencia global
+        \begin{itemize}
+            \item Sistema de Referencia global, exemplo $\{W\}$, ou $\{A\}$\footnote{O sistema de referência $\{A\}$(global) e $\{B\}$(local) serão usados como exemplos genéricos em aula};
+            \item \item Referencial local, exemplo $\{M\}$, ou $\{B\}$;
+        \end{itemize}
+\end{frame}
+
+
+
 \begin{frame}{Modelagem Cinemática}
-    \framesubtitle{Transformação homogênea}
+    \framesubtitle{Transformação homogênea - Conceitos}
     \begin{itemize}
-        \item Coordenada como um vetor de posição $\mathbb{R}^{3 \times 1}$, composto pelas coordenadas $X,Y$ e $Z$.
-        \item um ponto ${}^A\mathbf{P}$ representa a distância ao longo dos eixos do plano $\{A\}$. Os elementos individuais de ${}^A\mathbf{P}$ podem ser visto pela equação \eqref{eq:cine1}.
+        \item Um vetor de posição que pertence ao espçaço $\mathbb{R}^{3 \times 1}$ é composto pelas coordenadas $X,Y$ e $Z$.
+        \item Um ponto ${}^A\mathbf{P}$ representa a distância do vetor do plano $\{A\}$. Os elementos individuais de ${}^A\mathbf{P}$ podem ser visto pela equação \eqref{eq:cine1}.
     \end{itemize}
     \begin{columns}[c]
         \begin{column}{0.6\textwidth}
@@ -138,21 +154,22 @@
                 \centering
                 \begin{tikzpicture}[scale=0.8]
                     \node(p0) at (0,0){};
-                    \draw [->] (p0.center) --++(0,3) node[right] {$ Y_A$};
-                    \draw [->, rotate =120] (p0.center) --++(0,3) node[below] {$ Z_A$};
-                    \draw [->, rotate =240] (p0.center) --++(0,3) node[below] {$ X_A$};
-                    \draw [->] (p0.center) --++(2.5,0.5) node(B)[above,rotate=30] {${}^A\mathbf{P}$};
-                    \node at (-1.5,2.5) {$\{A\}$};
+                    \draw [->, blue] (p0.center) --++(0,3) node[right] {$ Y_A$};
+                    \draw [->, rotate =120, blue] (p0.center) --++(0,3) node[below] {$ Z_A$};
+                    \draw [->, rotate =240, blue] (p0.center) --++(0,3) node[below] {$ X_A$};
+                    \draw [->, purple] (p0.center) --++(2.5,0.5) node(B)[above,rotate=30] {${}^A\mathbf{P}$};
+                    \node at (-1.5,2.5)[, blue] {$\{A\}$};
                 \end{tikzpicture}
-                \caption{Vetor em relação ao plano $\{A\}$}
+                \caption{Vetor em relação ao sistema de referências $\{A\}$}
                 \label{fig:cine1f}
             \end{figure}
         \end{column}
         \begin{column}{0.3\textwidth}
             \begin{equation}\label{eq:cine1}
-                {}^A\mathbf{P} = \begin{bmatrix}
+                \color{purple}{{}^A\mathbf{P} = \begin{bmatrix}
                     p_x \\ p_y \\ p_z
-                \end{bmatrix}
+                \end{bmatrix}}
+                \color{gray}{}
             \end{equation}
         \end{column}
     \end{columns}
@@ -199,6 +216,9 @@
 
 \begin{frame}{Modelagem Cinemática}
     \framesubtitle{Transformação homogênea - Matriz de Rotação}
+    \begin{itemize}
+        \item Demais eixos:
+    \end{itemize}
     \begin{block}{}
         \begin{equation*}
             \mathbf{R}_x(\theta) =
@@ -235,9 +255,9 @@
 \end{frame}
 
 \begin{frame}[t]{Modelagem Cinemática}
-    \framesubtitle{Transformação homogênea -Rotação de um coordenada}
+    \framesubtitle{Transformação homogênea - Rotação de um coordenada}
     \begin{itemize}
-        \item A rotação, em torno e $Z $, de um angulo qualquer $\theta$ em ${}^AP$ é descrita como na equação \eqref{eq:cine3}.
+        \item A rotação do sistema de referência $\{B\}$ em torno e $Z$, de um angulo qualquer $\theta$ em ${}^A\mathbf{P}$ é descrita como na equação \eqref{eq:cine3}, onde.
               \begin{equation}\label{eq:cine3}
                   {}^A\mathbf{P} = {}_B^A \mathbf{R}(\theta) {}^B\mathbf{P} =
                   \begin{bmatrix}
@@ -271,7 +291,7 @@
                 \end{figure}
             \end{column}
             \begin{column}[c]{0.5\textwidth}
-                A posição de ${}^A\mathbf{P}$ é encontrado através da multiplicação da matriz de ${}_B^A \mathbf{R}(\theta)$ (lê-se rotação do sistema de referência $B$ em $A$)
+                A posição de ${}^A\mathbf{P}$ (sistema de referência global) em relação a ${}^B\mathbf{P}$ é encontrado através da multiplicação da matriz de ${}_B^A \mathbf{R}(\theta)$ (lê-se rotação do sistema de referência $B$ em $A$) pela posição de ${}^B\mathbf{P}$
             \end{column}
         \end{columns}
     \end{itemize}
@@ -294,7 +314,8 @@
                       \draw [->, red] (p1.center) --++(0,3) node[right] {$\hat Y_B$};
                       \draw [->, rotate =120, red] (p1.center) --++(0,3) node[below] {$\hat Z_B$};
                       \draw [->, rotate =240, red] (p1.center) --++(0,3) node[below] {$\hat X_B$};
-                      \draw [->, red] (p1.center) --++(2,2) node(B)[above] {${}^B\mathbf{P}$};
+                      \draw [->, red] (p1.center) --++(2,2) node(B){};
+                      \node[above] at (B.center) {${}^B\mathbf{P}_{p_x, p_y, p_z}$};
                       \draw [dotted,-latex] (p0)  -- (p1) node[midway, fill=white]{${}^A\mathbf{D}(q)$};
                       \draw [-latex,dashed] (p0)  -- (B.center) node[midway, fill=white]{${}^A\mathbf{P}$};
                       \node at (-1.5,2.5) {$\{A\}$};
@@ -303,17 +324,34 @@
               \end{figure}
             \end{column}
             \begin{column}[c]{0.3\textwidth}
-                A operação de translação $\mathbf{D}(q)$ mapea ${}^AP_{BORG}$ apartir do sistema referência $\{A\}$.
+                A operação de translação $\mathbf{D}(q)$ desloca a origem de ${}^B\mathbf{P}$ a partir do sistema referência $\{A\}$.
             \end{column}
         \end{columns}
     \end{itemize}
+
+    \begin{equation}
+        {}^A\mathbf{P} = {}^A\mathbf{D}(q) {}^B\mathbf{P} =
+        \begin{bmatrix}
+            1 & 0 & 0 & q_x \\
+            0 & 1 & 0 & q_y \\
+            0 & 0 & 1 & q_z \\
+            0 & 0 & 0 & 1 \\
+        \end{bmatrix}.
+        \begin{bmatrix}
+            p_x \\
+            p_y \\
+            p_z \\
+            1
+        \end{bmatrix}
+    \end{equation}
+
 \end{frame}
 
 
 \begin{frame}{Modelagem Cinemática}
     \framesubtitle{Transformação homogênea - Translação}
     \begin{itemize}
-        \item O Deslocamento é chamado de translação, e dá-se pelo operador translacional $\mathbf{D}_A(q)$, onde ${}^A\mathbf{Q}$ representa uma translação entre os planos $\{A\}$ e $\{B\}$ e é expresso pela equação \eqref{eq:cine4}.
+        \item O Deslocamento é chamado de translação, e dá-se pelo operador translacional $\mathbf{D}_A(q)$, onde ${}^A\mathbf{Q}$ o incremento da posição em relação ao sistema de referencia $\{A\}$, conform equação \eqref{eq:cine4}.
               \begin{equation}\label{eq:cine4}
                   {}^A\mathbf{Q} =
                   \begin{bmatrix}
@@ -327,7 +365,7 @@
                       0 & 0 & 0 & 1
                   \end{bmatrix}.
               \end{equation}
-        \item Adota-se agora a notação para translação e rotação de um vetor, conforme a equação \eqref{eq:cine5}. Observa-se que a matriz $\mathbf{D}_A$ foi incorporada pela nova notação.
+        \item Adota-se agora a notação para translação e rotação de um vetor, conforme a equação \eqref{eq:cine5}. Observa-se que o vetor ${}^A\mathbf{Q}$ foi incorporada pela nova notação.
               \begin{equation}\label{eq:cine5}
                   \begin{bmatrix}
                       {}^A\mathbf{P} \\ 1
@@ -358,7 +396,7 @@
 \begin{frame}{Modelagem Cinemática}
     \framesubtitle{Transformação homogênea - Operadores}
     \begin{itemize}
-        \item Aplicando se a transformação homogênea da coordenada ${}^A\mathbf{P}$ pelos operadores de rotação e translação temos ${}^B\mathbf{P}$
+        \item Aplicando se uma transformação nas coordenada ${}^B\mathbf{P}$ pelos operadores de rotação e translação temos a representação de  ${}^A\mathbf{P}$
               \begin{figure}[!ht]
                   \centering
                   \begin{tikzpicture}[scale=0.7]
@@ -371,7 +409,7 @@
                       \draw [->, rotate =150, red] (p1.center) --++(0,3) node[below,rotate=30] {$\hat Z_B$};
                       \draw [->, rotate =270, red] (p1.center) --++(0,3) node[below,rotate=30] {$\hat X_B$};
                       \draw [->, rotate =30, red] (p1.center) --++(1.5,4) node(B)[above,rotate=30] {${}^B\mathbf{P}$};
-                      \draw [dotted,-latex] (p0)  -- (p1) node[midway, fill=white]{$\mathbf{P}_{BORG}$};
+                      \draw [dotted,-latex] (p0)  -- (p1) node[midway, fill=white]{$\mathbf{P}_{BORG}$\footnote{A origem de sistema de referencia $\{B\}$ foi deslocada, conforme ${}^A\mathbf{Q}$}};
                       \draw [-latex,dashed] (p0)  -- (B) node[midway, fill=white]{${}^A\mathbf{P}$};;
                       \node at (-1.5,2.5) {$\{A\}$};
                       \node at (4,2.5)  [rotate=30, red]   {$\{B\}$};
@@ -384,7 +422,7 @@
 \begin{frame}{Modelagem Cinemática}
     \framesubtitle{Transformação homogênea - Transformação Homogênea}
     \begin{itemize}
-        \item Na forma generalizada, a transformação homogênea ${}^{i}_0\mathbf{T}$ pode ser expressa por uma sucessiva pode ser encontrada fazendo o produto das sucessivas transformações de ${}^{i-1}_0\mathcal{A}_i$. Conforme é mostrado na equação \eqref{fig:cine3}.
+        \item Na forma generalizada, a transformação homogênea final ${}^{i}_0\mathbf{T}$ pode ser expressa pelo produto das sucessivas transformações de ${}^{i-1}_0\mathcal{A}_i$. Conforme é mostrado na equação \eqref{fig:cine3}.
               \begin{equation}\label{fig:cine3}
                   \begin{array}{lcl}
                       {}^i_0\mathbf{T} & = & {}^0_1\mathcal{A}{}^1_2\mathcal{A} \cdots {}^{i-1}_i\mathcal{A} = \prod \limits^i_{j=1}{}^{j-1}_i\mathcal{A}, \quad \mathrm{para\;}i=1,2,\cdots,n \\[.2cm]
@@ -540,23 +578,6 @@
     \framesubtitle{Cinemática Direta e Inversa - Exercício: Braço Robótico 2DOF}
 
 
-\end{frame}
-
-
-\begin{frame}{Cinemática de Robôs}
-    \framesubtitle{Conceitos}
-    \begin{itemize}
-        \item \textbf{Um robô é modelado como um corpo rígido}
-              \begin{itemize}
-                  \item 3 variáveis $x, y,\phi$ (plano)
-                  \item 6 variáveis $x,y,z, \alpha, \beta, \phi$ (espaço)
-              \end{itemize}
-        \item Deve-se estabelecer uma relação entre o referencial local (robô) e o referencial global
-              \begin{itemize}
-                  \item Referencial global, exemplo $\{I\}$, ou $\{W\}$;
-                  \item \item Referencial local, exemplo $\{M\}$, ou $\{A\}$;
-              \end{itemize}
-    \end{itemize}
 \end{frame}
 
 
