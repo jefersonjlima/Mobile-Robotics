@@ -16,9 +16,9 @@
     \fill[black] circle (2pt);
     }
     \def\grip{%
-    \draw[ultra thick](0cm,\dg)--(0cm,-\dg);
-    \fill (0cm, 0.5\dg)+(0cm,1.5pt) -- +(0.6\dg,0cm) -- +(0pt,-1.5pt);
-    \fill (0cm, -0.5\dg)+(0cm,1.5pt) -- +(0.6\dg,0cm) -- +(0pt,-1.5pt);
+    \draw[ultra thick, blue](0cm,\dg)--(0cm,-\dg);
+    \fill[blue] (0cm, 0.5\dg)+(0cm,1.5pt) -- +(0.6\dg,0cm) -- +(0pt,-1.5pt);
+    \fill[blue] (0cm, -0.5\dg)+(0cm,1.5pt) -- +(0.6\dg,0cm) -- +(0pt,-1.5pt);
     }
 
     \def\robotbase{%
@@ -31,11 +31,14 @@
     \robotbase
     \link(#1:#2);
     \joint
+    \node[left]{$\color{black}{\theta_1}$};
     \begin{scope}[shift=(#1:#2), rotate=#1]
         \link(#3:#4);
         \joint
+        \node[above]{$\color{black}{\theta_2}$};
         \begin{scope}[shift=(#3:#4), rotate=#5]
             \grip
+            \node[right]{$\color{blue}{\mathbf{x}_{tool}}$};
         \end{scope}
     \end{scope}
     }

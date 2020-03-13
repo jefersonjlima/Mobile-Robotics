@@ -27,7 +27,7 @@
         % Forces
         {[force,->]
             % Assuming that Mg = 1. The normal force will therefore be cos(alpha)
-            \draw (M.east) -- ++(1,0) node[above, blue] {$v_{t-1}$};
+            \draw (M.east) -- ++(1,0) node[above, blue] {$\mathbf{v}_{t-1}$};
         }
         \draw[wheel, fill=gray] (M.south west) rectangle ++(.4,-.1) node[]{};
         \draw[wheel, fill=gray] (M.north west) rectangle ++(.4,.1)  node[]{};
@@ -49,10 +49,10 @@
         % Forces
         {[force,->]
             % Assuming that Mg = 1. The normal force will therefore be cos(alpha)
-            \draw (M.east) -- ++(1,0) node[above, blue] {$v_t$};
+            \draw (M.east) -- ++(1,0) node[above, blue] {$\mathbf{v}_t$};
         }
-        \draw[wheel] (M.south west) rectangle ++(.4,-.1) node[below]{$v_R$};
-        \draw[wheel] (M.north west) rectangle ++(.4,.1)  node[left]{$v_L$};
+        \draw[wheel] (M.south west) rectangle ++(.4,-.1) node[below]{$v_D$};
+        \draw[wheel] (M.north west) rectangle ++(.4,.1)  node[left]{$v_E$};
     \end{scope}
     % Draw gravity force. The code is put outside the rotated
     % scope for simplicity. No need to do any angle calculations. 

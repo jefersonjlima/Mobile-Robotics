@@ -34,7 +34,7 @@
         % Forces
         {[force,->]
             % Assuming that Mg = 1. The normal force will therefore be cos(alpha)
-            \draw (M.center) -- ++(1,0) node[above, blue] {$v_{t}$};
+            \draw (M.center) -- ++(1,0) node[above, blue] {$\mathbf{v}_{t}$};
         }
     \end{scope}
     % Draw gravity force. The code is put outside the rotated
@@ -48,7 +48,7 @@
     \draw[gray, ->] (-2,-1) -- ++(-.5,-.5) node[left] {$z$};
     \node[left, gray,font=\small, xshift=-10] at (y_axis) {$\{A\}$};
     \draw [densely dashed,red,] (-2,-1)-- (M.center) node[above, midway] {${}^A\mathbf{Q}$};
-    \draw [force,->](-2,-1) -- ++(1,0) node[below, blue] {$v_{t-1}$};
+    \draw [force,->](-2,-1) -- ++(1,0) node[below, blue] {$\mathbf{v}_{t-1}$};
 \end{tikzpicture}
 
   
