@@ -489,10 +489,11 @@
     \begin{itemize}
         \item \textcolor{purple}{\textbf{Resumo:}}
     \end{itemize}
-
-    \begin{center}
+    \begin{figure}
+        \centering
         \includegraphics[width=0.6\textwidth]{./images/tf_2.png}
-    \end{center}   
+        \caption{Exemplo de sistemas de referência - Carro}
+    \end{figure}
 \end{frame}
 
 
@@ -501,10 +502,11 @@
     \begin{itemize}
         \item \textcolor{purple}{\textbf{Resumo:}}
     \end{itemize}
-
-    \begin{center}
+    \begin{figure}
+        \centering
         \includegraphics[width=0.6\textwidth]{./images/tf_3.png}
-    \end{center}   
+        \caption{Exemplo de sistemas de referência - Manipulador Robótico}
+    \end{figure}
 \end{frame}
 
 
@@ -541,15 +543,17 @@
         \item A relação entre as Cinemática Direta e Cinemática Inversa é obtida através da Matriz Jacobiana do Robô.
 
               \begin{equation*}
-                  \mathbf{x} = \mathbb{J}{\mathbf{q}}
+                  \mathbf{\dot{x}} = \mathbb{J}{\mathbf{\dot{q}}}
                   \text{ e, }
-                  \mathbf{q} = \mathbb{J}^{-1}{\mathbf{x}}
+                  \mathbf{\dot{q}} = \mathbb{J}^{-1}{\mathbf{\dot{x}}}
               \end{equation*}
 
               bem como:
 
               \begin{equation*}
                   \frac{\text{d}\mathbf{x}}{\text{d}t} = \mathbb{J}\frac{\text{d}\mathbf{q}}{\text{d}t}
+                  \text{ e, }
+                  \frac{\text{d}\mathbf{q}}{\text{d}t} = \mathbb{J}^{-1}\frac{\text{d}\mathbf{x}}{\text{d}t}
               \end{equation*}
 
               onde $\mathbb{J}$ é dado por:
@@ -622,7 +626,7 @@
 
     \begin{itemize}
 
-        \item Equilíbrio de Energias:
+        \item Equilíbrio de Energias - Formulação de Lagrange:
 
               \begin{equation}
                   \mathcal{L}= \mathcal{T} - \mathcal{V}
@@ -630,24 +634,24 @@
 
         \item A equação de energia cinética ($\mathcal{T}$) é dada por:
 
-              \begin{equation}
-                  \mathcal{T} = \frac{1}{2} \sum\limits_{i=0}^{N-1} \dot{v_i}^T\cdot \mathbf{m}_i\cdot \dot{v_i}+ \frac{1}{2} \sum\limits_{i=0}^{N-1}\mathbf{\omega}_i^T\cdot \mathbf{J}_i \cdot \mathbf{\omega}_i
-              \end{equation}
+            \begin{equation}
+                \mathcal{T} = \frac{1}{2} \sum\limits_{k=1}^{N}{\mathbf{\dot{q}}_k}^T  \mathbf{M}_k {\mathbf{\dot{q}}_k}+ \frac{1}{2} \sum\limits_{k=1}^{N}\mathbf{\omega}_k^T \mathbf{J}_k \mathbf{\omega}_k
+            \end{equation}
 
-              \begin{block}{ou para um robô em uma superfície:}
+        \item A equação de energia Potencial ($\mathcal{V}$) é dada por\footnote{Depende do típo de energia potencial do sistema, neste caso - gravitacional}:
 
-                  \begin{equation*}
-                      \boxed{
-                          \mathcal{T} = \frac{m}{2}\left(\dot{x}^2+\dot{y}^2 \right)+ \frac{J}{2}\dot{\phi}^2}
-                      \text{, e  }
-                      \boxed{\mathcal{V} = 0}
-                  \end{equation*}
+            \begin{equation}
+                \mathcal{V} = \mathbf{M}g\Delta y 
+            \end{equation}  
+
+
+              \begin{block}{}
                   \scriptsize{
                       onde:
                       \begin{tabular}{l|l}
-                          $m$               & Massa              \\
+                          $\mathbf{M}$               & Massa              \\
                           $\mathbf{\omega}$ & Velocidade Angular \\
-                          $J$               & Inércia            \\
+                          $\mathbf{J}$               & Inércia            \\
                       \end{tabular}}
               \end{block}
     \end{itemize}
@@ -659,7 +663,8 @@
     \framesubtitle{Formulação de Lagrange}
 
     \begin{itemize}
-        \item Para Sistemas Holonômicos:
+        \item Para Sistemas Holonômicos \footnote{onde $k$ é o index das coordenadas generalizadas de $g_k$, $P$ representas as energias dissipativas (Atrito),
+        $\tau_d$ representa qualquer disturbio no sistema, $f_k$ são as forças externas que agem no sistema e $a_{jk}$ são os coeficientes das restrições de movimento.}:
               \begin{equation}
                   \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\dot{q}_k}\right)
                   -\parcial{}{\mathcal{L}}{q_k}
@@ -667,14 +672,6 @@
                   = f_k, \quad k = 1,2,...,n
               \end{equation}
 
-        \item Para Sistemas Não-Holonômicos \footnote{onde $k$ é o index das coordenadas generalizadas de $g_k$, $P$ representas as energias dissipativas (Atrito),
-                  $\tau_d$ representa qualquer disturbio no sistema, $f_k$ são as forças externas que agem no sistema e $a_{jk}$ são os coeficientes das restrições de movimento.}
-              \begin{equation}
-                  \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\dot{q}_k}\right)
-                  -\parcial{}{\mathcal{L}}{q_k}
-                  +\tau_{d_k}
-                  = f_k - \sum\limits^{m}_{j=1}\lambda_j a_{jk}
-              \end{equation}
     \end{itemize}
 \end{frame}
 
