@@ -250,12 +250,12 @@
     \end{block}
 \end{frame}
 
-\begin{frame}{Modelagem Cinemática}
-    \framesubtitle{Transformação homogênea - Matriz de Rotação - Exercício}
+% \begin{frame}{Modelagem Cinemática}
+%     \framesubtitle{Transformação homogênea - Matriz de Rotação - Exercício}
 
-    \href{https://cursoseaulas.gitlab.io/robotica-movel/exercicio01.ipynb}{Exercício: Rotação Translação e Transformação Homogênea}
+%     \href{https://cursoseaulas.gitlab.io/robotica-movel/exercicio01.ipynb}{Exercício: Rotação Translação e Transformação Homogênea}
 
-\end{frame}
+% \end{frame}
 
 \begin{frame}[t]{Modelagem Cinemática}
     \framesubtitle{Transformação homogênea - Rotação de um coordenada}
@@ -617,7 +617,7 @@
             $$
         \end{column}
     \end{columns}
-    \footnotetext{\href{https://gitlab.com/jeferson.lima/control-lab/-/blob/master/notebooks/2dof-arm/Robotic_Arm.ipynb}{Exemplo de simulação dinâmica de um robô} }
+    \footnotetext{\href{https://colab.research.google.com/github/jefersonjlima/2dof-arm/blob/master/notebook/Robotic_Arm.ipynb}{Exemplo de simulação dinâmica de um robô} }
 \end{frame}
 
 
@@ -641,7 +641,7 @@
         \item A equação de energia Potencial ($\mathcal{V}$) é dada por\footnote{Depende do típo de energia potencial do sistema, neste caso - gravitacional}:
 
             \begin{equation}
-                \mathcal{V} = \mathbf{M}g\Delta y 
+                \mathcal{V} = \sum\limits_{k=1}^{N}\mathbf{M}g\Delta \underbrace{y_k}_{\text{altura}}
             \end{equation}  
 
 
@@ -651,7 +651,7 @@
                       \begin{tabular}{l|l}
                           $\mathbf{M}$               & Massa              \\
                           $\mathbf{\omega}$ & Velocidade Angular \\
-                          $\mathbf{J}$               & Inércia            \\
+                          $\mathbf{J}$               & Inércia         \\
                       \end{tabular}}
               \end{block}
     \end{itemize}
@@ -663,45 +663,118 @@
     \framesubtitle{Formulação de Lagrange}
 
     \begin{itemize}
-        \item Para Sistemas Holonômicos \footnote{onde $k$ é o index das coordenadas generalizadas de $g_k$, $P$ representas as energias dissipativas (Atrito),
-        $\tau_d$ representa qualquer disturbio no sistema, $f_k$ são as forças externas que agem no sistema e $a_{jk}$ são os coeficientes das restrições de movimento.}:
+        \item Para Sistemas Holonômicos:
               \begin{equation}
                   \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\dot{q}_k}\right)
                   -\parcial{}{\mathcal{L}}{q_k}
-                  +\tau_{d_k}
                   = f_k, \quad k = 1,2,...,n
               \end{equation}
 
     \end{itemize}
+    \begin{block}{}
+        onde $k$ é o index das coordenadas generalizadas de $g_k$, $f_k$ são as forças externas que agem no sistema .
+    \end{block} 
 \end{frame}
 
 
-% \begin{frame}{Modelo Cinemático e Dinâmico}
-%     \framesubtitle{Formulação de Lagrange}
-%     \begin{itemize}
-%         \item O modelo dinâmico de um robô movel com restrições de movimento pode ser expresso pelo sistema de matrizes abaixo:
+\begin{frame}{Modelo Cinemático e Dinâmico}
+    \framesubtitle{Formulação de Lagrange}
+    \begin{itemize}
+        \item O modelo dinâmico de um robô movel sem restrições de movimento pode ser expresso pelo sistema de matrizes abaixo:
 
-%               \begin{equation}
-%                   \mathbf{M(q)\ddot{q}+ C(q, \dot{q})+ F(\dot{q})+G(q) = E(q)u -A}^T\mathbf{(q)}\boldsymbol{\lambda}
-%               \end{equation}
-%     \end{itemize}
+              \begin{equation}
+                  \mathbf{M(q)\ddot{q}+ C(q, \dot{q})+ \color{red}{F(\dot{q})}\color{gray}+G(q) = E(q)u}
+              \end{equation}
+    \end{itemize}
 
-%     \begin{block}{}
-%         \scriptsize{
-%             onde:
-%             \begin{tabular}{ r | l }
-%                 $\mathbf{q}$               & Vetor das coordenadas generalizadas   \\
-%                 $\mathbf{M(q)}$            & Matriz de massa e inercia             \\
-%                 $\mathbf{C(q, \dot{q})}$   & Vetor de força Coriolis e centrifuga  \\
-%                 $\mathbf{F(\dot{q})}$      & Vetor de atrito                       \\
-%                 $\mathbf{G(q)}$            & Vector da força gravitacional         \\
-%                 $\mathbf{E(q)}$            & Matriz dos tranformação dos atuadores \\
-%                 $\mathbf{u}$               & Vetor de entrada                      \\
-%                 $\mathbf{A}^T\mathbf{(q)}$ & Matriz de restrições de movimento     \\
-%                 $\boldsymbol{\lambda}$     & Multiplicador de Lagrange             \\
-%             \end{tabular}}
-%     \end{block}
-% \end{frame}
+    \begin{block}{}
+        \scriptsize{
+            onde:
+            \begin{tabular}{ r | l }
+                $\mathbf{q}$               & Vetor das coordenadas generalizadas   \\
+                $\mathbf{M(q)}$            & Matriz de massa e inercia             \\
+                $\mathbf{C(q, \dot{q})}$   & Vetor de força Coriolis e centrifuga  \\
+                $\color{red}{\mathbf{F(\dot{q})}}$      & Vetor de atrito, força não conservativa\footnotemark\\
+                $\mathbf{G(q)}$            & Vector da força gravitacional         \\
+                $\mathbf{E(q)}$            & Matriz dos tranformação dos atuadores \\
+                $\mathbf{u}$               & Vetor de entrada                      \\
+            \end{tabular}}
+    \end{block}
+    \footnotetext{As forças que não fazem parte do balanço de energia no formalismo de lagrange, devem ser adicionadas a posteriori no sistema de equações}
+\end{frame}
+
+
+\begin{frame}{Modelo Cinemático e Dinâmico}
+    \framesubtitle{Formulação de Lagrange - Simulação}
+    \begin{itemize}
+        \item A solução numérica pode ser dada através da integração da aceleração ($\mathbf{\ddot{q}}$):
+    \end{itemize}
+    \begin{equation}
+        \mathbf{\ddot{q}}=\mathbf{M(q)}^{-1}\left\{\mathbf{-C(q, \dot{q})-F(\dot{q})-G(q) + E(q)u}\right\}
+    \end{equation}
+
+    \begin{block}{Em espaço de estados}
+        \begin{itemize}
+            \item Dito isso, o sistema precisa ser expresso em equações de estado.
+        \end{itemize}
+
+
+        \begin{equation*}
+            \mathbf{X} = 
+            \begin{bmatrix}
+                \mathbf{q_1 q_2, \dot{q}_1, \dot{q}_2}.  
+            \end{bmatrix}
+        \end{equation*}
+    \end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{Modelo Cinemático e Dinâmico}
+    \framesubtitle{Formulação de Lagrange - Simulação}
+    Exemplo - Criando o Modelo
+	\begin{lstlisting}[language=Python]
+    def robot(t,X):
+        q1  = X[0]
+        q2  = X[1]
+        dq1 = X[2] 
+        dq2 = X[3]
+        # Inertial matrix
+        Mq = np.array([...]) 
+        # C Matrix
+        Cq = np.array([...])
+        # Gravitational matrix 
+        Gq = np.array([...])
+        # Friction Force
+        ks = 0
+        Fa = ks * np.array([[dq1],[dq1]])
+        # Atuator
+        U_gain =  tau1 = tau2 = 0
+        Eu = U_gain * np.array([[tau1],[tau2]])
+        # Init Model
+        xdot = np.zeros(4,)
+        ...
+	\end{lstlisting}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Modelo Cinemático e Dinâmico}
+    \framesubtitle{Formulação de Lagrange - Simulação}
+
+	\begin{lstlisting}[language=Python]
+        ...
+
+        #dinamic
+        q2dot = inv(Mq).dot(-Cq-Fa-Gq)
+        # states
+        xdot[0] = dq1
+        xdot[1] = dq2
+        xdot[2] = q2dot[0]
+        xdot[3] = q2dot[1]
+
+        return xdot
+	\end{lstlisting}
+\end{frame}
 
 
 % \begin{frame}{Cinemática de Robôs}

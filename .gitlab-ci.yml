@@ -12,7 +12,7 @@ pdf_stage:
     - find ./ -name '*.jpeg' -exec mv -t ./images {} \;
     - find ./ -name '*.jpg' -exec mv  -t ./images {} \;
     - find ./ -name '*.png' -exec mv  -t ./images {} \;
-    - find ./ -name '*.ipynb' -exec mv  -t ./public {} \;
+#    - find ./ -name '*.ipynb' -exec mv  -t ./public {} \;
     - cp 1-introducao-a-robotica-movel/beamerthemesimple.sty ./
     - ls
     - find ./ -name '*aula.tex' -exec pdflatex {} \;
