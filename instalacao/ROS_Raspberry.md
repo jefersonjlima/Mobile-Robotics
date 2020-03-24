@@ -15,8 +15,14 @@ If you are not running on one of our robots run sudo systemctl disable magni-bas
 
 
 ```bash
-$ sh ubuntu@10.42.0.1
+$ ssh ubuntu@10.42.0.1
 ```
+
+stop services
+```
+$ sudo systemctl disable magni-base
+```
+
 
 When it was connected
 
