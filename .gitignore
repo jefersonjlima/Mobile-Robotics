@@ -16,5 +16,6 @@
 *.ilg
 *.ind
 *.lot
+*.lof
 temp/
 .ipynb_checkpoints/
