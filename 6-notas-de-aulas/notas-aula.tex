@@ -1,0 +1,94 @@
+\documentclass[krantz1,ChapterTOCs]{krantz}
+\usepackage{fixltx2e,fix-cm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{makeidx}
+\usepackage{multicol}
+ 
+% \usepackage[dvips]{hyperref}
+
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{scopes}
+\usepackage{verbatim} 
+\usetikzlibrary{patterns}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{listings}
+	\definecolor{codegreen}{rgb}{0,0.6,0}
+	\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+	\definecolor{codepurple}{rgb}{0.58,0,0.82}
+	\definecolor{backcolour}{rgb}{0.92,0.92,0.92}
+	\lstset{language=Python, 
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\fontsize{8}{11}\ttfamily,
+	frame=lines,
+%	numbers=left,
+	tabsize=2,
+	morekeywords={models, lambda, forms}}
+
+
+\frenchspacing
+\tolerance=5000
+
+\makeindex
+
+\include{frontmatter/preamble} %place custom commands and macros here
+
+\begin{document}
+
+\frontmatter
+
+\title{Robótica Móvel 
+%in Socio-Environmental Systems, Public Health, and Insurance\\
+%{\Large(Applied Environmental Statistics Series)}
+}
+\author{Jeferson J. Lima}
+
+\maketitle
+
+%\include{frontmatter/dedication}
+%\cleardoublepage
+\setcounter{page}{7} %previous pages will be reserved for frontmatter to be added in later.
+\tableofcontents
+%\include{frontmatter/foreword}
+%\include{frontmatter/preface}
+\listoffigures
+\listoftables
+%\include{frontmatter/contributor}
+%\include{frontmatter/symbollist}
+
+\mainmatter
+
+
+\part{Introdução a Robótica Móvel}
+\include{chapters/chapter0/ch0}
+
+\part{Cinemática e Dinâmica de Robôs Móveis}
+
+\part{Percepção e Ação}
+
+\part{Paradigmas de Controle}
+
+\part{Ambiente de Simulação}
+
+\part{Localização e Mapeamento Simultâneos}
+
+\part{Robôs Bípedes}
+
+\part{Robôs Aéreos}
+
+\bibliographystyle{plain}
+\bibliography{bibtex_example}
+
+\printindex
+
+\end{document}
+
+

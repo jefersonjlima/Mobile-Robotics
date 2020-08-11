@@ -51,3 +51,9 @@ $ source ~/catvehicle_ws/devel/setup.bash
 $ roslaunch catvehicle catvehicle_canyonview.launch
 $ gzclient
 ```
+
+
+
+# RPLIDAR
+
+* https://www.youtube.com/watch?v=Qrtz0a7HaQ4

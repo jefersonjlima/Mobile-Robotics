@@ -15,6 +15,9 @@
 
 * https://openvslam.readthedocs.io/en/master/installation.html#subsection-common-linux-macos
 
+
+* [HECTOR SLAM](http://downloads.hindawi.com/journals/jr/2018/7806854.pdf)
+
 ## Aruco marker
 * http://ros-developer.com/2017/04/23/aruco-ros/
 * https://ardupilot.org/dev/docs/ros-aruco-detection.html
@@ -88,3 +91,7 @@
 # Projects
 * https://electricdiylab.com/diy-self-balancing-robot/
 * https://www.youtube.com/watch?v=T6r7EZKZW-E
+
+
+# Automonous Car - DataSet 
+* http://www.cvlibs.net/datasets/kitti/raw_data.php

@@ -12,5 +12,9 @@
 *.fls
 *.bbl
 *.blg
+*.idx
+*.ilg
+*.ind
+*.lot
 temp/
 .ipynb_checkpoints/
