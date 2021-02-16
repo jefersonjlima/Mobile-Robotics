@@ -14,6 +14,8 @@ Once connected, it is possible to log into the Pi with ssh ubuntu@10.42.0.1 with
 If you are not running on one of our robots run sudo systemctl disable magni-base to ensure that our startup scripts get disabled.
 
 
+https://learn.ubiquityrobotics.com/connect_network
+
 ```bash
 $ ssh ubuntu@10.42.0.1
 ```
@@ -41,6 +43,10 @@ $ tightvncserver
 $ vncserver :1 -geometry 1024x600 -depth 16 -pixelformat rgb565
 ```
 
+## Next
+git clone --recurse-submodules https://gitlab.com/jeferson.lima/uvc_robot.git
+python3 -c "$(curl -fsSL https://raw.githubusercontent.com/platformio/platformio/develop/scripts/get-platformio.py)"
+https://answers.ros.org/question/264764/rosserial-arduino-due-sync-issues/
 
 # Install Jetson Nano
 

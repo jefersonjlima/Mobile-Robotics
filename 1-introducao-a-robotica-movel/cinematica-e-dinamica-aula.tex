@@ -65,452 +65,452 @@
 
 \maketitle
 
-\begin{frame}{Informações Úteis}
-    \begin{block}{Material disponível em:}
-        \href{Robótica Móvel - Wiki}{https://gitlab.com/cursoseaulas/robotica-movel/-/wikis/home}
-    \end{block}
-    \pausar
-    \begin{block}{Avisos Importantes}
-        \begin{itemize}
-            \item \textcolor{red}{Envio Moodle: Nomes das equipes e do Robô}
-        \end{itemize}
-    \end{block}
-    \pausar
-    \begin{block}{Materiais e Recursos de Aula}
-        \begin{itemize}
-            \item Quadros / Slides
-            \item Python - Jupyter Notebook (Colab)
-        \end{itemize}
-    \end{block}
+% \begin{frame}{Informações Úteis}
+%     \begin{block}{Material disponível em:}
+%         \href{Robótica Móvel - Wiki}{https://gitlab.com/cursoseaulas/robotica-movel/-/wikis/home}
+%     \end{block}
+%     \pausar
+%     \begin{block}{Avisos Importantes}
+%         \begin{itemize}
+%             \item \textcolor{red}{Envio Moodle: Nomes das equipes e do Robô}
+%         \end{itemize}
+%     \end{block}
+%     \pausar
+%     \begin{block}{Materiais e Recursos de Aula}
+%         \begin{itemize}
+%             \item Quadros / Slides
+%             \item Python - Jupyter Notebook (Colab)
+%         \end{itemize}
+%     \end{block}
     
-\end{frame}
+% \end{frame}
 
 
-\begin{frame}{Modelagem Cinemática e Dinâmica}
-    \framesubtitle{Introdução}
-    \begin{itemize}
-        \item Tipo de Modelos:
-              \begin{itemize}
-                  \item Modelo Cinemático \cmark;
-                  \item Modelo Dinâmico;
-              \end{itemize}
-    \end{itemize}
-    \begin{center}
-        \includegraphics[width=0.8\textwidth]{./images/mecanismos.jpg}
-    \end{center}
-\end{frame}
+% \begin{frame}{Modelagem Cinemática e Dinâmica}
+%     \framesubtitle{Introdução}
+%     \begin{itemize}
+%         \item Tipo de Modelos:
+%               \begin{itemize}
+%                   \item Modelo Cinemático \cmark;
+%                   \item Modelo Dinâmico;
+%               \end{itemize}
+%     \end{itemize}
+%     \begin{center}
+%         \includegraphics[width=0.8\textwidth]{./images/mecanismos.jpg}
+%     \end{center}
+% \end{frame}
 
 
-\begin{frame}{Modelagem Cinemática e Dinâmica}
-    \framesubtitle{Conceitos}
-    \begin{itemize}
-        \item A cinemática é a área da Física que estuda o movimento dos corpos.
-        \item Em robótica móvel a cinemática estabelece relações entre o deslocamento (locomoção) do robô e a atuação a ele imposta.
-        \item A cinemática direta estabelece modelos que estimam o deslocamento do robô dada uma atuação, por exemplo, velocidade imposta às suas rodas. A cinemática direta está relacionada as \textbf{Coordenadas Generalizadas}.
-        \item A cinemática inversa estabelece modelos que estimam a atuação necessária para que o robô realize um determinado deslocamento, por exemplo, percorrer uma trajetória \footnote{http://143.106.148.168:9080/Cursos/IA368N/01-16/cinematica2.pdf}.
-    \end{itemize}
-\end{frame}
+% \begin{frame}{Modelagem Cinemática e Dinâmica}
+%     \framesubtitle{Conceitos}
+%     \begin{itemize}
+%         \item A cinemática é a área da Física que estuda o movimento dos corpos.
+%         \item Em robótica móvel a cinemática estabelece relações entre o deslocamento (locomoção) do robô e a atuação a ele imposta.
+%         \item A cinemática direta estabelece modelos que estimam o deslocamento do robô dada uma atuação, por exemplo, velocidade imposta às suas rodas. A cinemática direta está relacionada as \textbf{Coordenadas Generalizadas}.
+%         \item A cinemática inversa estabelece modelos que estimam a atuação necessária para que o robô realize um determinado deslocamento, por exemplo, percorrer uma trajetória \footnote{http://143.106.148.168:9080/Cursos/IA368N/01-16/cinematica2.pdf}.
+%     \end{itemize}
+% \end{frame}
 
-
-\begin{frame}{Modelagem Cinemática}
-    \framesubtitle{Introdução}
-    \setlength\extrarowheight{5pt}
-    \begin{itemize}
-        \item Modelo Cinemático:
-              \begin{itemize}
-                  \item Cinemático Direta e Inversa;
-                  \item Holonomicidade\footnote{O termo holonômico é atribuido a Hertz (Arnol'd and (Eds.), 1994) e significa "universal", "integral", "integrável" ( literalmente: holo = o todo, conjunto, totalidade - nomia = lei). Portanto, sistemas não-holonômicos podem ser interpretados como sistemas não integráveis. \textcolor{blue}{Definem-se como não-holonômicos sistemas com dimensão finita onde algum tipo de restrição é imposta a um ou mais estados do sistema.}}
-              \end{itemize}
-    \end{itemize}
-
-\end{frame}
-
-
-\begin{frame}{Cinemática de Robôs}
-    \framesubtitle{Conceitos}
-    \textbf{Um robô é modelado como um corpo rígido}
-        \begin{itemize}
-            \item 3 variáveis $x, y,\phi$ (plano)
-            \item 6 variáveis $x,y,z, \alpha, \beta, \phi$ (espaço)
-        \end{itemize}
-    Deve-se estabelecer uma relação entre o sistema de referencia local (robô) e o sistema de referencia global
-        \begin{itemize}
-            \item Sistema de Referencia global, exemplo $\{W\}$, ou $\{A\}$\footnote{O sistema de referência $\{A\}$(global) e $\{B\}$(local) serão usados como exemplos genéricos em aula};
-            \item \item Referencial local, exemplo $\{M\}$, ou $\{B\}$;
-        \end{itemize}
-        \begin{center}
-            \includegraphics[width=0.5\textwidth]{./images/tf_1.png}
-        \end{center}
-\end{frame}
-
-
-
-\begin{frame}{Modelagem Cinemática}
-    \framesubtitle{Transformação homogênea - Conceitos}
-    \begin{itemize}
-        \item Um vetor de posição que pertence ao espçaço $\mathbb{R}^{3 \times 1}$ é composto pelas coordenadas $X,Y$ e $Z$.
-        \item Um ponto ${}^A\mathbf{P}$ representa a distância do vetor do plano $\{A\}$. Os elementos individuais de ${}^A\mathbf{P}$ podem ser visto pela equação \eqref{eq:cine1}.
-    \end{itemize}
-    \begin{columns}[c]
-        \begin{column}{0.6\textwidth}
-            \begin{figure}
-                \centering
-                \begin{tikzpicture}[scale=0.8]
-                    \node(p0) at (0,0){};
-                    \draw [->, blue] (p0.center) --++(0,3) node[right] {$ Y_A$};
-                    \draw [->, rotate =120, blue] (p0.center) --++(0,3) node[below] {$ Z_A$};
-                    \draw [->, rotate =240, blue] (p0.center) --++(0,3) node[below] {$ X_A$};
-                    \draw [->, black] (p0.center) --++(2.5,0.5) node(B)[above,rotate=30] {${}^A\mathbf{P}$};
-                    \node at (-1.5,2.5)[, blue] {$\{A\}$};
-                \end{tikzpicture}
-                \caption{Vetor em relação ao sistema de referências $\{A\}$}
-                \label{fig:cine1f}
-            \end{figure}
-        \end{column}
-        \begin{column}{0.3\textwidth}
-            \begin{equation}\label{eq:cine1}
-                \color{black}{{}^A\mathbf{P} = \begin{bmatrix}
-                    p_x \\ p_y \\ p_z
-                \end{bmatrix}}
-                \color{gray}{}
-            \end{equation}
-        \end{column}
-    \end{columns}
-\end{frame}
-
-
-
-\begin{frame}{Modelagem Cinemática}
-    \framesubtitle{Transformação homogênea - Matriz de Rotação}
-    \begin{itemize}
-        \item O vetor definido por ${}^A\mathbf{P}$ pode ser rotacionado pela matriz de rotação $\mathbf{R}$, conforme a equação \eqref{eq:cine2}.
-              \begin{equation}\label{eq:cine2}
-                  {}_A^B
-                  \mathbf{R} =
-                  \begin{bmatrix}
-                      r_{11} & r_{11} & r_{11} \\
-                      r_{21} & r_{21} & r_{21} \\
-                      r_{31} & r_{31} & r_{31} \\
-                  \end{bmatrix}
-              \end{equation}
-    \end{itemize}
-
-    \begin{block}{Considerando os exemplos}
-        \begin{equation*}
-            \mathbf{R}(\theta) =
-            \begin{bmatrix}
-                \cos \theta & -\sin \theta \\\sin \theta &\cos \theta
-            \end{bmatrix}
-        \end{equation*}
-        ou:
-        \begin{equation*}
-            \mathbf{R}_z(\theta) =
-            \begin{bmatrix}
-                \cos(\theta) & -\sin(\theta) & 0 \\
-                \sin(\theta) & \cos(\theta) & 0 \\
-                0            & 0            & 1 \\
-            \end{bmatrix} \text{, eixo $Z$ fixo}
-        \end{equation*}
-    \end{block}
-
-\end{frame}
-
-
-
-\begin{frame}{Modelagem Cinemática}
-    \framesubtitle{Transformação homogênea - Matriz de Rotação}
-    \begin{itemize}
-        \item Demais eixos:
-    \end{itemize}
-    \begin{block}{}
-        \begin{equation*}
-            \mathbf{R}_x(\theta) =
-            \begin{bmatrix}
-                1 & 0            & 0             \\
-                0 & \cos(\theta) & -\sin(\theta) \\
-                0 & \sin(\theta) & \cos(\theta)  \\
-            \end{bmatrix} \text{, eixo $x$ fixo}
-        \end{equation*}
-        \begin{equation*}
-            \mathbf{R}_y(\theta) =
-            \begin{bmatrix}
-                \cos(\theta)  & 0 & \sin(\theta) \\
-                0             & 1 & 0            \\
-                -\sin(\theta) & 0 & \cos(\theta) \\
-            \end{bmatrix} \text{, eixo $y$ fixo}
-        \end{equation*}
-        \begin{equation*}
-            \mathbf{R}_z(\theta) =
-            \begin{bmatrix}
-                \cos(\theta) & -\sin(\theta) & 0 \\
-                \sin(\theta) & \cos(\theta) & 0 \\
-                0            & 0            & 1 \\
-            \end{bmatrix} \text{, eixo $z$ fixo}
-        \end{equation*}
-    \end{block}
-\end{frame}
 
 % \begin{frame}{Modelagem Cinemática}
-%     \framesubtitle{Transformação homogênea - Matriz de Rotação - Exercício}
-
-%     \href{https://cursoseaulas.gitlab.io/robotica-movel/exercicio01.ipynb}{Exercício: Rotação Translação e Transformação Homogênea}
+%     \framesubtitle{Introdução}
+%     \setlength\extrarowheight{5pt}
+%     \begin{itemize}
+%         \item Modelo Cinemático:
+%               \begin{itemize}
+%                   \item Cinemático Direta e Inversa;
+%                   \item Holonomicidade\footnote{O termo holonômico é atribuido a Hertz (Arnol'd and (Eds.), 1994) e significa "universal", "integral", "integrável" ( literalmente: holo = o todo, conjunto, totalidade - nomia = lei). Portanto, sistemas não-holonômicos podem ser interpretados como sistemas não integráveis. \textcolor{blue}{Definem-se como não-holonômicos sistemas com dimensão finita onde algum tipo de restrição é imposta a um ou mais estados do sistema.}}
+%               \end{itemize}
+%     \end{itemize}
 
 % \end{frame}
 
-\begin{frame}[t]{Modelagem Cinemática}
-    \framesubtitle{Transformação homogênea - Rotação de um coordenada}
-    \begin{itemize}
-        \item A rotação do sistema de referência $\{B\}$ em torno e $Z$, de um angulo qualquer $\theta$ em ${}^A\mathbf{P}$ é descrita como na equação \eqref{eq:cine3}, onde.
-              \begin{equation}\label{eq:cine3}
-                  {}^A\mathbf{P} = {}_B^A \mathbf{R}(\theta) {}^B\mathbf{P} =
-                  \begin{bmatrix}
-                      \cos(\theta) & -\sin(\theta) & 0 & 0 \\
-                      \sin(\theta) & \cos(\theta) & 0 & 0 \\
-                      0            & 0            & 1 & 0 \\
-                      0            & 0            & 0 & 1 \\
-                  \end{bmatrix}.
-                  \begin{bmatrix}
-                      {}^Ap_x \\
-                      {}^Ap_y \\
-                      {}^Ap_z \\
-                      1
-                  \end{bmatrix}
-              \end{equation}
-              \begin{columns}
-                \begin{column}[c]{0.5\textwidth}
-                \begin{figure}[!ht]
-                    \centering
-                    \begin{tikzpicture}[scale=0.5]
-                        \node(p0) at (0,0){};
-                        \draw [->] (p0.center) --++(0,3) node[right] {$\hat Y_A$};
-                        \draw [->, rotate =120] (p0.center) --++(0,3) node[below] {$\hat Z_A$};
-                        \draw [->, rotate =240] (p0.center) --++(0,3) node[below] {$\hat X_A$};
-                        \node(p1) at (6,1){};
-                        \draw [->, rotate =30, red] (p0.center) --++(0,3) node[right,rotate=30] {$\hat Y_B$};
-                        \draw [->, rotate =150, red] (p0.center) --++(0,3) node[below,rotate=30] {$\hat Z_B$};
-                        \draw [->, rotate =270, red] (p0.center) --++(0,3) node[below,rotate=30] {$\hat X_B$};
-                        \draw [->, rotate =-20, red] (p0.center) --++(1.5,2) node(B)[above,rotate=30] {${}^B\mathbf{P}$};
-                    \end{tikzpicture}
-                \end{figure}
-            \end{column}
-            \begin{column}[c]{0.5\textwidth}
-                A posição de ${}^A\mathbf{P}$ (sistema de referência global) em relação a ${}^B\mathbf{P}$ é encontrado através da multiplicação da matriz de ${}_B^A \mathbf{R}(\theta)$ (lê-se rotação do sistema de referência $B$ em $A$) pela posição de ${}^B\mathbf{P}$
-            \end{column}
-        \end{columns}
-    \end{itemize}
-\end{frame}
 
-\begin{frame}[t]{Modelagem Cinemática}
-    \framesubtitle{Transformação homogênea - Translação}
-    \begin{itemize}
-        \item Operador de translação $\mathbf{D}(q)$:
-        \begin{columns}
-            \begin{column}[c]{0.7\textwidth}
-              \begin{figure}[!ht]
-                  \centering
-                  \begin{tikzpicture}[scale=0.6]
-                      \node(p0) at (0,0){};
-                      \draw [->] (p0.center) --++(0,3) node[right] {$\hat Y_A$};
-                      \draw [->, rotate =120] (p0.center) --++(0,3) node[below] {$\hat Z_A$};
-                      \draw [->, rotate =240] (p0.center) --++(0,3) node[below] {$\hat X_A$};
-                      \node(p1) at (6,0.8){};
-                      \draw [->, red] (p1.center) --++(0,3) node[right] {$\hat Y_B$};
-                      \draw [->, rotate =120, red] (p1.center) --++(0,3) node[below] {$\hat Z_B$};
-                      \draw [->, rotate =240, red] (p1.center) --++(0,3) node[below] {$\hat X_B$};
-                      \draw [->, red] (p1.center) --++(2,2) node(B){};
-                      \node[above] at (B.center) {${}^B\mathbf{P}_{p_x, p_y, p_z}$};
-                      \draw [dotted,-latex] (p0)  -- (p1) node[midway, fill=white]{${}^A\mathbf{D}(q)$};
-                      \draw [-latex,dashed] (p0)  -- (B.center) node[midway, fill=white]{${}^A\mathbf{P}$};
-                      \node at (-1.5,2.5) {$\{A\}$};
-                      \node at (4,2.5)[red] {$\{B\}$};
-                  \end{tikzpicture}
-              \end{figure}
-            \end{column}
-            \begin{column}[c]{0.3\textwidth}
-                A operação de translação $\mathbf{D}(q)$ desloca a origem de ${}^B\mathbf{P}$ a partir do sistema referência $\{A\}$.
-            \end{column}
-        \end{columns}
-    \end{itemize}
-
-    \begin{equation}
-        {}^A\mathbf{P} = {}^A\mathbf{D}(q) {}^B\mathbf{P} =
-        \begin{bmatrix}
-            1 & 0 & 0 & q_x \\
-            0 & 1 & 0 & q_y \\
-            0 & 0 & 1 & q_z \\
-            0 & 0 & 0 & 1 \\
-        \end{bmatrix}.
-        \begin{bmatrix}
-            p_x \\
-            p_y \\
-            p_z \\
-            1
-        \end{bmatrix}
-    \end{equation}
-
-\end{frame}
+% \begin{frame}{Cinemática de Robôs}
+%     \framesubtitle{Conceitos}
+%     \textbf{Um robô é modelado como um corpo rígido}
+%         \begin{itemize}
+%             \item 3 variáveis $x, y,\phi$ (plano)
+%             \item 6 variáveis $x,y,z, \alpha, \beta, \phi$ (espaço)
+%         \end{itemize}
+%     Deve-se estabelecer uma relação entre o sistema de referencia local (robô) e o sistema de referencia global
+%         \begin{itemize}
+%             \item Sistema de Referencia global, exemplo $\{W\}$, ou $\{A\}$\footnote{O sistema de referência $\{A\}$(global) e $\{B\}$(local) serão usados como exemplos genéricos em aula};
+%             \item \item Referencial local, exemplo $\{M\}$, ou $\{B\}$;
+%         \end{itemize}
+%         \begin{center}
+%             \includegraphics[width=0.5\textwidth]{./images/tf_1.png}
+%         \end{center}
+% \end{frame}
 
 
-\begin{frame}{Modelagem Cinemática}
-    \framesubtitle{Transformação homogênea - Translação}
-    \begin{itemize}
-        \item O Deslocamento é chamado de translação, e dá-se pelo operador translacional $\mathbf{D}_A(q)$, onde ${}^A\mathbf{Q}$ o incremento da posição em relação ao sistema de referencia $\{A\}$, conform equação \eqref{eq:cine4}.
-              \begin{equation}\label{eq:cine4}
-                  {}^A\mathbf{Q} =
-                  \begin{bmatrix}
-                      q_x \\ q_y \\ q_z
-                  \end{bmatrix}, \qquad \mathrm{e} \qquad
-                  \mathbf{D}_A =
-                  \begin{bmatrix}
-                      1 & 0 & 0 & q_x \\
-                      0 & 1 & 0 & q_y \\
-                      0 & 0 & 1 & q_z \\
-                      0 & 0 & 0 & 1
-                  \end{bmatrix}.
-              \end{equation}
-        \item Adota-se agora a notação para translação e rotação de um vetor, conforme a equação \eqref{eq:cine5}. Observa-se que o vetor ${}^A\mathbf{Q}$ foi incorporada pela nova notação.
-              \begin{equation}\label{eq:cine5}
-                  \begin{bmatrix}
-                      {}^A\mathbf{P} \\ 1
-                  \end{bmatrix}
-                  =
-                  \underbrace {
-                      \left[
-                          \begin{matrix}
-                                & {}_B^A\mathbf{R} &   \\ \hline
-                              0 & 0                & 0 \\
-                          \end{matrix} \right.
-                          \left.
-                          \vline
-                          \begin{matrix}
-                              {}^A\mathbf{Q} \\ \hline
-                              1
-                          \end{matrix} \right]
-                  }_{{}^A_B\mathcal{A}}
-                  \begin{bmatrix}
-                      {}^B\mathbf{P} \\
-                      1
-                  \end{bmatrix}
-              \end{equation}
-    \end{itemize}
-\end{frame}
+
+% \begin{frame}{Modelagem Cinemática}
+%     \framesubtitle{Transformação homogênea - Conceitos}
+%     \begin{itemize}
+%         \item Um vetor de posição que pertence ao espçaço $\mathbb{R}^{3 \times 1}$ é composto pelas coordenadas $X,Y$ e $Z$.
+%         \item Um ponto ${}^A\mathbf{P}$ representa a distância do vetor do plano $\{A\}$. Os elementos individuais de ${}^A\mathbf{P}$ podem ser visto pela equação \eqref{eq:cine1}.
+%     \end{itemize}
+%     \begin{columns}[c]
+%         \begin{column}{0.6\textwidth}
+%             \begin{figure}
+%                 \centering
+%                 \begin{tikzpicture}[scale=0.8]
+%                     \node(p0) at (0,0){};
+%                     \draw [->, blue] (p0.center) --++(0,3) node[right] {$ Y_A$};
+%                     \draw [->, rotate =120, blue] (p0.center) --++(0,3) node[below] {$ Z_A$};
+%                     \draw [->, rotate =240, blue] (p0.center) --++(0,3) node[below] {$ X_A$};
+%                     \draw [->, black] (p0.center) --++(2.5,0.5) node(B)[above,rotate=30] {${}^A\mathbf{P}$};
+%                     \node at (-1.5,2.5)[, blue] {$\{A\}$};
+%                 \end{tikzpicture}
+%                 \caption{Vetor em relação ao sistema de referências $\{A\}$}
+%                 \label{fig:cine1f}
+%             \end{figure}
+%         \end{column}
+%         \begin{column}{0.3\textwidth}
+%             \begin{equation}\label{eq:cine1}
+%                 \color{black}{{}^A\mathbf{P} = \begin{bmatrix}
+%                     p_x \\ p_y \\ p_z
+%                 \end{bmatrix}}
+%                 \color{gray}{}
+%             \end{equation}
+%         \end{column}
+%     \end{columns}
+% \end{frame}
 
 
-\begin{frame}{Modelagem Cinemática}
-    \framesubtitle{Transformação homogênea - Operadores}
-    \begin{itemize}
-        \item Aplicando se uma transformação nas coordenada ${}^B\mathbf{P}$ pelos operadores de rotação e translação temos a representação de  ${}^A\mathbf{P}$
-              \begin{figure}[!ht]
-                  \centering
-                  \begin{tikzpicture}[scale=0.7]
-                      \node(p0) at (0,0){};
-                      \draw [->] (p0.center) --++(0,3) node[right] {$\hat Y_A$};
-                      \draw [->, rotate =120] (p0.center) --++(0,3) node[below] {$\hat Z_A$};
-                      \draw [->, rotate =240] (p0.center) --++(0,3) node[below] {$\hat X_A$};
-                      \node(p1) at (6,1){};
-                      \draw [->, rotate =30, red] (p1.center) --++(0,3) node[right,rotate=30] {$\hat Y_B$};
-                      \draw [->, rotate =150, red] (p1.center) --++(0,3) node[below,rotate=30] {$\hat Z_B$};
-                      \draw [->, rotate =270, red] (p1.center) --++(0,3) node[below,rotate=30] {$\hat X_B$};
-                      \draw [->, rotate =30, red] (p1.center) --++(1.5,4) node(B)[above,rotate=30] {${}^B\mathbf{P}$};
-                      \draw [dotted,-latex] (p0)  -- (p1) node[midway, fill=white]{$\mathbf{P}_{BORG}$\footnote{A origem de sistema de referencia $\{B\}$ foi deslocada, conforme ${}^A\mathbf{Q}$}};
-                      \draw [-latex,dashed] (p0)  -- (B) node[midway, fill=white]{${}^A\mathbf{P}$};;
-                      \node at (-1.5,2.5) {$\{A\}$};
-                      \node at (4,2.5)  [rotate=30, red]   {$\{B\}$};
-                  \end{tikzpicture}
-                  \label{fig:cine2}
-              \end{figure}
-    \end{itemize}
-\end{frame}
 
-\begin{frame}{Modelagem Cinemática}
-    \framesubtitle{Transformação homogênea - Transformação Homogênea}
-    \begin{itemize}
-        \item Na forma generalizada, a transformação homogênea final ${}^{i}_0\mathbf{T}$ pode ser expressa pelo produto das sucessivas transformações de ${}^{i-1}_0\mathcal{A}_i$. Conforme é mostrado na equação \eqref{fig:cine3}.
-              \begin{equation}\label{fig:cine3}
-                  \begin{array}{lcl}
-                      {}^i_0\mathbf{T} & = & {}^0_1\mathcal{A}{}^1_2\mathcal{A} \cdots {}^{i-1}_i\mathcal{A} = \prod \limits^i_{j=1}{}^{j-1}_i\mathcal{A}, \quad \mathrm{para\;}i=1,2,\cdots,n \\[.2cm]
-                                       & = &
-                      \begin{bmatrix}
-                          x_i & y_i & z_i & p_i \\
-                          0   & 0   & 0   & 1
-                      \end{bmatrix} =
-                      \begin{bmatrix}
-                          {}^i_0\mathbf{R} & {}^i_0\mathbf{P} \\
-                          \mathbf{0}       & 1
-                      \end{bmatrix}
-                  \end{array}
-              \end{equation}
-        \item onde, ${}^i_0\mathbf{P}$ é o vetor de orientação do referencial $i$ em relação a base $0$.
-    \end{itemize}
+% \begin{frame}{Modelagem Cinemática}
+%     \framesubtitle{Transformação homogênea - Matriz de Rotação}
+%     \begin{itemize}
+%         \item O vetor definido por ${}^A\mathbf{P}$ pode ser rotacionado pela matriz de rotação $\mathbf{R}$, conforme a equação \eqref{eq:cine2}.
+%               \begin{equation}\label{eq:cine2}
+%                   {}_A^B
+%                   \mathbf{R} =
+%                   \begin{bmatrix}
+%                       r_{11} & r_{11} & r_{11} \\
+%                       r_{21} & r_{21} & r_{21} \\
+%                       r_{31} & r_{31} & r_{31} \\
+%                   \end{bmatrix}
+%               \end{equation}
+%     \end{itemize}
 
-\end{frame}
+%     \begin{block}{Considerando os exemplos}
+%         \begin{equation*}
+%             \mathbf{R}(\theta) =
+%             \begin{bmatrix}
+%                 \cos \theta & -\sin \theta \\\sin \theta &\cos \theta
+%             \end{bmatrix}
+%         \end{equation*}
+%         ou:
+%         \begin{equation*}
+%             \mathbf{R}_z(\theta) =
+%             \begin{bmatrix}
+%                 \cos(\theta) & -\sin(\theta) & 0 \\
+%                 \sin(\theta) & \cos(\theta) & 0 \\
+%                 0            & 0            & 1 \\
+%             \end{bmatrix} \text{, eixo $Z$ fixo}
+%         \end{equation*}
+%     \end{block}
+
+% \end{frame}
 
 
-\begin{frame}{Modelagem Cinemática}
-    \framesubtitle{Transformação homogênea - Exemplo}
-    \begin{enumerate}
-        \item Considerando que $\mathbf{v}_{t-1}$ é um vetor unitário em $\mathbf{v}_{t-1}=\{1,0,0\}$ e sofre um deslocamento de $\mathbf{Q}=\{2,1,0\}$ e rotação $\mathbf{R_z(\phi)}=20^o$, qual será a posição final de $v$ no plano $\{A\}$?
-    \end{enumerate}
-    \begin{columns}
-        \begin{column}[c]{0.5\textwidth}
-            \input{./images/car_1_image.tex}
-        \end{column}
-        \begin{column}[c]{0.5\textwidth}
-            \input{./images/car_2_image.tex}
-        \end{column}
-    \end{columns}
-    Transformação Homogênea:
-    \begin{equation*}
-        \begin{bmatrix}
-            \color{purple}{{}^A \mathbf{v}_{t}} \\ 1
-        \end{bmatrix}
-        =
-        \left[
-            \begin{matrix}
-                  & \color{green}{{}_B^A\mathbf{R}_z(\phi)} &   \\ \hline
-                0 & 0                                       & 0 \\
-            \end{matrix} \right.
-            \left.
-            \vline
-            \begin{matrix}
-                \color{red}{{}^A\mathbf{Q}} \\ \hline
-                1
-            \end{matrix} \right]
-        \begin{bmatrix}
-            {}^B \mathbf{v}_{t-1} \\
-            1
-        \end{bmatrix}
-    \end{equation*}
-\end{frame}
+
+% \begin{frame}{Modelagem Cinemática}
+%     \framesubtitle{Transformação homogênea - Matriz de Rotação}
+%     \begin{itemize}
+%         \item Demais eixos:
+%     \end{itemize}
+%     \begin{block}{}
+%         \begin{equation*}
+%             \mathbf{R}_x(\theta) =
+%             \begin{bmatrix}
+%                 1 & 0            & 0             \\
+%                 0 & \cos(\theta) & -\sin(\theta) \\
+%                 0 & \sin(\theta) & \cos(\theta)  \\
+%             \end{bmatrix} \text{, eixo $x$ fixo}
+%         \end{equation*}
+%         \begin{equation*}
+%             \mathbf{R}_y(\theta) =
+%             \begin{bmatrix}
+%                 \cos(\theta)  & 0 & \sin(\theta) \\
+%                 0             & 1 & 0            \\
+%                 -\sin(\theta) & 0 & \cos(\theta) \\
+%             \end{bmatrix} \text{, eixo $y$ fixo}
+%         \end{equation*}
+%         \begin{equation*}
+%             \mathbf{R}_z(\theta) =
+%             \begin{bmatrix}
+%                 \cos(\theta) & -\sin(\theta) & 0 \\
+%                 \sin(\theta) & \cos(\theta) & 0 \\
+%                 0            & 0            & 1 \\
+%             \end{bmatrix} \text{, eixo $z$ fixo}
+%         \end{equation*}
+%     \end{block}
+% \end{frame}
+
+% % \begin{frame}{Modelagem Cinemática}
+% %     \framesubtitle{Transformação homogênea - Matriz de Rotação - Exercício}
+
+% %     \href{https://cursoseaulas.gitlab.io/robotica-movel/exercicio01.ipynb}{Exercício: Rotação Translação e Transformação Homogênea}
+
+% % \end{frame}
+
+% \begin{frame}[t]{Modelagem Cinemática}
+%     \framesubtitle{Transformação homogênea - Rotação de um coordenada}
+%     \begin{itemize}
+%         \item A rotação do sistema de referência $\{B\}$ em torno e $Z$, de um angulo qualquer $\theta$ em ${}^A\mathbf{P}$ é descrita como na equação \eqref{eq:cine3}, onde.
+%               \begin{equation}\label{eq:cine3}
+%                   {}^A\mathbf{P} = {}_B^A \mathbf{R}(\theta) {}^B\mathbf{P} =
+%                   \begin{bmatrix}
+%                       \cos(\theta) & -\sin(\theta) & 0 & 0 \\
+%                       \sin(\theta) & \cos(\theta) & 0 & 0 \\
+%                       0            & 0            & 1 & 0 \\
+%                       0            & 0            & 0 & 1 \\
+%                   \end{bmatrix}.
+%                   \begin{bmatrix}
+%                       {}^Ap_x \\
+%                       {}^Ap_y \\
+%                       {}^Ap_z \\
+%                       1
+%                   \end{bmatrix}
+%               \end{equation}
+%               \begin{columns}
+%                 \begin{column}[c]{0.5\textwidth}
+%                 \begin{figure}[!ht]
+%                     \centering
+%                     \begin{tikzpicture}[scale=0.5]
+%                         \node(p0) at (0,0){};
+%                         \draw [->] (p0.center) --++(0,3) node[right] {$\hat Y_A$};
+%                         \draw [->, rotate =120] (p0.center) --++(0,3) node[below] {$\hat Z_A$};
+%                         \draw [->, rotate =240] (p0.center) --++(0,3) node[below] {$\hat X_A$};
+%                         \node(p1) at (6,1){};
+%                         \draw [->, rotate =30, red] (p0.center) --++(0,3) node[right,rotate=30] {$\hat Y_B$};
+%                         \draw [->, rotate =150, red] (p0.center) --++(0,3) node[below,rotate=30] {$\hat Z_B$};
+%                         \draw [->, rotate =270, red] (p0.center) --++(0,3) node[below,rotate=30] {$\hat X_B$};
+%                         \draw [->, rotate =-20, red] (p0.center) --++(1.5,2) node(B)[above,rotate=30] {${}^B\mathbf{P}$};
+%                     \end{tikzpicture}
+%                 \end{figure}
+%             \end{column}
+%             \begin{column}[c]{0.5\textwidth}
+%                 A posição de ${}^A\mathbf{P}$ (sistema de referência global) em relação a ${}^B\mathbf{P}$ é encontrado através da multiplicação da matriz de ${}_B^A \mathbf{R}(\theta)$ (lê-se rotação do sistema de referência $B$ em $A$) pela posição de ${}^B\mathbf{P}$
+%             \end{column}
+%         \end{columns}
+%     \end{itemize}
+% \end{frame}
+
+% \begin{frame}[t]{Modelagem Cinemática}
+%     \framesubtitle{Transformação homogênea - Translação}
+%     \begin{itemize}
+%         \item Operador de translação $\mathbf{D}(q)$:
+%         \begin{columns}
+%             \begin{column}[c]{0.7\textwidth}
+%               \begin{figure}[!ht]
+%                   \centering
+%                   \begin{tikzpicture}[scale=0.6]
+%                       \node(p0) at (0,0){};
+%                       \draw [->] (p0.center) --++(0,3) node[right] {$\hat Y_A$};
+%                       \draw [->, rotate =120] (p0.center) --++(0,3) node[below] {$\hat Z_A$};
+%                       \draw [->, rotate =240] (p0.center) --++(0,3) node[below] {$\hat X_A$};
+%                       \node(p1) at (6,0.8){};
+%                       \draw [->, red] (p1.center) --++(0,3) node[right] {$\hat Y_B$};
+%                       \draw [->, rotate =120, red] (p1.center) --++(0,3) node[below] {$\hat Z_B$};
+%                       \draw [->, rotate =240, red] (p1.center) --++(0,3) node[below] {$\hat X_B$};
+%                       \draw [->, red] (p1.center) --++(2,2) node(B){};
+%                       \node[above] at (B.center) {${}^B\mathbf{P}_{p_x, p_y, p_z}$};
+%                       \draw [dotted,-latex] (p0)  -- (p1) node[midway, fill=white]{${}^A\mathbf{D}(q)$};
+%                       \draw [-latex,dashed] (p0)  -- (B.center) node[midway, fill=white]{${}^A\mathbf{P}$};
+%                       \node at (-1.5,2.5) {$\{A\}$};
+%                       \node at (4,2.5)[red] {$\{B\}$};
+%                   \end{tikzpicture}
+%               \end{figure}
+%             \end{column}
+%             \begin{column}[c]{0.3\textwidth}
+%                 A operação de translação $\mathbf{D}(q)$ desloca a origem de ${}^B\mathbf{P}$ a partir do sistema referência $\{A\}$.
+%             \end{column}
+%         \end{columns}
+%     \end{itemize}
+
+%     \begin{equation}
+%         {}^A\mathbf{P} = {}^A\mathbf{D}(q) {}^B\mathbf{P} =
+%         \begin{bmatrix}
+%             1 & 0 & 0 & q_x \\
+%             0 & 1 & 0 & q_y \\
+%             0 & 0 & 1 & q_z \\
+%             0 & 0 & 0 & 1 \\
+%         \end{bmatrix}.
+%         \begin{bmatrix}
+%             p_x \\
+%             p_y \\
+%             p_z \\
+%             1
+%         \end{bmatrix}
+%     \end{equation}
+
+% \end{frame}
 
 
-\begin{frame}[t]{Modelagem Cinemática}
-    \framesubtitle{Transformação homogênea - Resumo}
-    \begin{itemize}
-        \item \textcolor{purple}{\textbf{Resumo:}}
-    \end{itemize}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.6\textwidth]{./images/tf_2.png}
-        \caption{Exemplo de sistemas de referência - Carro}
-    \end{figure}
-\end{frame}
+% \begin{frame}{Modelagem Cinemática}
+%     \framesubtitle{Transformação homogênea - Translação}
+%     \begin{itemize}
+%         \item O Deslocamento é chamado de translação, e dá-se pelo operador translacional $\mathbf{D}_A(q)$, onde ${}^A\mathbf{Q}$ o incremento da posição em relação ao sistema de referencia $\{A\}$, conform equação \eqref{eq:cine4}.
+%               \begin{equation}\label{eq:cine4}
+%                   {}^A\mathbf{Q} =
+%                   \begin{bmatrix}
+%                       q_x \\ q_y \\ q_z
+%                   \end{bmatrix}, \qquad \mathrm{e} \qquad
+%                   \mathbf{D}_A =
+%                   \begin{bmatrix}
+%                       1 & 0 & 0 & q_x \\
+%                       0 & 1 & 0 & q_y \\
+%                       0 & 0 & 1 & q_z \\
+%                       0 & 0 & 0 & 1
+%                   \end{bmatrix}.
+%               \end{equation}
+%         \item Adota-se agora a notação para translação e rotação de um vetor, conforme a equação \eqref{eq:cine5}. Observa-se que o vetor ${}^A\mathbf{Q}$ foi incorporada pela nova notação.
+%               \begin{equation}\label{eq:cine5}
+%                   \begin{bmatrix}
+%                       {}^A\mathbf{P} \\ 1
+%                   \end{bmatrix}
+%                   =
+%                   \underbrace {
+%                       \left[
+%                           \begin{matrix}
+%                                 & {}_B^A\mathbf{R} &   \\ \hline
+%                               0 & 0                & 0 \\
+%                           \end{matrix} \right.
+%                           \left.
+%                           \vline
+%                           \begin{matrix}
+%                               {}^A\mathbf{Q} \\ \hline
+%                               1
+%                           \end{matrix} \right]
+%                   }_{{}^A_B\mathcal{A}}
+%                   \begin{bmatrix}
+%                       {}^B\mathbf{P} \\
+%                       1
+%                   \end{bmatrix}
+%               \end{equation}
+%     \end{itemize}
+% \end{frame}
 
 
-\begin{frame}[t]{Modelagem Cinemática}
-    \framesubtitle{Transformação homogênea - Resumo}
-    \begin{itemize}
-        \item \textcolor{purple}{\textbf{Resumo:}}
-    \end{itemize}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.6\textwidth]{./images/tf_3.png}
-        \caption{Exemplo de sistemas de referência - Manipulador Robótico}
-    \end{figure}
-\end{frame}
+% \begin{frame}{Modelagem Cinemática}
+%     \framesubtitle{Transformação homogênea - Operadores}
+%     \begin{itemize}
+%         \item Aplicando se uma transformação nas coordenada ${}^B\mathbf{P}$ pelos operadores de rotação e translação temos a representação de  ${}^A\mathbf{P}$
+%               \begin{figure}[!ht]
+%                   \centering
+%                   \begin{tikzpicture}[scale=0.7]
+%                       \node(p0) at (0,0){};
+%                       \draw [->] (p0.center) --++(0,3) node[right] {$\hat Y_A$};
+%                       \draw [->, rotate =120] (p0.center) --++(0,3) node[below] {$\hat Z_A$};
+%                       \draw [->, rotate =240] (p0.center) --++(0,3) node[below] {$\hat X_A$};
+%                       \node(p1) at (6,1){};
+%                       \draw [->, rotate =30, red] (p1.center) --++(0,3) node[right,rotate=30] {$\hat Y_B$};
+%                       \draw [->, rotate =150, red] (p1.center) --++(0,3) node[below,rotate=30] {$\hat Z_B$};
+%                       \draw [->, rotate =270, red] (p1.center) --++(0,3) node[below,rotate=30] {$\hat X_B$};
+%                       \draw [->, rotate =30, red] (p1.center) --++(1.5,4) node(B)[above,rotate=30] {${}^B\mathbf{P}$};
+%                       \draw [dotted,-latex] (p0)  -- (p1) node[midway, fill=white]{$\mathbf{P}_{BORG}$\footnote{A origem de sistema de referencia $\{B\}$ foi deslocada, conforme ${}^A\mathbf{Q}$}};
+%                       \draw [-latex,dashed] (p0)  -- (B) node[midway, fill=white]{${}^A\mathbf{P}$};;
+%                       \node at (-1.5,2.5) {$\{A\}$};
+%                       \node at (4,2.5)  [rotate=30, red]   {$\{B\}$};
+%                   \end{tikzpicture}
+%                   \label{fig:cine2}
+%               \end{figure}
+%     \end{itemize}
+% \end{frame}
+
+% \begin{frame}{Modelagem Cinemática}
+%     \framesubtitle{Transformação homogênea - Transformação Homogênea}
+%     \begin{itemize}
+%         \item Na forma generalizada, a transformação homogênea final ${}^{i}_0\mathbf{T}$ pode ser expressa pelo produto das sucessivas transformações de ${}^{i-1}_0\mathcal{A}_i$. Conforme é mostrado na equação \eqref{fig:cine3}.
+%               \begin{equation}\label{fig:cine3}
+%                   \begin{array}{lcl}
+%                       {}^i_0\mathbf{T} & = & {}^0_1\mathcal{A}{}^1_2\mathcal{A} \cdots {}^{i-1}_i\mathcal{A} = \prod \limits^i_{j=1}{}^{j-1}_i\mathcal{A}, \quad \mathrm{para\;}i=1,2,\cdots,n \\[.2cm]
+%                                        & = &
+%                       \begin{bmatrix}
+%                           x_i & y_i & z_i & p_i \\
+%                           0   & 0   & 0   & 1
+%                       \end{bmatrix} =
+%                       \begin{bmatrix}
+%                           {}^i_0\mathbf{R} & {}^i_0\mathbf{P} \\
+%                           \mathbf{0}       & 1
+%                       \end{bmatrix}
+%                   \end{array}
+%               \end{equation}
+%         \item onde, ${}^i_0\mathbf{P}$ é o vetor de orientação do referencial $i$ em relação a base $0$.
+%     \end{itemize}
+
+% \end{frame}
 
 
-\begin{frame}{Modelagem Cinemática}
+% \begin{frame}{Modelagem Cinemática}
+%     \framesubtitle{Transformação homogênea - Exemplo}
+%     \begin{enumerate}
+%         \item Considerando que $\mathbf{v}_{t-1}$ é um vetor unitário em $\mathbf{v}_{t-1}=\{1,0,0\}$ e sofre um deslocamento de $\mathbf{Q}=\{2,1,0\}$ e rotação $\mathbf{R_z(\phi)}=20^o$, qual será a posição final de $v$ no plano $\{A\}$?
+%     \end{enumerate}
+%     \begin{columns}
+%         \begin{column}[c]{0.5\textwidth}
+%             \input{./images/car_1_image.tex}
+%         \end{column}
+%         \begin{column}[c]{0.5\textwidth}
+%             \input{./images/car_2_image.tex}
+%         \end{column}
+%     \end{columns}
+%     Transformação Homogênea:
+%     \begin{equation*}
+%         \begin{bmatrix}
+%             \color{purple}{{}^A \mathbf{v}_{t}} \\ 1
+%         \end{bmatrix}
+%         =
+%         \left[
+%             \begin{matrix}
+%                   & \color{green}{{}_B^A\mathbf{R}_z(\phi)} &   \\ \hline
+%                 0 & 0                                       & 0 \\
+%             \end{matrix} \right.
+%             \left.
+%             \vline
+%             \begin{matrix}
+%                 \color{red}{{}^A\mathbf{Q}} \\ \hline
+%                 1
+%             \end{matrix} \right]
+%         \begin{bmatrix}
+%             {}^B \mathbf{v}_{t-1} \\
+%             1
+%         \end{bmatrix}
+%     \end{equation*}
+% \end{frame}
+
+
+% \begin{frame}[t]{Modelagem Cinemática}
+%     \framesubtitle{Transformação homogênea - Resumo}
+%     \begin{itemize}
+%         \item \textcolor{purple}{\textbf{Resumo:}}
+%     \end{itemize}
+%     \begin{figure}
+%         \centering
+%         \includegraphics[width=0.6\textwidth]{./images/tf_2.png}
+%         \caption{Exemplo de sistemas de referência - Carro}
+%     \end{figure}
+% \end{frame}
+
+
+% \begin{frame}[t]{Modelagem Cinemática}
+%     \framesubtitle{Transformação homogênea - Resumo}
+%     \begin{itemize}
+%         \item \textcolor{purple}{\textbf{Resumo:}}
+%     \end{itemize}
+%     \begin{figure}
+%         \centering
+%         \includegraphics[width=0.6\textwidth]{./images/tf_3.png}
+%         \caption{Exemplo de sistemas de referência - Manipulador Robótico}
+%     \end{figure}
+% \end{frame}
+
+
+\begin{frame}{Cinemática Direta e Inversa}
     \framesubtitle{Coordenadas Generalizadas}
     \begin{itemize}
         \item Considerando um robô fixo ou móvel com coodenadas generalizadas $q_1, q_2,..., q_n$ localizadas no espaço das \textcolor{red}{juntas ou atuadores (\textit{joint space}) $\mathbf{q}$}. Bem como $x_1, x_2,..., x_n$, o \textcolor{blue}{espaço das tarefas (\textit{task space}) $\mathbf{x}$}, temos então os vetores:
@@ -537,7 +537,7 @@
 
 
 
-\begin{frame}{Modelagem Cinemático e Dinâmica}
+\begin{frame}{Cinemática Direta e Inversa}
     \framesubtitle{Coordenadas Generalizadas}
     \begin{itemize}
         \item A relação entre as Cinemática Direta e Cinemática Inversa é obtida através da Matriz Jacobiana do Robô.
@@ -577,11 +577,252 @@
 \end{frame}
 
 
-\begin{frame}{Modelagem Cinemática}
-    \framesubtitle{Coordenadas Generalizadas - Exercício: Braço Robótico 2DOF}
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Conceitos}
     \begin{itemize}
-        \item \textbf{Encontrar o Modelo Cinemático do Dispositivo Robótico.}
+        \item O modelo cinemático não leva em conta a inércia do robô, deformações em
+              sua estrutura, forças oriundas do deslocamento (atrito, escorregamento, etc.),
+              e demais fatores internos e externos que possam afetar a locomoção.
+        \item Os modelos dinâmicos são capazes de incorporar estas variáveis, mas são
+              muito mais complexos que os modelos cinemáticos.
+        \item Os modelos cinemáticos são suficientes quando a locamoção se dá a baixas
+              velocidades e em piso plano e horizontal que propicie contato adequado para
+              não haver escorregamento.
+        \item Apesar do modelo cinemático ser inerentemente um modelo aproximado,
+              podemos corrigir seus resultados a partir dos sensores do robô. Os algoritmos
+              de localização robótica fazem exatamente isto.\href{http://143.106.148.168:9080/Cursos/IA368N/01-16/cinematica2.pdf}{[1]}
     \end{itemize}
+\end{frame}
+
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Diversos modelos de cinemática}
+    \begin{itemize}
+        \item \textbf{Cinemática Externa} descreve a posição do robô e orientação com relação ao sistema de referência externo, como por exemplo a relacao entre o robô e as coordenadas de um mapa global.
+        \item \textbf{Cinemática Interna} Há a possibilidade também, da referência ser o próprio robô ou em relação as rodas.
+        \item \textbf{Restrições de movimento} aparecem quando um sistema tem menos váriáveis de entrada do que graus de liberdade (DOF's).
+    \end{itemize}
+\end{frame}
+
+
+% \begin{frame}{Cinemática de Robôs}
+%     \framesubtitle{Cinemática Externa}
+%     \begin{itemize}
+%         \item O deslocamento de um robô deve ser expresso em relação a um sistema de
+%               coordenadas (referencial) inercial (global). No plano, utilizamos coordenadas
+%               cartesianas (eixos X e Y).
+%     \end{itemize}
+
+%     \begin{columns}
+%         \begin{column}[c]{0.5\textwidth}
+%             \input{./images/car_1a_image.tex}
+%         \end{column}
+%         \begin{column}[c]{0.5\textwidth}
+%             \input{./images/car_2a_image.tex}
+%         \end{column}
+%     \end{columns}
+
+%     \begin{equation*}
+%         \begin{bmatrix}
+%             \color{purple}{x_I} \\ \color{purple}{y_I} \\ \color{purple}{z_I}\\1
+%         \end{bmatrix}
+%         =
+%         \begin{bmatrix}
+%             \color{purple}{{}^M_I\mathbf{P}} \\ 1
+%         \end{bmatrix}
+%         =
+%         \left[
+%             \begin{matrix}
+%                   & \color{green}{{}_M^I\mathbf{R}_z(\phi)} &   \\ \hline
+%                 0 & 0                                       & 0 \\
+%             \end{matrix} \right.
+%             \left.
+%             \vline
+%             \begin{matrix}
+%                 \color{red}{{}^I\mathbf{Q}} \\ \hline
+%                 1
+%             \end{matrix} \right]
+%         \begin{bmatrix}
+%             {}^M\mathbf{P} \\
+%             1
+%         \end{bmatrix}
+%     \end{equation*}
+
+% \end{frame}
+
+
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Cinemática Interna}
+    \begin{columns}
+        \begin{column}[c]{0.5\textwidth}
+            \centering
+            \input{./images/car_0a_image.tex}
+        CIR - Centro Instantâneo de Rotação
+        \end{column}
+        \begin{column}[c]{0.5\textwidth}
+            \centering
+            \begin{itemize}
+                \item Posição:
+                      \newline
+
+                      $\mathbf{x} = \begin{bmatrix}
+                              x \\
+                              y
+                          \end{bmatrix}$
+                      \newline
+
+                \item Configuração (localização e orientação):
+                      \newline
+
+                      $\mathbf{q} =
+                          \begin{bmatrix}
+                              x \\
+                              y \\
+                              \phi
+                          \end{bmatrix}$
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Robô Diferencial}
+    \begin{itemize}
+        \item Analisando a velocidade angular de $\omega$, temos:
+
+              \begin{equation*}
+                  \begin{split}
+                      \omega & = \frac{v_L(t)}{R(t)-\frac{L}{2}} \\
+                      \omega & = \frac{v_R(t)}{R(t)+\frac{L}{2}} \\
+                  \end{split}
+              \end{equation*}
+
+              logo:
+
+              \begin{equation*}
+                  \begin{split}
+                      \omega (t) = \frac{ v_R(t) - v_L(t)}{L} & \text{, e }
+                      R(t)  = \frac{L v_R(t) + v_L(t)}{2 v_R(t) - v_L(t)} \\
+                  \end{split}
+              \end{equation*}
+
+              assim, a velocidade tangencial do veiculo é dada por:
+
+              \begin{equation}
+                  v (t) =\omega (t) R(t) = \frac{ v_R(t) - v_L(t)}{2}
+              \end{equation}
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Robô Diferencial}
+    \begin{itemize}
+        \item As velocidades tangenciais $v_L(t)=r\omega_L(t)$ e $v_R(t)=r\omega_R(t)$, temos então a cinemática interna do robô (\textcolor{red}{coordenadas locais}):
+
+              \begin{equation*}
+                  \boxed{
+                      \begin{bmatrix}
+                          \dot{x}_M(t) \\
+                          \dot{y}_M(t) \\
+                          \dot{\phi}(t)
+                      \end{bmatrix}
+                      =
+                      \begin{bmatrix}
+                          \dot{v}_M(t) \\
+                          \dot{v}_M(t) \\
+                          \dot{\omega}(t)
+                      \end{bmatrix}
+                      =
+                      \begin{bmatrix}
+                          \frac{r}{2}  & \frac{r}{2} \\
+                          0            & 0           \\
+                          -\frac{r}{L} & \frac{r}{L}
+                      \end{bmatrix}
+                      \begin{bmatrix}
+                          \omega_L(t) \\
+                          \omega_R(t)
+                      \end{bmatrix}}
+              \end{equation*}
+
+        \item e em \textcolor{red}{coordenadas globais}
+              \footnote{adicionar o modelo em funcao das velocidades das rodas}:
+
+              \begin{equation*}
+                  \boxed{
+                      \begin{bmatrix}
+                          \dot{x}(t) \\
+                          \dot{y}(t) \\
+                          \dot{\phi}(t)
+                      \end{bmatrix}
+                      =
+                      \begin{bmatrix}
+                          \cos(\phi(t)) & 0 \\
+                          \sin(\phi(t)) & 0 \\
+                          0             & 1
+                      \end{bmatrix}
+                      \begin{bmatrix}
+                          v(t) \\
+                          \omega(t)
+                      \end{bmatrix}}
+              \end{equation*}
+
+              onde as variáveis $v(t)$ e $\omega(t)$
+
+
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Robô Diferencial}
+    \begin{itemize}
+        \item Mas o \textit{encoder} fornece apenas a posição das rodas, como calcular a velocidade?
+
+              ... \textbf{Aproximação de Euler}, Aproximação de Tustin, Transformação Bilinear...
+
+              \begin{equation*}
+                  \begin{split}
+                      x_{k+1} &= x_k + v_k T_s\cos(\phi_k) \\
+                      y_{k+1} &= y_k + v_k T_s\sin(\phi_k) \\
+                      \phi_{k+1} &= \phi_k + \omega_k T_s \\
+                  \end{split}
+              \end{equation*}
+    \end{itemize}
+\end{frame}
+
+
+% \begin{frame}{Cinemática de Robôs}
+%     \framesubtitle{Robô Diferencial}
+
+%     continuar ...
+
+% \end{frame}
+
+
+\begin{frame}{Dinâmica de Robôs}
+    \framesubtitle{Conceito}
+    A modelagem dinâmica do robô trata das equações dinâmicas do movimento do robô.
+    
+    \begin{block}{}
+        O \textcolor{red}{modelo cinemático} descreve apenas a \textcolor{red}{transformação estática de algumas velocidades do robô} (pseudo-velocidades) para as velocidades expressas em coordenadas globais. No entanto, o \textcolor{blue}{modelo de movimento dinâmico do sistema mecânico} inclui propriedades dinâmicas, como movimento do sistema causado por \textcolor{blue}{forças externas e inércia do sistema}.
+    \end{block}
+
+    \begin{itemize}
+        \item \textbf{Método de Euler}
+        \item \textbf{Método de Lagrange}
+        \begin{itemize}
+            \item Sistemas Holonômicos - Sem Restrições de Movimento
+            \item Sistemas Não-Holonômicos\footnote{\textcolor{purple}{Definem-se como não-holonômicos sistemas com dimensão finita onde algum tipo de restrição é imposta a um ou mais estados do sistema.}} - Com Restrições de Movimento
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Dinâmica de Robôs - Sistemas Holonômicos}
+    \framesubtitle{Coordenadas Generalizadas - Cinemática Inversa e Direta}
+
 
     \begin{columns}
         \begin{column}[c]{0.6\textwidth}
@@ -617,11 +858,10 @@
             $$
         \end{column}
     \end{columns}
-    \footnotetext{\href{https://colab.research.google.com/github/jefersonjlima/2dof-arm/blob/master/notebook/Robotic_Arm.ipynb}{Exemplo de simulação dinâmica de um robô} }
 \end{frame}
 
 
-\begin{frame}{Modelo Cinemático e Dinâmico}
+\begin{frame}{Dinâmica de Robôs - Sistemas Holonômicos}
     \framesubtitle{Formulação de Lagrange}
 
     \begin{itemize}
@@ -638,10 +878,10 @@
                 \mathcal{T} = \frac{1}{2} \sum\limits_{k=1}^{N}{\mathbf{\dot{q}}_k}^T  \mathbf{M}_k {\mathbf{\dot{q}}_k}+ \frac{1}{2} \sum\limits_{k=1}^{N}\mathbf{\omega}_k^T \mathbf{J}_k \mathbf{\omega}_k
             \end{equation}
 
-        \item A equação de energia Potencial ($\mathcal{V}$) é dada por\footnote{Depende do típo de energia potencial do sistema, neste caso - gravitacional}
+        \item A equação de Energia Potencial Gravitacional($\mathcal{V}_g$) é dada por\footnote{Depende do típo de energia potencial do sistema, neste caso - gravitacional}
 
             \begin{equation}
-                \mathcal{V} = \sum\limits_{k=1}^{N}\mathbf{M}g\Delta \underbrace{y_k}_{\text{altura}}
+                \mathcal{V}_g = \sum\limits_{k=1}^{N}\mathbf{M}g\Delta \underbrace{y_k}_{\text{altura}}
             \end{equation}  
 
 
@@ -659,7 +899,7 @@
 
 
 
-\begin{frame}{Modelo Cinemático e Dinâmico}
+\begin{frame}{Dinâmica de Robôs - Sistemas Holonômicos}
     \framesubtitle{Formulação de Lagrange}
 
     \begin{itemize}
@@ -677,7 +917,7 @@
 \end{frame}
 
 
-\begin{frame}{Modelo Cinemático e Dinâmico}
+\begin{frame}{Dinâmica de Robôs - Sistemas Holonômicos}
     \framesubtitle{Formulação de Lagrange}
     \begin{itemize}
         \item O modelo dinâmico de um robô movel sem restrições de movimento pode ser expresso pelo sistema de matrizes abaixo:
@@ -704,7 +944,7 @@
 \end{frame}
 
 
-\begin{frame}{Modelo Cinemático e Dinâmico}
+\begin{frame}{Dinâmica de Robôs - Sistemas Holonômicos}
     \framesubtitle{Formulação de Lagrange - Simulação}
     \begin{itemize}
         \item A solução numérica pode ser dada através da integração da aceleração ($\mathbf{\ddot{q}}$):
@@ -729,7 +969,7 @@
 \end{frame}
 
 
-\begin{frame}[fragile]{Modelo Cinemático e Dinâmico}
+\begin{frame}[fragile]{Dinâmica de Robôs - Sistemas Holonômicos}
     \framesubtitle{Formulação de Lagrange - Simulação}
     Exemplo - Criando o Modelo
 	\begin{lstlisting}[language=Python]
@@ -758,7 +998,7 @@
 
 
 
-\begin{frame}[fragile]{Modelo Cinemático e Dinâmico}
+\begin{frame}[fragile]{Dinâmica de Robôs - Sistemas Holonômicos}
     \framesubtitle{Formulação de Lagrange - Simulação}
 
 	\begin{lstlisting}[language=Python]
@@ -773,505 +1013,308 @@
         xdot[3] = q2dot[1]
 
         return xdot
-	\end{lstlisting}
+    \end{lstlisting}
+    
+    \footnotetext{\href{https://colab.research.google.com/github/jefersonjlima/2dof-arm/blob/master/notebook/Robotic_Arm.ipynb}{Exemplo de simulação dinâmica de um robô} }
+
 \end{frame}
 
 
-% \begin{frame}{Cinemática de Robôs}
-%     \framesubtitle{Conceitos}
-%     \begin{itemize}
-%         \item O modelo cinemático não leva em conta a inércia do robô, deformações em
-%               sua estrutura, forças oriundas do deslocamento (atrito, escorregamento, etc.),
-%               e demais fatores internos e externos que possam afetar a locomoção.
-%         \item Os modelos dinâmicos são capazes de incorporar estas variáveis, mas são
-%               muito mais complexos que os modelos cinemáticos.
-%         \item Os modelos cinemáticos são suficientes quando a locamoção se dá a baixas
-%               velocidades e em piso plano e horizontal que propicie contato adequado para
-%               não haver escorregamento.
-%         \item Apesar do modelo cinemático ser inerentemente um modelo aproximado,
-%               podemos corrigir seus resultados a partir dos sensores do robô. Os algoritmos
-%               de localização robótica fazem exatamente isto.\href{http://143.106.148.168:9080/Cursos/IA368N/01-16/cinematica2.pdf}{[1]}
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{Cinemática de Robôs}
-%     \framesubtitle{Diversos modelos de cinemática}
-%     \begin{itemize}
-%         \item \textbf{Cinemática Externa} describes robot position and orientation according to
-%               some reference coordinate frame.
-%         \item \textbf{Cinemática Interna} explains the relation between system internal variables
-%               (e.g., wheel rotation and robot motion)
-%         \item \textbf{Restrições de movimento} appear when a system has less input variables than
-%               degrees of freedom (DOFs). Holonomic constraints prohibit certain
-%               robot poses while a nonholonomic constraint prohibits certain robot
-%               velocities (the robot can drive only in the direction of the wheels’
-%               rotation) [Wheeled Mobile Robotics]
-%     \end{itemize}
-% \end{frame}
-
-
-% % \begin{frame}{Cinemática de Robôs}
-% %     \framesubtitle{Cinemática Externa}
-% %     \begin{itemize}
-% %         \item O deslocamento de um robô deve ser expresso em relação a um sistema de
-% %               coordenadas (referencial) inercial (global). No plano, utilizamos coordenadas
-% %               cartesianas (eixos X e Y).
-% %     \end{itemize}
-
-% %     \begin{columns}
-% %         \begin{column}[c]{0.5\textwidth}
-% %             \input{./images/car_1a_image.tex}
-% %         \end{column}
-% %         \begin{column}[c]{0.5\textwidth}
-% %             \input{./images/car_2a_image.tex}
-% %         \end{column}
-% %     \end{columns}
-
-% %     \begin{equation*}
-% %         \begin{bmatrix}
-% %             \color{purple}{x_I} \\ \color{purple}{y_I} \\ \color{purple}{z_I}\\1
-% %         \end{bmatrix}
-% %         =
-% %         \begin{bmatrix}
-% %             \color{purple}{{}^M_I\mathbf{P}} \\ 1
-% %         \end{bmatrix}
-% %         =
-% %         \left[
-% %             \begin{matrix}
-% %                   & \color{green}{{}_M^I\mathbf{R}_z(\phi)} &   \\ \hline
-% %                 0 & 0                                       & 0 \\
-% %             \end{matrix} \right.
-% %             \left.
-% %             \vline
-% %             \begin{matrix}
-% %                 \color{red}{{}^I\mathbf{Q}} \\ \hline
-% %                 1
-% %             \end{matrix} \right]
-% %         \begin{bmatrix}
-% %             {}^M\mathbf{P} \\
-% %             1
-% %         \end{bmatrix}
-% %     \end{equation*}
-
-% % \end{frame}
-
-
-% \begin{frame}{Cinemática de Robôs}
-%     \framesubtitle{Cinemática Interna}
-%     \begin{columns}
-%         \begin{column}[c]{0.5\textwidth}
-%             \centering
-%             \input{./images/car_0a_image.tex}
-%         \end{column}
-%         \begin{column}[c]{0.5\textwidth}
-%             \centering
-%             \begin{itemize}
-%                 \item Posição:
-%                       \newline
-
-%                       $\mathbf{x} = \begin{bmatrix}
-%                               x \\
-%                               y
-%                           \end{bmatrix}$
-%                       \newline
-
-%                 \item Configuração (localização e orientação):
-%                       \newline
-
-%                       $\mathbf{q} =
-%                           \begin{bmatrix}
-%                               x \\
-%                               y \\
-%                               \phi
-%                           \end{bmatrix}$
-%             \end{itemize}
-%         \end{column}
-%     \end{columns}
-% \end{frame}
-
-
-% \begin{frame}{Cinemática de Robôs}
-%     \framesubtitle{Robô Diferencial}
-%     \begin{itemize}
-%         \item Analisando a velocidade angular de $\omega$, temos:
-
-%               \begin{equation*}
-%                   \begin{split}
-%                       \omega & = \frac{v_L(t)}{R(t)-\frac{L}{2}} \\
-%                       \omega & = \frac{v_R(t)}{R(t)+\frac{L}{2}} \\
-%                   \end{split}
-%               \end{equation*}
-
-%               logo:
-
-%               \begin{equation*}
-%                   \begin{split}
-%                       \omega (t) = \frac{ v_R(t) - v_L(t)}{L} & \text{, e }
-%                       R(t)  = \frac{L v_R(t) + v_L(t)}{2 v_R(t) - v_L(t)} \\
-%                   \end{split}
-%               \end{equation*}
-
-%               assim, a velocidade tangencial do veiculo é dada por:
-
-%               \begin{equation}
-%                   v (t) =\omega (t) R(t) = \frac{ v_R(t) - v_L(t)}{2}
-%               \end{equation}
-%     \end{itemize}
-% \end{frame}
-
-
-
-% \begin{frame}{Cinemática de Robôs}
-%     \framesubtitle{Robô Diferencial}
-%     \begin{itemize}
-%         \item As velocidades tangenciais $v_L(t)=r\omega_L(t)$ e $v_R(t)=r\omega_R(t)$, temos então a cinemática interna do robô (\textcolor{red}{coordenadas locais}):
-
-%               \begin{equation*}
-%                   \boxed{
-%                       \begin{bmatrix}
-%                           \dot{x}_M(t) \\
-%                           \dot{y}_M(t) \\
-%                           \dot{\phi}(t)
-%                       \end{bmatrix}
-%                       =
-%                       \begin{bmatrix}
-%                           \dot{v}_M(t) \\
-%                           \dot{v}_M(t) \\
-%                           \dot{\omega}(t)
-%                       \end{bmatrix}
-%                       =
-%                       \begin{bmatrix}
-%                           \frac{r}{2}  & \frac{r}{2} \\
-%                           0            & 0           \\
-%                           -\frac{r}{L} & \frac{r}{L}
-%                       \end{bmatrix}
-%                       \begin{bmatrix}
-%                           \omega_L(t) \\
-%                           \omega_R(t)
-%                       \end{bmatrix}}
-%               \end{equation*}
-
-%         \item e em \textcolor{red}{coordenadas globais}
-%               \footnote{adicionar o modelo em funcao das velocidades das rodas}:
-
-%               \begin{equation*}
-%                   \boxed{
-%                       \begin{bmatrix}
-%                           \dot{x}(t) \\
-%                           \dot{y}(t) \\
-%                           \dot{\phi}(t)
-%                       \end{bmatrix}
-%                       =
-%                       \begin{bmatrix}
-%                           \cos(\phi(t)) & 0 \\
-%                           \sin(\phi(t)) & 0 \\
-%                           0             & 1
-%                       \end{bmatrix}
-%                       \begin{bmatrix}
-%                           v(t) \\
-%                           \omega(t)
-%                       \end{bmatrix}}
-%               \end{equation*}
-
-%               onde as variáveis $v(t)$ e $\omega(t)$
-
-
-%     \end{itemize}
-% \end{frame}
-
-
-% \begin{frame}{Cinemática de Robôs}
-%     \framesubtitle{Robô Diferencial}
-%     \begin{itemize}
-%         \item Mas o \textit{encoder} fornece apenas a posição das rodas, como calcular a velocidade?
-
-%               ... \textbf{Aproximação de Euler}, Aproximação de Tustin, Transformação Bilinear...
-
-%               \begin{equation*}
-%                   \begin{split}
-%                       x_{k+1} &= x_k + v_k T_s\cos(\phi_k) \\
-%                       y_{k+1} &= y_k + v_k T_s\sin(\phi_k) \\
-%                       \phi_{k+1} &= \phi_k + \omega_k T_s \\
-%                   \end{split}
-%               \end{equation*}
-%     \end{itemize}
-% \end{frame}
-
-
-% \begin{frame}{Cinemática de Robôs}
-%     \framesubtitle{Robô Diferencial}
-
-%     continuar ...
-
-% \end{frame}
-
-
-
-% \begin{frame}{Modelo Cinemático}
-%     \framesubtitle{Tipo de Rodas}
-%     \begin{center}
-%         \includegraphics[width=0.8\textwidth]{./images/tipo_de_rodas.png}
-%     \end{center}
-% \end{frame}
-
-% \begin{frame}{Modelo Cinemático}
-%     \framesubtitle{Robô Diferencial}
-%     \begin{itemize}
-%         \item Restrição não-holonômica
-%               \begin{itemize}
-%                   \item O robô pode mover-se apenas na direção normal ao eixo das rodas motrizes
-%               \end{itemize}
-%               % \begin{equation*}
-%               %     \dot{x}\sin(\phi) - \dot{y}\cos(\phi) = 0
-%               % \end{equation*}
-%         \item As próprias rodas já inserem as restrições!
-%     \end{itemize}
-%     \centering
-%     \input{./images/car_3_image.tex}
-% \end{frame}
-
-
-% \begin{frame}{Modelo Cinemático}
-%     \framesubtitle{Robô Diferencial}
-%     restricoes
-
-%     % https://edisciplinas.usp.br/pluginfile.php/3280265/mod_resource/content/1/Aula%203%20-%20SEM5911%20Robo%CC%81tica%20Mo%CC%81vel.pdf
-% \end{frame}
-
-
-% \begin{frame}{Modelagem Dinâmica}
-
-%     Robot dynamic modeling deals with the derivation of the dynamic equations of the robot motion.
-
-%     \begin{block}{}
-%         The kinematic model only describes static transformation of some robot ve-
-%         locities (pseudo velocities) to the velocities expressed in global coordinates.
-%         However, the dynamic motion model of the mechanical system includes
-%         dynamic properties such as system motion caused by external forces and
-%         system inertia.
-%     \end{block}
-
-%     \begin{itemize}
-%         \item Método de Euler
-%         \item Método de Lagrange
-%     \end{itemize}
-% \end{frame}
-
-
-
-% \begin{frame}{Modelo Dinâmico}
-%     \framesubtitle{Formulação de Lagrange}
-
-%     \begin{itemize}
-
-%         \item Equilíbrio de Energias:
-
-%               \begin{equation}
-%                   \mathcal{L}= \mathcal{T} - \mathcal{V}
-%               \end{equation}
-
-%         \item A equação de energia cinética ($\mathcal{T}$) é dada por:
-
-%               \begin{equation}
-%                   \mathcal{T} = \sum\limits_{i=0}^{N-1} \frac{1}{2} {}_{i}^{i+1}\dot{\mathbf{P}}^T\cdot m_{i}\cdot {}_{i}^{i+1}\dot{\mathbf{P}}+ \mathbf{\omega}_i^T\cdot \mathbf{J}_i \cdot \mathbf{\omega}_i
-%               \end{equation}
-
-%               \begin{block}{ou para um robô em uma superfície:}
-
-%                   \begin{equation*}
-%                       \boxed{
-%                           \mathcal{T} = \frac{m}{2}\left(\dot{x}^2+\dot{y}^2 \right)+ \frac{J}{2}\dot{\phi}^2}
-%                       \text{, e  }
-%                       \boxed{\mathcal{V} = 0}
-%                   \end{equation*}
-%                   \scriptsize{
-%                       onde:
-%                       \begin{tabular}{l|l}
-%                           $m$               & Massa              \\
-%                           $\mathbf{\omega}$ & Velocidade Angular \\
-%                           $J$               & Inércia            \\
-%                       \end{tabular}}
-%               \end{block}
-%     \end{itemize}
-% \end{frame}
-
-
-
-
-% \begin{frame}{Modelo Dinâmico}
-%     \framesubtitle{Formulação de Lagrange}
-
-%     \begin{itemize}
-%         \item Para Sistemas Holonômicos:
-%               \begin{equation}
-%                   \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\dot{q}_k}\right)
-%                   -\parcial{}{\mathcal{L}}{q_k}
-%                   +\tau_{d_k}
-%                   = f_k, \quad k = 1,2,...,n
-%               \end{equation}
-
-%         \item Para Sistemas Não-Holonômicos \footnote{onde $k$ é o index das coordenadas generalizadas de $g_k$, $P$ representas as energias dissipativas (Atrito),
-%                   $\tau_d$ representa qualquer disturbio no sistema, $f_k$ são as forças externas que agem no sistema e $a_{jk}$ são os coeficientes das restrições de movimento.}
-%               \begin{equation}
-%                   \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\dot{q}_k}\right)
-%                   -\parcial{}{\mathcal{L}}{q_k}
-%                   +\tau_{d_k}
-%                   = f_k - \sum\limits^{m}_{j=1}\lambda_j a_{jk}
-%               \end{equation}
-%     \end{itemize}
-% \end{frame}
-
-
-% \begin{frame}{Modelo Dinâmico}
-%     \framesubtitle{Formulação de Lagrange}
-%     \begin{itemize}
-%         \item O modelo dinâmico de um robô movel com restrições de movimento pode ser expresso pelo sistema de matrizes abaixo:
-
-%               \begin{equation}
-%                   \mathbf{M(q)\ddot{q}+ C(q, \dot{q})+ F(\dot{q})+G(q) = E(q)u -A}^T\mathbf{(q)}\boldsymbol{\lambda}
-%               \end{equation}
-%     \end{itemize}
-
-%     \begin{block}{}
-%         \scriptsize{
-%             onde:
-%             \begin{tabular}{ r | l }
-%                 $\mathbf{q}$               & Vetor das coordenadas generalizadas   \\
-%                 $\mathbf{M(q)}$            & Matriz de massa e inercia             \\
-%                 $\mathbf{C(q, \dot{q})}$   & Vetor de força Coriolis e centrifuga  \\
-%                 $\mathbf{F(\dot{q})}$      & Vetor de atrito                       \\
-%                 $\mathbf{G(q)}$            & Vector da força gravitacional         \\
-%                 $\mathbf{E(q)}$            & Matriz dos tranformação dos atuadores \\
-%                 $\mathbf{u}$               & Vetor de entrada                      \\
-%                 $\mathbf{A}^T\mathbf{(q)}$ & Matriz de restrições de movimento     \\
-%                 $\boldsymbol{\lambda}$     & Multiplicador de Lagrange             \\
-%             \end{tabular}}
-%     \end{block}
-% \end{frame}
-
-
-
-% \begin{frame}{Modelagem Dinâmica}
-%     \framesubtitle{Formulação de Lagrange - Exemplo Robô Diferencial}
-% \end{frame}
-
-
-% \begin{frame}{Modelagem Dinâmica}
-%     \framesubtitle{Formulação de Lagrange - Multiplicador de Lagrange}
-%     A solução para $\lambda_i$ pode ser encontrada por:
-%     \begin{itemize}
-%         \item Método 1: Pseudo-velocidades \cmark
-%         \item Método 2: Redução de Order \xmark
-%         \item Método 3: Equações de Euler-Lagrange Modificadas \xmark
-%         \item Método 4: Calculo das Forças de restrições \xmark
-%     \end{itemize}
-% \end{frame}
-% % http://www.cpdee.ufmg.br/~torres/wp-content/uploads/2018/02/nonholonomic_constraints.pdf
-
-
-% \begin{frame}{Modelagem Dinâmica}
-%     \framesubtitle{Formulação de Lagrange - Pseudo-velocidades}
-
-%     \begin{itemize}
-%         \item O objetivo é resolver as restrições de $\lambda_i$:
-
-%               \begin{equation}\label{eq:rmrestri}
-%                   \mathbf{M(q)\ddot{q}+ C(q, \dot{q})+ F(\dot{q})+G(q) = E(q)u} - \textcolor{red}{\cancel{\mathbf{A}\mathbf{(q)}^T\boldsymbol{\lambda}}}
-%               \end{equation}
-
-%         \item reelembrando:
-
-%               \begin{equation*}
-%                   \mathbf{\dot{q}} = \mathbf{S}(q)\mathbf{v}
-%               \end{equation*}
-
-%         \item bem como:
-
-%               \begin{equation}\label{eq:aprox_accel}
-%                   \mathbf{\ddot{q}} = \mathbf{\dot{S}}(q)\mathbf{v} + \mathbf{S}(q)\mathbf{\dot{v}}
-%               \end{equation}
-
-%         \item Subustituindo \eqref{eq:rmrestri} em \eqref{eq:aprox_accel} e aplicando a relãção $\mathbf{A}(q)\mathbf{S}(q)=0$, temos a equação de aceleração do sistema:
-
-%               \begin{equation}\label{eq:pseudovelo}
-%                   \mathbf{\dot{v}} = \mathbf{\tilde{M}}^{-1}\left(\mathbf{\tilde{E}u - \tilde{V}} \right)
-%               \end{equation}
-%     \end{itemize}
-% \end{frame}
-
-
-
-% \begin{frame}{Modelagem Dinâmica}
-%     \framesubtitle{Formulação de Lagrange - Pseudo-velocidades}
-%     \begin{itemize}
-%         \item \eqref{eq:pseudovelo} na forma de equação:
-%               \begin{equation*}
-%                   \mathbf{\dot{x}} =
-%                   \begin{bmatrix}
-%                       \mathbf{S}(q)\mathbf{v} \\
-%                       \mathbf{-\tilde{M}}^{-1}\mathbf{\tilde{V}}
-%                   \end{bmatrix}
-%                   +
-%                   \begin{bmatrix}
-%                       \mathbf{0} \\
-%                       \mathbf{\tilde{M}}^{-1}\mathbf{\tilde{E}}
-%                   \end{bmatrix} \mathbf{u}
-%               \end{equation*}
-
-%         \item onde:
-
-%               \begin{equation*}
-%                   \begin{split}
-%                       \mathbf{\tilde{V}} & =
-%                       \mathbf{S}(q)^T\mathbf{M}\mathbf{\dot{S}}(q)\mathbf{v} + \mathbf{S}(q)^T (\mathbf{V + F + G})\\
-%                       \mathbf{\tilde{M}} & = \mathbf{S}(q)^T\mathbf{M}\mathbf{S}(q)\\
-%                       \mathbf{\tilde{E}} & = \mathbf{S}(q)^T\mathbf{E}\mathbf{S}
-%                   \end{split}
-%               \end{equation*}
-
-%               \begin{block}{}
-%                   \scriptsize{
-%                       onde:
-%                       \begin{tabular}{ r | l }
-%                           $\mathbf{x}$ & Vetor de estados \\
-%                           $\mathbf{S}$ & Matriz Jacobiana \\
-%                       \end{tabular}}
-%               \end{block}
-
-
-%     \end{itemize}
-% \end{frame}
-
-
-
-% \begin{frame}{Modelagem Dinâmica}
-%     \framesubtitle{Formulação de Lagrange - Exemplo Robô Diferencial}
-% \end{frame}
-
-% \begin{frame}[c]{Modelagem de um Uniciclo}
-%     \framesubtitle{}
-%     \centering
-%     \includegraphics[width=0.8\textwidth]{./images/unicycle.jpg}
-% \end{frame}
-
-
-
-% \begin{frame}[c]{Modelagem de um Uniciclo}
-%     \framesubtitle{}
-%     \begin{columns}
-%         \begin{column}[c]{0.4\textwidth}
-%             \centering
-%             \scalebox{-1}[1]{\includegraphics[width=0.6\textwidth]{./images/unicycle_2.jpg}}
-%         \end{column}
-%         \begin{column}[c]{0.6\textwidth}
-%             \centering
-%             \includegraphics[width=.6\textwidth]{./images/unicycle_model.jpg}
-%         \end{column}
-%     \end{columns}
-%     example: Comparative Analysis between Fuzzy Logic
-%     Control, LQR Control with Kalman Filter and PID
-%     Control for a Two Wheeled Inverted Pendulum
-% \end{frame}
+
+\begin{frame}{Dinâmica de Robôs - Sistemas Não-Holonômicos}
+    \framesubtitle{Restriçoes impostas pelas Rodas}
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{./images/tipo_de_rodas.png}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Modelo Cinemático}
+    \framesubtitle{Robô Diferencial}
+    \begin{itemize}
+        \item Restrição não-holonômica
+              \begin{itemize}
+                  \item O robô pode mover-se apenas na direção normal ao eixo das rodas motrizes
+              \end{itemize}
+              % \begin{equation*}
+              %     \dot{x}\sin(\phi) - \dot{y}\cos(\phi) = 0
+              % \end{equation*}
+        \item As próprias rodas já inserem as restrições!
+    \end{itemize}
+    \centering
+    \input{./images/car_3_image.tex}
+\end{frame}
+
+
+\begin{frame}{Dinâmica de Robôs - Sistemas Não-Holonômicos}
+    \framesubtitle{Restrições - Rodas}
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=1\textwidth]{./images/wheels_const.png}
+        \caption{Restricões de Movimento}
+    \end{figure}
+    
+
+    % https://edisciplinas.usp.br/pluginfile.php/3280265/mod_resource/content/1/Aula%203%20-%20SEM5911%20Robo%CC%81tica%20Mo%CC%81vel.pdf
+\end{frame}
+
+
+\begin{frame}{Dinâmica de Robôs - Sistemas Não-Holonômicos}
+    \framesubtitle{Restrições - Robô Diferencial}
+
+    \centering
+    \input{./images/car_0a_image.tex}
+
+    \begin{equation}
+        \mathbf{A} = 
+        \begin{bmatrix}
+            -\sin(\phi) & \cos(\phi) & 0
+        \end{bmatrix}
+    \end{equation}
+
+\end{frame}
+
+
+\begin{frame}{Dinâmica de Robôs - Sistemas Não-Holonômicos}
+    \framesubtitle{Formulação de Lagrange}
+
+    \begin{itemize}
+
+        \item Equilíbrio de Energias:
+
+              \begin{equation}
+                  \mathcal{L}= \mathcal{T} - \mathcal{V}
+              \end{equation}
+
+        \item A equação de energia cinética ($\mathcal{T}$) é dada por:
+
+              \begin{equation}
+                  \mathcal{T} = \sum\limits_{i=0}^{N-1} \frac{1}{2} {}_{i}^{i+1}\dot{\mathbf{P}}^T\cdot m_{i}\cdot {}_{i}^{i+1}\dot{\mathbf{P}}+ \mathbf{\omega}_i^T\cdot \mathbf{J}_i \cdot \mathbf{\omega}_i
+              \end{equation}
+
+              \begin{block}{ou para um robô em uma superfície:}
+
+                  \begin{equation*}
+                      \boxed{
+                          \mathcal{T} = \frac{m}{2}\left(\dot{x}^2+\dot{y}^2 \right)+ \frac{J}{2}\dot{\phi}^2}
+                      \text{, e  }
+                      \boxed{\mathcal{V} = 0}
+                  \end{equation*}
+                  \scriptsize{
+                      onde:
+                      \begin{tabular}{l|l}
+                          $m$               & Massa              \\
+                          $\mathbf{\omega}$ & Velocidade Angular \\
+                          $J$               & Inércia            \\
+                      \end{tabular}}
+              \end{block}
+    \end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}{Modelo Dinâmico}
+    \framesubtitle{Formulação de Lagrange}
+
+    \begin{itemize}
+        \item Para Sistemas Holonômicos:
+              \begin{equation}
+                  \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\dot{q}_k}\right)
+                  -\parcial{}{\mathcal{L}}{q_k}
+                  +\tau_{d_k}
+                  = f_k, \quad k = 1,2,...,n
+              \end{equation}
+
+        \item Para Sistemas Não-Holonômicos \footnote{onde $k$ é o index das coordenadas generalizadas de $g_k$, $P$ representas as energias dissipativas (Atrito),
+                  $\tau_d$ representa qualquer disturbio no sistema, $f_k$ são as forças externas que agem no sistema e $a_{jk}$ são os coeficientes das restrições de movimento.}
+              \begin{equation}
+                  \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\dot{q}_k}\right)
+                  -\parcial{}{\mathcal{L}}{q_k}
+                  +\tau_{d_k}
+                  = f_k - \sum\limits^{m}_{j=1}\lambda_j a_{jk}
+              \end{equation}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Modelo Dinâmico}
+    \framesubtitle{Formulação de Lagrange}
+    \begin{itemize}
+        \item O modelo dinâmico de um robô movel com restrições de movimento pode ser expresso pelo sistema de matrizes abaixo:
+
+              \begin{equation}
+                  \mathbf{M(q)\ddot{q}+ C(q, \dot{q})+ F(\dot{q})+G(q) = E(q)u -A}^T\mathbf{(q)}\boldsymbol{\lambda}
+              \end{equation}
+    \end{itemize}
+
+    \begin{block}{}
+        \scriptsize{
+            onde:
+            \begin{tabular}{ r | l }
+                $\mathbf{q}$               & Vetor das coordenadas generalizadas   \\
+                $\mathbf{M(q)}$            & Matriz de massa e inercia             \\
+                $\mathbf{C(q, \dot{q})}$   & Vetor de força Coriolis e centrifuga  \\
+                $\mathbf{F(\dot{q})}$      & Vetor de atrito                       \\
+                $\mathbf{G(q)}$            & Vector da força gravitacional         \\
+                $\mathbf{E(q)}$            & Matriz dos tranformação dos atuadores \\
+                $\mathbf{u}$               & Vetor de entrada                      \\
+                $\mathbf{A}^T\mathbf{(q)}$ & Matriz de restrições de movimento     \\
+                $\boldsymbol{\lambda}$     & Multiplicador de Lagrange             \\
+            \end{tabular}}
+    \end{block}
+\end{frame}
+
+
+
+\begin{frame}{Modelagem Dinâmica}
+    \framesubtitle{Formulação de Lagrange - Multiplicador de Lagrange}
+    A solução para $\lambda_i$ pode ser encontrada por:
+    \begin{itemize}
+        \item Método 1: Pseudo-velocidades \cmark
+        \item Método 2: Redução de Order \xmark
+        \item Método 3: Equações de Euler-Lagrange Modificadas \xmark
+        \item Método 4: Calculo das Forças de restrições \xmark
+    \end{itemize}
+\end{frame}
+% http://www.cpdee.ufmg.br/~torres/wp-content/uploads/2018/02/nonholonomic_constraints.pdf
+
+
+\begin{frame}{Modelagem Dinâmica}
+    \framesubtitle{Formulação de Lagrange - Pseudo-velocidades}
+
+    \begin{itemize}
+        \item O objetivo é resolver as restrições de $\lambda_i$:
+
+              \begin{equation}\label{eq:rmrestri}
+                  \mathbf{M(q)\ddot{q}+ C(q, \dot{q})+ F(\dot{q})+G(q) = E(q)u} - \textcolor{red}{\cancel{\mathbf{A}\mathbf{(q)}^T\boldsymbol{\lambda}}}
+              \end{equation}
+
+        \item reelembrando:
+
+              \begin{equation*}
+                  \mathbf{\dot{q}} = \mathbf{S}(q)\mathbf{v}
+              \end{equation*}
+
+        \item bem como:
+
+              \begin{equation}\label{eq:aprox_accel}
+                  \mathbf{\ddot{q}} = \mathbf{\dot{S}}(q)\mathbf{v} + \mathbf{S}(q)\mathbf{\dot{v}}
+              \end{equation}
+
+        \item Subustituindo \eqref{eq:rmrestri} em \eqref{eq:aprox_accel} e aplicando a relãção $\mathbf{A}(q)\mathbf{S}(q)=0$, temos a equação de aceleração do sistema:
+
+              \begin{equation}\label{eq:pseudovelo}
+                  \mathbf{\dot{v}} = \mathbf{\tilde{M}}^{-1}\left(\mathbf{\tilde{E}u - \tilde{V}} \right)
+              \end{equation}
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Modelagem Dinâmica}
+    \framesubtitle{Formulação de Lagrange - Pseudo-velocidades}
+    \begin{itemize}
+        \item \eqref{eq:pseudovelo} na forma de equação:
+              \begin{equation*}
+                  \mathbf{\dot{x}} =
+                  \begin{bmatrix}
+                      \mathbf{S}(q)\mathbf{v} \\
+                      \mathbf{-\tilde{M}}^{-1}\mathbf{\tilde{V}}
+                  \end{bmatrix}
+                  +
+                  \begin{bmatrix}
+                      \mathbf{0} \\
+                      \mathbf{\tilde{M}}^{-1}\mathbf{\tilde{E}}
+                  \end{bmatrix} \mathbf{u}
+              \end{equation*}
+
+        \item onde:
+
+              \begin{equation*}
+                  \begin{split}
+                      \mathbf{\tilde{V}} & =
+                      \mathbf{S}(q)^T\mathbf{M}\mathbf{\dot{S}}(q)\mathbf{v} + \mathbf{S}(q)^T (\mathbf{V + F + G})\\
+                      \mathbf{\tilde{M}} & = \mathbf{S}(q)^T\mathbf{M}\mathbf{S}(q)\\
+                      \mathbf{\tilde{E}} & = \mathbf{S}(q)^T\mathbf{E}\mathbf{S}
+                  \end{split}
+              \end{equation*}
+
+              \begin{block}{}
+                  \scriptsize{
+                      onde:
+                      \begin{tabular}{ r | l }
+                          $\mathbf{x}$ & Vetor de estados \\
+                          $\mathbf{S}$ & Matriz Jacobiana \\
+                      \end{tabular}}
+              \end{block}
+
+
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Modelagem Dinâmica}
+    \framesubtitle{Formulação de Lagrange - Exemplo Robô Diferencial}
+
+    \begin{itemize}
+        \item Modelo Dinâmico Robô Diferencial
+    \end{itemize}
+
+    \begin{columns}
+        \begin{column}[c]{0.4\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[width=1\textwidth]{./images/dynamic_diff_car.png}
+                \caption{Robô Diferencial}
+            \end{figure}
+        \end{column}
+        \begin{column}[c]{0.6\textwidth}
+            \begin{equation*}
+                \begin{bmatrix}
+                    \dot{x} \\ \dot{y} \\ \dot{\phi} \\ \dot{v} \\ \dot{\omega}
+                \end{bmatrix}=
+                \begin{bmatrix}
+                    v \cos(\phi) \\ v \sin(\phi) \\ \omega \\ 0 \\ 0
+                \end{bmatrix} + 
+                \begin{bmatrix}
+                    0 & 0 \\
+                    0 & 0 \\
+                    0 & 0 \\
+                    \frac{1}{mr} & \frac{1}{mr} \\
+                    \frac{L}{2Jr} & \frac{-L}{2Jr} \\
+                \end{bmatrix}
+                \begin{bmatrix}
+                    \tau_r \\ \tau_l
+                \end{bmatrix}
+            \end{equation*}
+        \end{column}
+    \end{columns}
+
+\end{frame}
+
+\begin{frame}[c]{Modelagem de um Uniciclo}
+    \framesubtitle{}
+    \centering
+    \includegraphics[width=0.8\textwidth]{./images/unicycle.jpg}
+\end{frame}
+
+
+
+\begin{frame}[c]{Modelagem de um Uniciclo}
+    \framesubtitle{}
+    \begin{columns}
+        \begin{column}[c]{0.4\textwidth}
+            \centering
+            \scalebox{-1}[1]{\includegraphics[width=0.6\textwidth]{./images/unicycle_2.jpg}}
+        \end{column}
+        \begin{column}[c]{0.6\textwidth}
+            \centering
+            \includegraphics[width=.6\textwidth]{./images/unicycle_model.jpg}
+        \end{column}
+    \end{columns}
+\end{frame}
 
 
 
@@ -1309,4 +1352,7 @@
 % % 	\bibliography{../template-beamer/reflatex/reflatex.bib}
 % % \end{frame}
   
+
+
+
 \end{document}

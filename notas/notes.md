@@ -35,6 +35,7 @@
 
 # Benchmark
 * https://www.youtube.com/watch?v=ymI3FmwU9AY
+
 ## ROS
 * https://github.com/VladyslavUsenko/ewok
 
@@ -84,6 +85,8 @@
 # sensores
 * https://ethz.ch/content/dam/ethz/special-interest/mavt/robotics-n-intelligent-systems/asl-dam/documents/lectures/autonomous_mobile_robots/spring-2019/Perception%20I%20-%20Sensors%20add%20ons%202019%20RS.pdf
 
+# Planning Algorithms
+* http://planning.cs.uiuc.edu/
 
 # Job
 * http://wiki.ros.org/Jobs
@@ -95,3 +98,9 @@
 
 # Automonous Car - DataSet 
 * http://www.cvlibs.net/datasets/kitti/raw_data.php
+## Simulator
+* https://www.lgsvlsimulator.com/
+
+## ROS2 Course
+* https://www.youtube.com/channel/UCyo9zNZTbdJKFog2q8f-cEw
+* https://www.apex.ai/autoware-course

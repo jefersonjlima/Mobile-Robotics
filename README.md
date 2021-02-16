@@ -2,59 +2,8 @@
 
 Repositório para os materiais de Robótica Móvel
 
-### Datas importantes:
-- Trabalho 1 - Modelagem e Controle
-
-
-### Cálculo da média:
-
-
-onde:
-- N1 = T1 * 0,7 + Exercícios1 * 0,3
-- N2 = T2 * 0,7 + Exercicios2 * 0,3
-
-### Atendimento:
-Quinta, 09:20 às 10:00, S105
-Quinta, 14:40 às 15:30, S105
-
-
-# Sumário
-
-1. Introdução a Robótica Móvel
-    - Aula 0 - Apresentação Disciplina
-    - Aula X - Contexto Histórico
-    - Aula X - Robótica e Aplicações
-    - Aula X - Cinemática
-    - Aula X - Dinâmica
-
-
-2. Percepção e Ação
-    - Aula 0 - Percepção
-    - Aula X - Sensores
-    - Aula X - Atuadores
-    - Aula X - Revisão Metodo Bayes
-    - Introdução ao Filtro de Kalman
-
-
-4. Paradigmas de Controle
-    - Aula 0 - Revisão Controle Clássico
-    - AUla X - Controle Moderno
-
-
-3. Ambiente de Simulação
-    - Introdução ROS - Robotics Operating System
-
-5. Localização e Mapeamento
-    - Aula 0 - Adaptive Monte Carlo localization (AMCL)
-    - Odometria:
-        - Visual
-
-
-6. Tópicos Extra
-    - Hidden Markov Model
-        - Viterbi Algorithm
-        - Forward e Backward Algorithm
-        - Baum-Welch Algorithm
 
 # Bibliografia básica:
-
+- Roland Siegwart, Illah Reza Nourbakhsh, Davide Scaramuzza. **Introduction to Autonomous Mobile Robots** (Intelligent Robotics and Autonomous Agents series), 2nd ed. The MIT Press, 2011.
+- Sebastian Thrun, Wolfram Burgard, Dieter Fox. **Probabilistic Robotics** (Intelligent Robotics and Autonomous Agents series). The MIT Press, 2005.
+- Ulrich Nehmzow. **Mobile Robotics: A Practical Introduction**, 2nd ed. Springer, 2003.
