@@ -30,7 +30,6 @@
 \usepackage{verbatim}
 \usetikzlibrary{patterns}
 
-
 \usepackage{listings}
 	\definecolor{codegreen}{rgb}{0,0.6,0}
 	\definecolor{codegray}{rgb}{0.5,0.5,0.5}
@@ -49,6 +48,13 @@
 	morekeywords={models, lambda, forms}}
 
 
+\usepackage{catchfile}
+\newcommand{\getenv}[2][]{%
+  \CatchFileEdef{\temp}{"|kpsewhich --var-value #2"}{\endlinechar=-1}%
+  \if\relax\detokenize{#1}\relax\temp\else\let#1\temp\fi}
+
+\getenv[\BIBREF]{RM_REFERENCES}
+
 % --------------------------------------------------------------------------------------------
 
 \title{Robótica Móvel}
@@ -59,7 +65,7 @@
 \institute[UTFPR-PB]{Departamento de Informática (DAINF)}
 
 \begin{document}
-\maketitle
+\maketitle 
 \justify
 
 
@@ -88,6 +94,7 @@
 
 
 \begin{frame}{Expectativa - Robótica Móvel?}
+
 \end{frame}
 
 
@@ -399,7 +406,7 @@
 
 \begin{frame}[t, allowframebreaks]
 	\frametitle{Referências}
-	\bibliography{../references.bib}
+	\bibliography{\BIBREF}
 \end{frame}
 
 \end{document}
