@@ -5,14 +5,16 @@
 \usepackage{lmodern}
 \usepackage{ragged2e}
 \usefonttheme[onlymath]{serif} 
-\usepackage[scale=2]{ccicons}
+\usepackage[scale=2]{ccicons} 
+% \setbeamertemplate{caption}[numbered]
+\usepackage{copyrightbox}
 
 \usepackage{graphicx,hyperref,url,pgfplots}
 \usepackage{amsmath} 
 \usepackage{array,booktabs}
 \usepackage{bibentry}
-%\usepackage[alf,abnt-etal-list=0,abnt-etal-cite=3]{abntex2cite}
-\usepackage[normalem]{ulem} 
+\usepackage[alf,abnt-etal-list=0,abnt-etal-cite=2]{abntex2cite}
+\usepackage[normalem]{ulem}
 \pgfplotsset{compat=1.13}  
 
 \setbeamercovered{invisible} 
@@ -20,6 +22,7 @@
 \newcommand{\pausar}{ }
 \newcommand{\df}[1]{\,\mathrm{d}#1}
 \newcommand{\parcial}[3]{\dfrac{\partial^{#1}#2}{\partial #3^{#1}}}
+\newcommand{\cpright}[2]{\copyrightbox[b]{#1}{\tiny Source: #2}}
 
 \usepackage{tikz}
 \usepackage{xcolor}
@@ -44,7 +47,6 @@
 %	numbers=left,
 	tabsize=2,
 	morekeywords={models, lambda, forms}}
-
 
 
 % --------------------------------------------------------------------------------------------
@@ -108,10 +110,24 @@
 	\framesubtitle{Alguns exemplos}
 
 	\begin{enumerate}
-		\item \href{https://www.indeed.com/q-Slam-Engineer-jobs.html}{Slam Engineer}
+		\item \href{https://www.indeed.com/q-Slam-Engineer-jobs.html}{SLAM Engineer}
 		\item \href{https://www.indeed.com/q-Autonomous-Driving-Engineer-jobs.html}{Autonomous Driving Engineer}
 		\item \href{http://wiki.ros.org/Jobs}{ROS Engineer}
 	\end{enumerate}
+\end{frame}
+
+
+\begin{frame}[c]{Ementa da Disciplina}
+	\framesubtitle{Robótica Móvel}
+
+	\begin{block}{Bibliogfia Básica:}
+	\end{block}
+	\begin{itemize}
+		\justifying
+		\item Roland Siegwart, Illah Reza Nourbakhsh, Davide Scaramuzza. \textbf{Introduction to Autonomous Mobile Robots (Intelligent Robotics and Autonomous Agents series), 2nd ed. The MIT Press, 2011};
+		\item Sebastian Thrun, Wolfram Burgard, Dieter Fox. \textbf{Probabilistic Robotics (Intelligent Robotics and Autonomous Agents series). The MIT Press, 2005};
+		\item Ulrich Nehmzow. \textbf{Mobile Robotics: A Practical Introduction, 2nd ed. Springer, 2003};
+	\end{itemize}
 \end{frame}
 
 
@@ -133,35 +149,40 @@
 \end{frame}
 
 
+
 \begin{frame}[c]{Ementa da Disciplina}
 	\framesubtitle{Robótica Móvel}
 	\begin{block}{Introdução a Robótica Móvel}
 	\end{block}
 	\begin{itemize}
-		\item Bibliografia Referências
+		\item Bibliografia (Extra):
 	\end{itemize}
 	\begin{columns}[c]
 		\begin{column}{0.5\textwidth}
-			\center
-			\includegraphics[width=0.7\textwidth]{./images/livro6}
+			\begin{figure}
+				\cpright{\includegraphics[width=0.7\textwidth]{./images/livro6}}
+				{\cite{craig2009introduction}}
+			\end{figure}
 		\end{column}
 		\begin{column}{0.5\textwidth}
-			\center
-			\includegraphics[width=0.7\textwidth]{./images/livro5}
+			\begin{figure}			
+				\cpright{\includegraphics[width=0.7\textwidth]{./images/livro5}}
+				{\cite{siciliano2016springer}}
+			\end{figure}
 		\end{column}
-	\end{columns}
+	\end{columns} 
 \end{frame}
+ 
 
-
-
+ 
 \begin{frame}[t]{Ementa da Disciplina}
 	\framesubtitle{Robótica Móvel}
 	\begin{block}{Percepção e Ação}
 	\end{block}
 	\begin{center}
-		\includegraphics[width=0.6\textwidth]{./images/autonomous-car.png}
 
-		fonte \footnote{https://edisciplinas.usp.br/course/view.php?id=72434}
+		\cpright{\includegraphics[width=0.6\textwidth]{./images/autonomous-car.png}}{\url{https://edisciplinas.usp.br/course/}}
+		
 	\end{center}
 \end{frame}
 
@@ -192,16 +213,20 @@
 	\begin{block}{Percepção e Ação}
 	\end{block}
 	\begin{itemize}
-		\item Bibliografia Referências
+		\item Bibliografia (Extra):
 	\end{itemize}
 	\begin{columns}[c]
 		\begin{column}{0.5\textwidth}
-			\center
-			\includegraphics[width=0.7\textwidth]{./images/livro9}
+			\begin{figure}[h]
+				\cpright{\includegraphics[width=0.6\textwidth]{./images/livro9}}
+				{\cite{romero2014robotica}}
+			\end{figure}
 		\end{column}
 		\begin{column}{0.5\textwidth}
-			\center
-			\includegraphics[width=0.7\textwidth]{./images/livro2}
+			\begin{figure}[h]
+				\cpright{\includegraphics[width=0.7\textwidth]{./images/livro2}}
+				{\cite{thrun2006probalistic}}
+			\end{figure}
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -224,16 +249,20 @@
 	\begin{block}{Paradigmas de Controle}
 	\end{block}
 	\begin{itemize}
-		\item Bibliografia Referências
+		\item Bibliografia (Extra):
 	\end{itemize}
 	\begin{columns}[c]
 		\begin{column}{0.5\textwidth}
-			\center
-			\includegraphics[width=0.7\textwidth]{./images/livro3}
+			\begin{figure}
+				\cpright{\includegraphics[width=0.6\textwidth]{./images/livro3}}
+				{\cite{lynch2017modern}}
+			\end{figure}
 		\end{column}
 		\begin{column}{0.5\textwidth}
-			\center
-			\includegraphics[width=0.7\textwidth]{./images/livro4}
+			\begin{figure}
+				\cpright{\includegraphics[width=0.6\textwidth]{./images/livro4}}
+				{\cite{klancar2017wheeled}}
+		\end{figure}
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -268,8 +297,6 @@
 \end{frame}
 
 
-
-
 \begin{frame}[t]{Ementa da Disciplina}
 	\framesubtitle{Robótica Móvel}
 	\begin{block}{Ambiente de Simulação}
@@ -289,16 +316,20 @@
 	\begin{block}{Ambiente de Simulação}
 	\end{block}
 	\begin{itemize}
-		\item Bibliografia Referências
+		\item Bibliografia (Extra):
 	\end{itemize}
 	\begin{columns}[c]
 		\begin{column}{0.5\textwidth}
-			\center
-			\includegraphics[width=0.7\textwidth]{./images/livro7}
+			\begin{figure}
+				\cpright{\includegraphics[width=0.7\textwidth]{./images/livro7}}
+				{\cite{joseph2017ros}}
+			\end{figure}
 		\end{column}
 		\begin{column}{0.5\textwidth}
-			\center
-			\includegraphics[width=0.7\textwidth]{./images/livro8}
+			\begin{figure}
+				\cpright{\includegraphics[width=0.7\textwidth]{./images/livro8}}
+				{\cite{martinez2013learning}}
+		\end{figure}
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -319,16 +350,20 @@
 	\begin{block}{Localização e Mapeamento Simultâneos (SLAM)}
 	\end{block}
 	\begin{itemize}
-		\item Bibliografia Referências
+		\item Bibliografia (Extra):
 	\end{itemize}
 	\begin{columns}[c]
 		\begin{column}{0.5\textwidth}
-			\center
-			\includegraphics[width=0.7\textwidth]{./images/livro1}
+			\begin{figure}
+				\cpright{\includegraphics[width=0.7\textwidth]{./images/livro1}}
+				{\cite{siegwart2011introduction}}
+			\end{figure}
 		\end{column}
 		\begin{column}{0.5\textwidth}
-			\center
-			\includegraphics[width=0.7\textwidth]{./images/livro2}
+			\begin{figure}
+				\cpright{\includegraphics[width=0.7\textwidth]{./images/livro2}}
+				{\cite{thrun2006probalistic}}
+			\end{figure}
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -340,34 +375,32 @@
 			\item Apenas um projeto!
 		\end{itemize}
 		\begin{enumerate}
+			\item Atividades/Relatórios
 			\item Desenvolvimento do Projeto Prático
-			      \begin{itemize}
-				      \item Direção Livre - FPV
-				      \item Controle e Telemetria
-				      \item Mapeamento e Localização
-			      \end{itemize}
-			\item Relatórios
+			    %   \begin{itemize}
+				%       \item Direção Livre - FPV
+				%       \item Controle e Telemetria
+				%       \item Mapeamento e Localização
+			    %   \end{itemize}
 		\end{enumerate}
 	\end{block}
-	\begin{block}{Peso das Avaliações}
-		\begin{tabular}{lll}
-			\hline
-			$N_1$ & = Projeto Fase 1 * 0,7 & + Exercício/Relatório * 0,3 \\
-			$N_2$ & = Projeto Fase 2 * 0,7 & + Exercício/Relatório * 0,3 \\
-			$N_3$ & = Projeto Fase 3 * 0,8 & + Exercício/Relatório * 0,2 \\
-			\hline
-		\end{tabular}
-	\end{block}
+	% \begin{block}{Peso das Avaliações}
+	% 	\begin{tabular}{lll}
+	% 		\hline
+	% 		$N_1$ & = Projeto Fase 1 * 0,7 & + Exercício/Relatório * 0,3 \\
+	% 		$N_2$ & = Projeto Fase 2 * 0,7 & + Exercício/Relatório * 0,3 \\
+	% 		$N_3$ & = Projeto Fase 3 * 0,8 & + Exercício/Relatório * 0,2 \\
+	% 		\hline
+	% 	\end{tabular}
+	% \end{block}
 \end{frame}
 
-\begin{frame}
-	
-\end{frame}
 
-% \begin{frame}[t, allowframebreaks]
-% 	\frametitle{Referências}
-% 	\bibliography{../template-beamer/reflatex/reflatex.bib}
-% \end{frame}
+
+\begin{frame}[t, allowframebreaks]
+	\frametitle{Referências}
+	\bibliography{../references.bib}
+\end{frame}
 
 \end{document}
 
