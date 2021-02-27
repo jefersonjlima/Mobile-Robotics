@@ -21,6 +21,7 @@
 \newcommand{\pausar}{ }
 \newcommand{\df}[1]{\,\mathrm{d}#1}
 \newcommand{\parcial}[3]{\dfrac{\partial^{#1}#2}{\partial #3^{#1}}}
+\newcommand{\cpright}[2]{\copyrightbox[b]{#1}{\tiny Source: #2}}
 \newcommand{\cmark}{\textcolor{green}{\ding{51}}}%
 \newcommand{\xmark}{\textcolor{red}{\ding{55}}}%
 
@@ -98,7 +99,8 @@
               \end{itemize}
     \end{itemize}
     \begin{center}
-        \includegraphics[width=0.8\textwidth]{./images/mecanismos.jpg}
+        \cpright{\includegraphics[width=0.8\textwidth]{./images/mecanismos.jpg}}
+        {https://edisciplinas.usp.br/pluginfile.php/3280265}
     \end{center}
 \end{frame}
 
@@ -325,10 +327,12 @@
 
 
 \begin{frame}{Dinâmica de Robôs - Sistemas Não-Holonômicos}
-    \framesubtitle{Restriçoes impostas pelas Rodas}
-    \begin{center}
-        \includegraphics[width=0.8\textwidth]{./images/tipo_de_rodas.png}
-    \end{center}
+    \framesubtitle{Restrições impostas pelas Rodas}
+    \begin{figure}
+        \cpright{\includegraphics[width=0.8\textwidth]{./images/tipo_de_rodas.png}}
+        {\cite{siegwart2011introduction}}
+        \caption{ (a) Standard wheel: two degrees of freedom. (b) castor wheel. (c) Swedish wheel: three degrees of freedom. (d) Ball or spherical wheel: realization technically difficult.}
+    \end{figure}
 \end{frame}
 
 \begin{frame}{Modelo Cinemático}
@@ -353,12 +357,10 @@
 
     \begin{figure}
         \centering
-        \includegraphics[width=1\textwidth]{./images/wheels_const.png}
-        \caption{Restricões de Movimento}
+        \cpright{\includegraphics[width=0.8\textwidth]{./images/wheels_const.png}}
+        {\cite{siegwart2011introduction}}
+        \caption{A fixed standard wheel and its parameters.}
     \end{figure}
-    
-
-    % https://edisciplinas.usp.br/pluginfile.php/3280265/mod_resource/content/1/Aula%203%20-%20SEM5911%20Robo%CC%81tica%20Mo%CC%81vel.pdf
 \end{frame}
 
 
@@ -600,8 +602,10 @@
 \begin{frame}[c]{Exemplo}
     \framesubtitle{Modelagem de um Uniciclo}
     Como descrever o sistema abaixo pelas equacões da cinemática e dinâmica?
+
     \centering
-    \includegraphics[width=0.8\textwidth]{./images/unicycle.jpg}
+    \cpright{\includegraphics[width=0.8\textwidth]{./images/unicycle.jpg}}
+    {https://www.change.org/p/info-theairwheel-com-make-electric-unicycles-legal-to-ease-traffic}
 \end{frame}
 
 
@@ -615,7 +619,8 @@
         \end{column}
         \begin{column}[c]{0.6\textwidth}
             \centering
-            \includegraphics[width=.6\textwidth]{./images/unicycle_model.jpg}
+            \cpright{\includegraphics[width=.6\textwidth]{./images/unicycle_model.jpg}}
+            {\cite{garcia2017comparative}}
         \end{column}
     \end{columns}
 \end{frame}
