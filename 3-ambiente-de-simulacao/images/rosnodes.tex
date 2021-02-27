@@ -1,0 +1,15 @@
+\centering
+\resizebox{0.85\textwidth}{!}{
+\begin{tikzpicture}[>=stealth,
+    auto,
+    state/.append style={fill=black!20, circle, draw, minimum size=2.2cm},
+    node distance=1.2cm,
+    every text node part/.style={align=center}] 
+    \node[state, fill=red!35] (MASTER) {\textbf{ROS} \\ \textbf{Master}};
+    \node[state,below right=of MASTER] (TALKER) {\textbf{Talker} \\ \textbf{Node}};
+    \node[state,below left=of MASTER] (LISTENER) {\textbf{Listener} \\ \textbf{Node}};
+    \draw (LISTENER) edge[->,bend left=15] node[left] {Publish \\ Registration} (MASTER);
+    \draw (TALKER) edge[->,bend right=15] node[right] {Subscribe \\ Registration} (MASTER);
+    \draw (LISTENER) edge[-, dashed] node[blue] {\textbf{/talker}} node[below, red] {std\_msg/String} (TALKER);
+
+\end{tikzpicture}}
