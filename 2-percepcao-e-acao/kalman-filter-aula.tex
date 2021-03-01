@@ -1,6 +1,6 @@
-\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
 \usetheme{simple}
-\usepackage[brazil]{babel}
+\usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern} 
 \usefonttheme[onlymath]{serif}
@@ -46,38 +46,38 @@
 	morekeywords={models, lambda, forms}}
 
 
-\title{Filtro de Kalman}
-\subtitle{Aplicações na Robótica Móvel}
+\title{Mobile Robots}
+\subtitle{Kalman Filter Algorithm}
 \date{\today}
-\author{Jeferson Lima}
-\institute{\url{http://gitlab.com/jeferson.lima}}
+\author[Jeferson José de Lima]{
+\textbf{Professor}: Jeferson José de Lima}
+\institute{Academic Department of Informatics (DAINF) \\ Federal University of Technology - Paraná (UTFPR) at Pato Branco, PR, Brazil}
 
 \begin{document}
 
 \maketitle
 
-% \begin{frame}{Informações Úteis}
-% 	\begin{block}{Material disponível em:}
-% 		\href{Robótica Móvel - Wiki}{https://gitlab.com/cursoseaulas/robotica-movel/-/wikis/home}
-% 	\end{block}
-% 	\pausar
-% 	\begin{block}{Datas Importantes}
-% 		\begin{itemize}
-% 		\item Entrega
-% 		\item Envio
-% 		\end{itemize}
-% 	\end{block}
-% 	\pausar
-% 	\begin{block}{Requisitos da Disciplina}
-% 		\begin{itemize}
-% 		\item Teoria de Controle
-% 		\item Linguagem de Programação - \textbf{Python} ou \textbf{C++}
-% 		\item Eletrônica
-% 		\end{itemize}
-% 	\end{block}
-% \end{frame}
+\begin{frame}{Informações Úteis}
+	\begin{block}{Material disponível em:}
+		\href{Robótica Móvel - Wiki}{https://gitlab.com/cursoseaulas/robotica-movel/-/wikis/home}
+	\end{block}
+	\pausar
+	\begin{block}{Datas Importantes}
+		\begin{itemize}
+		\item Entrega
+		\item Envio
+		\end{itemize}
+	\end{block}
+	\pausar
+	\begin{block}{Requisitos da Disciplina}
+		\begin{itemize}
+		\item Teoria de Controle
+		\item Linguagem de Programação - \textbf{Python} ou \textbf{C++}
+		\item Eletrônica
+		\end{itemize}
+	\end{block}
+\end{frame}
 
-%-----------------------------------------------------------------
 
 \begin{frame}{Teorema de Bayes}
     \framesubtitle{Revisão} {Revisão}
@@ -198,7 +198,7 @@
 \end{frame}
 
 
-\begin{frame}{Kalman filter}
+\begin{frame}{Kalman Filter}
     \framesubtitle{Modelo determinístico e estocástico}
     \begin{itemize}
         \item Num \textcolor{blue}{modelo determinístico} o resultado do sistema é pré determinado em função dos dados de entrada, exemplo:
@@ -223,12 +223,12 @@
 \end{frame}
 
 
-\begin{frame}{Kalman filter}
+\begin{frame}{Kalman Filter}
     \framesubtitle{Representação Grafica}
     \input{./images/gauss_1da_image.tex}
 \end{frame}
 
-\begin{frame}{Kalman filter}
+\begin{frame}{Kalman Filter}
     \framesubtitle{Revisão}
     \setlength\extrarowheight{5pt}
         \begin{tabular}{r l}
@@ -248,7 +248,7 @@
 \end{frame}
 
 
-\begin{frame}[c]{Kalman filter}
+\begin{frame}[c]{Kalman Filter}
     \framesubtitle{Algoritmo}
     \begin{itemize}
         \item Iniciando as Variável:
@@ -259,7 +259,7 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}[c]{Kalman filter}
+\begin{frame}[c]{Kalman Filter}
     \framesubtitle{Algoritmo}
     \begin{itemize}
         \item Com base na equação:
@@ -296,7 +296,7 @@
 \end{frame}
 
 
-\begin{frame}[c]{Kalman filter}
+\begin{frame}[c]{Kalman Filter}
     \framesubtitle{Algoritmo - Prediction}
     \begin{tabular}{p{1.5cm} l l}
         $\overline{\text{Bel}}(x_t)$  & = $\displaystyle\int P(x_t|u_t, x_{t-1})$ & $\text{Bel}(x_{t-1})\text{d}x_{t-1}$ \\
@@ -321,7 +321,7 @@
 
 
 
-\begin{frame}[c]{Kalman filter}
+\begin{frame}[c]{Kalman Filter}
     \framesubtitle{Algoritmo - Prediction}
 
     \begin{itemize}
@@ -349,7 +349,7 @@
 \end{frame}
 
 
-\begin{frame}[c]{Kalman filter}
+\begin{frame}[c]{Kalman Filter}
     \framesubtitle{Algoritmo - Measurement Update}
     \begin{itemize}
         \item Considerando a saída do sistema:
@@ -368,7 +368,7 @@
 \end{frame}
 
 
-\begin{frame}[c]{Kalman filter}
+\begin{frame}[c]{Kalman Filter}
     \framesubtitle{Algoritmo -  Measurement Update}
     \begin{tabular}{p{1.5cm} l l l}
         $\text{Bel}(x_t)$  & = $\eta$ & $P(z_t| x_t)$ & $\overline{\text{Bel}}(x_t)$ \\
@@ -404,12 +404,11 @@
 
 
 
-\begin{frame}[c]{Kalman filter}
+\begin{frame}[c]{Kalman Filter}
     
     \framesubtitle{Algoritmo}
     \begin{algorithm}[H]
-        \caption{Kalman-filter}
-        \label{array-sum}
+        \caption{Kalman-Filter}
         \begin{algorithmic}[1]
         \Procedure{Prediction}{$\mu_{t-1}, {\textstyle\sum}_{t-1}, u_t$}
             \State $\overline{\mu}_t = A_t\mu_{t-1} + B_t u_t$
@@ -427,7 +426,7 @@
 \end{frame}
 
 
-\begin{frame}[c]{Kalman filter}
+\begin{frame}[c]{Kalman Filter}
     \framesubtitle{Exercício - Deslocamento Carro - Kalman Filter}    \begin{columns}
         \begin{column}[c]{0.4\textwidth}
             \begin{figure}
@@ -508,7 +507,7 @@
 
 
 
-\begin{frame}[c]{Kalman filter}
+\begin{frame}[c]{Kalman Filter}
     \framesubtitle{Exercício - Deslocamento Carro - Kalman Filter}
     
     \begin{itemize}
@@ -602,7 +601,7 @@
 
     \begin{block}{Então como resolver esse problema?}
         \centering
-        \Large{\textcolor{blue}{Linearização do Sistema}}
+        \Large{\textcolor{red}{Linearização do Sistema}}
     \end{block}
 
 \end{frame}
@@ -632,10 +631,6 @@
 
 \begin{frame}[c]{Extended Kalman Filter}
     \framesubtitle{Linearização de sistemas}
-    \begin{itemize}
-        \item Assim, aplicando ao sistema de equações temos:
-    \end{itemize}
-
         \begin{block}{Prediction}
             \begin{equation*}
                 \begin{split}
@@ -661,10 +656,7 @@
 
 \begin{frame}[c]{Extended Kalman Filter}
     \framesubtitle{Linearização de sistemas}
-
-    \begin{itemize}
-        \item A matrix Jacobiana é data por:
-
+       A matrix Jacobiana é data por:
         \begin{equation*}
         \mathbb{J}
         =
@@ -681,9 +673,7 @@
             \frac{\partial f_m}{\partial x_n}
         \end{bmatrix}
     \end{equation*}
-    \end{itemize}
-
-
+    
     \begin{block}{Exemplo}
         dado um sistema representado por $\mathbf{F(x)}$, calcule a
     matriz jacobina do sistema:
@@ -729,7 +719,6 @@
     \framesubtitle{Algoritmo}
     \begin{algorithm}[H]
         \caption{Extended-Kalman-Filter}
-        \label{array-sum}
         \begin{algorithmic}[1]
         \Procedure{Prediction}{$\mu_{t-1}, {\textstyle\sum}_{t-1}, u_t$}
             \State $\overline{\mu}_t = g(u_t, \mu_{t-1})$
@@ -747,7 +736,7 @@
 \end{frame}
 
 
-\begin{frame}[c]{Extended Kalman filter}
+\begin{frame}[c]{Extended Kalman Filter}
     \framesubtitle{Exercício - Deslocamento Carro - Extended Kalman Filter}    \begin{columns}
         \begin{column}[c]{0.4\textwidth}
             \begin{figure}
@@ -825,7 +814,7 @@
 
 
 
-\begin{frame}[c]{Extended Kalman filter}
+\begin{frame}[c]{Extended Kalman Filter}
     \framesubtitle{Exercício - Deslocamento Carro - Extended Kalman Filter}
     
     \begin{itemize}
