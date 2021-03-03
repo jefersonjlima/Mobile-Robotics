@@ -78,7 +78,6 @@
 \end{frame}
 
 
-
 \begin{frame}{What is ROS?}
 	\framesubtitle{ROS - Robot Operating System}
 	\centering
@@ -136,7 +135,26 @@
 		\item \textbf{/build}: \textcolor{red}{The build space is where CMake is invoked to build the packages in the source space. Cache information and other intermediate files are kept here.}
 		\item \textbf{/devel}: \textcolor{red}{The development (devel) space is where built targets are placed (prior to being installed)}
 		\end{itemize}
+\end{frame}
 
+
+\begin{frame}[fragile]{Creating a ROS Package}
+	\framesubtitle{ }
+    \begin{itemize}
+        \item First of all, you need to change to the source space directory of the catkin workspace
+		\begin{lstlisting}[language=bash]
+	$ cd ~/catkin_ws/src
+		\end{lstlisting}
+		\item catkin\_create\_pkg requires that you give it a package\_name and optionally a list of dependencies on which that package depends:
+		\begin{lstlisting}[language=bash]
+	$ catkin_create_pkg <package_name> [depend1] [depend2] [depend3]
+		\end{lstlisting}
+		\item This is an example:
+		\begin{lstlisting}[language=bash]
+			$ catkin_create_pkg beginner_tutorials std_msgs rospy roscpp
+		\end{lstlisting}
+
+	\end{itemize}
 \end{frame}
 
 
@@ -370,6 +388,12 @@
 			pass
 	
     \end{lstlisting}
+	\begin{block}{Remember, you need to give execute permission to the ROS:}
+		Type this command in the Terminal:
+		\begin{lstlisting}[language=Python]
+		$ chmod +x sensor_node.py
+		\end{lstlisting}
+	\end{block}
 \end{minipage}
 \begin{minipage}{0.4\textwidth}
 	\input{./images/rosnodes_image.tex}

@@ -7,7 +7,7 @@
     every text node part/.style={align=center}] 
     \node[state, fill=red!35] (MASTER) {\textbf{ROS} \\ \textbf{Master}};
     \node[state,below right=of MASTER] (SENSOR) {\textbf{Sensor} \\ \textbf{Node}};
-    \node[state,below left=of MASTER] (LISTENER) {\textbf{Listener} \\ \textbf{Node}};
+    \node[state,below left=of MASTER] (LISTENER) {\textbf{Listener} \\ \textbf{ Sensor} \\ \textbf{Node}};
     \draw (LISTENER) edge[->,bend left=15] node[left] {Subscribe \\ Registration} (MASTER);
     \draw (SENSOR) edge[->,bend right=15] node[right] {Publish \\ Registration} (MASTER);
     \draw (LISTENER) edge[-, dashed] node[blue] {\textbf{/sensor/value}} node[below, red] {std\_msg/Int32} (SENSOR);
