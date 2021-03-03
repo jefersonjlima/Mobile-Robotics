@@ -2,14 +2,21 @@
 \usepackage{fixltx2e,fix-cm}
 \usepackage{amssymb}
 \usepackage{amsmath}
-\usepackage{graphicx}
 \usepackage{subfigure}
 \usepackage{makeidx}
 \usepackage{multicol}
 \usepackage{qrcode}
+\usepackage[makeroom]{cancel}
+\usepackage{graphicx,pgfplots}
+\usepackage{catchfile}
 
- 
-% \usepackage[dvips]{hyperref}
+\newcommand{\df}[1]{\,\mathrm{d}#1}
+\newcommand{\parcial}[3]{\dfrac{\partial^{#1}#2}{\partial #3^{#1}}}
+\newcommand{\getenv}[2][]{%
+    \CatchFileEdef{\temp}{"|kpsewhich --var-value #2"}{\endlinechar=-1}%
+    \if\relax\detokenize{#1}\relax\temp\else\let#1\temp\fi}
+
+\getenv[\BIBREF]{RM_REFERENCES}
 
 \usepackage{tikz}
 \usepackage{xcolor}
@@ -75,10 +82,11 @@
 \part{Cinemática e Dinâmica de Robôs Móveis}
 \include{chapters/chapter1/ch1}
 
-% \part{Percepção e Ação}
+\part{Controle Moderno para Robótica Móvel}
+\include{chapters/chapter2/ch2}
 
-% \part{Paradigmas de Controle}
-
+\part{Eventos Não Determinísticos em Robótica Móvel}
+\include{chapters/chapter3/ch3}
 % \part{Ambiente de Simulação}
 
 % \part{Localização e Mapeamento Simultâneos}
@@ -88,9 +96,9 @@
 % \part{Robôs Aéreos}
 
 \bibliographystyle{plain}
-\bibliography{bibtex_example}
+\bibliography{\BIBREF} 
 
-\printindex
+% \printindex
 
 \end{document}
 
@@ -100,17 +108,18 @@
 % 		1.1.1 Plotando Dados
 % 		1.1.2 Simulação de Sistemas Dinâmicos
 % 		1.1.3 Biblioteca simbólica
-% 	1.2 Rotação, Translação e Transformação Homogênea
-% 		1.2.1 Orientação e Rotação
-% 		1.2.2 Tranlação e Rotação
 % 2. Cinemática e Dinâmica de Robôs Móveis com Rodas
-% 	2.1 Cinemática Direta e Inversa
-% 		2.1.1 Cinemática Direta e Inversa
-% 		2.1.1 Cinemática de Robôs Móveis com Rodas
-% 	2.2 Restrições de Movimento
-% 		2.2.1 Sistemas Holonômicos
-% 		2.2.2 Sistemas Não-Holonômicos
-% 	2.3 Modelagem de Robô Móvel com restrições de Movimento.
+% 	2.1 Rotação, Translação e Transformação Homogênea
+% 		2.2.1 Orientação e Rotação
+% 		2.2.2 Tranlação e Rotação
+% 		2.2.3 Transformação Homogênea
+% 	2.2 Cinemática Direta e Inversa
+% 		3.2.1 Cinemática Direta e Inversa
+% 		3.2.2 Cinemática de Robôs Móveis com Rodas
+% 	2.3 Restrições de Movimento
+% 		2.3.1 Sistemas Holonômicos
+% 		2.3.2 Sistemas Não-Holonômicos
+% 	    2.3.3 Modelagem de Robô Móvel com restrições de Movimento.
 % 3. Controle Moderno para Robótica Móvel
 % 	3.1 Lyapunov-based Controle
 % 	3.2 SDRE Controle
@@ -119,3 +128,31 @@
 % 	4.2 Filtro Bayesiano
 % 	4.3 Filtro de Kalman
 % 		4.3.1 Filtro de Kalman Estendido
+
+
+
+% Proposta Inicial
+% Introdução a Robótica Móvel
+%  1.1 Primeiros Passos com a Linguagem Python
+%  1.1.1 Plotando Dados
+%  1.1.2 Simulação de Sistemas Dinâmicos
+%  1.1.3 Biblioteca simbólica
+%  1.2 Rotação, Translação e Transformação Homogênea
+%  1.2.1 Orientação e Rotação
+%  1.2.2 Translação e Rotação
+% 2. Cinemática e Dinâmica de Robôs Móveis com Rodas
+%  2.1 Cinemática Direta e Inversa
+%  2.1.1 Cinemática Direta e Inversa
+%  2.1.1 Cinemática de Robôs Móveis com Rodas
+%  2.2 Restrições de Movimento
+%  2.2.1 Sistemas Holonômicos
+%  2.2.2 Sistemas Não-Holonômicos
+%  2.3 Modelo De um Robô Móvel com restrições de Movimento.
+% 3. Controle Moderno para Robótica Móvel
+%  3.1 Lyapunov-based Controle
+%  3.2 SDRE Controle
+% 4. Eventos Não Determinísticos em Robótica Móvel
+%  4.1 Estimação de Estados
+%  4.2 Filtro Bayesiano
+%  4.3 Filtro de Kalman
+%  4.3.1 Filtro de Kalman Estendido
