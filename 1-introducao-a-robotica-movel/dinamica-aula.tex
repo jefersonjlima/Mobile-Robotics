@@ -17,6 +17,13 @@
 \usepackage[alf,abnt-etal-list=0,abnt-etal-cite=3]{abntex2cite}
 \usepackage[normalem]{ulem}
 
+
+\usepackage[
+    type={CC},
+    modifier={by-nc-sa},
+    version={4.0},
+]{doclicense}
+
 \setbeamercovered{invisible}
 \newcommand{\pausar}{ }
 \newcommand{\df}[1]{\,\mathrm{d}#1}
@@ -68,22 +75,14 @@
 
 \maketitle
 
-\begin{frame}{Useful Information}
+\begin{frame}[t]{Useful Information}
+
+    \begin{block}{License}
+        \doclicenseThis
+    \end{block}
+
     \begin{block}{Material disponível em:}
         \href{Robótica Móvel - Wiki}{https://gitlab.com/cursoseaulas/robotica-movel/-/wikis/home}
-    \end{block}
-    \pausar
-    % \begin{block}{Avisos Importantes}
-    %     \begin{itemize}
-    %         \item \textcolor{red}{Envio Moodle: Nomes das equipes e do Robô}
-    %     \end{itemize}
-    % \end{block}
-    \pausar
-    \begin{block}{Materiais e Recursos de Aula}
-        \begin{itemize}
-            \item Quadros / Slides
-            \item Python - Jupyter Notebook (Colab)
-        \end{itemize}
     \end{block}
     
 \end{frame}

@@ -17,6 +17,12 @@
 \usepackage[alf,abnt-etal-list=0,abnt-etal-cite=3]{abntex2cite}
 \usepackage[normalem]{ulem}
 
+\usepackage[
+    type={CC},
+    modifier={by-nc-sa},
+    version={4.0},
+]{doclicense}
+
 \setbeamercovered{invisible}
 \newcommand{\pausar}{ }
 \newcommand{\df}[1]{\,\mathrm{d}#1}
@@ -68,24 +74,22 @@
 
 \maketitle
 
-\begin{frame}{Informações Úteis}
+\begin{frame}[t]{Useful Information}
+
+    \begin{block}{License}
+        \doclicenseThis
+    \end{block}
+
     \begin{block}{Material disponível em:}
         \href{Robótica Móvel - Wiki}{https://gitlab.com/cursoseaulas/robotica-movel/-/wikis/home}
     \end{block}
-    \pausar
-    % \begin{block}{Avisos Importantes}
-    %     \begin{itemize}
-    %         \item \textcolor{red}{Envio Moodle: Nomes das equipes e do Robô}
-    %     \end{itemize}
-    % \end{block}
-    \pausar
+
     \begin{block}{Materiais e Recursos de Aula}
         \begin{itemize}
             \item Quadros / Slides
             \item Python - Jupyter Notebook (Colab)
         \end{itemize}
     \end{block}
-    
 \end{frame}
 
 
@@ -140,10 +144,10 @@
     Deve-se estabelecer uma relação entre o sistema de referencia local (robô) e o sistema de referencia global
         \begin{itemize}
             \item Sistema de Referencia global, exemplo $\{W\}$, ou $\{A\}$\footnote{O sistema de referência $\{A\}$(global) e $\{B\}$(local) serão usados como exemplos genéricos em aula};
-            \item \item Referencial local, exemplo $\{M\}$, ou $\{B\}$;
+            \item Referencial local, exemplo $\{M\}$, ou $\{B\}$;
         \end{itemize}
         \begin{center}
-            \cpright{\includegraphics[width=0.5\textwidth]{./images/tf_1.png}}
+            \cpright{\includegraphics[width=0.4\textwidth]{./images/tf_1.png}}
             {https://www.kidscoding8.com/99205.html}
         \end{center}
 \end{frame}
