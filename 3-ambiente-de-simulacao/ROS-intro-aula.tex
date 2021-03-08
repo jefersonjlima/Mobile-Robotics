@@ -68,6 +68,11 @@
 
 
 \begin{frame}{Useful Information}
+
+	\begin{block}{License}
+        \doclicenseThis
+    \end{block}
+
 	\begin{block}{links:}
 		\begin{enumerate}
 			\item \href{https://moodle.utfpr.edu.br/course/view.php?id=14218}{Moodle}
@@ -440,6 +445,91 @@ int main(int argc, char **argv)
 	\begin{figure}
 		\includegraphics[width=1\textwidth]{./images/ros_sensor_example.png}
 	\end{figure}
+\end{frame}
+
+
+\begin{frame}{ROS}
+	\framesubtitle{But ...}
+	\centering
+	\begin{block}{Projects are becoming more complex ... }
+		\begin{figure}
+			\cpright{\includegraphics[width=0.6\textwidth]{./images/rossetup.jpg}}
+			{https://www.theproductexaminer.com/monitors/best-monitor-setup-for-programming.html}
+		\end{figure}
+	\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile]{ROS Launch}
+	\framesubtitle{Evaluates the XML file in a single pass}
+	\begin{itemize}
+		\item \textit{launch} is a tool for launching multiple nodes (as well as setting parameters)
+		\item Are written in XML as \textit{*.launch} files
+		\item If not yet running, launch automatically starts a roscore
+	\end{itemize}
+
+	Browse to the folder and start a launch file with:
+	
+	\begin{lstlisting}[language=bash]
+		$ roslaunch file_name.launch
+	\end{lstlisting}
+
+	Start a launch file from a package with
+
+	\begin{lstlisting}[language=bash]
+		$ roslaunch roslaunch package_name file_name.launch
+	\end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]{ROS Launch}
+	\framesubtitle{Evaluates the XML file in a single pass}
+	\begin{itemize}
+		\item \textit{launch} is a tool for launching multiple nodes (as well as setting parameters)
+		\item Are written in XML as \textit{*.launch} files
+		\item If not yet running, launch automatically starts a roscore
+	\end{itemize}
+
+	Browse to the folder and start a launch file with:
+	
+	\begin{lstlisting}[language=bash]
+		$ roslaunch file_name.launch
+	\end{lstlisting}
+
+	Start a launch file from a package with
+
+	\begin{lstlisting}[language=bash]
+		$ roslaunch roslaunch package_name file_name.launch
+	\end{lstlisting}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{ROS Launch}
+	\framesubtitle{}
+
+	\begin{itemize}
+		\item This basic sample shows \textit{roslaunch} runtime:
+	
+	\begin{block}{roslaunch my\_project turtlesim\_and\_teleop.launch}
+		\begin{lstlisting}[language=XML]
+	<?xml version="1.0" ?>
+	<launch>
+		<node pkg="turtlesim" name="turtlesim_simulador" type="turtlesim_node"></node>
+		<node pkg="turtlesim" name="turtlesim_control"  type="turtle_teleop_key"></node>
+	</launch>
+		\end{lstlisting}
+	\end{block}
+
+		\item \textbf{launch:} Root element of the launch file;
+		\item \textbf{node:} Each node tag specifies a node to be launched;
+		\item \textbf{name:} Name of the node (free to choose);
+		\item \textbf{pkg:} Package containing the node;
+		\item \textbf{type:} Type of the node, there must be a corresponding executable with the same name;
+		\item \textbf{output:} Specifies where to output log messages (screen: console, log: log file);
+	
+	\end{itemize}
+
 \end{frame}
 
 
