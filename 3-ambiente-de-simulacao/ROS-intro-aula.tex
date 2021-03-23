@@ -12,10 +12,16 @@
 \usepackage{graphicx,hyperref,url,pgfplots}
 \usepackage{amsmath} 
 \usepackage{array,booktabs}
+\pgfplotsset{compat=1.13}
 \usepackage{bibentry}
 \usepackage[alf,abnt-etal-list=0,abnt-etal-cite=2]{abntex2cite}
 \usepackage[normalem]{ulem}
-\pgfplotsset{compat=1.13}  
+
+\usepackage[
+    type={CC},
+    modifier={by-nc-sa},
+    version={4.0},
+]{doclicense}
 
 \setbeamercovered{invisible} 
 % \newcommand{\pausar}{\pause}
@@ -187,10 +193,10 @@
 		\end{lstlisting}
 		\end{itemize}
 
-\end{minipage}
-\begin{minipage}{0.4\textwidth}
-	\input{./images/rosnodes_image.tex}
-\end{minipage}
+	\end{minipage}
+	\begin{minipage}{0.4\textwidth}
+		\input{./images/rosnodes_image.tex}
+	\end{minipage}
 \end{frame}
 
 
@@ -412,7 +418,7 @@
 	\begin{itemize}
 		\item \textcolor{blue}{\textbf{Example - Listener Node (C++)}}:
 	\end{itemize}
-	\begin{lstlisting}[language=Python]
+	\begin{lstlisting}[language=C++]
 #include "ros/ros.h"
 #include "std_msgs/Int32.h"
 

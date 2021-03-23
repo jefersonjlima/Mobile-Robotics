@@ -499,7 +499,7 @@
     \end{itemize}
     \begin{figure}
         \centering
-        \cpright{\includegraphics[width=0.6\textwidth]{./images/tf_2.png}}
+        \cpright{\includegraphics[width=0.5\textwidth]{./images/tf_2.png}}
         {https://answers.ros.org/questions/265846/revisions/}
         \caption{Exemplo de sistemas de referência - Carro}
     \end{figure}
@@ -512,7 +512,7 @@
     \end{itemize}
     \begin{figure}
         \centering
-        \cpright{\includegraphics[width=0.6\textwidth]{./images/tf_3.png}}
+        \cpright{\includegraphics[width=0.5\textwidth]{./images/tf_3.png}}
         {http://www.osrobotics.org/osr/planning/introduction.html}
         \caption{Exemplo de sistemas de referência - Manipulador Robótico}
     \end{figure}
@@ -663,9 +663,10 @@
     \framesubtitle{Cinemática Interna}
     \begin{columns}
         \begin{column}[c]{0.5\textwidth}
-            \centering
-            \input{./images/car_0a_image.tex}
-        CIR - Centro Instantâneo de Rotação
+            \begin{figure}
+                \input{./images/car_0a_image.tex}
+                \caption{Mobile Robot and the Instantaneous Center of Rotation (ICR)}
+            \end{figure}
         \end{column}
         \begin{column}[c]{0.5\textwidth}
             \centering
@@ -755,8 +756,7 @@
                       \end{bmatrix}}
               \end{equation*}
 
-        \item e em \textcolor{red}{coordenadas globais}
-              \footnote{adicionar o modelo em funcao das velocidades das rodas}:
+        \item e em \textcolor{red}{coordenadas globais}:
 
               \begin{equation*}
                   \boxed{
@@ -803,13 +803,81 @@
 
 
 \begin{frame}{Cinemática de Robôs}
-    \framesubtitle{Robô Diferencial}
-    continuar ...
+    \framesubtitle{Motion Control - Open Loop Control}
+    \begin{columns}
+        \begin{column}[c]{0.5\textwidth}
+            \begin{figure}
+                \cpright{\includegraphics[width=0.9\textwidth]{./images/openloopcontrol.png}}
+                {\cite{siegwart2011introduction}}
+                \caption{Open-loop control of a mobile robot based on straight lines and circular trajectory segments}
+            \end{figure}
+        \end{column}
+        \begin{column}[c]{0.5\textwidth}
+            \centering
+            \begin{itemize}
+                \item Open Loop Control is often done by dividing the trajectory (path) in
+                motion segments of clearly defined shape, for example, straight lines and segments of a circle.
+            \end{itemize}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 \begin{frame}{Cinemática de Robôs}
-    \framesubtitle{Biciclo}
-    continuar ...
+    \framesubtitle{Kinematic Control - Feedback Control}
+    \begin{columns}
+        \begin{column}[c]{0.5\textwidth}
+            \begin{figure}
+                \cpright{\includegraphics[width=0.9\textwidth]{./images/feedbackcontrol.png}}
+                {\cite{siegwart2011introduction}}
+                \caption{Typical situation for feedback control of a mobile robot}
+            \end{figure}
+        \end{column}
+        \begin{column}[c]{0.5\textwidth}
+            \centering
+            \begin{itemize}
+                \item The robot will not automatically adapt or correct the trajectory if dynamic changes of the environment occur.
+                \item The resulting trajectories are usually not smooth, because the transitions from one trajectory segment to another are, for most of the commonly used segments (e.g., lines and part of circles), not smooth. 
+                \item \textcolor{purple}{This means there is a discontinuity in the robot’s acceleration.}
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}{Cinemática de Robôs}
+    \framesubtitle{Kinematic Control - Feedback Control}
+    \begin{columns}
+        \begin{column}[c]{0.4\textwidth}
+            \begin{figure}
+                \cpright{\includegraphics[width=1\textwidth]{./images/feedbackcontrol_2.png}}
+                {\cite{siegwart2011introduction}}
+                \caption{Feedback Control to reference position}
+            \end{figure}
+        \end{column}
+        \begin{column}[c]{0.6\textwidth}
+            \textbf{The robot feedback control}:
+            \begin{itemize}
+                \item \textcolor{blue}{Angular Velocity errors}:
+                \begin{equation*}
+                    \varphi_r(t) = \arctan\left( \frac{y_{ref}(t) - y(t)}{x_{ref}(t) - x(t)}\right)
+                \end{equation*}
+
+                \begin{equation*}
+                    \omega(t) = K_{p_1} \left( \varphi_r(t) - \varphi(t) \right)
+                \end{equation*}
+
+                \item \textcolor{blue}{Linear Velocity errors}:
+                
+                \begin{equation*}
+                    v(t) = K_{p_2} \sqrt{\left( x_{ref}(t) - x(t)\right)^2   + \left( y_{ref}(t) - y(t)\right)^2  }
+                \end{equation*}
+                
+                \textcolor{purple}{where $K_{p_1}$ and $K_{p_2}$ is the Proportional Gain}
+               
+
+            \end{itemize}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 \begin{frame}{Cinemática de Robôs}
