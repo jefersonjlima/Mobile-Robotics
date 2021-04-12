@@ -89,11 +89,12 @@
 
 
 \begin{frame}{Modern Robots}
-	\framesubtitle{\textcolor{purple}{What is Industrial Robot?}}
-	\centering
-	\cpright{\includegraphics[width=0.7\textwidth]{./images/industrialrobots.png}}
-    {https://www.google.com/search?q=Industrial+robot}
-
+	% \framesubtitle{\textcolor{purple}{What are Industrial Robots?}}
+	    \begin{block}{What are Industrial Robots?}
+        \centering
+        \cpright{\includegraphics[width=0.7\textwidth]{./images/industrialrobots.png}}
+        {https://www.google.com/search?q=Industrial+robot}
+    \end{block}
 \end{frame}
 
 \begin{frame}{Modern Robots}
@@ -126,7 +127,7 @@
                 \item Autonomous Path Planning;
                 \item Obstacle Avoidance;
                 \item Real-Time Motion Planning;
-                \item Human Detection
+                \item Human Detection (WIP)
             \end{itemize}
             \item \textcolor{purple}{\textbf{Docking station}}:
             \begin{itemize}
@@ -155,6 +156,27 @@
     \vspace{0.1in}
     \cpright{\includegraphics[width=1\textwidth]{./images/ANYmal_sensores.png}}
     {https://www.anybotics.com/anymal-legged-robot/}
+\end{frame}
+
+\begin{frame}[fragile]{Modern Robots}
+	\framesubtitle{\textcolor{purple}{ANYmal C} - AnyDrive - Brushless DC Motor}
+	\begin{minipage}{0.3\textwidth}
+        \cpright{\href{https://www.anybotics.com/anymal-legged-robot/}
+        {\includegraphics[width=1\textwidth]{./images/ANYmal.png}}}
+        {https://www.anybotics.com/anymal-legged-robot/}
+    \end{minipage}
+    \begin{minipage}{0.7\textwidth}
+        \textcolor{purple}{\textbf{AnyDrive - Brushless DC Motor}}:
+        \begin{itemize}
+                \item  A powerful brushless motor, a backlash-free gear, high-precision encoders, and efficient power electronics
+            \end{itemize}
+            \begin{figure}
+                \cpright{\includegraphics[width=1\textwidth]{./images/ANYDrive.png}}
+                {\cite{noauthor_anydrive}}
+                \caption{ANYdrive: Compact, compliant joint units for advanced interaction}
+            \end{figure}
+            
+    \end{minipage}
 \end{frame}
 
 
@@ -217,6 +239,156 @@
     \end{minipage}
 \end{frame}
 
+
+\begin{frame}[fragile]{Modern Robots}
+	\framesubtitle{\textcolor{purple}{ANYmal C} - Stereo Cameras}
+	\begin{minipage}{0.3\textwidth}
+        \cpright{\href{https://www.anybotics.com/anymal-legged-robot/}
+        {\includegraphics[width=1\textwidth]{./images/ANYmal.png}}}
+        {https://www.anybotics.com/anymal-legged-robot/}
+    \end{minipage}
+    \begin{minipage}{0.7\textwidth}
+            \textcolor{purple}{\textbf{Stereo Cameras}}:
+            \begin{itemize}
+                \item Distance information can be computed using two cameras that are mounted in a fixed distance.
+            \end{itemize}
+            \begin{figure}
+                \cpright{\includegraphics[width=0.5\textwidth]{./images/stereo_cam.png}}
+                {\cite{nuchter20083d}}
+                \caption{General stereo geometry.}
+            \end{figure}
+    \end{minipage}
+\end{frame}
+
+
+
+\begin{frame}[fragile]{Modern Robots}
+	\framesubtitle{\textcolor{purple}{ANYmal C} - Stereo Cameras}
+	\begin{minipage}{0.3\textwidth}
+        \cpright{\href{https://www.anybotics.com/anymal-legged-robot/}
+        {\includegraphics[width=1\textwidth]{./images/ANYmal.png}}}
+        {https://www.anybotics.com/anymal-legged-robot/}
+    \end{minipage}
+    \begin{minipage}{0.7\textwidth}
+            \textcolor{purple}{\textbf{Stereo Cameras}}:
+            \begin{itemize}
+                \item Distance information can be computed using two cameras that are mounted in a fixed distance.
+            \end{itemize}
+            \begin{figure}
+                \cpright{\includegraphics[width=0.8\textwidth]{./images/disparity_map.jpg}}
+                {\cite{opencv_library}\footnote{\textbf{More info:} \href{https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_calib3d/py_depthmap/py_depthmap.html}{OpenCV: Depth Map from Stereo Images}}}
+                \caption{original image (left) and its disparity map (right).}
+            \end{figure}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]{Modern Robots}
+	\framesubtitle{\textcolor{purple}{ANYmal C} - Structured Light Depth Cameras}
+	\begin{minipage}{0.3\textwidth}
+        \cpright{\href{https://www.anybotics.com/anymal-legged-robot/}
+        {\includegraphics[width=1\textwidth]{./images/ANYmal.png}}}
+        {https://www.anybotics.com/anymal-legged-robot/}
+    \end{minipage}
+    \begin{minipage}{0.7\textwidth}
+            \textcolor{purple}{\textbf{Structured Light Depth Cameras}}:
+            \begin{itemize}
+                \item In Structured light depth camera systems there is a \textit{light projectors} or \textit{illuminators}, devices in which each pixel $p_A$ illuminates a scene point $P$ by its specific light value thus creating a spatial pattern.
+            \end{itemize}
+            \begin{figure}
+                \cpright{\includegraphics[width=0.6\textwidth]{./images/depth_cam.png}}
+                {\cite{zanuttigh2016time}}
+                \caption{Active triangulation by a system made of a camera $C$ and a light projector $A$.}
+            \end{figure}
+    \end{minipage}
+\end{frame}
+
+
+\begin{frame}[fragile]{Modern Robots}
+	\framesubtitle{\textcolor{purple}{ANYmal C} - Structured Light Depth Cameras}
+	\begin{minipage}{0.3\textwidth}
+        \cpright{\href{https://www.anybotics.com/anymal-legged-robot/}
+        {\includegraphics[width=1\textwidth]{./images/ANYmal.png}}}
+        {https://www.anybotics.com/anymal-legged-robot/}
+    \end{minipage}
+    \begin{minipage}{0.7\textwidth}
+            \textcolor{purple}{\textbf{Structured Light Depth Cameras}}:
+            \begin{itemize}
+                \item In Structured light depth camera systems there is a \textit{light projectors} or \textit{illuminators}, devices in which each pixel $p_A$ illuminates a scene point $P$ by its specific light value thus creating a spatial pattern.
+            \end{itemize}
+            \begin{figure}
+                \cpright{\includegraphics[width=0.8\textwidth]{./images/depth_cam_ex.png}}
+                {\cite{zanuttigh2016time}}
+                \caption{Illustration of the reference image usage}
+            \end{figure}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]{Modern Robots}
+	\framesubtitle{\textcolor{purple}{ANYmal C} - Structured Light Depth Cameras}
+	\begin{minipage}{0.3\textwidth}
+        \cpright{\href{https://www.anybotics.com/anymal-legged-robot/}
+        {\includegraphics[width=1\textwidth]{./images/ANYmal.png}}}
+        {https://www.anybotics.com/anymal-legged-robot/}
+    \end{minipage}
+    \begin{minipage}{0.7\textwidth}
+            \textcolor{purple}{\textbf{Structured Light Depth Cameras}}:
+            \begin{itemize}
+                \item In Structured light depth camera systems there is a \textit{light projectors} or \textit{illuminators}.
+            \end{itemize}
+            \begin{figure}
+                \cpright{\includegraphics[width=0.6\textwidth]{./images/open3d_example.png}}
+                {\cite{Zhou2018}\footnote{\textbf{More info:} \href{http://www.open3d.org/docs/release/tutorial/visualization/visualization.html}{Open3D: Visualization }}}
+                \caption{Illustration of the reference image usage}
+            \end{figure}
+    \end{minipage}
+\end{frame}
+
+
+\begin{frame}[fragile]{Modern Robots}
+	\framesubtitle{\textcolor{purple}{ANYmal C} - Simulation}
+	\begin{minipage}{0.3\textwidth}
+        \cpright{\href{https://www.anybotics.com/anymal-legged-robot/}
+        {\includegraphics[width=1\textwidth]{./images/ANYmal.png}}}
+        {https://www.anybotics.com/anymal-legged-robot/}
+    \end{minipage}
+    \begin{minipage}{0.7\textwidth}
+            \textcolor{purple}{\textbf{Simulation}}:
+            \begin{itemize}
+                \item Robot State Simulation, Visualization and Interaction.
+            \end{itemize}
+            \begin{figure}
+                \cpright{\includegraphics[width=1\textwidth]{./images/ANYmal_ROS.png}}
+                {https://www.anybotics.com/anymal-legged-robot/}
+            \end{figure}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]{Modern Robots}
+	\framesubtitle{\textcolor{purple}{ANYmal C} - Real Robot}
+	\begin{minipage}{0.3\textwidth}
+        \cpright{\href{https://www.anybotics.com/anymal-legged-robot/}
+        {\includegraphics[width=1\textwidth]{./images/ANYmal.png}}}
+        {https://www.anybotics.com/anymal-legged-robot/}
+    \end{minipage}
+    \begin{minipage}{0.7\textwidth}
+            \textcolor{purple}{\textbf{Real Robot}}:
+            \begin{itemize}
+                \item Interaction with Real Robot.
+            \end{itemize}
+            \begin{figure}
+                \cpright{\includegraphics[width=1\textwidth]{./images/ANYmal_ROS_real.png}}
+                {https://www.anybotics.com/anymal-legged-robot/}
+            \end{figure}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]{Modern Robots}
+	\framesubtitle{ROS Packages for CHAMP Quadruped Controller}
+        \begin{figure}
+            \cpright{\includegraphics[width=0.8\textwidth]{./images/champ.png}}
+                {https://github.com/chvmp/champ}
+        \end{figure}
+\end{frame}
 
 \begin{frame}[t, allowframebreaks]
 	\frametitle{References}

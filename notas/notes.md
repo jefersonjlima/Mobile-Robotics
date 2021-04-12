@@ -108,3 +108,10 @@
 
 # Algorithm
 * https://en.wikipedia.org/wiki/Rapidly-exploring_random_tree
+
+# ICP Algorithm Tools
+* https://libpointmatcher.readthedocs.io/
+
+1. ICP Algorithm
+    1. Resample Filters - https://docs.pyvista.org/examples/01-filter/resample.html
+1. Semantic - https://mi.eng.cam.ac.uk/projects/segnet/
