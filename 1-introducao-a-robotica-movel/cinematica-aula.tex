@@ -86,14 +86,13 @@
 
     \begin{block}{Materiais e Recursos de Aula}
         \begin{itemize}
-            \item Quadros / Slides
             \item Python - Jupyter Notebook (Colab)
         \end{itemize}
     \end{block}
 \end{frame}
 
 
-\begin{frame}{Modelagem}
+\begin{frame}{Modelos}
     \framesubtitle{Introdução}
     \begin{itemize}
         \item Tipo de Modelos:
@@ -229,7 +228,7 @@
 \begin{frame}{Modelagem Cinemática}
     \framesubtitle{Transformação homogênea - Matriz de Rotação}
     \begin{itemize}
-        \item Demais eixos:
+        \item Outros eixos:
     \end{itemize}
     \begin{block}{}
         \begin{equation*}
@@ -259,10 +258,37 @@
     \end{block}
 \end{frame}
 
+
+\begin{frame}[fragile]{Modelagem Cinemática}
+    \framesubtitle{Transformação homogênea - Matriz de Rotação}
+        \centering
+        \begin{figure}
+            \cpright{\includegraphics[width=0.5\textwidth]{./images/euler_angles.png}}
+            {http://www.chrobotics.com/library/understanding-euler-angles}
+        \end{figure}
+        \begin{equation*}
+            {\displaystyle \mathbf{R}_{z, y, x}=\mathbf{R}_{z}(\psi)\,\mathbf{R}_{y}(\phi )\,\mathbf{R}_{x}(\theta )={\overset {\text{yaw}}{\begin{bmatrix}\cos \psi &-\sin \psi &0\\\sin \psi &\cos \psi &0\\0&0&1\\\end{bmatrix}}}{\overset {\text{pitch}}{\begin{bmatrix}\cos \phi &0&\sin \phi \\0&1&0\\-\sin \phi &0&\cos \phi \\\end{bmatrix}}}{\overset {\text{roll}}{\begin{bmatrix}1&0&0\\0&\cos \theta &-\sin \theta \\0&\sin \theta &\cos \theta \\\end{bmatrix}}}}
+        \end{equation*}
+\end{frame}
+
+
+\begin{frame}[fragile]{Modelagem Cinemática}
+    \framesubtitle{Transformação homogênea - Matriz de Rotação}
+        \centering
+        \begin{figure}
+            \cpright{\includegraphics[width=0.5\textwidth]{./images/euler_angles.png}}
+            {http://www.chrobotics.com/library/understanding-euler-angles}
+        \end{figure}
+    \begin{equation*}
+        {\displaystyle  \mathbf{R}_{z, y, x}={\begin{bmatrix}\cos \psi \cos \phi &\cos \psi \sin \phi \sin \theta -\sin \psi \cos \theta &\cos \psi \sin \phi \cos \theta +\sin \psi \sin \theta \\\sin \psi \cos \phi &\sin \psi \sin \phi \sin \theta +\cos \psi \cos \theta &\sin \psi \sin \phi \cos \theta -\cos \psi \sin \theta \\-\sin \phi &\cos \phi \sin \theta &\cos \phi \cos \theta \\\end{bmatrix}}}
+    \end{equation*}
+\end{frame}
+
+
 \begin{frame}{Modelagem Cinemática}
     \framesubtitle{Transformação homogênea - Matriz de Rotação - Exercício}
     \begin{block}{Exercício - Colab}
-        \href{https://cursoseaulas.gitlab.io/robotica-movel/exercicio01.ipynb}{Rotação Translação e Transformação Homogênea}
+        \href{https://cursoseaulas.gitlab.io/robotica-movel/trans_homogenea.ipynb}{Rotação Translação e Transformação Homogênea}
     \end{block}
 \end{frame}
 
