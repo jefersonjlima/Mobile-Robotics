@@ -17,5 +17,8 @@
 *.ind
 *.lot
 *.lof
+
+# others
 temp/
 .ipynb_checkpoints/
+.vscode/
