@@ -1,0 +1,608 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{simple}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc} 
+\usepackage{lmodern}
+\usepackage{ragged2e}
+\usefonttheme[onlymath]{serif} 
+\usepackage[scale=2]{ccicons} 
+% \setbeamertemplate{caption}[numbered]
+\usepackage{copyrightbox}
+
+\usepackage{graphicx,hyperref,url,pgfplots}
+\usepackage{amsmath} 
+\usepackage{array,booktabs}
+\pgfplotsset{compat=1.13}
+\usepackage{bibentry}
+\usepackage[alf,abnt-etal-list=0,abnt-etal-cite=2]{abntex2cite}
+\usepackage[normalem]{ulem}
+\PassOptionsToPackage{demo}{graphicx}
+\def\HiLi{\leavevmode\rlap{\hbox to \hsize{\color{yellow!50}\leaders\hrule height .8\baselineskip depth .5ex\hfill}}}
+
+
+
+\usepackage[
+    type={CC},
+    modifier={by-nc-sa},
+    version={4.0},
+]{doclicense}
+
+\setbeamercovered{invisible} 
+\newcommand{\df}[1]{\,\mathrm{d}#1}
+\newcommand{\parcial}[3]{\dfrac{\partial^{#1}#2}{\partial #3^{#1}}}
+\newcommand{\cpright}[2]{\copyrightbox[b]{#1}{\tiny Source: #2}}
+
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning}
+\usepackage{xcolor}
+\usetikzlibrary{scopes}
+\usepackage{verbatim}
+\usetikzlibrary{patterns}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\def\NoNumber#1{{\def\alglinenumber##1{}\State #1}\addtocounter{ALG@line}{-1}}
+
+\usepackage{listings}
+  \lstdefinestyle{ascii-tree}{
+    literate={├}{|}1 {─}{--}1 {└}{+}1 
+  }
+	\definecolor{codegreen}{rgb}{0,0.6,0}
+	\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+	\definecolor{codepurple}{rgb}{0.58,0,0.82}
+	\definecolor{backcolour}{rgb}{0.92,0.92,0.92}
+	\lstset{language=Python, 
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\fontsize{8}{11}\ttfamily,
+	frame=lines,
+%	numbers=left,
+	tabsize=2,
+	morekeywords={models, lambda, forms},
+	showstringspaces=false}
+% --------------------------------------------------------------------------------------------
+
+\title{Mobile Robots}
+\subtitle{Pose Estimation - ICP Algorithm}
+\date{\today}
+\author[Jeferson José de Lima]{
+  \textbf{Professor}: Jeferson José de Lima}
+\institute{Academic Department of Informatics (DAINF) \\ Federal University of Technology - Paraná (UTFPR) at Pato Branco, PR, Brazil}
+
+\begin{document}
+\maketitle
+\justify
+
+\begin{frame}{Useful Information}
+
+	\begin{block}{License}
+        \doclicenseThis
+    \end{block}
+
+	\begin{block}{links:}
+		\begin{enumerate}
+			\item \href{https://gitlab.com/cursoseaulas/robotica-movel/-/wikis/home}{Mobile Robots - Gitlab Page}
+		\end{enumerate}
+	\end{block}
+\end{frame}
+
+\begin{frame}{Pose Estimation}
+	\framesubtitle{}
+	After this lesson, you will able to:
+	\begin{itemize}
+		\item Describe the point LIDAR points and how it can be used for state estimation
+		\item Implement the Iterative Closest Point (ICP) algorithm. 
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Pose Estimation}
+	\framesubtitle{Point Clouds}
+
+	\textcolor{purple}{\textbf{Point Cloud}}
+
+	\begin{itemize}
+		\item A point cloud is a set of data points in space. The points represent a 3D shape or object. Each point has its set of $X$, $Y$ and $Z$ coordinates.\footnote[frame]{\textcolor{blue}{\textbf{More info}}: \href{https://www.zivid.com/3d-point-cloud-examples/}{3D Cloud Point Examples}}
+	\end{itemize}
+
+	\addtolength{\jot}{5em}
+	\begin{align*}
+		\cpright{\includegraphics[width=0.45\textwidth]{./images/pcexample1.png}}
+		{https://www.zivid.com/3d-point-cloud-examples/} & &
+		\cpright{\includegraphics[width=0.45\textwidth]{./images/pcexample2.png}}
+		{https://www.geospatialworld.net/news/} 
+	\end{align*}
+		
+
+\end{frame}
+
+
+\begin{frame}{Pose Estimation}
+	\framesubtitle{\textcolor{purple}{What motion of the car best aligns the two point clouds?}}
+		
+    \begin{columns}
+        \begin{column}[c]{0.5\textwidth}
+            \input{./images/car_1icp_image.tex}
+        \end{column}
+        \begin{column}[c]{0.5\textwidth}
+			\vspace{0.4in}
+            \input{./images/car_2icp_image.tex}
+        \end{column}
+    \end{columns}
+
+	\vspace{0.1in}
+
+	\begin{block}{\textcolor{blue}{We just need to solve for the transformation $\mathbf{T}(\theta, Q)$:}}
+
+	\begin{equation*}
+        \begin{bmatrix}
+            \color{purple}{ \mathbf{P}_{t+1}} \\ 1
+        \end{bmatrix}
+        =
+        \left[
+            \begin{matrix}
+                  & \color{brown}{\mathbf{R}_z(\phi)} &   \\ \hline
+                0 & 0 & 0 \\
+            \end{matrix} \right.
+            \left.
+            \vline
+            \begin{matrix}
+                \color{red}{\mathbf{Q}} \\ \hline
+                1
+            \end{matrix} \right]
+        \begin{bmatrix}
+            \color{purple}{\mathbf{P}_{t}} \\
+            1
+        \end{bmatrix}
+    \end{equation*}
+\end{block}
+\end{frame}
+
+\begin{frame}{Pose Estimation}
+	\framesubtitle{2D LIDAR Data Example}
+
+	\textbf{Turtlebot3 and 2D LIDAR Data}:
+
+	\begin{figure}
+		\includegraphics[width=1\textwidth]{./images/lidarExample.png}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}{Pose Estimation}
+	\framesubtitle{2D LIDAR Data Example}
+
+	\textbf{Velodyne 3D LIDAR Sensor}:
+
+	\begin{figure}
+		\cpright{\includegraphics[width=0.6\textwidth]{./images/velodyne_sensor.png}}
+		{\cite{wang2015fast}}
+		\caption{Point cloud of the Velodyne LIDAR.}
+	\end{figure}
+\end{frame}
+
+
+
+\begin{frame}[fragile, t]{Pose Estimation}
+	\framesubtitle{The Iterative Closest Point (ICP) Algorithm}
+	\begin{minipage}{0.6\textwidth}
+
+	\begin{block}{}
+		\textcolor{red}{\textbf{Problem}: We don’t know which points correspond to each other}
+	\end{block}
+
+	\vspace{0.3in}
+
+	\textcolor{purple}{\textbf{The Iterative Closest Point (ICP) Algorithm}}
+
+    \begin{itemize}
+        \item \textbf{Intuition}: When the optimal motion is found, corresponding points will be closer to each other than to other points
+        \item  \textbf{Heuristic}: For each point, the best candidate for a corresponding point is the point that is closest to it right now
+    \end{itemize}
+
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+	\begin{figure}
+		\input{./images/cloudPoints.tex}
+	\end{figure}
+\end{minipage}
+\end{frame}
+
+
+\begin{frame}[fragile, t]{Pose Estimation}
+	\framesubtitle{The Iterative Closest Point (ICP) Algorithm}
+	\begin{minipage}{0.6\textwidth}
+
+	\textcolor{purple}{\textbf{The Iterative Closest Point (ICP) Algorithm}}
+
+	\begin{algorithm}[H]
+		\renewcommand{\thealgorithm}{}
+        \caption{ICP Algorithm}
+        \begin{algorithmic}
+		\Procedure{Initialization}{$\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}}$}
+			\State{\HiLi$\mathbf{s}^{t}, \mathbf{s}^{t+1} \gets \text{Centre for }
+			 (\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{s}^{+} = [x_c, y_c]$}
+			 \State{$\textcolor{blue}{\mathbf{P}_{t}} = \mathbf{T}(0, \text{diff}(\mathbf{s}^{+})) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$}
+		\EndProcedure
+		\While{$d(\mathbf{T}(\theta, \mathbf{Q})) > E_{\text{max}}\text{ or } N > N_{\text{max}}$}
+			\State{Associate($\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}}$)} \Comment{KNN Algorithm}
+			\State{Solve Optimal $\mathbf{T}(\theta, \mathbf{Q})$} \Comment{Least-Squares}
+		\EndWhile
+        \end{algorithmic}
+    \end{algorithm}
+
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+	\begin{figure}
+		\def\angle{20} % Angle of the inclined plane
+		\def\desl{(5,1)}
+		\resizebox{0.8\textwidth}{!}{
+% \def\angle{20} % Angle of the inclined plane
+% \def\desl{(5,1)}
+		\begin{tikzpicture}
+			\begin{scope}
+				\node [fill=blue, draw=black, shape=circle] (0) at (-1.5, 4.5) {};
+				\node [fill=blue, draw=black, shape=circle] (1) at (-0.75, 4.5) {};
+				\node [fill=blue, draw=black, shape=circle] (2) at (0.5, 4.5) {};
+				\node [fill=blue, draw=black, shape=circle] (3) at (1.5, 4.5) {};
+				\node [fill=blue, draw=black, shape=circle] (4) at (2.5, 4.5) {};
+				\node [fill=blue, draw=black, shape=circle] (5) at (-2, 4.75) {};
+				\node [fill=blue, draw=black, shape=circle] (6) at (-2, 6) {};
+				\node [fill=blue, draw=black, shape=circle] (7) at (2.25, -5.5) {};
+				\node [fill=blue, draw=black, shape=circle] (8) at (2.25, -4.5) {};
+				\node [fill=blue, draw=black, shape=circle] (9) at (2.75, -4) {};
+				\node [fill=blue, draw=black, shape=circle] (10) at (4, -3.75) {};
+				\node [fill=gray, draw=black, shape=circle] (11) at (-4, 0.25) {\textcolor{white}{\huge Robot}};
+				\node [fill=blue, draw=black, shape=circle] (12) at (5.5, -1.5) {};
+				\node [fill=blue, draw=black, shape=circle] (13) at (5.5, -0.5) {};
+				\node [fill=blue, draw=black, shape=circle] (14) at (5.5, -2.75) {};
+				\node [fill=blue, draw=black, shape=circle] (15) at (5.25, -3.5) {};
+				\node[above, yshift=15, xshift=45] at (6) {\Huge{$\textcolor{blue}{\mathbf{P}_{t+1}}$}};
+			\end{scope}
+			\begin{scope}[rotate=\angle, shift={\desl}]
+				\node [fill=red, draw=black, shape=circle] (b0) at (-1.5, 4.5) {};
+				\node [fill=red, draw=black, shape=circle] (b1) at (-0.75, 4.5) {};
+				\node [fill=red, draw=black, shape=circle] (b2) at (0.5, 4.5) {};
+				\node [fill=red, draw=black, shape=circle] (b3) at (1.5, 4.5) {};
+				\node [fill=red, draw=black, shape=circle] (b4) at (2.5, 4.5) {};
+				\node [fill=red, draw=black, shape=circle] (b5) at (-2, 4.75) {};
+				\node [fill=red, draw=black, shape=circle] (b6) at (-2, 6) {};
+				\node [fill=red, draw=black, shape=circle] (b7) at (2.25, -5.5) {};
+				\node [fill=red, draw=black, shape=circle] (b8) at (2.25, -4.5) {};
+				\node [fill=red, draw=black, shape=circle] (b9) at (2.75, -4) {};
+				\node [fill=red, draw=black, shape=circle] (b10) at (4, -3.75) {};
+				\node [fill=red, draw=black, shape=circle] (b12) at (5.5, -1.5) {};
+				\node [fill=red, draw=black, shape=circle] (b13) at (5.5, -0.5) {};
+				\node [fill=red, draw=black, shape=circle] (b14) at (5.5, -2.75) {};
+				\node [fill=red, draw=black, shape=circle] (b15) at (5.25, -3.5) {};
+				\node[above, yshift=15] at (b6) {\Huge{$\textcolor{red}{\mathbf{P}_{t}}$}};
+			\end{scope}
+			
+		\end{tikzpicture}}
+	\end{figure}
+\end{minipage}
+\end{frame}
+
+\begin{frame}[fragile, t]{Pose Estimation}
+	\framesubtitle{The Iterative Closest Point (ICP) Algorithm}
+	\begin{minipage}{0.6\textwidth}
+
+	\textcolor{purple}{\textbf{The Iterative Closest Point (ICP) Algorithm}}
+
+	\begin{algorithm}[H]
+		\renewcommand{\thealgorithm}{}
+        \caption{ICP Algorithm}
+        \begin{algorithmic}
+		\Procedure{Initialization}{$\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}}$}
+			\State{$\mathbf{s}^{t}, \mathbf{s}^{t+1} \gets \text{Centre for }
+			 (\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{s}^{+} = [x_c, y_c]$}
+			 \State{\HiLi$\textcolor{blue}{\mathbf{P}_{t}} = \mathbf{T}(0, \text{diff}(\mathbf{s}^{+})) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$}
+		\EndProcedure
+		\While{$d(\mathbf{T}(\theta, \mathbf{Q})) > E_{\text{max}}\text{ or } N > N_{\text{max}}$}
+			\State{Associate($\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}}$)} \Comment{KNN Algorithm}
+			\State{Solve Optimal $\mathbf{T}(\theta, \mathbf{Q})$} \Comment{Least-Squares}
+			\State{$N++$}
+		\EndWhile
+		\State{\textbf{Return} $\mathbf{T}(\theta, \mathbf{Q})$}        \end{algorithmic}
+    \end{algorithm}
+
+
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+	\begin{figure}
+		\def\angle{40} % Angle of the inclined plane
+		\def\desl{(0,0)}
+		\resizebox{0.7\textwidth}{!}{
+% \def\angle{20} % Angle of the inclined plane
+% \def\desl{(5,1)}
+		\begin{tikzpicture}
+			\begin{scope}
+				\node [fill=blue, draw=black, shape=circle] (0) at (-1.5, 4.5) {};
+				\node [fill=blue, draw=black, shape=circle] (1) at (-0.75, 4.5) {};
+				\node [fill=blue, draw=black, shape=circle] (2) at (0.5, 4.5) {};
+				\node [fill=blue, draw=black, shape=circle] (3) at (1.5, 4.5) {};
+				\node [fill=blue, draw=black, shape=circle] (4) at (2.5, 4.5) {};
+				\node [fill=blue, draw=black, shape=circle] (5) at (-2, 4.75) {};
+				\node [fill=blue, draw=black, shape=circle] (6) at (-2, 6) {};
+				\node [fill=blue, draw=black, shape=circle] (7) at (2.25, -5.5) {};
+				\node [fill=blue, draw=black, shape=circle] (8) at (2.25, -4.5) {};
+				\node [fill=blue, draw=black, shape=circle] (9) at (2.75, -4) {};
+				\node [fill=blue, draw=black, shape=circle] (10) at (4, -3.75) {};
+				% \node [fill=gray, draw=black, shape=circle] (11) at (-4, 0.25) {\textcolor{white}{\huge Robot}};
+				\node [fill=blue, draw=black, shape=circle] (12) at (5.5, -1.5) {};
+				\node [fill=blue, draw=black, shape=circle] (13) at (5.5, -0.5) {};
+				\node [fill=blue, draw=black, shape=circle] (14) at (5.5, -2.75) {};
+				\node [fill=blue, draw=black, shape=circle] (15) at (5.25, -3.5) {};
+				\node[above, yshift=15, xshift = 45] at (6) {\Huge{$\textcolor{blue}{\mathbf{P}_{t+1}}$}};
+			\end{scope}
+			\begin{scope}[rotate=\angle, shift={\desl}]
+				\node [fill=red, draw=black, shape=circle] (b0) at (-1.5, 4.5) {};
+				\node [fill=red, draw=black, shape=circle] (b1) at (-0.75, 4.5) {};
+				\node [fill=red, draw=black, shape=circle] (b2) at (0.5, 4.5) {};
+				\node [fill=red, draw=black, shape=circle] (b3) at (1.5, 4.5) {};
+				\node [fill=red, draw=black, shape=circle] (b4) at (2.5, 4.5) {};
+				\node [fill=red, draw=black, shape=circle] (b5) at (-2, 4.75) {};
+				\node [fill=red, draw=black, shape=circle] (b6) at (-2, 6) {};
+				\node [fill=red, draw=black, shape=circle] (b7) at (2.25, -5.5) {};
+				\node [fill=red, draw=black, shape=circle] (b8) at (2.25, -4.5) {};
+				\node [fill=red, draw=black, shape=circle] (b9) at (2.75, -4) {};
+				\node [fill=red, draw=black, shape=circle] (b10) at (4, -3.75) {};
+				\node [fill=red, draw=black, shape=circle] (b12) at (5.5, -1.5) {};
+				\node [fill=red, draw=black, shape=circle] (b13) at (5.5, -0.5) {};
+				\node [fill=red, draw=black, shape=circle] (b14) at (5.5, -2.75) {};
+				\node [fill=red, draw=black, shape=circle] (b15) at (5.25, -3.5) {};
+				\node[above, yshift=15] at (6) {\Huge{$\textcolor{red}{\mathbf{P}_{t}}$}};
+			\end{scope}
+
+		\end{tikzpicture}}
+	\end{figure}
+\end{minipage}
+\end{frame}
+
+\begin{frame}[fragile, t]{Pose Estimation}
+	\framesubtitle{The Iterative Closest Point (ICP) Algorithm}
+	\begin{minipage}{0.6\textwidth}
+
+	\textcolor{purple}{\textbf{The Iterative Closest Point (ICP) Algorithm}}
+
+	\begin{algorithm}[H]
+		\renewcommand{\thealgorithm}{}
+        \caption{ICP Algorithm}
+        \begin{algorithmic}
+		\Procedure{Initialization}{$\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}}$}
+			\State{$\mathbf{s}^{t}, \mathbf{s}^{t+1} \gets \text{Centre for }
+			 (\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{s}^{+} = [x_c, y_c]$}
+			 \State $\textcolor{blue}{\mathbf{P}_{t}} = \mathbf{T}(0, \text{diff}(\mathbf{s}^{+})) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$
+		\EndProcedure
+		\While{$d(\mathbf{T}(\theta, \mathbf{Q})) > E_{\text{max}}\text{ or } N > N_{\text{max}}$}
+			\State{\HiLi Associate($\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}}$)} \Comment{KNN Algorithm}
+			\State{\HiLi Solve Optimal $\mathbf{T}(\theta, \mathbf{Q})$} \Comment{Least-Squares}
+			\State{$N++$}
+		\EndWhile
+		\State{\textbf{Return} $\mathbf{T}(\theta, \mathbf{Q})$}        \end{algorithmic}
+    \end{algorithm}
+
+\end{minipage}
+\begin{minipage}{0.35\textwidth}
+	\begin{figure}
+		\def\angle{20} % Angle of the inclined plane
+		\def\desl{(0,0)}
+		\resizebox{0.7\textwidth}{!}{
+% \def\angle{20} % Angle of the inclined plane
+% \def\desl{(5,1)}
+		\begin{tikzpicture}
+			\begin{scope}
+				\node [fill=blue, draw=black, shape=circle] (0) at (-1.5, 4.5) {};
+				\node [fill=blue, draw=black, shape=circle] (1) at (-0.75, 4.5) {};
+				\node [fill=blue, draw=black, shape=circle] (2) at (0.5, 4.5) {};
+				\node [fill=blue, draw=black, shape=circle] (3) at (1.5, 4.5) {};
+				\node [fill=blue, draw=black, shape=circle] (4) at (2.5, 4.5) {};
+				\node [fill=blue, draw=black, shape=circle] (5) at (-2, 4.75) {};
+				\node [fill=blue, draw=black, shape=circle] (6) at (-2, 6) {};
+				\node [fill=blue, draw=black, shape=circle] (7) at (2.25, -5.5) {};
+				\node [fill=blue, draw=black, shape=circle] (8) at (2.25, -4.5) {};
+				\node [fill=blue, draw=black, shape=circle] (9) at (2.75, -4) {};
+				\node [fill=blue, draw=black, shape=circle] (10) at (4, -3.75) {};
+				% \node [fill=gray, draw=black, shape=circle] (11) at (-4, 0.25) {\textcolor{white}{\huge Robot}};
+				\node [fill=blue, draw=black, shape=circle] (12) at (5.5, -1.5) {};
+				\node [fill=blue, draw=black, shape=circle] (13) at (5.5, -0.5) {};
+				\node [fill=blue, draw=black, shape=circle] (14) at (5.5, -2.75) {};
+				\node [fill=blue, draw=black, shape=circle] (15) at (5.25, -3.5) {};
+				\node[above, yshift=15, xshift = 45] at (6) {\Huge{$\textcolor{blue}{\mathbf{P}_{t+1}}$}};
+			\end{scope}
+			\begin{scope}[rotate=\angle, shift={\desl}]
+				\node [fill=red, draw=black, shape=circle] (b0) at (-1.5, 4.5) {};
+				\node [fill=red, draw=black, shape=circle] (b1) at (-0.75, 4.5) {};
+				\node [fill=red, draw=black, shape=circle] (b2) at (0.5, 4.5) {};
+				\node [fill=red, draw=black, shape=circle] (b3) at (1.5, 4.5) {};
+				\node [fill=red, draw=black, shape=circle] (b4) at (2.5, 4.5) {};
+				\node [fill=red, draw=black, shape=circle] (b5) at (-2, 4.75) {};
+				\node [fill=red, draw=black, shape=circle] (b6) at (-2, 6) {};
+				\node [fill=red, draw=black, shape=circle] (b7) at (2.25, -5.5) {};
+				\node [fill=red, draw=black, shape=circle] (b8) at (2.25, -4.5) {};
+				\node [fill=red, draw=black, shape=circle] (b9) at (2.75, -4) {};
+				\node [fill=red, draw=black, shape=circle] (b10) at (4, -3.75) {};
+				\node [fill=red, draw=black, shape=circle] (b12) at (5.5, -1.5) {};
+				\node [fill=red, draw=black, shape=circle] (b13) at (5.5, -0.5) {};
+				\node [fill=red, draw=black, shape=circle] (b14) at (5.5, -2.75) {};
+				\node [fill=red, draw=black, shape=circle] (b15) at (5.25, -3.5) {};
+				\node[above, yshift=15] at (6) {\Huge{$\textcolor{red}{\mathbf{P}_{t}}$}};
+			\end{scope}
+			
+		\end{tikzpicture}}
+	\end{figure}
+\end{minipage}
+\end{frame}
+
+
+\begin{frame}[fragile, t]{Pose Estimation}
+	\framesubtitle{The Iterative Closest Point (ICP) Algorithm}
+	\begin{minipage}{0.6\textwidth}
+
+	\textcolor{purple}{\textbf{The Iterative Closest Point (ICP) Algorithm}}
+
+	\begin{algorithm}[H]
+		\renewcommand{\thealgorithm}{}
+        \caption{ICP Algorithm}
+        \begin{algorithmic}
+		\Procedure{Initialization}{$\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}}$}
+			\State{$\mathbf{s}^{t}, \mathbf{s}^{t+1} \gets \text{Centre for }
+			 (\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{s}^{+} = [x_c, y_c]$}
+			 \State $\textcolor{blue}{\mathbf{P}_{t}} = \mathbf{T}(0, \text{diff}(\mathbf{s}^{+})) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$
+		\EndProcedure
+		\While{$d(\mathbf{T}(\theta, \mathbf{Q})) > E_{\text{max}}\text{ or } N > N_{\text{max}}$}
+			\State{\HiLi Associate($\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}}$)} \Comment{KNN Algorithm}
+			\State{\HiLi Solve Optimal $\mathbf{T}(\theta, \mathbf{Q})$} \Comment{Least-Squares}
+			\State{$N++$}
+		\EndWhile
+		\State{\textbf{Return} $\mathbf{T}(\theta, \mathbf{Q})$}
+        \end{algorithmic}
+    \end{algorithm}
+
+\end{minipage}
+\begin{minipage}{0.35\textwidth}
+	\begin{figure}
+		\def\angle{5} % Angle of the inclined plane
+		\def\desl{(0,0)}
+		\resizebox{0.6\textwidth}{!}{
+% \def\angle{20} % Angle of the inclined plane
+% \def\desl{(5,1)}
+	\begin{tikzpicture}
+		\begin{scope}
+			\node [fill=blue, draw=black, shape=circle] (0) at (-2, 6) {};
+			\node [fill=blue, draw=black, shape=circle] (1) at (-2, 4.75) {};
+			\node [fill=blue, draw=black, shape=circle] (2) at (-1.5, 4.5) {};
+			\node [fill=blue, draw=black, shape=circle] (3) at (-0.75, 4.5) {};
+			\node [fill=blue, draw=black, shape=circle] (4) at (0.5, 4.5) {};
+			\node [fill=blue, draw=black, shape=circle] (5) at (1.5, 4.5) {};
+			\node [fill=blue, draw=black, shape=circle] (6) at (2.5, 4.5) {};
+
+			\node [fill=blue, draw=black, shape=circle] (7) at (5.5, -0.5) {};
+			\node [fill=blue, draw=black, shape=circle] (8) at (5.5, -1.5) {};
+			\node [fill=blue, draw=black, shape=circle] (9) at (5.5, -2.75) {};
+			\node [fill=blue, draw=black, shape=circle] (10) at (5.25, -3.5) {};
+			\node [fill=blue, draw=black, shape=circle] (11) at (4, -3.75) {};
+			\node [fill=blue, draw=black, shape=circle] (12) at (2.75, -4) {};
+			\node [fill=blue, draw=black, shape=circle] (13) at (2.25, -4.5) {};
+			\node [fill=blue, draw=black, shape=circle] (14) at (2.25, -5.5) {};
+			\node [fill=gray, draw=black, shape=circle] (Robot) at (-4, 0.25) {\textcolor{white}{\huge Robot}};
+			\node[above, yshift=15] at (0) {\Huge{$\textcolor{blue}{\mathbf{P}_{t+1}}$}};
+		\end{scope}
+		\begin{scope}[rotate=\angle, shift={\desl}]
+			\node [fill=red, draw=black, shape=circle] (b0) at (-2, 6) {};
+			\node [fill=red, draw=black, shape=circle] (b1) at (-2, 4.75) {};
+			\node [fill=red, draw=black, shape=circle] (b2) at (-1.5, 4.5) {};
+			\node [fill=red, draw=black, shape=circle] (b3) at (-0.75, 4.5) {};
+			\node [fill=red, draw=black, shape=circle] (b4) at (0.5, 4.5) {};
+			\node [fill=red, draw=black, shape=circle] (b5) at (1.5, 4.5) {};
+			\node [fill=red, draw=black, shape=circle] (b6) at (2.5, 4.5) {};
+
+			\node [fill=red, draw=black, shape=circle] (b7) at (5.5, -0.5) {};
+			\node [fill=red, draw=black, shape=circle] (b8) at (5.5, -1.5) {};
+			\node [fill=red, draw=black, shape=circle] (b9) at (5.5, -2.75) {};
+			\node [fill=red, draw=black, shape=circle] (b10) at (5.25, -3.5) {};
+			\node [fill=red, draw=black, shape=circle] (b11) at (4, -3.75) {};
+			\node [fill=red, draw=black, shape=circle] (b12) at (2.75, -4) {};
+			\node [fill=red, draw=black, shape=circle] (b13) at (2.25, -4.5) {};
+			\node [fill=red, draw=black, shape=circle] (b14) at (2.25, -5.5) {};
+			\node[above, yshift=15] at (b0) {\Huge{$\textcolor{red}{\mathbf{P}_{t}}$}};
+		\end{scope}
+\
+			\node[fill=red, draw=black, shape=circle] (ref1) at  (0, -10) {};
+			\node[right, xshift = 5] at (ref1) {\Huge Samples in $t$};
+			\node[fill=blue, draw=black, shape=circle] (ref2) at (0, -11) {};
+			\node[right, xshift = 5] at (ref2) {\Huge Samples in $t+1$};
+		\end{tikzpicture}}
+	\end{figure}
+\end{minipage}
+\end{frame}
+
+\begin{frame}[fragile, t]{Pose Estimation}
+	\framesubtitle{The Iterative Closest Point (ICP) Algorithm}
+	\begin{minipage}{0.6\textwidth}
+
+	\textcolor{purple}{\textbf{The Iterative Closest Point (ICP) Algorithm}}
+
+	\begin{algorithm}[H]
+		\renewcommand{\thealgorithm}{}
+        \caption{ICP Algorithm}
+        \begin{algorithmic}
+		\Procedure{Initialization}{$\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}}$}
+			\State{$\mathbf{s}^{t}, \mathbf{s}^{t+1} \gets \text{Centre for }
+			 (\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{s}^{+} = [x_c, y_c]$}
+			 \State $\textcolor{blue}{\mathbf{P}_{t}} = \mathbf{T}(0, \text{diff}(\mathbf{s}^{+})) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$
+		\EndProcedure
+		\While{$d(\mathbf{T}(\theta, \mathbf{Q})) > E_{\text{max}}\text{ or } N > N_{\text{max}}$}
+			\State{Associate($\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}}$)} \Comment{KNN Algorithm}
+			\State{Solve Optimal $\mathbf{T}(\theta, \mathbf{Q})$} \Comment{Least-Squares}
+			\State{$N++$}
+		\EndWhile
+		\State{\HiLi\textbf{Return} $\mathbf{T}(\theta, \mathbf{Q})$}
+        \end{algorithmic}
+    \end{algorithm}
+
+
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+	\begin{figure}
+		\def\angle{0.5} % Angle of the inclined plane
+		\def\desl{(0,0)}
+		\resizebox{0.45\textwidth}{!}{
+% \def\angle{20} % Angle of the inclined plane
+% \def\desl{(5,1)}
+		\begin{tikzpicture}
+			\begin{scope}
+				\node [fill=blue, draw=black, shape=circle] (0) at (-1.5, 4.5) {};
+				\node [fill=blue, draw=black, shape=circle] (1) at (-0.75, 4.5) {};
+				\node [fill=blue, draw=black, shape=circle] (2) at (0.5, 4.5) {};
+				\node [fill=blue, draw=black, shape=circle] (3) at (1.5, 4.5) {};
+				\node [fill=blue, draw=black, shape=circle] (4) at (2.5, 4.5) {};
+				\node [fill=blue, draw=black, shape=circle] (5) at (-2, 4.75) {};
+				\node [fill=blue, draw=black, shape=circle] (6) at (-2, 6) {};
+				\node [fill=blue, draw=black, shape=circle] (7) at (2.25, -5.5) {};
+				\node [fill=blue, draw=black, shape=circle] (8) at (2.25, -4.5) {};
+				\node [fill=blue, draw=black, shape=circle] (9) at (2.75, -4) {};
+				\node [fill=blue, draw=black, shape=circle] (10) at (4, -3.75) {};
+				% \node [fill=gray, draw=black, shape=circle] (11) at (-4, 0.25) {\textcolor{white}{\huge Robot}};
+				\node [fill=blue, draw=black, shape=circle] (12) at (5.5, -1.5) {};
+				\node [fill=blue, draw=black, shape=circle] (13) at (5.5, -0.5) {};
+				\node [fill=blue, draw=black, shape=circle] (14) at (5.5, -2.75) {};
+				\node [fill=blue, draw=black, shape=circle] (15) at (5.25, -3.5) {};
+				\node[above, yshift=15, xshift = 45] at (6) {\Huge{$\textcolor{blue}{\mathbf{P}_{t+1}}$}};
+			\end{scope}
+			\begin{scope}[rotate=\angle, shift={\desl}]
+				\node [fill=red, draw=black, shape=circle] (0) at (-1.5, 4.5) {};
+				\node [fill=red, draw=black, shape=circle] (1) at (-0.75, 4.5) {};
+				\node [fill=red, draw=black, shape=circle] (2) at (0.5, 4.5) {};
+				\node [fill=red, draw=black, shape=circle] (3) at (1.5, 4.5) {};
+				\node [fill=red, draw=black, shape=circle] (4) at (2.5, 4.5) {};
+				\node [fill=red, draw=black, shape=circle] (5) at (-2, 4.75) {};
+				\node [fill=red, draw=black, shape=circle] (6) at (-2, 6) {};
+				\node [fill=red, draw=black, shape=circle] (7) at (2.25, -5.5) {};
+				\node [fill=red, draw=black, shape=circle] (8) at (2.25, -4.5) {};
+				\node [fill=red, draw=black, shape=circle] (9) at (2.75, -4) {};
+				\node [fill=red, draw=black, shape=circle] (10) at (4, -3.75) {};
+				\node [fill=red, draw=black, shape=circle] (12) at (5.5, -1.5) {};
+				\node [fill=red, draw=black, shape=circle] (13) at (5.5, -0.5) {};
+				\node [fill=red, draw=black, shape=circle] (14) at (5.5, -2.75) {};
+				\node [fill=red, draw=black, shape=circle] (15) at (5.25, -3.5) {};
+				\node[above, yshift=15] at (6) {\Huge{$\textcolor{red}{\mathbf{P}_{t}}$}};
+			\end{scope}
+
+			\node[fill=red, draw=black, shape=circle] (ref1) at  (0, -10) {};
+			\node[right, xshift = 5] at (ref1) {\Huge Samples in $t$};
+			\node[fill=blue, draw=black, shape=circle] (ref2) at (0, -11) {};
+			\node[right, xshift = 5] at (ref2) {\Huge Samples in $t+1$};
+		\end{tikzpicture}}
+	\end{figure}
+\end{minipage}
+\end{frame}
+
+\begin{frame}[t, allowframebreaks]
+	\frametitle{Referências}
+	\bibliography{../references.bib}
+\end{frame}
+
+\end{document}

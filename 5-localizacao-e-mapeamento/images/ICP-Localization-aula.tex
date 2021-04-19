@@ -1,0 +1,123 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{simple}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc} 
+\usepackage{lmodern}
+\usepackage{ragged2e}
+\usefonttheme[onlymath]{serif} 
+\usepackage[scale=2]{ccicons} 
+% \setbeamertemplate{caption}[numbered]
+\usepackage{copyrightbox}
+
+\usepackage{graphicx,hyperref,url,pgfplots}
+\usepackage{amsmath} 
+\usepackage{array,booktabs}
+\pgfplotsset{compat=1.13}
+\usepackage{bibentry}
+\usepackage[alf,abnt-etal-list=0,abnt-etal-cite=2]{abntex2cite}
+\usepackage[normalem]{ulem}
+
+\usepackage[
+    type={CC},
+    modifier={by-nc-sa},
+    version={4.0},
+]{doclicense}
+
+\setbeamercovered{invisible} 
+% \newcommand{\pausar}{\pause}
+\newcommand{\pausar}{\pause}
+\newcommand{\df}[1]{\,\mathrm{d}#1}
+\newcommand{\parcial}[3]{\dfrac{\partial^{#1}#2}{\partial #3^{#1}}}
+\newcommand{\cpright}[2]{\copyrightbox[b]{#1}{\tiny Source: #2}}
+
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning}
+\usepackage{xcolor}
+\usetikzlibrary{scopes}
+\usepackage{verbatim}
+\usetikzlibrary{patterns}
+
+\usepackage{listings}
+  \lstdefinestyle{ascii-tree}{
+    literate={├}{|}1 {─}{--}1 {└}{+}1 
+  }
+	\definecolor{codegreen}{rgb}{0,0.6,0}
+	\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+	\definecolor{codepurple}{rgb}{0.58,0,0.82}
+	\definecolor{backcolour}{rgb}{0.92,0.92,0.92}
+	\lstset{language=Python, 
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\fontsize{8}{11}\ttfamily,
+	frame=lines,
+%	numbers=left,
+	tabsize=2,
+	morekeywords={models, lambda, forms},
+	showstringspaces=false}
+
+
+% --------------------------------------------------------------------------------------------
+
+\title{Mobile Robots}
+\subtitle{Pose Estimation - ICP Algorithm}
+\date{\today}
+\author[Jeferson José de Lima]{
+  \textbf{Professor}: Jeferson José de Lima}
+\institute{Academic Department of Informatics (DAINF) \\ Federal University of Technology - Paraná (UTFPR) at Pato Branco, PR, Brazil}
+
+\begin{document}
+\maketitle
+\justify
+
+
+\begin{frame}{Useful Information}
+
+	\begin{block}{License}
+        \doclicenseThis
+    \end{block}
+
+	\begin{block}{links:}
+		\begin{enumerate}
+			\item \href{https://gitlab.com/cursoseaulas/robotica-movel/-/wikis/home}{Mobile Robots - Gitlab Page}
+		\end{enumerate}
+	\end{block}
+\end{frame}
+
+
+
+
+\begin{frame}{Pose Estimation Lesson}
+	\framesubtitle{}
+	After this lesson, you will able to:
+	\begin{itemize}
+		\item Describe the point LIDAR points and how it can be used for state estimation
+		\item Implement the Iterative Closest Point (ICP) algorithm
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{ROS Philosophy}
+	\framesubtitle{}
+		
+    \begin{columns}
+        \begin{column}[c]{0.5\textwidth}
+            \input{./images/car_1a_image.tex}
+        \end{column}
+        \begin{column}[c]{0.5\textwidth}
+            \input{./images/car_2a_image.tex}
+        \end{column}
+    \end{columns}
+
+\end{frame}
+
+
+
+\begin{frame}[t, allowframebreaks]
+	\frametitle{Referências}
+	\bibliography{../references.bib}
+\end{frame}
+
+\end{document}

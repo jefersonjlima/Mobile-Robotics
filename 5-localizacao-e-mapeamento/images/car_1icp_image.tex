@@ -1,0 +1,104 @@
+\def\iangle{35} % Angle of the inclined plane
+\def\down{0}
+\def\arcr{0.7cm} % Radius of the arc used to indicate angles
+\newcommand\centerofmass{%
+    \tikz[radius=0.2em, red] {%
+        \fill (0,0) -- ++(0.2em,0) arc [start angle=0,end angle=90] -- ++(0,-0.4em) arc [start angle=270, end angle=180];%
+        \draw (0,0) circle;%
+    }%
+}
+
+\begin{tikzpicture}[
+    force/.style={>=latex,draw=blue,fill=blue},
+    axis/.style={densely dashed,gray,font=\small},
+    M/.style={rectangle,draw,fill=lightgray,minimum size=0.7cm,thin},
+    m/.style={rectangle,draw=black,fill=lightgray,minimum size=0.3cm,thin},
+    plane/.style={draw=black,fill=blue!10},
+    string/.style={draw=red, thick},
+    pulley/.style={thick},
+    wheel/.style={fill=black, rounded corners=1.5pt},
+]
+
+    \begin{scope}
+        \node[draw,anchor=south west,pattern=north west lines,minimum width=2cm,minimum height=1cm] (Ob1) at (0,2) {};
+        \node[draw,anchor=south west,pattern=north west lines,minimum width=1cm,minimum height=1cm] (Ob2) at (2.5,-1.5) {};
+    \end{scope}
+
+     \begin{scope}[rotate=0]
+        \node[M,transform shape] (M1) at (-2,-1) {\centerofmass};
+        % Draw axes and help lines
+        % {[axis,->]
+        %     \draw (M1) -- ++(0,2) node(y1_axis)[right] {$y'$};
+        % }
+        % Forces
+        {[force,->]
+            % Assuming that Mg = 1. The normal force will therefore be cos(alpha)
+            \draw (M1.east) -- ++(1,0) node[above, blue] {};
+        }
+        \draw[wheel, fill=gray] (M1.south west) rectangle ++(.4,-.1) node[]{};
+        \draw[wheel, fill=gray] (M1.north west) rectangle ++(.4,.1)  node[]{};
+    \end{scope}
+
+    \onslide<1->
+
+
+    \draw[, ->] (-2,-1) -- ++(2,0) node[below] {$x$};
+    \draw[, ->] (-2,-1) -- ++(0,2) node(y_axis)[right] {$y$};
+    \draw[gray, ->] (-2,-1) -- ++(-.5,-.5) node[left] {$z$};
+
+    \onslide<2>
+
+        % lidar
+        \draw[axis, gray] (M1.center) -- (Ob1.west) node[] {x};
+        \draw[axis, gray] (M1.center) -- (Ob1.south west) node[] {x};
+        \draw[axis, gray] (M1.center) -- (Ob1.south) node[] {x};
+        \draw[axis, gray] (M1.center) -- (Ob1.south east) node[] {x};
+        %%
+        \draw[axis, gray] (M1.center) -- (Ob2.north west) node[] {x};
+        \draw[axis, gray] (M1.center) -- (Ob2.west) node[] {x};
+        \draw[axis, gray] (M1.center) -- (Ob2.south west) node[] {x};
+        \draw[axis, gray] (M1.center) -- (Ob2.north east) node[] {x};
+
+    \onslide<3->
+    %% Free body diagram of M
+    \begin{scope}[rotate=\iangle]
+        \node[M,transform shape] (M2) at (1,-0.5) {\centerofmass};
+        % Draw axes and help lines
+        {[axis,->]
+            % \draw (M2) -- ++(0,2) node(y1_axis)[right] {};
+            % \draw (M2) -- ++(2,0) node[right] {};
+            % Indicate angle. The code is a bit awkward.
+            \draw[solid,shorten >=0.5pt, xshift=30, yshift=-15] (\down-\iangle:\arcr)
+                arc(\down-\iangle:\down:\arcr);
+            \node[xshift=35, yshift=2] at (\down-0.5*\iangle:1.3*\arcr) {$\phi$};
+        }
+        % Forces
+        {[force,->]
+            % Assuming that Mg = 1. The normal force will therefore be cos(alpha)
+            \draw (M2.east) -- ++(1,0) node[above, blue] {};
+        }
+        \draw[wheel] (M2.south west) rectangle ++(.4,-.1) node[below]{};
+        \draw[wheel] (M2.north west) rectangle ++(.4,.1)  node[left]{};
+    \end{scope}
+    % Draw gravity force. The code is put outside the rotated
+    % scope for simplicity. No need to do any angle calculations. 
+    \draw[axis,] (M2.center) -- ++(1,0) node[below] {};
+
+    \onslide<4>
+
+    % lidar
+    \draw[red] (M2.center) -- (Ob1.south west) node[] {x};
+    \draw[red] (M2.center) -- (Ob1.south) node[] {x};
+    \draw[red] (M2.center) -- (Ob1.south east) node[] {x};
+    %%
+    \draw[red] (M2.center) -- (Ob2.north west) node[] {x};
+    \draw[red] (M2.center) -- (Ob2.west) node[] {x};
+    \draw[red] (M2.center) -- (Ob2.south west) node[] {x};
+    \draw[red] (M2.center) -- (Ob2.north east) node[] {x};
+
+
+
+    % \node[right, gray,font=\small, xshift=8] at (M1.center) {$\{B\}$};
+    % %%
+    % \node[left, gray,font=\small, xshift=-10] at (0,0) {$\{A\}$};
+\end{tikzpicture}

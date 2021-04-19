@@ -1,0 +1,49 @@
+\resizebox{0.8\textwidth}{!}{
+\def\angle{40} % Angle of the inclined plane
+\def\desl{(6,0)}
+\begin{tikzpicture}
+	\begin{scope}
+		\node [fill=blue, draw=black, shape=circle] (0) at (-2, 6) {};
+		\node [fill=blue, draw=black, shape=circle] (1) at (-2, 4.75) {};
+		\node [fill=blue, draw=black, shape=circle] (2) at (-1.5, 4.5) {};
+		\node [fill=blue, draw=black, shape=circle] (3) at (-0.75, 4.5) {};
+		\node [fill=blue, draw=black, shape=circle] (4) at (0.5, 4.5) {};
+		\node [fill=blue, draw=black, shape=circle] (5) at (1.5, 4.5) {};
+		\node [fill=blue, draw=black, shape=circle] (6) at (2.5, 4.5) {};
+
+		\node [fill=blue, draw=black, shape=circle] (7) at (5.5, -0.5) {};
+		\node [fill=blue, draw=black, shape=circle] (8) at (5.5, -1.5) {};
+		\node [fill=blue, draw=black, shape=circle] (9) at (5.5, -2.75) {};
+		\node [fill=blue, draw=black, shape=circle] (10) at (5.25, -3.5) {};
+		\node [fill=blue, draw=black, shape=circle] (11) at (4, -3.75) {};
+		\node [fill=blue, draw=black, shape=circle] (12) at (2.75, -4) {};
+		\node [fill=blue, draw=black, shape=circle] (13) at (2.25, -4.5) {};
+		\node [fill=blue, draw=black, shape=circle] (14) at (2.25, -5.5) {};
+		\node [fill=gray, draw=black, shape=circle] (Robot) at (-4, 0.25) {\textcolor{white}{\huge Robot}};
+		\node[above, yshift=15] at (0) {\Huge{$\textcolor{blue}{\mathbf{P}_{t+1}}$}};
+	\end{scope}
+	\begin{scope}[rotate=\angle, shift={\desl}]
+		\node [fill=red, draw=black, shape=circle] (b0) at (-2, 6) {};
+		\node [fill=red, draw=black, shape=circle] (b1) at (-2, 4.75) {};
+		\node [fill=red, draw=black, shape=circle] (b2) at (-1.5, 4.5) {};
+		\node [fill=red, draw=black, shape=circle] (b3) at (-0.75, 4.5) {};
+		\node [fill=red, draw=black, shape=circle] (b4) at (0.5, 4.5) {};
+		\node [fill=red, draw=black, shape=circle] (b5) at (1.5, 4.5) {};
+		\node [fill=red, draw=black, shape=circle] (b6) at (2.5, 4.5) {};
+
+		\node [fill=red, draw=black, shape=circle] (b7) at (5.5, -0.5) {};
+		\node [fill=red, draw=black, shape=circle] (b8) at (5.5, -1.5) {};
+		\node [fill=red, draw=black, shape=circle] (b9) at (5.5, -2.75) {};
+		\node [fill=red, draw=black, shape=circle] (b10) at (5.25, -3.5) {};
+		\node [fill=red, draw=black, shape=circle] (b11) at (4, -3.75) {};
+		\node [fill=red, draw=black, shape=circle] (b12) at (2.75, -4) {};
+		\node [fill=red, draw=black, shape=circle] (b13) at (2.25, -4.5) {};
+		\node [fill=red, draw=black, shape=circle] (b14) at (2.25, -5.5) {};
+		\node[above, yshift=15] at (b0) {\Huge{$\textcolor{red}{\mathbf{P}_{t}}$}};
+	\end{scope}
+
+	\node[fill=red, draw=black, shape=circle] (ref1) at  (0, -10) {};
+	\node[right, xshift = 5] at (ref1) {\Huge Samples in $t$};
+	\node[fill=blue, draw=black, shape=circle] (ref2) at (0, -11) {};
+	\node[right, xshift = 5] at (ref2) {\Huge Samples in $t+1$};
+\end{tikzpicture}}
