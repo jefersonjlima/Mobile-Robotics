@@ -37,6 +37,8 @@
         }
         \draw[wheel, fill=gray] (M1.south west) rectangle ++(.4,-.1) node[]{};
         \draw[wheel, fill=gray] (M1.north west) rectangle ++(.4,.1)  node[]{};
+
+        \node[] at (-2,-2) {$\textcolor{red}{\mathbf{P}_{t}}$};
     \end{scope}
 
     \onslide<1->
@@ -79,6 +81,7 @@
         }
         \draw[wheel] (M2.south west) rectangle ++(.4,-.1) node[below]{};
         \draw[wheel] (M2.north west) rectangle ++(.4,.1)  node[left]{};
+        \node[] at (0.5,0.5) {$\textcolor{blue}{\mathbf{P}_{t+1}}$};
     \end{scope}
     % Draw gravity force. The code is put outside the rotated
     % scope for simplicity. No need to do any angle calculations. 
