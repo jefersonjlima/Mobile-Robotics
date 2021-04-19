@@ -134,26 +134,36 @@
 
 	\vspace{0.1in}
 
-	\begin{block}{\textcolor{blue}{We just need to solve for the transformation $\mathbf{T}(\theta, Q)$:}}
+	\begin{block}{\textcolor{blue}{We just need to solve for the transformation $\textcolor{gray}{\mathbf{T}(\textcolor{brown}{\theta}, \textcolor{purple}{\mathbf{Q}})}$:}}
 
 	\begin{equation*}
         \begin{bmatrix}
-            \color{purple}{ \mathbf{P}_{t+1}} \\ 1
+            \color{blue}{ \mathbf{P}_{t+1}} \\ 1
         \end{bmatrix}
         =
         \left[
             \begin{matrix}
-                  & \color{brown}{\mathbf{R}_z(\phi)} &   \\ \hline
+                  & \color{brown}{\mathbf{R}_z(\theta)} &   \\ \hline
                 0 & 0 & 0 \\
             \end{matrix} \right.
             \left.
             \vline
             \begin{matrix}
-                \color{red}{\mathbf{Q}} \\ \hline
+                \color{purple}{\mathbf{Q}} \\ \hline
                 1
             \end{matrix} \right]
         \begin{bmatrix}
-            \color{purple}{\mathbf{P}_{t}} \\
+            \color{red}{\mathbf{P}_{t}} \\
+            1
+        \end{bmatrix}
+		\text{, or }
+		\begin{bmatrix}
+            \color{blue}{ \mathbf{P}_{t+1}} \\ 1
+        \end{bmatrix}
+        =
+        \mathbf{T}(\textcolor{brown}{\theta}, \textcolor{purple}{\mathbf{Q}})
+        \begin{bmatrix}
+            \color{red}{\mathbf{P}_{t}} \\
             1
         \end{bmatrix}
     \end{equation*}
@@ -223,7 +233,7 @@
         \begin{algorithmic}
 		\Procedure{Initialization}{$\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}}$}
 			\State{\HiLi$\mathbf{s}^{t}, \mathbf{s}^{t+1} \gets \text{Centre for }
-			 (\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{s}^{+} = [x_c, y_c]$}
+			 (\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{s}^{+} = [x_c^k, y_c^k]$}
 			 \State{$\textcolor{blue}{\mathbf{P}_{t}} = \mathbf{T}(0, \text{diff}(\mathbf{s}^{+})) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$}
 		\EndProcedure
 		\While{$d(\mathbf{T}(\theta, \mathbf{Q})) > E_{\text{max}}\text{ or } N > N_{\text{max}}$}
@@ -297,8 +307,8 @@
         \begin{algorithmic}
 		\Procedure{Initialization}{$\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}}$}
 			\State{$\mathbf{s}^{t}, \mathbf{s}^{t+1} \gets \text{Centre for }
-			 (\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{s}^{+} = [x_c, y_c]$}
-			 \State{\HiLi$\textcolor{blue}{\mathbf{P}_{t}} = \mathbf{T}(0, \text{diff}(\mathbf{s}^{+})) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$}
+			(\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{s}^{+} = [x_c^k, y_c^k]$}
+			\State{\HiLi$\textcolor{blue}{\mathbf{P}_{t}} = \mathbf{T}(0, \text{diff}(\mathbf{s}^{+})) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$}
 		\EndProcedure
 		\While{$d(\mathbf{T}(\theta, \mathbf{Q})) > E_{\text{max}}\text{ or } N > N_{\text{max}}$}
 			\State{Associate($\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}}$)} \Comment{KNN Algorithm}
@@ -373,8 +383,8 @@
         \begin{algorithmic}
 		\Procedure{Initialization}{$\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}}$}
 			\State{$\mathbf{s}^{t}, \mathbf{s}^{t+1} \gets \text{Centre for }
-			 (\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{s}^{+} = [x_c, y_c]$}
-			 \State $\textcolor{blue}{\mathbf{P}_{t}} = \mathbf{T}(0, \text{diff}(\mathbf{s}^{+})) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$
+			(\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{s}^{+} = [x_c^k, y_c^k]$}
+			\State $\textcolor{blue}{\mathbf{P}_{t}} = \mathbf{T}(0, \text{diff}(\mathbf{s}^{+})) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$
 		\EndProcedure
 		\While{$d(\mathbf{T}(\theta, \mathbf{Q})) > E_{\text{max}}\text{ or } N > N_{\text{max}}$}
 			\State{\HiLi Associate($\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}}$)} \Comment{KNN Algorithm}
@@ -449,8 +459,8 @@
         \begin{algorithmic}
 		\Procedure{Initialization}{$\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}}$}
 			\State{$\mathbf{s}^{t}, \mathbf{s}^{t+1} \gets \text{Centre for }
-			 (\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{s}^{+} = [x_c, y_c]$}
-			 \State $\textcolor{blue}{\mathbf{P}_{t}} = \mathbf{T}(0, \text{diff}(\mathbf{s}^{+})) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$
+			(\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{s}^{+} = [x_c^k, y_c^k]$}
+			\State $\textcolor{blue}{\mathbf{P}_{t}} = \mathbf{T}(0, \text{diff}(\mathbf{s}^{+})) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$
 		\EndProcedure
 		\While{$d(\mathbf{T}(\theta, \mathbf{Q})) > E_{\text{max}}\text{ or } N > N_{\text{max}}$}
 			\State{\HiLi Associate($\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}}$)} \Comment{KNN Algorithm}
@@ -531,8 +541,8 @@
         \begin{algorithmic}
 		\Procedure{Initialization}{$\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}}$}
 			\State{$\mathbf{s}^{t}, \mathbf{s}^{t+1} \gets \text{Centre for }
-			 (\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{s}^{+} = [x_c, y_c]$}
-			 \State $\textcolor{blue}{\mathbf{P}_{t}} = \mathbf{T}(0, \text{diff}(\mathbf{s}^{+})) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$
+			(\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{s}^{+} = [x_c^k, y_c^k]$}
+			\State $\textcolor{blue}{\mathbf{P}_{t}} = \mathbf{T}(0, \text{diff}(\mathbf{s}^{+})) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$
 		\EndProcedure
 		\While{$d(\mathbf{T}(\theta, \mathbf{Q})) > E_{\text{max}}\text{ or } N > N_{\text{max}}$}
 			\State{Associate($\textcolor{blue}{\mathbf{P}_{t}},\textcolor{red}{\mathbf{P}_{t+1}}$)} \Comment{KNN Algorithm}
@@ -599,6 +609,38 @@
 	\end{figure}
 \end{minipage}
 \end{frame}
+
+
+\begin{frame}[fragile, t]{Pose Estimation}
+	\framesubtitle{ICP - Associate}
+
+	\textbf{k-nearest neighbors algorithm}
+
+\end{frame}
+
+
+\begin{frame}[fragile, t]{Pose Estimation}
+	\framesubtitle{ICP - Solve Optimal $\mathbf{T}(\theta, \mathbf{Q})$}
+
+	\textbf{Least-Squares}
+
+\end{frame}
+
+\begin{frame}[fragile, t]{Pose Estimation}
+	\framesubtitle{ICP - Toolbox}
+
+	
+	\textbf{How to open a PCD file? - Tools:}
+	\begin{itemize}
+		\item \textcolor{purple}{\textbf{PCL (Point Cloud Library)}} is an open-source framework for n-dimensional point clouds and 3D geometry processing. It includes several variants of the ICP algorithm.[9]
+		\item \textcolor{purple}{\textbf{libpointmatcher}} is an implementation of point-to-point and point-to-plane ICP released under a BSD license.
+		\item \textcolor{purple}{\textbf{simpleICP}} is an implementation of a rather simple version of the ICP algorithm in various languages.
+		\item \textcolor{purple}{\textbf{Open3D}} is an open-source library that supports rapid development of software that deals with 3D data. 
+		\item \textcolor{purple}{\textbf{PythonRobotics}} a Python code collection of robotics algorithms.
+	\end{itemize}
+
+\end{frame}
+
 
 \begin{frame}[t, allowframebreaks]
 	\frametitle{Referências}
