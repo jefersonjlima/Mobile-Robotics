@@ -62,6 +62,13 @@
 	tabsize=2,
 	morekeywords={models, lambda, forms},
 	showstringspaces=false}
+
+\usepackage{catchfile}
+\newcommand{\getenv}[2][]{%
+	\CatchFileEdef{\temp}{"|kpsewhich --var-value #2"}{\endlinechar=-1}%
+	\if\relax\detokenize{#1}\relax\temp\else\let#1\temp\fi}
+
+\getenv[\BIBREF]{RM_REFERENCES}
 % --------------------------------------------------------------------------------------------
 
 \title{Mobile Robots}
@@ -92,7 +99,7 @@
 	\framesubtitle{}
 	After this lesson, you will able to:
 	\begin{itemize}
-		\item Describe the point LIDAR points and how it can be used for state estimation
+		\item Describe the point LiDAR points and how it can be used for state estimation
 		\item Implement the Iterative Closest Point (ICP) algorithm. 
 	\end{itemize}
 \end{frame}
@@ -171,9 +178,9 @@
 \end{frame}
 
 \begin{frame}{Pose Estimation}
-	\framesubtitle{2D LIDAR Data Example}
+	\framesubtitle{2D LiDAR Data Example}
 
-	\textbf{Turtlebot3 and 2D LIDAR Data}:
+	\textbf{Turtlebot3 and 2D LiDAR Data}:
 
 	\begin{figure}
 		\includegraphics[width=1\textwidth]{./images/lidarExample.png}
@@ -182,14 +189,14 @@
 
 
 \begin{frame}{Pose Estimation}
-	\framesubtitle{2D LIDAR Data Example}
+	\framesubtitle{2D LiDAR Data Example}
 
-	\textbf{Velodyne 3D LIDAR Sensor}:
+	\textbf{Velodyne 3D LiDAR Sensor}:
 
 	\begin{figure}
 		\cpright{\includegraphics[width=0.6\textwidth]{./images/velodyne_sensor.png}}
 		{\cite{wang2015fast}}
-		\caption{Point cloud of the Velodyne LIDAR.}
+		\caption{Point cloud of the Velodyne LiDAR.}
 	\end{figure}
 \end{frame}
 
@@ -215,7 +222,7 @@
 \end{minipage}
 \begin{minipage}{0.4\textwidth}
 	\begin{figure}
-		\input{./images/cloudPoints.tex}
+		\input{./images/cloudpoints_image.tex}
 	\end{figure}
 \end{minipage}
 \end{frame}
@@ -630,13 +637,13 @@
 	\framesubtitle{ICP - Toolbox}
 
 	
-	\textbf{How to open a PCD file? - Tools:}
+	\textbf{PCD files - Tools}
 	\begin{itemize}
 		\item \textcolor{purple}{\textbf{PCL (Point Cloud Library)}} is an open-source framework for n-dimensional point clouds and 3D geometry processing. It includes several variants of the ICP algorithm.[9]
 		\item \textcolor{purple}{\textbf{libpointmatcher}} is an implementation of point-to-point and point-to-plane ICP released under a BSD license.
 		\item \textcolor{purple}{\textbf{simpleICP}} is an implementation of a rather simple version of the ICP algorithm in various languages.
 		\item \textcolor{purple}{\textbf{Open3D}} is an open-source library that supports rapid development of software that deals with 3D data. 
-		\item \textcolor{purple}{\textbf{PythonRobotics}} a Python code collection of robotics algorithms.
+		\item \textcolor{purple}{\textbf{Open3D}} a Python code collection of robotics algorithms.
 	\end{itemize}
 
 \end{frame}
@@ -644,7 +651,7 @@
 
 \begin{frame}[t, allowframebreaks]
 	\frametitle{Referências}
-	\bibliography{../references.bib}
+	\bibliography{\BIBREF}
 \end{frame}
 
 \end{document}

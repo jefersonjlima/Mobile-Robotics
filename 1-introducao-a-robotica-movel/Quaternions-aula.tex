@@ -59,6 +59,12 @@
 	showstringspaces=false}
 
 
+\usepackage{catchfile}
+\newcommand{\getenv}[2][]{%
+    \CatchFileEdef{\temp}{"|kpsewhich --var-value #2"}{\endlinechar=-1}%
+    \if\relax\detokenize{#1}\relax\temp\else\let#1\temp\fi}
+
+\getenv[\BIBREF]{RM_REFERENCES}
 % --------------------------------------------------------------------------------------------
 
 \title{Mobile Robots}
@@ -375,7 +381,7 @@
 
 \begin{frame}[t, allowframebreaks]
 	\frametitle{Referências}
-	\bibliography{../references.bib}
+	\bibliography{\BIBREF}
 \end{frame}
 
 \end{document}
