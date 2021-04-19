@@ -17,6 +17,9 @@ pdf_stage:
     - cp 1-introducao-a-robotica-movel/beamerthemesimple.sty ./
     - ls
     - find ./ -name '*aula.tex' -exec pdflatex {} \;
+    - find ./ -name '*aula.aux' -exec bibtex {} \;
+    - find ./ -name '*aula.tex' -exec pdflatex {} \;
+    - find ./ -name '*aula.tex' -exec pdflatex {} \;
     - find ./ -name '*.pdf' -exec mv -t ./public {} \;
     - ls ./public/
   artifacts:
