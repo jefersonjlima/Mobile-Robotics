@@ -10,7 +10,6 @@
 \usepackage{copyrightbox}
 \DeclareMathOperator*{\argmin}{arg\,min}
 
-
 \usepackage{graphicx,hyperref,url,pgfplots}
 \usepackage{amsmath} 
 \usepackage{array,booktabs}
@@ -210,240 +209,240 @@
 	\end{figure}
 \end{frame} 
  
-\begin{frame}[fragile, t]{Pose Estimation}
-	\framesubtitle{The Iterative Closest Point (ICP) Algorithm}
-	\begin{minipage}{0.6\textwidth}
+% \begin{frame}[fragile, t]{Pose Estimation}
+% 	\framesubtitle{The Iterative Closest Point (ICP) Algorithm}
+% 	\begin{minipage}{0.6\textwidth}
 
-	\begin{block}{}
-		\textcolor{red}{\textbf{Problem}: We don’t know which points correspond to each other}
-	\end{block}
+% 	\begin{block}{}
+% 		\textcolor{red}{\textbf{Problem}: We don’t know which points correspond to each other}
+% 	\end{block}
 
-	\vspace{0.3in}
+% 	\vspace{0.3in}
 
-	\textcolor{purple}{\textbf{The Iterative Closest Point (ICP) Algorithm}}
+% 	\textcolor{purple}{\textbf{The Iterative Closest Point (ICP) Algorithm}}
 
-    \begin{itemize}
-        \item \textbf{Intuition}: When the optimal motion is found, corresponding points will be closer to each other than to other points
-        \item  \textbf{Heuristic}: For each point, the best candidate for a corresponding point is the point that is closest to it right now
-    \end{itemize}
+%     \begin{itemize}
+%         \item \textbf{Intuition}: When the optimal motion is found, corresponding points will be closer to each other than to other points
+%         \item  \textbf{Heuristic}: For each point, the best candidate for a corresponding point is the point that is closest to it right now
+%     \end{itemize}
 
-\end{minipage}
-\begin{minipage}{0.4\textwidth}
-	\begin{figure}
-		\renewcommand{\tikzRot}{40}
-		\renewcommand{\tikzTrans}{(6,0)}
-		\renewcommand{\tikzShowrobot}{1}
-		\resizebox{0.8\textwidth}{!}{
-		\input{./images/cloudpoints_image.tex}}
-	\end{figure}
-\end{minipage}
-\end{frame}
-
-
-\begin{frame}[fragile, t]{Pose Estimation}
-	\framesubtitle{The Iterative Closest Point (ICP) Algorithm}
-	\begin{minipage}{0.6\textwidth}
-
-	\textcolor{purple}{\textbf{The Iterative Closest Point (ICP) Algorithm}}
-
-	\begin{algorithm}[H]
-		\renewcommand{\thealgorithm}{}
-        \caption{ICP Algorithm}
-        \begin{algorithmic}
-		\Procedure{Initialization}{$\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$}
-			\State{\HiLi$\mathbf{c}^{t}, \mathbf{c}^{t+1} \gets \text{Centre for }
-			 (\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{c} = [x_c, y_c]$}
-			 \State{$\textcolor{red}{\mathbf{P}_{t}} = \mathbf{T}(0, d(\mathbf{c}^k)) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$}
-		\EndProcedure
-		\While{$\mathbf{\hat{r}}(\textcolor{brown}{\mathbf{R}}, \textcolor{purple}{\mathbf{Q}}) > E_{\text{min}}\text{ or } N > N_{\text{max}}$}
-			\State{Associate($\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$)} \Comment{KNN Algorithm}
-			\State{Solve Optimal $\mathbf{T}(\theta, \mathbf{Q})$} \Comment{Least-Squares}
-		\EndWhile
-        \end{algorithmic}
-    \end{algorithm}
-
-\end{minipage}
-\begin{minipage}{0.4\textwidth}
-	\begin{figure}
-		\resizebox{0.8\textwidth}{!}{
-			\renewcommand{\tikzRot}{40}
-			\renewcommand{\tikzTrans}{(6,0)}
-			\renewcommand{\tikzShowrobot}{0}
-			\resizebox{0.8\textwidth}{!}{
-			\input{./images/cloudpoints_image.tex}}
-		}
-	\end{figure}
-\end{minipage}
-\end{frame}
-
-\begin{frame}[fragile, t]{Pose Estimation}
-	\framesubtitle{The Iterative Closest Point (ICP) Algorithm}
-	\begin{minipage}{0.6\textwidth}
-
-	\textcolor{purple}{\textbf{The Iterative Closest Point (ICP) Algorithm}}
-
-	\begin{algorithm}[H]
-		\renewcommand{\thealgorithm}{}
-        \caption{ICP Algorithm}
-        \begin{algorithmic}
-		\Procedure{Initialization}{$\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$}
-			\State{$\mathbf{s}^{t}, \mathbf{s}^{t+1} \gets \text{Centre for }
-			(\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{s}^{+} = [x_c^k, y_c^k]$}
-			\State{\HiLi$\textcolor{red}{\mathbf{P}_{t}} = \mathbf{T}(0, \text{diff}(\mathbf{s}^{+})) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$}
-		\EndProcedure
-		\While{$d(\mathbf{T}(\theta, \mathbf{Q})) > E_{\text{max}}\text{ or } N > N_{\text{max}}$}
-			\State{Associate($\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$)} \Comment{KNN Algorithm}
-			\State{Solve Optimal $\mathbf{T}(\theta, \mathbf{Q})$} \Comment{Least-Squares}
-			\State{$N++$}
-		\EndWhile
-		\State{\textbf{Return} $\mathbf{T}(\theta, \mathbf{Q})$}
-	\end{algorithmic}
-    \end{algorithm}
-	\end{minipage}
-	\begin{minipage}{0.4\textwidth}
-		\begin{figure}
-			\resizebox{0.75\textwidth}{!}{
-				\renewcommand{\tikzRot}{40}
-				\renewcommand{\tikzTrans}{(0,0)}
-				\renewcommand{\tikzShowrobot}{0}
-				\renewcommand{\tikzOneCenter}{1}
-				\resizebox{0.8\textwidth}{!}{
-				\input{./images/cloudpoints_image.tex}}
-			}
-		\end{figure}
-	\end{minipage}
-\end{frame}
-
-\begin{frame}[fragile, t]{Pose Estimation}
-	\framesubtitle{The Iterative Closest Point (ICP) Algorithm}
-	\begin{minipage}{0.6\textwidth}
-
-	\textcolor{purple}{\textbf{The Iterative Closest Point (ICP) Algorithm}}
-
-	\begin{algorithm}[H]
-		\renewcommand{\thealgorithm}{}
-        \caption{ICP Algorithm}
-        \begin{algorithmic}
-		\Procedure{Initialization}{$\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$}
-			\State{$\mathbf{s}^{t}, \mathbf{s}^{t+1} \gets \text{Centre for }
-			(\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{s}^{+} = [x_c^k, y_c^k]$}
-			\State $\textcolor{red}{\mathbf{P}_{t}} = \mathbf{T}(0, \text{diff}(\mathbf{s}^{+})) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$
-		\EndProcedure
-		\While{$d(\mathbf{T}(\theta, \mathbf{Q})) > E_{\text{max}}\text{ or } N > N_{\text{max}}$}
-			\State{\HiLi Associate($\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$)} \Comment{KNN Algorithm}
-			\State{\HiLi Solve Optimal $\mathbf{T}(\theta, \mathbf{Q})$} \Comment{Least-Squares}
-			\State{$N++$}
-		\EndWhile
-		\State{\textbf{Return} $\mathbf{T}(\theta, \mathbf{Q})$}        \end{algorithmic}
-    \end{algorithm}
-
-\end{minipage}
-\begin{minipage}{0.4\textwidth}
-		\begin{figure}
-			\resizebox{0.7\textwidth}{!}{
-				\renewcommand{\tikzRot}{20}
-				\renewcommand{\tikzTrans}{(0,0)}
-				\renewcommand{\tikzShowrobot}{0}
-				\renewcommand{\tikzOneCenter}{1}
-				\resizebox{0.8\textwidth}{!}{
-				\input{./images/cloudpoints_image.tex}}
-			}
-		\end{figure}
-	\end{minipage}
-\end{frame}
+% \end{minipage}
+% \begin{minipage}{0.4\textwidth}
+% 	\begin{figure}
+% 		\renewcommand{\tikzRot}{40}
+% 		\renewcommand{\tikzTrans}{(6,0)}
+% 		\renewcommand{\tikzShowrobot}{1}
+% 		\resizebox{0.8\textwidth}{!}{
+% 		\input{./images/cloudpoints_image.tex}}
+% 	\end{figure}
+% \end{minipage}
+% \end{frame}
 
 
-\begin{frame}[fragile, t]{Pose Estimation}
-	\framesubtitle{The Iterative Closest Point (ICP) Algorithm}
-	\begin{minipage}{0.6\textwidth}
+% \begin{frame}[fragile, t]{Pose Estimation}
+% 	\framesubtitle{The Iterative Closest Point (ICP) Algorithm}
+% 	\begin{minipage}{0.6\textwidth}
 
-	\textcolor{purple}{\textbf{The Iterative Closest Point (ICP) Algorithm}}
+% 	\textcolor{purple}{\textbf{The Iterative Closest Point (ICP) Algorithm}}
 
-	\begin{algorithm}[H]
-		\renewcommand{\thealgorithm}{}
-        \caption{ICP Algorithm}
-        \begin{algorithmic}
-		\Procedure{Initialization}{$\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$}
-			\State{$\mathbf{s}^{t}, \mathbf{s}^{t+1} \gets \text{Centre for }
-			(\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{s}^{+} = [x_c^k, y_c^k]$}
-			\State $\textcolor{red}{\mathbf{P}_{t}} = \mathbf{T}(0, \text{diff}(\mathbf{s}^{+})) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$
-		\EndProcedure
-		\While{$d(\mathbf{T}(\theta, \mathbf{Q})) > E_{\text{max}}\text{ or } N > N_{\text{max}}$}
-			\State{\HiLi Associate($\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$)} \Comment{KNN Algorithm}
-			\State{\HiLi Solve Optimal $\mathbf{T}(\theta, \mathbf{Q})$} \Comment{Least-Squares}
-			\State{$N++$}
-		\EndWhile
-		\State{\textbf{Return} $\mathbf{T}(\theta, \mathbf{Q})$}
-        \end{algorithmic}
-    \end{algorithm}
+% 	\begin{algorithm}[H]
+% 		\renewcommand{\thealgorithm}{}
+%         \caption{ICP Algorithm}
+%         \begin{algorithmic}
+% 		\Procedure{Initialization}{$\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$}
+% 			\State{\HiLi$\mathbf{c}^{t}, \mathbf{c}^{t+1} \gets \text{Centre for }
+% 			 (\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{c} = [x_c, y_c]$}
+% 			 \State{$\textcolor{red}{\mathbf{P}_{t}} = \mathbf{T}(0, d(\mathbf{c}^k)) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$}
+% 		\EndProcedure
+% 		\While{$\mathbf{\hat{r}}(\textcolor{brown}{\mathbf{R}}, \textcolor{purple}{\mathbf{Q}}) > E_{\text{min}}\text{ or } N > N_{\text{max}}$}
+% 			\State{Associate($\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$)} \Comment{KNN Algorithm}
+% 			\State{Solve Optimal $\mathbf{T}(\theta, \mathbf{Q})$} \Comment{Least-Squares}
+% 		\EndWhile
+%         \end{algorithmic}
+%     \end{algorithm}
 
-\end{minipage}
-\begin{minipage}{0.4\textwidth}
-		\begin{figure}
-			\resizebox{0.6\textwidth}{!}{
-				\renewcommand{\tikzRot}{5}
-				\renewcommand{\tikzTrans}{(0,0)}
-				\renewcommand{\tikzShowrobot}{0}
-				\renewcommand{\tikzOneCenter}{1}
-				\resizebox{0.8\textwidth}{!}{
-				\input{./images/cloudpoints_image.tex}}
-			}
-		\end{figure}
-	\end{minipage}
-\end{frame}
+% \end{minipage}
+% \begin{minipage}{0.4\textwidth}
+% 	\begin{figure}
+% 		\resizebox{0.8\textwidth}{!}{
+% 			\renewcommand{\tikzRot}{40}
+% 			\renewcommand{\tikzTrans}{(6,0)}
+% 			\renewcommand{\tikzShowrobot}{0}
+% 			\resizebox{0.8\textwidth}{!}{
+% 			\input{./images/cloudpoints_image.tex}}
+% 		}
+% 	\end{figure}
+% \end{minipage}
+% \end{frame}
 
-\begin{frame}[fragile, t]{Pose Estimation}
-	\framesubtitle{The Iterative Closest Point (ICP) Algorithm}
-	\begin{minipage}{0.6\textwidth}
+% \begin{frame}[fragile, t]{Pose Estimation}
+% 	\framesubtitle{The Iterative Closest Point (ICP) Algorithm}
+% 	\begin{minipage}{0.6\textwidth}
 
-	\textcolor{purple}{\textbf{The Iterative Closest Point (ICP) Algorithm}}
+% 	\textcolor{purple}{\textbf{The Iterative Closest Point (ICP) Algorithm}}
 
-	\begin{algorithm}[H]
-		\renewcommand{\thealgorithm}{}
-        \caption{ICP Algorithm}
-        \begin{algorithmic}
-		\Procedure{Initialization}{$\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$}
-			\State{$\mathbf{s}^{t}, \mathbf{s}^{t+1} \gets \text{Centre for }
-			(\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{s}^{+} = [x_c^k, y_c^k]$}
-			\State $\textcolor{red}{\mathbf{P}_{t}} = \mathbf{T}(0, \text{diff}(\mathbf{s}^{+})) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$
-		\EndProcedure
-		\While{$d(\mathbf{T}(\theta, \mathbf{Q})) > E_{\text{max}}\text{ or } N > N_{\text{max}}$}
-			\State{Associate($\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$)} \Comment{KNN Algorithm}
-			\State{Solve Optimal $\mathbf{T}(\theta, \mathbf{Q})$} \Comment{IRLS}
-			\State{$N++$}
-		\EndWhile
-		\State{\HiLi\textbf{Return} $\mathbf{T}(\theta, \mathbf{Q})$}
-        \end{algorithmic}
-    \end{algorithm}
-	\end{minipage}
-	\begin{minipage}{0.4\textwidth}
-			\begin{figure}
-				\resizebox{0.6\textwidth}{!}{
-				\renewcommand{\tikzRot}{0.5}
-				\renewcommand{\tikzTrans}{(0,0)}
-				\renewcommand{\tikzShowrobot}{0}
-				\renewcommand{\tikzOneCenter}{1}
-				\resizebox{0.8\textwidth}{!}{
-				\input{./images/cloudpoints_image.tex}}
-				}
-		\end{figure}
-	\end{minipage}
-\end{frame}
+% 	\begin{algorithm}[H]
+% 		\renewcommand{\thealgorithm}{}
+%         \caption{ICP Algorithm}
+%         \begin{algorithmic}
+% 		\Procedure{Initialization}{$\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$}
+% 			\State{$\mathbf{s}^{t}, \mathbf{s}^{t+1} \gets \text{Centre for }
+% 			(\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{s}^{+} = [x_c^k, y_c^k]$}
+% 			\State{\HiLi$\textcolor{red}{\mathbf{P}_{t}} = \mathbf{T}(0, \text{diff}(\mathbf{s}^{+})) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$}
+% 		\EndProcedure
+% 		\While{$d(\mathbf{T}(\theta, \mathbf{Q})) > E_{\text{max}}\text{ or } N > N_{\text{max}}$}
+% 			\State{Associate($\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$)} \Comment{KNN Algorithm}
+% 			\State{Solve Optimal $\mathbf{T}(\theta, \mathbf{Q})$} \Comment{Least-Squares}
+% 			\State{$N++$}
+% 		\EndWhile
+% 		\State{\textbf{Return} $\mathbf{T}(\theta, \mathbf{Q})$}
+% 	\end{algorithmic}
+%     \end{algorithm}
+% 	\end{minipage}
+% 	\begin{minipage}{0.4\textwidth}
+% 		\begin{figure}
+% 			\resizebox{0.75\textwidth}{!}{
+% 				\renewcommand{\tikzRot}{40}
+% 				\renewcommand{\tikzTrans}{(0,0)}
+% 				\renewcommand{\tikzShowrobot}{0}
+% 				\renewcommand{\tikzOneCenter}{1}
+% 				\resizebox{0.8\textwidth}{!}{
+% 				\input{./images/cloudpoints_image.tex}}
+% 			}
+% 		\end{figure}
+% 	\end{minipage}
+% \end{frame}
+
+% \begin{frame}[fragile, t]{Pose Estimation}
+% 	\framesubtitle{The Iterative Closest Point (ICP) Algorithm}
+% 	\begin{minipage}{0.6\textwidth}
+
+% 	\textcolor{purple}{\textbf{The Iterative Closest Point (ICP) Algorithm}}
+
+% 	\begin{algorithm}[H]
+% 		\renewcommand{\thealgorithm}{}
+%         \caption{ICP Algorithm}
+%         \begin{algorithmic}
+% 		\Procedure{Initialization}{$\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$}
+% 			\State{$\mathbf{s}^{t}, \mathbf{s}^{t+1} \gets \text{Centre for }
+% 			(\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{s}^{+} = [x_c^k, y_c^k]$}
+% 			\State $\textcolor{red}{\mathbf{P}_{t}} = \mathbf{T}(0, \text{diff}(\mathbf{s}^{+})) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$
+% 		\EndProcedure
+% 		\While{$d(\mathbf{T}(\theta, \mathbf{Q})) > E_{\text{max}}\text{ or } N > N_{\text{max}}$}
+% 			\State{\HiLi Associate($\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$)} \Comment{KNN Algorithm}
+% 			\State{\HiLi Solve Optimal $\mathbf{T}(\theta, \mathbf{Q})$} \Comment{Least-Squares}
+% 			\State{$N++$}
+% 		\EndWhile
+% 		\State{\textbf{Return} $\mathbf{T}(\theta, \mathbf{Q})$}        \end{algorithmic}
+%     \end{algorithm}
+
+% \end{minipage}
+% \begin{minipage}{0.4\textwidth}
+% 		\begin{figure}
+% 			\resizebox{0.7\textwidth}{!}{
+% 				\renewcommand{\tikzRot}{20}
+% 				\renewcommand{\tikzTrans}{(0,0)}
+% 				\renewcommand{\tikzShowrobot}{0}
+% 				\renewcommand{\tikzOneCenter}{1}
+% 				\resizebox{0.8\textwidth}{!}{
+% 				\input{./images/cloudpoints_image.tex}}
+% 			}
+% 		\end{figure}
+% 	\end{minipage}
+% \end{frame}
 
 
-\begin{frame}[fragile, t]{Pose Estimation}
-	\framesubtitle{ICP - Toolbox}
+% \begin{frame}[fragile, t]{Pose Estimation}
+% 	\framesubtitle{The Iterative Closest Point (ICP) Algorithm}
+% 	\begin{minipage}{0.6\textwidth}
 
-	\textbf{PCD, PLY files - Tools}
-	\begin{itemize}
-		\item \textcolor{purple}{\textbf{PCL (Point Cloud Library)}} is an open-source framework for n-dimensional point clouds and 3D geometry processing. It includes several variants of the ICP algorithm.[9]
-		\item \textcolor{purple}{\textbf{libpointmatcher}} is an implementation of point-to-point and point-to-plane ICP released under a BSD license.
-		\item \textcolor{purple}{\textbf{simpleICP}} is an implementation of a rather simple version of the ICP algorithm in various languages.
-		\item \textcolor{purple}{\textbf{Open3D}} is an open-source library that supports rapid development of software that deals with 3D data. 
-		\item \textcolor{purple}{\textbf{PythonRobotics}} a Python code collection of robotics algorithms.
-	\end{itemize}
+% 	\textcolor{purple}{\textbf{The Iterative Closest Point (ICP) Algorithm}}
 
-\end{frame}
+% 	\begin{algorithm}[H]
+% 		\renewcommand{\thealgorithm}{}
+%         \caption{ICP Algorithm}
+%         \begin{algorithmic}
+% 		\Procedure{Initialization}{$\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$}
+% 			\State{$\mathbf{s}^{t}, \mathbf{s}^{t+1} \gets \text{Centre for }
+% 			(\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{s}^{+} = [x_c^k, y_c^k]$}
+% 			\State $\textcolor{red}{\mathbf{P}_{t}} = \mathbf{T}(0, \text{diff}(\mathbf{s}^{+})) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$
+% 		\EndProcedure
+% 		\While{$d(\mathbf{T}(\theta, \mathbf{Q})) > E_{\text{max}}\text{ or } N > N_{\text{max}}$}
+% 			\State{\HiLi Associate($\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$)} \Comment{KNN Algorithm}
+% 			\State{\HiLi Solve Optimal $\mathbf{T}(\theta, \mathbf{Q})$} \Comment{Least-Squares}
+% 			\State{$N++$}
+% 		\EndWhile
+% 		\State{\textbf{Return} $\mathbf{T}(\theta, \mathbf{Q})$}
+%         \end{algorithmic}
+%     \end{algorithm}
+
+% \end{minipage}
+% \begin{minipage}{0.4\textwidth}
+% 		\begin{figure}
+% 			\resizebox{0.6\textwidth}{!}{
+% 				\renewcommand{\tikzRot}{5}
+% 				\renewcommand{\tikzTrans}{(0,0)}
+% 				\renewcommand{\tikzShowrobot}{0}
+% 				\renewcommand{\tikzOneCenter}{1}
+% 				\resizebox{0.8\textwidth}{!}{
+% 				\input{./images/cloudpoints_image.tex}}
+% 			}
+% 		\end{figure}
+% 	\end{minipage}
+% \end{frame}
+
+% \begin{frame}[fragile, t]{Pose Estimation}
+% 	\framesubtitle{The Iterative Closest Point (ICP) Algorithm}
+% 	\begin{minipage}{0.6\textwidth}
+
+% 	\textcolor{purple}{\textbf{The Iterative Closest Point (ICP) Algorithm}}
+
+% 	\begin{algorithm}[H]
+% 		\renewcommand{\thealgorithm}{}
+%         \caption{ICP Algorithm}
+%         \begin{algorithmic}
+% 		\Procedure{Initialization}{$\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$}
+% 			\State{$\mathbf{s}^{t}, \mathbf{s}^{t+1} \gets \text{Centre for }
+% 			(\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{s}^{+} = [x_c^k, y_c^k]$}
+% 			\State $\textcolor{red}{\mathbf{P}_{t}} = \mathbf{T}(0, \text{diff}(\mathbf{s}^{+})) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$
+% 		\EndProcedure
+% 		\While{$d(\mathbf{T}(\theta, \mathbf{Q})) > E_{\text{max}}\text{ or } N > N_{\text{max}}$}
+% 			\State{Associate($\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$)} \Comment{KNN Algorithm}
+% 			\State{Solve Optimal $\mathbf{T}(\theta, \mathbf{Q})$} \Comment{IRLS}
+% 			\State{$N++$}
+% 		\EndWhile
+% 		\State{\HiLi\textbf{Return} $\mathbf{T}(\theta, \mathbf{Q})$}
+%         \end{algorithmic}
+%     \end{algorithm}
+% 	\end{minipage}
+% 	\begin{minipage}{0.4\textwidth}
+% 			\begin{figure}
+% 				\resizebox{0.6\textwidth}{!}{
+% 				\renewcommand{\tikzRot}{0.5}
+% 				\renewcommand{\tikzTrans}{(0,0)}
+% 				\renewcommand{\tikzShowrobot}{0}
+% 				\renewcommand{\tikzOneCenter}{1}
+% 				\resizebox{0.8\textwidth}{!}{
+% 				\input{./images/cloudpoints_image.tex}}
+% 				}
+% 		\end{figure}
+% 	\end{minipage}
+% \end{frame}
+
+
+% \begin{frame}[fragile, t]{Pose Estimation}
+% 	\framesubtitle{ICP - Toolbox}
+
+% 	\textbf{PCD, PLY files - Tools}
+% 	\begin{itemize}
+% 		\item \textcolor{purple}{\textbf{PCL (Point Cloud Library)}} is an open-source framework for n-dimensional point clouds and 3D geometry processing. It includes several variants of the ICP algorithm.[9]
+% 		\item \textcolor{purple}{\textbf{libpointmatcher}} is an implementation of point-to-point and point-to-plane ICP released under a BSD license.
+% 		\item \textcolor{purple}{\textbf{simpleICP}} is an implementation of a rather simple version of the ICP algorithm in various languages.
+% 		\item \textcolor{purple}{\textbf{Open3D}} is an open-source library that supports rapid development of software that deals with 3D data. 
+% 		\item \textcolor{purple}{\textbf{PythonRobotics}} a Python code collection of robotics algorithms.
+% 	\end{itemize}
+
+% \end{frame}
 
  
 \begin{frame}[t, allowframebreaks]
