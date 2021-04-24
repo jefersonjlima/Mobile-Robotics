@@ -1,0 +1,187 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{simple}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc} 
+\usepackage{lmodern}
+\usepackage{ragged2e}
+\usefonttheme[onlymath]{serif} 
+\usepackage[scale=2]{ccicons} 
+% \setbeamertemplate{caption}[numbered]
+\usepackage{copyrightbox}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+
+\usepackage{graphicx,hyperref,url,pgfplots}
+\usepackage{amsmath} 
+\usepackage{array,booktabs}
+\pgfplotsset{compat=1.13}
+\usepackage{bibentry}
+\usepackage[alf,abnt-etal-list=0,abnt-etal-cite=2]{abntex2cite}
+\usepackage[normalem]{ulem}
+\PassOptionsToPackage{demo}{graphicx}
+\def\HiLi{\leavevmode\rlap{\hbox to \hsize{\color{yellow!50}\leaders\hrule height .8\baselineskip depth .5ex\hfill}}}
+
+\usepackage[
+    type={CC},
+    modifier={by-nc-sa},
+    version={4.0},
+]{doclicense}
+
+\setbeamercovered{invisible} 
+\newcommand{\df}[1]{\,\mathrm{d}#1}
+\newcommand{\parcial}[3]{\dfrac{\partial^{#1}#2}{\partial #3^{#1}}}
+\newcommand{\cpright}[2]{\copyrightbox[b]{#1}{\tiny Source: #2}}
+%Tikz
+\newcommand{\tikzRot}{0}
+\newcommand{\tikzTrans}{(0,0)}
+\newcommand{\tikzShowrobot}{0}
+\newcommand{\tikzOneCenter}{0}
+
+
+
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning}
+\usepackage{xcolor}
+\usetikzlibrary{scopes}
+\usepackage{verbatim}
+\usetikzlibrary{patterns}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\def\NoNumber#1{{\def\alglinenumber##1{}\State #1}\addtocounter{ALG@line}{-1}}
+
+\usepackage{listings}
+  \lstdefinestyle{ascii-tree}{
+    literate={├}{|}1 {─}{--}1 {└}{+}1 
+  }
+	\definecolor{codegreen}{rgb}{0,0.6,0}
+	\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+	\definecolor{codepurple}{rgb}{0.58,0,0.82}
+	\definecolor{backcolour}{rgb}{0.92,0.92,0.92}
+	\lstset{language=Python, 
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\fontsize{8}{11}\ttfamily,
+	frame=lines,
+%	numbers=left,
+	tabsize=2,
+	morekeywords={models, lambda, forms},
+	showstringspaces=false}
+
+\usepackage{catchfile}
+\newcommand{\getenv}[2][]{%
+	\CatchFileEdef{\temp}{"|kpsewhich --var-value #2"}{\endlinechar=-1}%
+	\if\relax\detokenize{#1}\relax\temp\else\let#1\temp\fi}
+
+\getenv[\BIBREF]{RM_REFERENCES}
+
+
+% --------------------------------------------------------------------------------------------
+
+\title{Mobile Robots}
+\subtitle{outliers - Random Sample Consensus (RANSAC)
+}
+\date{\today}
+\author[Jeferson José de Lima]{
+  \textbf{Professor}: Jeferson José de Lima}
+\institute{Academic Department of Informatics (DAINF) \\ Federal University of Technology - Paraná (UTFPR) at Pato Branco, PR, Brazil}
+
+\begin{document}
+\maketitle
+\justify
+
+\begin{frame}{Useful Information}
+
+	\begin{block}{License}
+        \doclicenseThis
+    \end{block}
+
+	\begin{block}{links:}
+		\begin{enumerate}
+			\item \href{https://gitlab.com/cursoseaulas/robotica-movel/-/wikis/home}{Mobile Robots - Gitlab Page}
+			\item \BIBREF
+		\end{enumerate}
+	\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile, t]{Pose Estimation}
+	\framesubtitle{Random Sample Consensus (RANSAC)}
+	\begin{minipage}[t]{0.5\textwidth}
+ 
+		\begin{itemize}
+			\item RANSAC (Random Sample Consensus) is a simple algorithm for robust fitting of models
+			in the presence of many data outliers \cite{nuchter20083d}.
+		\end{itemize}
+	\end{minipage}
+	\begin{minipage}[t]{0.5\textwidth}
+		\begin{figure}
+			\def\angle{5} % Angle of the inclined plane
+			\def\desl{(8,1)}
+			\resizebox{0.8\textwidth}{!}{
+	% \def\angle{20} % Angle of the inclined plane
+	% \def\desl{(5,1)}
+			\begin{tikzpicture}
+				\begin{scope}
+					\node [fill=blue, draw=black, shape=circle] (0) at (-1.5, 4.5) {};
+					\node [fill=blue, draw=black, shape=circle] (1) at (-0.75, 4.5) {};
+					\node [fill=blue, draw=black, shape=circle] (2) at (0.5, 4.5) {};
+					\node [fill=blue, draw=black, shape=circle] (3) at (1.5, 4.5) {};
+					\node [fill=blue, draw=black, shape=circle] (4) at (2.5, 4.5) {};
+					\node [fill=blue, draw=black, shape=circle] (5) at (-2, 4.75) {};
+					\node [fill=blue, draw=black, shape=circle] (6) at (-2, 6) {};
+					\node [fill=blue, draw=black, shape=circle] (7) at (2.25, -5.5) {};
+					\node [fill=blue, draw=black, shape=circle] (8) at (2.25, -4.5) {};
+					\node [fill=blue, draw=black, shape=circle] (9) at (2.75, -4) {};
+					\node [fill=blue, draw=black, shape=circle] (10) at (4, -3.75) {};
+					\node [fill=blue, draw=black, shape=circle] (12) at (5.5, -1.5) {};
+					\node [fill=blue, draw=black, shape=circle] (13) at (5.5, -0.5) {};
+					\node [fill=blue, draw=black, shape=circle] (14) at (5.5, -2.75) {};
+					\node [fill=blue, draw=black, shape=circle] (15) at (5.25, -3.5) {};
+				\end{scope}
+				\begin{scope}[rotate=\angle, shift={\desl}]
+					\node [fill=red, draw=black, shape=circle] (out1) at (-5, 9) {};
+					\node [fill=red, draw=black, shape=circle] (out2) at (-3, 8) {};
+					\node [fill=red, draw=black, shape=circle] (b0) at (-1.5, 4.5) {};
+					\node [fill=red, draw=black, shape=circle] (b1) at (-0.75, 4.5) {};
+					\node [fill=red, draw=black, shape=circle] (b2) at (0.5, 4.5) {};
+					\node [fill=red, draw=black, shape=circle] (b3) at (1.5, 4.5) {};
+					\node [fill=red, draw=black, shape=circle] (b4) at (2.5, 4.5) {};
+					\node [fill=red, draw=black, shape=circle] (b5) at (-2, 4.75) {};
+					\node [fill=red, draw=black, shape=circle] (b6) at (-2, 6) {};
+					\node [fill=red, draw=black, shape=circle] (b7) at (2.25, -5.5) {};
+					\node [fill=red, draw=black, shape=circle] (b8) at (2.25, -4.5) {};
+					\node [fill=red, draw=black, shape=circle] (b9) at (2.75, -4) {};
+					\node [fill=red, draw=black, shape=circle] (b10) at (4, -3.75) {};
+					\node [fill=red, draw=black, shape=circle] (b12) at (5.5, -1.5) {};
+					\node [fill=red, draw=black, shape=circle] (b13) at (5.5, -0.5) {};
+					\node [fill=red, draw=black, shape=circle] (b14) at (5.5, -2.75) {};
+					\node [fill=red, draw=black, shape=circle] (b15) at (5.25, -3.5) {};
+				\end{scope}
+
+				\pause
+
+				\draw[green, dashed] (1) -- (b1){}; \draw[green, dashed] (2) -- (b2){};
+				\draw[green, dashed] (3) -- (b3){}; \draw[green, dashed] (4) -- (b4){};
+				\draw[green, dashed] (6) -- (b6){}; \draw[green, dashed] (13) -- (b13){};
+				\draw[green, dashed] (5) -- (b5){}; \draw[green, dashed] (8) -- (b8){};
+				\draw[green, dashed] (7) -- (b7){}; \draw[green, dashed] (10) -- (b10){}; 
+				\draw[green, dashed] (9) -- (b9){}; \draw[green, dashed] (12) -- (b12){};
+				\draw[green,dashed] (14) -- (b14){}; \draw[green,dashed] (15) -- (b15){};
+				\draw[red, dashed] (6) -- (out1){}; \draw[red, dashed] (6) -- (out2){};
+				
+			\end{tikzpicture}}
+		\end{figure}
+	\end{minipage}
+\end{frame}
+
+
+\begin{frame}[t, allowframebreaks]
+	\frametitle{References}
+	\bibliography{\BIBREF}
+\end{frame}
+
+
+\end{document}
