@@ -1,0 +1,275 @@
+
+\documentclass[aspectratio=169]{beamer}
+\usetheme{simple}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc} 
+\usepackage{lmodern}
+\usepackage{ragged2e}
+\usefonttheme[onlymath]{serif} 
+\usepackage[scale=2]{ccicons} 
+% \setbeamertemplate{caption}[numbered]
+\usepackage{copyrightbox}
+\DeclareMathOperator*{\argmin}{arg\,min}
+
+
+\usepackage{graphicx,hyperref,url,pgfplots}
+\usepackage{amsmath} 
+\usepackage{array,booktabs}
+\pgfplotsset{compat=1.13}
+\usepackage{bibentry}
+\usepackage[alf,abnt-etal-list=0,abnt-etal-cite=2]{abntex2cite}
+\usepackage[normalem]{ulem}
+\PassOptionsToPackage{demo}{graphicx}
+\def\HiLi{\leavevmode\rlap{\hbox to \hsize{\color{yellow!50}\leaders\hrule height .8\baselineskip depth .5ex\hfill}}}
+
+\usepackage[
+    type={CC},
+    modifier={by-nc-sa},
+    version={4.0},
+]{doclicense}
+
+\setbeamercovered{invisible} 
+\newcommand{\df}[1]{\,\mathrm{d}#1}
+\newcommand{\parcial}[3]{\dfrac{\partial^{#1}#2}{\partial #3^{#1}}}
+\newcommand{\cpright}[2]{\copyrightbox[b]{#1}{\tiny Source: #2}}
+%Tikz
+\newcommand{\tikzRot}{0}
+\newcommand{\tikzTrans}{(0,0)}
+\newcommand{\tikzShowrobot}{0}
+\newcommand{\tikzOneCenter}{0}
+
+
+
+\usepackage{tikz}
+\usetikzlibrary{automata,positioning}
+\usepackage{xcolor}
+\usetikzlibrary{scopes}
+\usepackage{verbatim}
+\usetikzlibrary{patterns}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\def\NoNumber#1{{\def\alglinenumber##1{}\State #1}\addtocounter{ALG@line}{-1}}
+
+\usepackage{listings}
+  \lstdefinestyle{ascii-tree}{
+    literate={├}{|}1 {─}{--}1 {└}{+}1 
+  }
+	\definecolor{codegreen}{rgb}{0,0.6,0}
+	\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+	\definecolor{codepurple}{rgb}{0.58,0,0.82}
+	\definecolor{backcolour}{rgb}{0.92,0.92,0.92}
+	\lstset{language=Python, 
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\fontsize{8}{11}\ttfamily,
+	frame=lines,
+%	numbers=left,
+	tabsize=2,
+	morekeywords={models, lambda, forms},
+	showstringspaces=false}
+
+\usepackage{catchfile}
+\newcommand{\getenv}[2][]{%
+	\CatchFileEdef{\temp}{"|kpsewhich --var-value #2"}{\endlinechar=-1}%
+	\if\relax\detokenize{#1}\relax\temp\else\let#1\temp\fi}
+
+\getenv[\BIBREF]{RM_REFERENCES}
+
+
+% --------------------------------------------------------------------------------------------
+
+\title{Mobile Robots}
+\subtitle{Least-Squares Rigid Motion Using SVD}
+\date{\today}
+\author[Jeferson José de Lima]{
+  \textbf{Professor}: Jeferson José de Lima}
+\institute{Academic Department of Informatics (DAINF) \\ Federal University of Technology - Paraná (UTFPR) at Pato Branco, PR, Brazil}
+
+\begin{document}
+\maketitle
+\justify
+
+\begin{frame}{Useful Information}
+
+	\begin{block}{License}
+        \doclicenseThis
+    \end{block}
+
+	\begin{block}{links:}
+		\begin{enumerate}
+			\item \href{https://gitlab.com/cursoseaulas/robotica-movel/-/wikis/home}{Mobile Robots - Gitlab Page}
+			\item \BIBREF
+		\end{enumerate}
+	\end{block}
+\end{frame}
+
+
+\begin{frame}[fragile, c]{Least-Squares Rigid Motion Using SVD}
+	\framesubtitle{Least Squares - General Purpose}
+
+
+\end{frame}
+
+\begin{frame}[fragile, c]{Least-Squares Rigid Motion Using SVD}
+	\framesubtitle{Least Squares solve by Singular Value Decomposition (SVD)}
+
+
+\end{frame}
+
+
+\begin{frame}[fragile, c]{Least-Squares Rigid Motion Using SVD}
+	\framesubtitle{ICP - Solve Optimal $\mathbf{T}(\textcolor{brown}{\theta}, \textcolor{purple}{\mathbf{Q}})$}
+	\textbf{Iteratively Reweighted Least Squares}
+
+	\begin{minipage}[t]{0.5\textwidth}
+		\begin{figure}
+			\resizebox{0.7\textwidth}{!}{
+				\renewcommand{\tikzRot}{30}
+				\renewcommand{\tikzTrans}{(8,0)}
+				\renewcommand{\tikzShowrobot}{0}
+				\renewcommand{\tikzOneCenter}{0}
+				\resizebox{0.8\textwidth}{!}{
+				\input{./images/cloudpoints_image.tex}}
+			}
+		\end{figure}
+	\end{minipage}
+	\begin{minipage}[t]{0.5\textwidth}
+
+	\vspace{-0.2in}
+	\begin{itemize}
+		\item For \textbf{ICP Algorithm} suppose that corresponding points are the nearest ones \cite{prochazkova2018notes}.
+
+	\vspace{-0.2in}
+	\begin{equation}
+		\argmin\limits_{\textcolor{brown}{\mathbf{R}}, \textcolor{purple}{\mathbf{Q}}} \sum\limits_{i=1}^n w_i \lVert \textcolor{blue}{\mathbf{P}_{t+1}}
+		- \mathbf{T}(\textcolor{brown}{\theta}, \textcolor{purple}{\mathbf{Q}})
+		\textcolor{red}{\mathbf{P}_{t}} \rVert^2_2
+		\label{eq:min}
+	\end{equation}
+
+	\item[-] Assume $w_i = 1$, we can rewhite the equation \ref{eq:min}:
+
+	\vspace{-0.2in}
+	\begin{equation*}
+		\argmin\limits_{\textcolor{brown}{\mathbf{R}}, \textcolor{purple}{\mathbf{Q}}} \sum\limits_{i=1}^n  
+		\lVert (\textcolor{brown}{\mathbf{R}}\textcolor{red}{\mathbf{P}_{t}}  + \textcolor{purple}{\mathbf{Q}})
+		-  \textcolor{blue}{\mathbf{P}_{t+1}}\rVert^2_2
+	\end{equation*}
+
+	\item[-] The $\mathbf{\hat{r}}(\textcolor{brown}{\mathbf{R}}, \textcolor{purple}{\mathbf{Q}})$ is the residual error function.
+	
+	\vspace{-0.2in}
+	\begin{equation*}
+		\mathbf{\hat{r}}(\textcolor{brown}{\mathbf{R}}, \textcolor{purple}{\mathbf{Q}}) = 
+		\lVert (\textcolor{brown}{\mathbf{R}}\textcolor{red}{\mathbf{P}_{t}}  + \textcolor{purple}{\mathbf{Q}})
+		-  \textcolor{blue}{\mathbf{P}_{t+1}} \rVert ^2_2
+	\end{equation*}
+
+	\end{itemize}
+	\end{minipage}
+\end{frame}
+
+
+
+\begin{frame}[fragile, c]{Least-Squares Rigid Motion Using SVD}
+	\framesubtitle{ICP - Solve Optimal $\mathbf{T}(\textcolor{brown}{\theta}, \textcolor{purple}{\mathbf{Q}})$}
+	\textbf{Iteratively Reweighted Least Squares}
+
+	\begin{minipage}[t]{0.5\textwidth}
+		\begin{figure}
+			\resizebox{0.7\textwidth}{!}{
+				\renewcommand{\tikzRot}{30}
+				\renewcommand{\tikzTrans}{(8,0)}
+				\renewcommand{\tikzShowrobot}{0}
+				\renewcommand{\tikzOneCenter}{0}
+				\resizebox{0.8\textwidth}{!}{
+				\input{./images/cloudpoints_image.tex}}
+			}
+		\end{figure}
+	\end{minipage}
+	\begin{minipage}[t]{0.5\textwidth}
+
+	\vspace{-0.2in}
+	\begin{itemize}
+		\item The optimization step (\textit{find} ($\textcolor{brown}{\mathbf{R}}, \textcolor{purple}{\mathbf{Q}}$)) is based on Singular Value Decomposition (SVD) and we need centroid $\mathbf{c}^k$ alignment.
+
+	\vspace{-0.2in}
+	\begin{equation*}
+		\mathbf{c}^{t+1} = \frac{1}{N}\sum\limits_{i=0}^N \textcolor{blue}{p^{t+1}_i}, 
+		\quad
+		\mathbf{c}^{t} = \frac{1}{N}\sum\limits_{i=0}^N \textcolor{red}{p^{t}_i}
+	\end{equation*}
+
+	\item[-] Subsequently, we align all of the points of $\textcolor{red}{\mathbf{P}_{t}}$ and $\textcolor{blue}{\mathbf{P}_{t+1}}$, using corresponding centroid and we get:
+
+	\vspace{-0.2in}
+	\begin{equation*}
+		\textcolor{red}{\mathcal{P}_{t}} = \textcolor{red}{\mathbf{P}_{t}} - \mathbf{c}^{t}, \quad \textcolor{red}{\mathcal{P}_{t}} = \textcolor{blue}{\mathbf{P}_{t+1}} - \mathbf{c}^{t+1}
+	\end{equation*}
+
+	\end{itemize}
+	\end{minipage}
+\end{frame}
+
+
+\begin{frame}[fragile, c]{Least-Squares Rigid Motion Using SVD}
+	\framesubtitle{ICP - Solve Optimal $\mathbf{T}(\textcolor{brown}{\theta}, \textcolor{purple}{\mathbf{Q}})$}
+	\textbf{Iteratively Reweighted Least Squares}
+
+	\begin{minipage}[t]{0.5\textwidth}
+			\begin{figure}
+				\resizebox{0.7\textwidth}{!}{
+					\renewcommand{\tikzRot}{30}
+					\renewcommand{\tikzTrans}{(8,0)}
+					\renewcommand{\tikzShowrobot}{0}
+					\renewcommand{\tikzOneCenter}{0}
+					\resizebox{0.8\textwidth}{!}{
+					\input{./images/cloudpoints_image.tex}}
+				}
+		\end{figure}
+	\end{minipage}
+	\begin{minipage}[t]{0.5\textwidth}
+
+	\vspace{-0.2in}
+	\begin{itemize}
+		\item[-] For these values, it is easy to compute covariance matrix $\mathbf{H} = \textcolor{blue}{\mathcal{P}_{t}} \cdot \textcolor{red}{\mathcal{P}_{t}}^T $ and make the SVD as:
+
+	\vspace{-0.2in}
+	\begin{equation*}
+		\mathbf{H} = \mathbf{U \Sigma V^T}
+	\end{equation*}
+
+	\item[-] The matrix of rotation is given by:
+
+	\vspace{-0.2in}
+	\begin{equation*}
+		\textcolor{brown}{\mathbf{R}} = \mathbf{V U}^T
+	\end{equation*}
+
+	\item[-] and vector of translation can be computed by:
+
+	\vspace{-0.2in}
+	\begin{equation*}
+		\textcolor{purple}{\mathbf{Q}} = {\mathbf{c}_{t}} - \textcolor{brown}{\mathbf{R}} {\mathbf{c}_{t}}
+	\end{equation*}
+
+	\item Repeat until $\mathbf{\hat{r}}(\textcolor{brown}{\mathbf{R}}, \textcolor{purple}{\mathbf{Q}}) > E_{min}$
+
+	\end{itemize}
+	\end{minipage}
+\end{frame}
+
+
+ 
+\begin{frame}[t, allowframebreaks]
+	\frametitle{References}
+	\bibliography{\BIBREF}
+\end{frame}
+
+
+
+
+\end{document}
