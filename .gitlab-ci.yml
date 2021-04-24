@@ -21,6 +21,7 @@ pdf_stage:
     - find ./ -name '*aula.tex' -exec pdflatex {} \;
     - find ./ -name '*aula.tex' -exec pdflatex {} \;
     - find ./ -name '*.pdf' -exec mv -t ./public {} \;
+    - find ./ -name '*.log' -exec mv -t ./public {} \;
     - ls ./public/
   artifacts:
     paths: 
