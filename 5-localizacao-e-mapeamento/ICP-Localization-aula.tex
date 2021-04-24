@@ -186,15 +186,15 @@
 \end{block}
 \end{frame}
 
-\begin{frame}{Pose Estimation}
-	\framesubtitle{2D LiDAR Data Example}
+% \begin{frame}{Pose Estimation}
+% 	\framesubtitle{2D LiDAR Data Example}
 
-	\textbf{Turtlebot3 and 2D LiDAR Data}:
+% 	\textbf{Turtlebot3 and 2D LiDAR Data}:
 
-	\begin{figure}
-		\includegraphics[width=1\textwidth]{./images/lidarExample.png}
-	\end{figure}
-\end{frame}
+% 	\begin{figure}
+% 		\includegraphics[width=1\textwidth]{./images/lidarExample.png}
+% 	\end{figure}
+% \end{frame}
 
 
 \begin{frame}{Pose Estimation}
@@ -238,42 +238,41 @@
 \end{minipage}
 \end{frame}
 
+\begin{frame}[fragile, t]{Pose Estimation}
+	\framesubtitle{The Iterative Closest Point (ICP) Algorithm}
+	\begin{minipage}{0.6\textwidth}
 
-% \begin{frame}[fragile, t]{Pose Estimation}
-% 	\framesubtitle{The Iterative Closest Point (ICP) Algorithm}
-% 	\begin{minipage}{0.6\textwidth}
+	\textcolor{purple}{\textbf{The Iterative Closest Point (ICP) Algorithm}}
 
-% 	\textcolor{purple}{\textbf{The Iterative Closest Point (ICP) Algorithm}}
+	\begin{algorithm}[H]
+		\renewcommand{\thealgorithm}{}
+        \caption{ICP Algorithm}
+        \begin{algorithmic}
+		\Procedure{Initialization}{$\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$}
+			\State{\HiLi$\mathbf{c}^{t}, \mathbf{c}^{t+1} \gets \text{Centre for }
+			 (\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{c} = [x_c, y_c]$}
+			 \State{$\textcolor{red}{\mathbf{P}_{t}} = \mathbf{T}(0, d(\mathbf{c}^k)) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$}
+		\EndProcedure
+		\While{$\mathbf{\hat{r}}(\textcolor{brown}{\mathbf{R}}, \textcolor{purple}{\mathbf{Q}}) > E_{\text{min}}\text{ or } N > N_{\text{max}}$}
+			\State{Associate($\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$)} \Comment{KNN Algorithm}
+			\State{Solve Optimal $\mathbf{T}(\theta, \mathbf{Q})$} \Comment{Least-Squares}
+		\EndWhile
+        \end{algorithmic}
+    \end{algorithm}
 
-% 	\begin{algorithm}[H]
-% 		\renewcommand{\thealgorithm}{}
-%         \caption{ICP Algorithm}
-%         \begin{algorithmic}
-% 		\Procedure{Initialization}{$\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$}
-% 			\State{\HiLi$\mathbf{c}^{t}, \mathbf{c}^{t+1} \gets \text{Centre for }
-% 			 (\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{c} = [x_c, y_c]$}
-% 			 \State{$\textcolor{red}{\mathbf{P}_{t}} = \mathbf{T}(0, d(\mathbf{c}^k)) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$}
-% 		\EndProcedure
-% 		\While{$\mathbf{\hat{r}}(\textcolor{brown}{\mathbf{R}}, \textcolor{purple}{\mathbf{Q}}) > E_{\text{min}}\text{ or } N > N_{\text{max}}$}
-% 			\State{Associate($\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$)} \Comment{KNN Algorithm}
-% 			\State{Solve Optimal $\mathbf{T}(\theta, \mathbf{Q})$} \Comment{Least-Squares}
-% 		\EndWhile
-%         \end{algorithmic}
-%     \end{algorithm}
-
-% \end{minipage}
-% \begin{minipage}{0.4\textwidth}
-% 	\begin{figure}
-% 		\resizebox{0.8\textwidth}{!}{
-% 			\renewcommand{\tikzRot}{40}
-% 			\renewcommand{\tikzTrans}{(6,0)}
-% 			\renewcommand{\tikzShowrobot}{0}
-% 			\resizebox{0.8\textwidth}{!}{
-% 			\input{./images/cloudpoints_image.tex}}
-% 		}
-% 	\end{figure}
-% \end{minipage}
-% \end{frame}
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+	\begin{figure}
+		\resizebox{0.8\textwidth}{!}{
+			\renewcommand{\tikzRot}{40}
+			\renewcommand{\tikzTrans}{(6,0)}
+			\renewcommand{\tikzShowrobot}{0}
+			\resizebox{0.8\textwidth}{!}{
+			\input{./images/cloudpoints_image.tex}}
+		}
+	\end{figure}
+\end{minipage}
+\end{frame}
 
 % \begin{frame}[fragile, t]{Pose Estimation}
 % 	\framesubtitle{The Iterative Closest Point (ICP) Algorithm}
