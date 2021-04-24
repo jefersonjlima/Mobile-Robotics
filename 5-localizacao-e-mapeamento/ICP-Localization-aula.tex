@@ -248,7 +248,7 @@
 		% \renewcommand{\thealgorithm}{}
         \caption{ICP Algorithm}
         \begin{algorithmic}
-		\Procedure{Initialization}{}
+		\Procedure{Initialization}{$\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$}
 			\State{$\mathbf{c}^{t}, \mathbf{c}^{t+1} \gets \text{Centre for }
 			 (\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{c} = [x_c, y_c]$}
 			 \State{$\textcolor{red}{\mathbf{P}_{t}} = \mathbf{T}(0, d(\mathbf{c}^k)) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$}
