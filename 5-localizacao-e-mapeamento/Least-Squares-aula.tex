@@ -11,7 +11,6 @@
 \usepackage{copyrightbox}
 \DeclareMathOperator*{\argmin}{arg\,min}
 
-
 \usepackage{graphicx,hyperref,url,pgfplots}
 \usepackage{amsmath} 
 \usepackage{array,booktabs}
@@ -262,6 +261,28 @@
 	\end{minipage}
 \end{frame}
 
+\begin{frame}[fragile, c]{Resume}
+	\framesubtitle{ICP - Solve Optimal $\mathbf{T}(\textcolor{brown}{\theta}, \textcolor{purple}{\mathbf{Q}})$}
+	\begin{algorithm}[H]
+		\renewcommand{\thealgorithm}{}
+        \caption{ICP Algorithm}
+        \begin{algorithmic}
+		% \Procedure{Initialization}{$\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$}
+		\Procedure{Initialization}{}
+			\State{$\mathbf{s}^{t}, \mathbf{s}^{t+1} \gets \text{Centre for }
+			(\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}})$} \Comment{$\mathbf{s}^{+} = [x_c^k, y_c^k]$}
+			\State{$\textcolor{red}{\mathbf{P}_{t}} = \mathbf{T}(0, \text{diff}(\mathbf{s}^{+})) \cdot \textcolor{red}{\mathbf{P}_{t+1}}$}
+		\EndProcedure
+		\While{$d(\mathbf{T}(\theta, \mathbf{Q})) > E_{\text{max}}\text{ or } N > N_{\text{max}}$}
+			\State{Associate($\textcolor{red}{\mathbf{P}_{t}},\textcolor{blue}{\mathbf{P}_{t+1}}$)} \Comment{KNN Algorithm}
+			\State{Solve Optimal $\mathbf{T}(\theta, \mathbf{Q})$} \Comment{Least-Squares}
+			\State{$N++$}
+		\EndWhile
+		\State{\textbf{Return} $\mathbf{T}(\theta, \mathbf{Q})$}
+	\end{algorithmic}
+    \end{algorithm}
+
+\end{frame}
 
  
 \begin{frame}[t, allowframebreaks]
