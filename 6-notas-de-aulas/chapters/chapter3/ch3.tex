@@ -4,15 +4,42 @@
  
 \section{Introdução}\label{intro}
 
-\section{Estimação de Estados}
-\section{Filtro Bayesiano}
+As técnicas de localização aplicadas na robótica móvel fornecem uma estimativa da posição do um robô em relação as coordenas iniciais, sendo este um mapa ou qualquer outro modelo de referência.
+
+A percepção destas coordenadas se dá através de uma série de sensores que fornecem um estimativa da localização o robô durante determinado movimento. Esse predição do estado é executada interativamente em intervalos de tempo, determinados pela frequência de operação dos sensores. 
+
+Assim, a crença do estado atual pode ser encontrada e os dados adqueridos dos sensores, podem então, ser traduzidos em mapas a qual o mesmo robô ou outros robôs podem recorrer para melhorar a crença da posição atual.
+
+\section{Filtro de Bayes}
+
+O Filtro de Bayes é o algoritmo em diversas técnicas de auto-localização onde pretende-se resolver a manutenção da crença da posição de um robô, com base nos seus estados. O algoritmo calcula a densidade de probabilidade que se traduz na crença do robô a partir de dados dos sensores e o modelo de controle do robô  \cite{thrun2006probalistic}. A solução deste problema de auto-localização, utilizando-se da inferência bayesiana, está em encontrar o valor esperado da posição em cada instante de tempo, conforme a equação Eq. \ref{eq:bayes1}.
+
+\begin{equation}
+    \label{eq:bayes1}
+    \hat X_t = E\left[X_t| z_t, u_t\right] = \displaystyle \int\limits_x x p(X_t = x| z_t, u_t)\text{d}x
+\end{equation}
+
+
+Para este problema, o algoritmo do Filtro de Bayes apresenta-se como uma forma recursiva, onde $\text{Bel}(x_t)$ representa a função densidade da crença no tempo $t$ e $\text{Bel}(x_{t-1})$ a função no intervalo de tempo anterior. A relação entre o intervalo de tempo das interações do filtro, será definida, conforme citado acima pela velocidade de operação dos sensores envolvidos, aqui apresentados como $z_t$.
+
+O termo $u_t$ representa a variável de ação do modelo ou variável de controle. A esta primeira fase do algoritmo, a qual calcula a distribuição em relação a crença dos estados $x_{t-1}$ e $u_t$, é chamada de predição e o resultado da função crença é dada por $\overline{\text{Bel}}(x_t)$.
 
 
 
+\begin{algorithm}[H]
+    \caption{Filtro de Bayes}
+    \begin{algorithmic}[1]
+    \Procedure{predição}{$\text{Bel}(x_{t-1}, u_t)$}
+        \State $\overline{\text{Bel}}= \displaystyle\int P(x_t| u_t, x_{t-1})\text{Bel}(x_{t-1})\text{d}x_t$
+    \EndProcedure
+    \Procedure{Correção}{$\overline{\text{Bel}}(x_{t}, z_t)$}
+        \State ${\text{Bel}}= \displaystyle\textcolor{white}{\int}  \eta P(z_t| x_{t})\overline{\text{Bel}}(x_{t-1})$
+    \EndProcedure
+    \State \textbf{Retorna} $\text{Bel}(x_t)$
+    \end{algorithmic}
+\end{algorithm}
 
 
-Teorema de Bayes
-   
   \begin{itemize}
     \item Estado Estimado $x$ de um sistema observado $z$ e com controle em $u$.
     \item Objetivo:
@@ -25,7 +52,7 @@ Teorema de Bayes
  
 
 \begin{equation*}
-    \text{Bel}(x_t) = \eta P(z_t| x_t) \int P(x_t| u_t, x_{t-1}) \text{Bel}(x_{t-1})\text{d}x_{t-1}
+    \text{\text{Bel}}(x_t) = \eta P(z_t| x_t) \int P(x_t| u_t, x_{t-1}) \text{Bel}(x_{t-1})\text{d}x_{t-1}
 \end{equation*}
 
 
