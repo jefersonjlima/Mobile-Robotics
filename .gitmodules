@@ -1,3 +1,6 @@
 [submodule "template-beamer"]
 	path = template-beamer
 	url = git@gitlab.com:cursoseaulas/template-beamer.git
+[submodule "mobile_robots_examples"]
+	path = mobile_robots_examples
+	url = git@github.com:jefersonjlima/mobile_robots_examples.git
