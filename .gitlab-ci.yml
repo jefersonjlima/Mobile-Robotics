@@ -15,6 +15,7 @@ pdf_stage:
     - find ./ -name '*.png' -exec mv  -t ./images {} \;
 #    - find ./ -name '*.ipynb' -exec mv  -t ./public {} \;
     - cp 1-introducao-a-robotica-movel/beamerthemesimple.sty ./
+    - cp 6-notas-de-aulas/krantz.cls ./
     - ls
     - find ./ -name '*aula.tex' -exec pdflatex {} \;
     - find ./ -name '*aula.aux' -exec bibtex {} \;
@@ -25,7 +26,7 @@ pdf_stage:
     - ls ./public/
   artifacts:
     paths: 
-      - public  # instruct GitLab to keep the main.pdf file
+      - public  
   only:
     - master
 
