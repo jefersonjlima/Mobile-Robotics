@@ -2,7 +2,7 @@
 \chapter{Conceitos Básicos}
 
  
-\section{Introdução}\label{intro}
+\section{Introdução}\label{intro::cap3}
 
 As técnicas de localização aplicadas na robótica móvel fornecem uma estimativa da posição do um robô em relação as coordenas iniciais, sendo este um mapa ou qualquer outro modelo de referência.
 
@@ -16,140 +16,108 @@ O Filtro de Bayes é o algoritmo em diversas técnicas de auto-localização ond
 
 \begin{equation}
     \label{eq:bayes1}
-    \hat X_t = E\left[X_t| z_t, u_t\right] = \displaystyle \int\limits_x x p(X_t = x| z_t, u_t)\text{d}x
+    \hat X_t = E\left[X_t| z_t, u_t\right] = \displaystyle \int\limits_x x P(X_t = x| z_t, u_t)\text{d}x
 \end{equation}
 
 
-Para este problema, o algoritmo do Filtro de Bayes apresenta-se como uma forma recursiva, onde $\text{Bel}(x_t)$ representa a função densidade da crença no tempo $t$ e $\text{Bel}(x_{t-1})$ a função no intervalo de tempo anterior. A relação entre o intervalo de tempo das interações do filtro, será definida, conforme citado acima pela velocidade de operação dos sensores envolvidos, aqui apresentados como $z_t$.
-
-O termo $u_t$ representa a variável de ação do modelo ou variável de controle. A esta primeira fase do algoritmo, a qual calcula a distribuição em relação a crença dos estados $x_{t-1}$ e $u_t$, é chamada de predição e o resultado da função crença é dada por $\overline{\text{Bel}}(x_t)$.
+Para este problema, o algoritmo do Filtro de Bayes apresenta-se como uma forma recursiva, Eq. \ref{eq:bayes2}, onde $\text{Bel}(x_t)$ representa a função densidade da crença no tempo $t$ e $\text{Bel}(x_{t-1})$ a função no intervalo de tempo anterior. A relação entre o intervalo de tempo das interações do filtro, será definida, conforme citado acima pela velocidade de operação dos sensores envolvidos, aqui apresentados como $z_t$. O termo $u_t$ representa a variável de ação do modelo ou variável de controle.
 
 
+\begin{equation}
+    \label{eq:bayes2}
+    \text{\text{Bel}}(x_t) = \eta P(z_t| x_t) \int P(x_t| u_t, x_{t-1}) \text{Bel}(x_{t-1})\text{d}x_{t-1}
+\end{equation}
+
+
+A esta primeira fase do algoritmo, a qual calcula a distribuição em relação a crença dos estados $x_{t-1}$ e $u_t$, é chamada de predição e o resultado da função crença é dada por $\overline{\text{Bel}}(x_t)$.
+
+Na segunda fase, chamada aqui de correção, a crença $\overline{\text{Bel}}(x_t)$ é multiplicada pela probabilidade dos estados observados em relação ao sensores $z_t$.
 
 \begin{algorithm}[H]
     \caption{Filtro de Bayes}
     \begin{algorithmic}[1]
-    \Procedure{predição}{$\text{Bel}(x_{t-1}, u_t)$}
+    \Procedure{predição}{$\text{Bel}(x_{t-1}), u_t$}
         \State $\overline{\text{Bel}}= \displaystyle\int P(x_t| u_t, x_{t-1})\text{Bel}(x_{t-1})\text{d}x_t$
     \EndProcedure
-    \Procedure{Correção}{$\overline{\text{Bel}}(x_{t}, z_t)$}
-        \State ${\text{Bel}}= \displaystyle\textcolor{white}{\int}  \eta P(z_t| x_{t})\overline{\text{Bel}}(x_{t-1})$
+    \Procedure{Correção}{$\overline{\text{Bel}}(x_{t}), z_t$}
+        \State ${\text{Bel}}= \displaystyle\textcolor{white}{\int}  \eta P(z_t| x_{t})\overline{\text{Bel}}(x_{t})$
     \EndProcedure
-    \State \textbf{Retorna} $\text{Bel}(x_t)$
+    \State Normatiza $\eta \displaystyle\int \text{Bel}(x_t)\text{d}x_t = 1$
+    \State \textbf{Retorne} $\text{Bel}(x_t)$
+
     \end{algorithmic}
 \end{algorithm}
 
+O algoritmo finaliza com a crença normatizada e a estimativa da posição do robô é calculada. O algoritmo do Filtro de Bayes apresentado aqui é aplicável apenas a uma classe de problemas simples, no entanto serve de base para implementações mais complexas onde a cinemática e dinâmica do sistemas são consideradas, como no exemplo do Filtro de Kalman a ser apresentado abaixo.
 
-  \begin{itemize}
-    \item Estado Estimado $x$ de um sistema observado $z$ e com controle em $u$.
-    \item Objetivo:
-  \end{itemize}
+\section{Filtro de Kalman}
 
-  \begin{equation}
-    P(x|z,u)
-  \end{equation}
+O Filtro de Kalman é provavelmente a implementação mais aplicada com base no Filtro de Bayes. Proposto por Rudolph Emil Kalman, em 1950 como técnica para filtragem e predição de sistemas lineares. O Filtro proposto por Kalman resolve o problema de observação dos sensores externos do robô, considerando inerentes a leitura dos sensores. \cite{thrun2006probalistic,romero2014robotica}.
 
- 
+A garantia da densidade de probabilidade, apresentada em Eq. \ref{eq:bayes2}, é dada por uma aproximação do método apresentado anteriormente. Nesta aproximação o modelo de movimento do robô e o modelo do observador, com base nos sensores, é representado por densidades gaussianas multivariáveis.
 
-\begin{equation*}
-    \text{\text{Bel}}(x_t) = \eta P(z_t| x_t) \int P(x_t| u_t, x_{t-1}) \text{Bel}(x_{t-1})\text{d}x_{t-1}
-\end{equation*}
+A função de densidade gaussiana $P(X = x)$, sendo um $X$ um vetor, pode ser expressa na seguinte forma ${P(X = x) \sim N(\mu, \sigma^2)}$, onde $\mu$ representa a média e $\sigma^2$ a variância da distribuição, conforme a equação Eq. \ref{eq:gauss1}.
 
-
-    \begin{itemize}
-        \item Predição:
-        
-        \begin{equation*}
-            \overline{\text{Bel}}(x_t) = \int P(x_t| u_t, x_{t-1}) \text{Bel}(x_{t-1})\text{d}x_{t-1}
-        \end{equation*}
-
-        \item Correção:
-
-        \begin{equation*}
-            \text{Bel}(x_t) = \eta P(z_t| x_t) \int P(x_t| u_t, x_{t}) \overline{\text{Bel}}(x_{t})\text{d}x_{t-1}
-        \end{equation*}
-    \end{itemize}
-
-
-Distribuição Normal (Gaussiana)
-
-\begin{itemize}
-    \item \textbf{Uma Variável:} $\color{blue}{P(x) \sim N(\mu, \sigma^2)}$
-\end{itemize}
-
-\begin{equation*}
-    P(x) = \dfrac{1}{\sqrt{2\pi\sigma^2}}\cdot 
+\begin{equation}
+    \label{eq:gauss1}
+    P(X = x) = \dfrac{1}{\sqrt{2\pi\sigma^2}}\cdot 
     \exp\left\{-\frac{(x-\mu)^2}{2\sigma^2}\right\}
-\end{equation*}
+\end{equation}
 
-\input{chapters/chapter3/figures/gauss_1d_image.tex}
-
-
-
-\begin{itemize}
-    \item Bivariável: $\color{blue}{P(\mathbf{x}) \sim N(\mu, \textstyle\sum)}$
-\end{itemize}
+A Figura \ref{fig::gauss1} apresenta três funções de densidade gaussiana, com os valores respectivamente para $\mu_i = \{0,0,-2\}$ e $\sigma^2_i = \{1,2,1\}$.
 
 
-\input{chapters/chapter3/figures/gauss_2d_image.tex}
+\begin{figure}[!ht]
+    \centering
+    \input{chapters/chapter3/figures/gauss_1d_image.tex}
+    \caption{Representação de três funções de Distribuição Normal}
+    \label{fig::gauss1}
+\end{figure}
+
+Um dos requisitos para aplicação do Filtro de Kalman é que o modelo determinístico de observação se haja linear para que haja uma correta aproximação com a densidade de probabilidade, conforme é mostrado na equação Eq. \ref{eq::linear1d}.
 
 
+\begin{equation}
+    \label{eq::linear1d}
+    \left.
+    \begin{aligned}
+            X & \sim N\left(\mu, \sigma^2\right)\\
+            Y & = aX + b\\
+    \end{aligned} \right\}
+    \quad \Rightarrow \quad Y \sim N\left(a\mu+b\right)
+\end{equation}
+
+Os coeficientes $a$ e $b$ são coeficientes lineares do modelo. A equação Eq. \ref{eq::linear1d} possui apenas um estado, no entanto sistemas complexos são tipicamente representados diversos estados e diversos sensores.
+Sistemas robóticos possuem vários estados, sendo assim a densidade de probabilidade ${P(\mathbf{x}) \sim N(\boldsymbol{\mu}, \textstyle\sum)}$ é formada por uma equação multivariável, onde $\boldsymbol{\mu}$ representa o vetor das médias e ${\textstyle\sum}$ a matriz de covariância, conforme pode ser visto na Equação \ref{eq::linearNd}.
+
+\begin{equation}
+    \label{eq::linearNd}
+    P(\mathbf{x}) = \frac{1}{\sqrt{(2\pi)^d\|\textstyle\sum\|}}\exp\left\{-\frac{1}{2} (\mathbf{x}-\boldsymbol\mu)^T\textstyle\sum{}^{-1}(\mathbf{x}-\boldsymbol\mu)\right\}
+\end{equation}
+
+Desta forma, a Figura \ref{fig::gauss2} apresenta a distribuição normal para um sistema bivariável.
 
 
-\begin{itemize}
-    \item Bivariável: $\color{blue}{p(\mathbf{x}) \sim N(\mu, \textstyle\sum)}$
-\begin{equation*}
-    P(\mathbf{x}) = \frac{1}{(2\pi)^{\frac{d}{2}\|\textstyle\sum\|^{\frac{1}{2}}}}\exp\left\{-\frac{1}{2} (\mathbf{x}-\mu)^T\textstyle\sum{}^{-1}(\mathbf{x}-\mu)\right\}
-\end{equation*}
+\begin{figure}[!ht]
+    \centering
+    \input{chapters/chapter3/figures/gauss_2d_image.tex}
+    \caption{Distribuição Normal Bivariável}
+    \label{fig::gauss2}
+\end{figure}
 
-\item Para um sistema de duas Variável:
+Desta forma, a densidade de probabilidade, conforme é mostrado na equação abaixo:
 
-\begin{equation*}
-    p(\mathbf{x}) \sim N(\mu, \textstyle\sum)
-\end{equation*}
-    
-logo:     
+\begin{equation}
+    \left.
+    \begin{aligned}
+            X & \sim N\left(\boldsymbol\mu, \textstyle\sum\right)\\
+            Y & = AX + B\\
+    \end{aligned} \right\}
+    \quad \Rightarrow \quad Y \sim N\left( A\boldsymbol\mu+B, A\textstyle\sum A^T \right)
+\end{equation}
 
-\begin{equation*}
-    \begin{pmatrix}
-        X_1 \\
-        X_2
-    \end{pmatrix}  \sim \mathcal{N} \left( \begin{pmatrix}
-        \mu_1 \\
-        \mu_2
-    \end{pmatrix} , \begin{pmatrix}
-        \sigma^2_1 &  \rho \sigma_1 \sigma_2 \\
-        \rho \sigma_1 \sigma_2 &  \sigma^2_2
-    \end{pmatrix} \right)
-\end{equation*}
-\end{itemize}
+Para o caso multivariável, $A$ e $B$ são matrizes $n \times n$ e $n \times l$, respectivamente, sendo $n$ o número de estados e $l$ o número de variáveis de controle.
 
-
-Propriedades
-\begin{itemize}
-    \item Caso Univariavel:
-    \begin{equation}
-        \left.
-        \begin{aligned}
-                X & \sim N\left(\mu, \sigma_2\right)\\
-                Y & = aX + b\\
-        \end{aligned} \right\}
-        \quad \Rightarrow \quad Y \sim N\left(a\mu+b\right)
-    \end{equation}
-    \item Caso Multivariável:
-    \begin{equation}
-        \left.
-        \begin{aligned}
-                X & \sim N\left(\mu, \textstyle\sum\right)\\
-                Y & = AX + B\\
-        \end{aligned} \right\}
-        \quad \Rightarrow \quad Y \sim N\left( A\mu+B, A\textstyle\sum A^T \right)
-    \end{equation}
-\end{itemize}
-
-
-Kalman Filter
-Modelo determinístico e estocástico 
 
 \begin{itemize}
     \item Num \textcolor{blue}{modelo determinístico} o resultado do sistema é pré determinado em função dos dados de entrada, exemplo:
@@ -758,13 +726,6 @@ Algoritmo
 % \end{frame}
 
 
-
-
-
-
-
-\section{Filtro de Kalman}
-\section{Filtro de Kalman Estendido}
 
 
 % \section{Glossary}

@@ -16,6 +16,6 @@
         \addplot [smooth, thick, red] {normalpdf(x,-2,2)} node[] {};
         \addplot [smooth, black]      {normalpdf(x,0,2)} node[] {};
         \addplot [smooth, blue]       {normalpdf(x,-1,1.3)} node[] {};
-        \legend{model, sensor a, belief};
+        \legend{$P( x_t | u_t,x_{t-1})$ \\ $P(z_t | x_t)$ \\ $\text{Bel}(x_t)$\\};
       \end{axis}
     \end{tikzpicture}
