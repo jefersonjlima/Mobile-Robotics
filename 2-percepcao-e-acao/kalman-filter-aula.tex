@@ -76,6 +76,8 @@
 \end{frame}
 
 
+
+
 \begin{frame}[t]{Bayes theorem}
     \framesubtitle{Robot Model}
 
@@ -101,8 +103,8 @@
 
             \begin{itemize}
                 \item $x_{t}, x_{t-1}$ model states.
-                \item $\textcolor{pink}z_t$ sensor
-                \item Model: $P\left(\textcolor{pink}{z_t} | \textcolor{blue}{u_t}, x_{t-1}\right)$
+                \item $\textcolor{purple}{z_t}$ sensor
+                \item Model: $P\left(\textcolor{purple}{z_t} | \textcolor{blue}{u_t}, x_{t-1}\right)$
             \end{itemize}
             
 
@@ -114,33 +116,8 @@
 \end{frame}
 
 
-\begin{frame}{Bayes Filter}
-    \framesubtitle{Content Review}
-    
-    \begin{block}{}
-        \begin{equation*}
-            \text{Bel}(x_t) = \eta P(z_t| x_t) \int P(x_t| u_t, x_{t-1}) \text{Bel}(x_{t-1})\text{d}x_{t-1}
-        \end{equation*}
-    \end{block}
-
-    \begin{itemize}
-        \item Prediction:
-        
-        \begin{equation*}
-            \overline{\text{Bel}}(x_t) = \int P(x_t| u_t, x_{t-1}) \text{Bel}(x_{t-1})\text{d}x_{t-1}
-        \end{equation*}
-
-        \item Correção:
-
-        \begin{equation*}
-            \text{Bel}(x_t) = \eta P(z_t| x_t) \int P(x_t| u_t, x_{t}) \overline{\text{Bel}}(x_{t})\text{d}x_{t-1}
-        \end{equation*}
-    \end{itemize}
-\end{frame}
-
-
 \begin{frame}{Distribuição Normal (Gaussiana)}
-    \framesubtitle{Revisão}  
+    \framesubtitle{Content Review}
     \begin{itemize}
         \item \textbf{Uma Variável:} $\color{blue}{P(x) \sim N(\mu, \sigma^2)}$
     \end{itemize}
@@ -264,7 +241,7 @@
         \end{tabular}   
     \begin{block}{Bayes Filter}
         \begin{equation*}
-            \color{blue}{\text{Bel}}(x_t)  \color{gray}{=\eta P(z_t|x_t)\displaystyle\int P(x_t| u_t,x_{t-1})}\color{blue}{\color{blue}{\text{Bel}}(x_{t-1})}\color{gray}{)\text{d}x_{t-1}}
+            \color{blue}{\text{Bel}}(x_t)  \color{gray}{=\eta P(z_t|x_t)\displaystyle\int P(x_t| u_t,x_{t-1})}\textcolor{blue}{\text{Bel}(x_{t-1})}\text{d}x_{t-1}
         \end{equation*}
     \end{block}
 \end{frame}
@@ -295,7 +272,7 @@
                 z_t &= C_t x_t
             \end{split}
         \end{equation*}
-        \item Um sistem é observável se o posto da matriz $\mathcal {O}$ é igual a $n$.
+        \item Um sistema é observável se o posto da matriz $\mathcal {O}$ é igual a $n$.
         \begin{equation*}
             \mathcal {O}={\begin{bmatrix}C_t\\C_tA_t\\C_tA^{2}_t\\\vdots \\C_tA^{n-1}_t\end{bmatrix}, \quad \text{rank}(\mathcal {O}}) = n
         \end{equation*}
