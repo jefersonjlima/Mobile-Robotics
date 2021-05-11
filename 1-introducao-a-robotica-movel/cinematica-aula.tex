@@ -607,7 +607,6 @@
     \end{itemize}
 \end{frame}
 
-
 \begin{frame}{Cinemática de Robôs}
     \framesubtitle{Conceitos}
     \begin{itemize}
@@ -663,7 +662,7 @@
         =
         \left[
             \begin{matrix}
-                  & \color{green}{{}_M^I\mathbf{R}_z(\phi)} &   \\ \hline
+                  & \color{brown}{{}_M^I\mathbf{R}_z(\phi)} &   \\ \hline
                 0 & 0                                       & 0 \\
             \end{matrix} \right.
             \left.
@@ -741,7 +740,7 @@
               assim, a velocidade tangencial do veiculo é dada por:
 
               \begin{equation}
-                  v (t) =\omega (t) R(t) = \frac{ v_R(t) - v_L(t)}{2}
+                  v (t) =\omega (t) R(t) = \frac{ v_R(t) + v_L(t)}{2}
               \end{equation}
     \end{itemize}
 \end{frame}
@@ -807,11 +806,10 @@
 
 
 \begin{frame}{Cinemática de Robôs}
-    \framesubtitle{Robô Diferencial}
+    \framesubtitle{ From Continuous-Time Domain to Microcontroller Code}
     \begin{itemize}
-        \item Mas o \textit{encoder} fornece apenas a posição das rodas, como calcular a velocidade?
-
-              ... \textbf{Aproximação de Euler}, Aproximação de Tustin, Transformação Bilinear...
+        \item  We can be written in discrete form using Euler integration and evaluated at discrete time
+        instants $t = kTs$ , $k = 0, 1, 2, \cdots$ where $T$ s is the following sampling interval:
 
               \begin{equation*}
                   \begin{split}
