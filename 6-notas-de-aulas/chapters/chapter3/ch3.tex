@@ -111,98 +111,81 @@ Desta forma, a densidade de probabilidade, conforme é mostrado na equação aba
     \left.
     \begin{aligned}
             X & \sim N\left(\boldsymbol\mu, \textstyle\sum\right)\\
-            Y & = AX + B\\
+            Y & = {A}X + {B}\\
     \end{aligned} \right\}
-    \quad \Rightarrow \quad Y \sim N\left( A\boldsymbol\mu+B, A\textstyle\sum A^T \right)
+    \quad \Rightarrow \quad Y \sim N\left( {A}\boldsymbol\mu+B, {A}\textstyle\sum {A}^T \right)
 \end{equation}
 
-Para o caso multivariável, $A$ e $B$ são matrizes $n \times n$ e $n \times l$, respectivamente, sendo $n$ o número de estados e $l$ o número de variáveis de controle.
+Para o caso multivariável, ${A}$ e ${B}$ são matrizes $n \times n$ e $n \times l$, respectivamente, sendo $n$ o número de estados e $l$ o número de variáveis de controle.
 
+Definida a funções de densidade de probabilidade para um sistema multivariável, tem-se agora que definir o modelo do sistema.
+No modelo estocástico do sistema do robô, as incertezas serão acrescentadas, conforme visto pela equação Eq. \ref{eq::mdinamic}.
 
-\begin{itemize}
-    \item Num \textcolor{blue}{modelo determinístico} o resultado do sistema é pré determinado em função dos dados de entrada, exemplo:
-    \begin{align*} 
-        x_t &= A_t x_{t-1} + B_t u_t\\ 
-        z_t &= C_t x_t
-    \end{align*}
-    \item Num \textcolor{blue}{modelo estocástico} o resultado do sistema não depende somente dos dados de entrada, mas também de outros fatores, normalmente
-    aleatórios:
-    \begin{align} 
-        x_t &= A_t x_{t-1} + B u_t +  w_t\\ 
-        z_t &= C_t x_t + v_t
-    \end{align}
+    \begin{equation} 
+        \label{eq::mdinamic}
+        \begin{aligned}
+            x_t &= {A} x_{t-1} + {B} u_t +  w_t\\ 
+        z_t &= {C} x_t + v_t
+        \end{aligned}
+        \end{equation}
+
+    Sendo: 
+
     \begin{itemize}
-        \item $A_t$ Matriz $(n \times n)$ que descreve os estados do modelo.
-        \item $B_t$ Matriz $(n \times l)$ que descreve os estados do controle.
-        \item $C_t$ Matrix $(k\times n)$ sendo os estados de $x_t$.
-        \item $ w_t$ Variável aleatória do processo com distribuição normal e covariância $Q_t$.
-        \item $v_t$ Rúido aleatório com distribuição normal e covariância de $R_t$.
+        \item[-] ${A}_t$ Matriz $(n \times n)$ que descreve os estados do modelo.
+        \item[-] ${B}_t$ Matriz $(n \times l)$ que descreve os estados do controle.
+        \item[-] ${C}_t$ Matrix $(k\times n)$ sendo os estados de $x_t$.
+        \item[-] $w_t$ Variável aleatória do processo com distribuição normal e covariância ${Q}$.
+        \item[-] $v_t$ Rúido aleatório com distribuição normal, covariância de ${R}$.
     \end{itemize}
-\end{itemize}
 
+Para solução numérica algumas considerações precisam ser aplicadas a equação Eq. \ref{eq:bayes2}, conforme mostra a tabela abaixo:
 
-Representação Grafica
-    
-\input{chapters/chapter3/figures/gauss_1da2_image.tex}
-
-
-\begin{tabular}{r l}
-    $\color{blue}{\text{Bel}}(x_t)$ & = $P(x_t| u_1, z_1,  \cdots, z_t)$ \\
-    Bayes & = $\eta P(z_t|x_t,  u_1, z_1,  \cdots,  u_t)P(x_t, u_1, z_1, \cdots, u_t)$ \\
-    Markov & = $\eta P(z_t|x_t)P(x_t, u_1, z_1, \cdots, u_t)$ \\
-    Prob. Total & = $\eta P(z_t|x_t)\displaystyle\int P(x_t| u_1, z_1, \cdots, u_t,x_{t-1})$ \\
-                &  \quad \quad \quad $P(x_{t-1}| u_1, z_1, \cdots, u_t)\text{d}x_{t-1}$\\
-    Markov & = $\eta P(z_t|x_t)$ $\displaystyle\int P(x_t| u_t,x_{t-1})P(x_{t-1}| u_1, z_1, \cdots, u_t)\text{d}x_{t-1}$ \\
-    Markov & = $\eta P(z_t|x_t)$ $\displaystyle\int P(x_t| u_t,x_{t-1})\color{blue}{P(x_{t-1}| u_1, z_1, \cdots, z_{t-1}})\color{gray}{\text{d}x_{t-1}}$ \\
+\begin{tabular}{l l}
+    ${\text{Bel}}(x_t)$ & $\Rightarrow\textcolor{white}{\displaystyle\int} P(x_t| u_1, z_1,  \cdots, z_t)$ \\
+    Bayes & $\Rightarrow\textcolor{white}{\displaystyle\int} \eta P(z_t|x_t,  u_1, z_1,  \cdots,  u_t)P(x_t, u_1, z_1, \cdots, u_t)$ \\
+    Markov & $\Rightarrow\textcolor{white}{\displaystyle\int} \eta P(z_t|x_t)P(x_t, u_1, z_1, \cdots, u_t)$ \\
+    Prob. Total & $\Rightarrow\textcolor{white}{\displaystyle\int} \eta P(z_t|x_t)\displaystyle\int P(x_t| u_1, z_1, \cdots, u_t,x_{t-1})P(x_{t-1}| u_1, z_1, \cdots, u_t)\text{d}x_{t-1}$\\
+    Markov & $\Rightarrow\textcolor{white}{\displaystyle\int} \eta P(z_t|x_t)$ $\displaystyle\int P(x_t| u_t,x_{t-1})P(x_{t-1}| u_1, z_1, \cdots, u_t)\text{d}x_{t-1}$ \\
+    Markov & $\Rightarrow\textcolor{white}{\displaystyle\int} \eta P(z_t|x_t)$ $\displaystyle\int P(x_t| u_t,x_{t-1})\color{blue}{P(x_{t-1}| u_1, z_1, \cdots, z_{t-1}})\color{gray}{\text{d}x_{t-1}}$ \\
 \end{tabular}   
 
+Temos então:
+
 \begin{equation*}
-    \color{blue}{\text{Bel}}(x_t)  \color{gray}{=\eta P(z_t|x_t)\displaystyle\int P(x_t| u_t,x_{t-1})}\color{blue}{\color{blue}{\text{Bel}}(x_{t-1})}\color{gray}{)\text{d}x_{t-1}}
+    \textcolor{blue}{\text{Bel}(x_t)} =\eta \textcolor{purple}{P(z_t|x_t)}\displaystyle\int \textcolor{red}{P(x_t| u_t,x_{t-1})}\textcolor{gray}{\text{Bel}(x_{t-1})}\text{d}x_{t-1}
 \end{equation*}
 
-Algoritmo
-\begin{itemize}
-    \item Iniciando as Variável:
-    \begin{equation}
-        \text{Bel}(x_0) = N\left(x_0, \mu_o, {\textstyle\sum} _0\right)
-    \end{equation}
-    \item Tempo de convergência do filtro.
-\end{itemize}
 
+Desta forma, o Filtro de Kalman fornece a densidade de probabilidade para posição do robô, por exemplo. De uma forma simplificada, a solução de Kalman é demonstrada pelo figura \ref{fig::kalm1}.
 
+A figura \ref{fig::kalm1} demonstra graficamente a equação acima, com relação função de densidade de probabilidade em relação aos estados do robô.
+    
+\begin{figure}[!ht]
+    \centering
+    \input{chapters/chapter3/figures/gauss_1da2_image.tex}
+    \caption{Exemplo Gráfico da Solução por Filtro de Kalman}
+    \label{fig::kalm1}
+\end{figure}
 
-\begin{itemize}
-    \item Com base na equação:
-    \begin{equation*}
-        \color{blue}{\text{Bel}}(x_t)  \color{gray}{=\eta P(z_t|x_t)\displaystyle\int P(x_t| u_t,x_{t-1})}\color{blue}{\color{blue}{\text{Bel}}(x_{t-1})}\color{gray}{)\text{d}x_{t-1}}
-    \end{equation*}
-    \item E considerando que o sistema abaixo é linear e observável:
-    \begin{equation*}
-        \begin{split}
-            x_t &= A_t x_{t-1} + B_t u_t\\ 
-            z_t &= C_t x_t
-        \end{split}
-    \end{equation*}
-    \item Um sistem é observável se o posto da matriz $\mathcal {O}$ é igual a $n$.
-    \begin{equation*}
-        \mathcal {O}={\begin{bmatrix}C_t\\C_tA_t\\C_tA^{2}_t\\\vdots \\C_tA^{n-1}_t\end{bmatrix}, \quad \text{rank}(\mathcal {O}}) = n
-    \end{equation*}
-\end{itemize}
+O estado inicial do sistema é fator crucial para convergência do algoritmo de Kalman, sendo definido por:
 
+\begin{equation}
+    \text{Bel}(x_0) = N\left(x_0, \mu_o, {\textstyle\sum} _0\right)
+\end{equation}
 
+A proposta de filtro é aplicavel, apenas se o sistema é observável, desta forma a verificação de tal condição é dada pelo posto  da matriz $\mathcal {O}$ é igual a $n$, conforme mostrado abaixo.
+\begin{equation*}
+    \mathcal {O}={\begin{bmatrix}C_t\\C_tA_t\\C_tA^{2}_t\\\vdots \\C_tA^{n-1}_t\end{bmatrix}, \quad \text{rank}(\mathcal {O}}) = n
+\end{equation*}
 
-Algoritmo - Prediction
-\begin{itemize}
-    \item Temos a função de probabilidade do sistema, expressa por:
-    \begin{equation*}
-        p(x_t| u_t, x_{t-1})= N\left(x_t; A_tx_{t-1}+ B_tu_t, Q_t\right)
-    \end{equation*}   
-    \item ou seja:
-    \begin{equation*}
-        \overline{\text{Bel}}(x_t)  = \displaystyle\int\underbrace{P(x_t|u_t, x_{t-1})}_{\sim N\left(x_t; A_t x_{t-1}+ B_tu_t, Q_t\right)} \overbrace{\text{Bel}(x_{t-1})}^{\sim N\left(x_{t-1}; \mu_{t-1}, \textstyle\sum {}_{t-1}\right)}\text{d}x_{t-1}
-    \end{equation*}
-\end{itemize}
+Temos a função de probabilidade do sistema, expressa por:
 
+\begin{equation}
+        p(x_t| u_t, x_{t-1})= N\left(x_t; Ax_{t-1}+ Bu_t, Q\right)
+\end{equation}   
+
+Ou seja, na forma completa:
 
 \begin{tabular}{p{1.5cm} l l}
     $\overline{\text{Bel}}(x_t)$  & = $\displaystyle\int P(x_t|u_t, x_{t-1})$ & $\text{Bel}(x_{t-1})\text{d}x_{t-1}$ \\
@@ -211,11 +194,13 @@ Algoritmo - Prediction
     & \quad\quad\quad\quad\quad $\Downarrow$ & \\
 \end{tabular}
 
+Recorrendo a função de densidade de probabilidade para sistemas multivariáveis, temos então:
 
-    \begin{equation*}
-        P(\mathbf{x}) = \frac{1}{(2\pi)^{\frac{d}{2}\|\sum\|^{\frac{1}{2}}}}\exp\left\{-\frac{1}{2} (\mathbf{x}-\mu)^T\textstyle\sum{}^{-1}(\mathbf{x}-\mu)\right\}
-    \end{equation*}        
+\begin{equation}
+    P(\mathbf{x}) = \frac{1}{(2\pi)^{\frac{d}{2}\|\sum\|^{\frac{1}{2}}}}\exp\left\{-\frac{1}{2} (\mathbf{x}-\mu)^T\textstyle\sum{}^{-1}(\mathbf{x}-\mu)\right\}
+\end{equation}        
 
+Aplicando 
 
 \begin{tabular}{p{1.2cm} l}
     & $\quad\quad\quad\quad\quad \Downarrow$\\
@@ -544,44 +529,7 @@ A matrix Jacobiana é data por:
         \frac{\partial f_m}{\partial x_n}
     \end{bmatrix}
 \end{equation*}
-    
 
-dado um sistema representado por $\mathbf{F(x)}$, calcule a
-    matriz jacobina do sistema:
-    
-    \begin{equation*}
-        \mathbf{F(x)}
-        =
-        \begin{bmatrix}
-            f_1 \\
-            f_2
-        \end{bmatrix}
-        =
-        \begin{bmatrix}
-            x_1 + x_2 \\
-            x_1^2
-        \end{bmatrix}
-    \end{equation*}
-    
-    logo:
-
-    \begin{equation*}
-        \frac{d \mathbf{f(x)}}{d \mathbf{x}}
-        =
-        \begin{bmatrix}
-            \frac{\partial f_1}{\partial x_1} &
-            \frac{\partial f_1}{\partial x_2} \\
-            \frac{\partial f_2}{\partial x_1} &
-            \frac{\partial f_2}{\partial x_2}
-        \end{bmatrix}
-        =
-        \begin{bmatrix}
-            1 & 1 \\
-            2x_1 & 0
-        \end{bmatrix}
-    \end{equation*}
-
-Algoritmo
 
 \begin{algorithm}[H]
     \caption{Extended-Kalman-Filter}
