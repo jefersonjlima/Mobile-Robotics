@@ -11,7 +11,8 @@
         legend style={draw=none, fill=none},
         domain=-6:9,
         legend cell align=left,
-        xmin=-7, xmax=11]
+        xmin=-7, xmax=11,
+        xlabel={deslocamento ($s$)}]
     
         \addplot [smooth, thick, red] {normalpdf(x,-2,2)} node[] {};
         \addplot [smooth, purple]     {normalpdf(x,0,2)} node[] {};
