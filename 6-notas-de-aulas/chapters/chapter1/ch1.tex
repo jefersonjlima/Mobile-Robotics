@@ -87,43 +87,43 @@ De acordo com \cite{craig2009introduction} uma vez estabelecido o sistema de coo
         \label{fig:vetor_rot}
     \end{figure}
     
-    Abaixo segue um exercício numérico de fixação.
+%     Abaixo segue um exercício numérico de fixação.
 
-    \begin{shortbox}
-        \Boxhead{Exercício de Fixação}
-        Como exemplo, uma rotação $\theta$ de ${}^AP$ em torno do eixo $Z$ é descrita pela figura  \eqref{fig:vetor_rot}. 
+%     \begin{shortbox}
+%         \Boxhead{Exercício de Fixação}
+%         Como exemplo, uma rotação $\theta$ de ${}^AP$ em torno do eixo $Z$ é descrita pela figura  \eqref{fig:vetor_rot}. 
         
         
         
-        Pode-se observar que é adicionado uma coluna e linhas com zeros e uma nova linha em  \eqref{eq:cine3}, essa notação torna-se necessária pois será posteriormente apresentando o operador de translação.
+%         Pode-se observar que é adicionado uma coluna e linhas com zeros e uma nova linha em  \eqref{eq:cine3}, essa notação torna-se necessária pois será posteriormente apresentando o operador de translação.
 
-        \begin{equation}\label{eq:cine3}
-        {}^B\mathcal{P} = {}_A^B \mathbf{R}(\theta) {}^A\mathbf{P} = 
-        \begin{bmatrix}
-        \cos(\theta) & \sin(\theta) & 0 & 0\\
-        \sin(\theta) & \cos(\theta) & 0 & 0\\
-        0 & 0 & 1 & 0\\ 
-        0 & 0 & 0 & 1\\
-        \end{bmatrix}.
-        \begin{bmatrix}
-        {}^Ap_x\\
-        {}^Ap_y\\
-        {}^Ap_z\\
-        1
-        \end{bmatrix}
-        \end{equation}
-        \begin{center}
-            Resposta:
+%         \begin{equation}\label{eq:cine3}
+%         {}^B\mathcal{P} = {}_A^B \mathbf{R}(\theta) {}^A\mathbf{P} = 
+%         \begin{bmatrix}
+%         \cos(\theta) & \sin(\theta) & 0 & 0\\
+%         \sin(\theta) & \cos(\theta) & 0 & 0\\
+%         0 & 0 & 1 & 0\\ 
+%         0 & 0 & 0 & 1\\
+%         \end{bmatrix}.
+%         \begin{bmatrix}
+%         {}^Ap_x\\
+%         {}^Ap_y\\
+%         {}^Ap_z\\
+%         1
+%         \end{bmatrix}
+%         \end{equation}
+%         \begin{center}
+%             Resposta:
     
-\qrcode[height=0.8in]{
-[-1,  0,  0,  0],
-[ 0, -1,  0,  0],
-[ 0,  0,  1,  0],
-[ 0,  0,  0,  1]]
-}
-    \end{center}
+% \qrcode[height=0.8in]{
+% [-1,  0,  0,  0],
+% [ 0, -1,  0,  0],
+% [ 0,  0,  1,  0],
+% [ 0,  0,  0,  1]]
+% }
+%     \end{center}
     
-    \end{shortbox}
+%     \end{shortbox}
 
     A rotação pode acontecer tanto em $x, y$ ou $z$, conforme é mostrado abaixo:
 
@@ -296,40 +296,111 @@ extremidade do braço robótico. A Cinemática Inversa proporciona que a estrat�
 que o objetivo da tarefa seja alcançado.
 
 
-\begin{shortbox}
-    \Boxhead{Exercício de Fixação}
-    Levando em consideração o braço robótico da Figura \ref{fig:2dof-robot}, encontre as equações da cinemática do robô.
-    \begin{equation*}
-        \begin{split}
-            x_f(t) = & l_1\cos(\theta_1)+l_2\cos(\theta_1 + \theta_2) \\            
-            y_f(t) = & l_1\sin(\theta_1)+l_2\sin(\theta_1 + \theta_2)
-        \end{split}
-    \end{equation*}
+% \begin{shortbox}
+%     \Boxhead{Exercício de Fixação}
+%     Levando em consideração o braço robótico da Figura \ref{fig:2dof-robot}, encontre as equações da cinemática do robô.
+%     \begin{equation*}
+%         \begin{split}
+%             x_f(t) = & l_1\cos(\theta_1)+l_2\cos(\theta_1 + \theta_2) \\            
+%             y_f(t) = & l_1\sin(\theta_1)+l_2\sin(\theta_1 + \theta_2)
+%         \end{split}
+%     \end{equation*}
     
-    utilize a biblioteca \textbf{sympy} para solução do jacobiano.
-    \begin{center}
-        Resposta:
+%     utilize a biblioteca \textbf{sympy} para solução do jacobiano.
+%     \begin{center}
+%         Resposta:
 
-        \qrcode[height=0.5in]{https://ocw.mit.edu/courses/mechanical-engineering/2-12-introduction-to-robotics-fall-2005/lecture-notes/chapter5.pdf}
-\end{center}
+%         \qrcode[height=0.5in]{https://ocw.mit.edu/courses/mechanical-engineering/2-12-introduction-to-robotics-fall-2005/lecture-notes/chapter5.pdf}
+% \end{center}
 
-\end{shortbox} 
+% \end{shortbox} 
 
 
 \section{Cinemática de Robôs Móveis com Rodas}
 
-\subsection{Cinemática Biciclo}
+Como foi visto anteriormente, a Cinemática para Robô com Rodas segue os mesmo princípios, no entanto, será necessário adicionar algumas restrições importas pelo modelo e forma de utilização de determinados tipos de rodas.
+Desta forma, a discussão a seguir segue conforme o arranjo de rodas apresentado em cada tipo de robô, sejam elas rodas convencionais, rodas fíxas ou castor, conforme veremos a seguir na discussão sobre restrições.
+
 \subsection{Cinemática Robô Diferencial}
 
+O objeto de estudo neste texto, será o modelo de Robô Diferencial. Embora o modelo possa ser considerado simples, diante da enorme gama de aplicações, os fundamentos aqui apresentados serão de fácil aplicação as diversas outras proposta de robôs.
+
+Um robô diferencial apresenta uma construção padrão, composta por duas rodas fixas instaladas nas laterais direita e esquerda do chassi da robô. Tipicamente uma roda no formato castor é adicionada ao chassi para dar sustentação ao chassi, esta roda, no entanto, 
+não apresenta uma restrição considerável ao sistema, desta forma não será inclusa no modelo de restrições do robô diferencial.
+
+A Figura \ref{fig:car01} mostra o Robô Diferencial descrito pelo sistema de refêrencias $\{M\}$ e $\{I\}$ representa o sistema de referência global.
+As variáveis $v_{E}$ e $v_{D}$ representam respectivamente as velocidades da roda esquerda e roda da direita do chassi. A velocidade resultante do robô é expressa por $v_{M}$.
+A sigla $CIR$ representa o ponto do centro de rotação instantâneo. 
 \begin{figure}[!ht]
-    \input{chapters/chapter1/figures/car_1_image.tex}
-    \caption{Robô - Dois Graus de Liberdade}
+    % \input{chapters/chapter1/figures/car_1_image.tex}
+    \input{chapters/chapter1/figures/car_0a_image.tex}
+    \caption{Robô Diferencial, deslocamento}
     \label{fig:car01}
     \end{figure}
 
-\subsection{Robô Omnidirecional}
-\subsection{Robô Com Esteira}
+Apresentadas as variáveis do sistema é possível agora, deduzir as equações da cinemática do robô diferencial. $\omega$ representará a velocidade de rotação em relação ao $CIR$, a variável $r(t)$ é o raio em relação a cada centro de massa do chassi e $L$ a distância entre as rodas. Podemos então, definir as seguintes equações:
 
+\begin{equation}
+    \omega(t) = \frac{v_{E}(t)}{r(t) - \displaystyle\frac{L}{2}}
+\end{equation}
+
+bem, como para roda direita:
+
+\begin{equation}
+    \omega(t) = \frac{v_{D}(t)}{r(t) + \frac{L}{2}}
+\end{equation}
+
+Sendo assim, temos as seguintes expressões:
+
+\begin{equation}
+    \omega(t) = \frac{v_{D}(t) - v_{E}(t)}{L}, \quad\quad r(t) = \frac{Lv_{D}(t) + v_{E}(t)}{2v_{D}(t) - v_{E}(t)}
+\end{equation}
+
+Podemos agora definir a velocidade resultante de $v_M$ pela equação
+
+\begin{equation}
+    v_M (t) = \omega(t) r(t) = \frac{v_{D}(t) + v_{E}(t)}{2}
+\end{equation}
+
+Diante das equações listadas acima, pode-se apresentar então o modelo Cinemático do Robô Diferencial em relação ao sistema de referências global $\{I\}$, conforme equação
+
+\begin{equation}
+    \begin{bmatrix}
+        \dot{X}(t) \\ \dot{Y}(t) \\ \dot{\phi}(t)
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        \cos(\phi(t)) & 0 \\
+        \sin(\phi(t)) & 0 \\
+        0             & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        v_M(t) \\ \omega(t)
+    \end{bmatrix}
+\end{equation}
+
+Podemos definir também as equações locais do Robô Diferências, expressas pelo sistema referência $\{M\}$.
+
+\begin{equation}
+    \begin{bmatrix}
+        \dot{x}_M(t) \\ \dot{y}_M(t) \\ \dot{\phi}(t)
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        \frac{r_r}{2} & \frac{r_r}{2} \\
+        o & 0 \\
+        -\frac{r_r}{L} & \frac{r_r}{L}
+    \end{bmatrix}
+    \begin{bmatrix}
+        \omega_E(t) \\ \omega_D(t)
+    \end{bmatrix}
+\end{equation}
+
+
+
+Conforme mostrado na Figura \ref{fig:car01}, algumas restrições de movimento definem a cinemática e dinâmica do robô. No caso da Figura  \ref{fig:car01} esta restrição atua em $y_M$ onde este sempre, em condições normais, apresentará velocidade igual a zero, confome eq.
+
+Abaixo será apresentada a relação entre as restrições de movimentos da roda em relação a dinâmica dos sistema do Robô.
 
 \section{Dinâmica com Restrições de Movimento}
 
@@ -342,8 +413,6 @@ Do lado da cinemática, as restrições estão relacionadas com a construção d
 Um sistema é considerado holonômico se não tiver restrições holonômicas, não apresentando assim, limitação em seu espaço de velocidades e portanto, todas as direções de movimento de espaço são possíveis. Neste aspecto, podemos considerar o Robô de dois graus de liberdade da Fig. \ref{fig:2dof-robot}, um sistema holonômico, caso não haja restrição da base do robô em $\theta_1$.
 
 Já em um sistema não holonômico, tais restrições impedem que o robô, mova em direções arbitrárias. Um exemplo clássico é apresentado na Fig. \ref{fig:car01}, onde o robô diferencial possui restrições ao movimento em $y'$.
-
-
 
 
 \subsection{Restrições Holonômicos}
