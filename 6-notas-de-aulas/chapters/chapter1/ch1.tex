@@ -37,25 +37,25 @@ De acordo com \cite{craig2009introduction} uma vez estabelecido o sistema de coo
     p_x\\ p_y \\ p_z
     \end{bmatrix}.
     \end{equation}
-    
+
     A representação gráfica de ${}^A\mathbf{P}$ pode ser vista na figura \ref{fig:cine1f}. 
-    
-    \begin{figure}[!ht]
-    \centering
-    \begin{tikzpicture}[scale=0.8]
-    \node(p0) at (0,0){};
-    \draw [->] (p0.center) --++(0,3) node[right] {$ Y_A$};
-    \draw [->, rotate =120] (p0.center) --++(0,3) node[below] {$ Z_A$};
-    \draw [->, rotate =240] (p0.center) --++(0,3) node[below] {$ X_A$};
-    \draw [->] (p0.center) --++(2.5,0.5) node(B)[above,rotate=30] {${}^A\mathbf{P}$};
-    \node at (-1.5,2.5) {$\{A\}$};
-    \end{tikzpicture}
-    \caption{Vetor em relação ao plano $\{A\}$}
-    \label{fig:cine1f}
-    \end{figure}
-    
+
+\begin{figure}[!ht]
+  \centering
+  \begin{tikzpicture}[scale=0.8]
+  \node(p0) at (0,0){};
+  \draw [->] (p0.center) --++(0,3) node[right] {$ Y_A$};
+  \draw [->, rotate =120] (p0.center) --++(0,3) node[below] {$ Z_A$};
+  \draw [->, rotate =240] (p0.center) --++(0,3) node[below] {$ X_A$};
+  \draw [->] (p0.center) --++(2.5,0.5) node(B)[above,rotate=30] {${}^A\mathbf{P}$};
+  \node at (-1.5,2.5) {$\{A\}$};
+  \end{tikzpicture}
+  \caption{Vetor em relação ao plano $\{A\}$}
+  \label{fig:cine1f}
+  \end{figure}
+
     Além da definição das coordenadas de um vetor, torna-se necessário definir a orientação desse corpo no espaço. O vetor definido por ${}^A\mathbf{P}$ pode ser rotacionado pela matriz de rotação $\mathbf{R}$, conforme a equação \eqref{eq:cine2}.
-    
+ 
     \begin{equation}\label{eq:cine2}
     {}_A^B
     \mathbf{R} = 
@@ -265,7 +265,7 @@ A relação entre as Cinemática Direta e Cinemática Inversa é obtida através
     \mathbf{\dot{q}} = \mathbb{J}^{-1}{\mathbf{\dot{x}}}
 \end{equation*}
 
-bem como:
+\noindent bem como:
 
 \begin{equation*}
     \frac{\text{d}\mathbf{x}}{\text{d}t} = \mathbb{J}\frac{\text{d}\mathbf{q}}{\text{d}t}
@@ -273,7 +273,8 @@ bem como:
     \frac{\text{d}\mathbf{q}}{\text{d}t} = \mathbb{J}^{-1}\frac{\text{d}\mathbf{x}}{\text{d}t}
 \end{equation*}
 
-onde $\mathbb{J}$ é dado por:
+\noindent onde $\mathbb{J}$ é dado por:
+
 \begin{equation*}
     \mathbb{J}
     =
@@ -330,21 +331,22 @@ não apresenta uma restrição considerável ao sistema, desta forma não será 
 
 A Figura \ref{fig:car01} mostra o Robô Diferencial descrito pelo sistema de refêrencias $\{M\}$ e $\{I\}$ representa o sistema de referência global.
 As variáveis $v_{E}$ e $v_{D}$ representam respectivamente as velocidades da roda esquerda e roda da direita do chassi. A velocidade resultante do robô é expressa por $v_{M}$.
-A sigla $CIR$ representa o ponto do centro de rotação instantâneo. 
+A sigla $\text{CIR}$ representa o ponto do Centro de instantâneo de Rotação. 
 \begin{figure}[!ht]
+    \centering
     % \input{chapters/chapter1/figures/car_1_image.tex}
     \input{chapters/chapter1/figures/car_0a_image.tex}
-    \caption{Robô Diferencial, deslocamento}
+    \caption{Robô Diferencial}
     \label{fig:car01}
     \end{figure}
 
-Apresentadas as variáveis do sistema é possível agora, deduzir as equações da cinemática do robô diferencial. $\omega$ representará a velocidade de rotação em relação ao $CIR$, a variável $r(t)$ é o raio em relação a cada centro de massa do chassi e $L$ a distância entre as rodas. Podemos então, definir as seguintes equações:
+Apresentadas as variáveis do sistema é possível agora, deduzir as equações da cinemática do robô diferencial. $\omega$ representará a velocidade de rotação em relação ao $\text{CIR}$, a variável $r(t)$ é o raio em relação a cada centro de massa do chassi e $L$ a distância entre as rodas. Podemos então, definir as seguintes equações:
 
 \begin{equation}
     \omega(t) = \frac{v_{E}(t)}{r(t) - \displaystyle\frac{L}{2}}
 \end{equation}
 
-bem, como para roda direita:
+\noindent bem, como para roda direita:
 
 \begin{equation}
     \omega(t) = \frac{v_{D}(t)}{r(t) + \frac{L}{2}}
@@ -408,11 +410,11 @@ Tipicamente, um robô com rodas apresenta uma série de restrições relacionada
 
 As restrições dinâmicas têm origem proposta de modelo dinâmico do sistema, onde as limitação se apresentam devido a fatores como a inércia ou mesmo restrições nos atuadores \cite{klancar2017wheeled}.
 
-Do lado da cinemática, as restrições estão relacionadas com a construção do robô e seu modelo cinemático. Podemos classificar as restrições cinemática, sendo elas holonômicas ou não holonômicas. Restrições holonômicas estão relacionadas a dimensionalidade da descrição do estado de um sistema, sendo ele expresso em coordenadas generalizadas, conforme demonstrado em Fig. \ref{fig:2dof-robot}.
+Do lado da cinemática, as restrições estão relacionadas com a construção do robô e seu modelo cinemático. Podemos classificar as restrições cinemática, sendo elas holonômicas ou não holonômicas. Restrições holonômicas estão relacionadas a dimensionalidade da descrição do estado de um sistema, sendo ele expresso em coordenadas generalizadas, conforme demonstrado na \fig{fig:2dof-robot}.
 
-Um sistema é considerado holonômico se não tiver restrições holonômicas, não apresentando assim, limitação em seu espaço de velocidades e portanto, todas as direções de movimento de espaço são possíveis. Neste aspecto, podemos considerar o Robô de dois graus de liberdade da Fig. \ref{fig:2dof-robot}, um sistema holonômico, caso não haja restrição da base do robô em $\theta_1$.
+Um sistema é considerado holonômico se não tiver restrições holonômicas, não apresentando assim, limitação em seu espaço de velocidades e portanto, todas as direções de movimento de espaço são possíveis. Neste aspecto, podemos considerar o Robô de dois graus de liberdade da \fig{fig:2dof-robot}, um sistema holonômico, caso não haja restrição da base do robô em $\theta_1$.
 
-Já em um sistema não holonômico, tais restrições impedem que o robô, mova em direções arbitrárias. Um exemplo clássico é apresentado na Fig. \ref{fig:car01}, onde o robô diferencial possui restrições ao movimento em $y'$.
+Já em um sistema não holonômico, tais restrições impedem que o robô, mova em direções arbitrárias. Um exemplo clássico é apresentado na  \fig{fig:car01}, onde o robô diferencial possui restrições ao movimento em $y'$.
 
 
 \subsection{Restrições Holonômicos}
@@ -425,67 +427,71 @@ Já em um sistema não holonômico, tais restrições impedem que o robô, mova 
 
  onde a função $f$ e sua derivada são funções contínuas.
 
- Observa-se também que a função da equação Eq. \ref{eq:homo} não depende das velocidades ou de qualquer derivada de ordem superior com relação a $t$.
+ Observa-se também que a função da \eq{eq:homo} não depende das velocidades ou de qualquer derivada de ordem superior com relação a $t$.
 
- Em geral, podemos ter $m$ restrições holonômicas, ou seja $(m<n)$.
+ Em geral, podemos ter $m$ restrições holonômicas, ou seja $(m<n)$. Assim, exposto, pode-se agora definir es equações de energia que regem o sistema de um robô.
 
-
-
-
- Equilíbrio de Energias - Formulação de Lagrange:
+A formulação de Lagrange, apresentada na \eq{eq:lag1} introduz o funcional relacionado as energias conservativas do sistema robótica. Em $\mathcal{T}$ temos a composição de energias
+cinéticas e em $\mathcal{V}$ as energias potenciais.
 
  \begin{equation}
      \mathcal{L}= \mathcal{T} - \mathcal{V}
+     \label{eq:lag1}
  \end{equation}
 
-A equação de energia cinética ($\mathcal{T}$) é dada por:
+A equação de energia cinética ($\mathcal{T}$) é dada pela \eq{eq:lag2}, onde os termos $\mathbf{M}_k$ representa as massas associadas aos $k$ elementos do sistema de equação de movimento. Já $\mathbf{J}_k $ inclui 
+as forças e inércia relacionadas as sistemas rotativos.
 
 \begin{equation}
    \mathcal{T} = \frac{1}{2} \sum\limits_{k=1}^{N}{\mathbf{\dot{q}}_k}^T  \mathbf{M}_k {\mathbf{\dot{q}}_k}+ \frac{1}{2} \sum\limits_{k=1}^{N}\mathbf{\omega}_k^T \mathbf{J}_k \mathbf{\omega}_k
+   \label{eq:lag2}
 \end{equation}
 
-A equação de Energia Potencial Gravitacional($\mathcal{V}_g$) é dada por\footnote{Depende do típo de energia potencial do sistema, neste caso - gravitacional}
+A equação de Energia Potencial ($\mathcal{V}$) pode ter várias definições, dependendo do tipo de sistemas potência ao qual o sistema 
+robótico está incluso. Apresenta-se aqui o caso da energia Potêncial Gravitacional, definida por $\mathcal{V}_g$, conforme eq{eq:lag3}.
 
 \begin{equation}
-   \mathcal{V}_g = \sum\limits_{k=1}^{N}\mathbf{M}g\Delta \underbrace{y_k}_{\text{altura}}
+   \mathcal{V}_g = \sum\limits_{k=1}^{N}\mathbf{M}g \underbrace{\Delta y_k}_{\text{altura}}
+   \label{eq:lag3}
 \end{equation}  
 
-
 \begin{tabular}{l|l}
-    $\mathbf{M}$               & Massa              \\
+    $\mathbf{M}$               & Massa     \\
     $\mathbf{\omega}$ & Velocidade Angular \\
-    $\mathbf{J}$               & Inércia         \\
+    $\mathbf{J}$               & Inércia   \\
 \end{tabular}
 
-
-Para Sistemas Holonômicos:
+Desta forma, pode-se propor o sistema de Lagrange, conforme \eq{eq:lag4}.
 \begin{equation}
     \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\dot{q}_k}\right)
     -\parcial{}{\mathcal{L}}{q_k}
     = f_k, \quad k = 1,2,...,n
+    \label{eq:lag4}
 \end{equation}
 
 
-onde $k$ é o index das coordenadas generalizadas de $g_k$, $f_k$ são as forças externas que agem no sistema .
+\noindent onde $k$ é o index das coordenadas generalizadas de $g_k$, $f_k$ são as forças externas que agem no sistema.
 
-O modelo dinâmico de um robô movel sem restrições de movimento pode ser expresso pelo sistema de matrizes abaixo:
+O modelo dinâmico de um robô móvel sem restrições de movimento pode ser expresso pelo \eq{eq:lag5}.
 
 \begin{equation}
-    \mathbf{M(q)\ddot{q}+ C(q, \dot{q})+ \color{red}{F(\dot{q})}\color{gray}+G(q) = E(q)u}
+    \mathbf{M(q)\ddot{q}+ C(q, \dot{q})+ \textcolor{red}{F(\dot{q})}+G(q) = E(q)u}
+    \label{eq:lag5}
 \end{equation}
 
-onde, 
+\noindent onde, 
+
 \begin{tabular}{ r | l }
-  $\mathbf{q}$               & Vetor das coordenadas generalizadas   \\
-  $\mathbf{M(q)}$            & Matriz de massa e inercia             \\
-  $\mathbf{C(q, \dot{q})}$   & Vetor de força Coriolis e centrifuga  \\
-  $\color{red}{\mathbf{F(\dot{q})}}$      & Vetor de atrito, força não conservativa\footnotemark\\
-  $\mathbf{G(q)}$            & Vector da força gravitacional         \\
-  $\mathbf{E(q)}$            & Matriz dos tranformação dos atuadores \\
-  $\mathbf{u}$               & Vetor de entrada                      \\
+  $\mathbf{q}$               & Vetor das coordenadas generalizadas    \\
+  $\mathbf{M(q)}$            & Matriz de massa e inercia              \\
+  $\mathbf{C(q, \dot{q})}$   & Vetor de força Coriólis e centrifuga   \\
+  $\color{red}{\mathbf{F(\dot{q})}}$      & Vetor de atrito, força não conservativa\\
+  $\mathbf{G(q)}$            & Vector da força gravitacional          \\
+  $\mathbf{E(q)}$            & Matriz dos transformação dos atuadores \\
+  $\mathbf{u}$               & Vetor de entrada do sistema            \\
 \end{tabular}
 
-\footnotetext{As forças que não fazem parte do balanço de energia no formalismo de lagrange, devem ser adicionadas a posteriori no sistema de equações}
+% \footnotetext{As forças que não fazem parte do balanço de energia no formalismo de lagrange, devem ser adicionadas a posteriori no sistema de equações}
 
 A solução numérica pode ser dada através da integração da aceleração ($\mathbf{\ddot{q}}$):
 
@@ -493,108 +499,127 @@ A solução numérica pode ser dada através da integração da aceleração ($\
     \mathbf{\ddot{q}}=\mathbf{M(q)}^{-1}\left\{\mathbf{-C(q, \dot{q})-F(\dot{q})-G(q) + E(q)u}\right\}
 \end{equation}
 
-Dito isso, usaremos o exemplo do braço robótico da Fig. \ref{fig:2dof-robot} para exrpressar o sistema em equações de estado, conforme a código abaixo:
 
-\begin{equation*}
-    \mathbf{X} = 
-    \begin{bmatrix}
-        \mathbf{q_1 q_2, \dot{q}_1, \dot{q}_2}.  
-    \end{bmatrix}
-\end{equation*}
 
-\begin{lstlisting}[language=Python]
-    def robot2dof(t,X):
-        q1  = X[0]
-        q2  = X[1]
-        dq1 = X[2] 
-        dq2 = X[3]
-        # Inertial matrix
-        Mq = np.array([...]) 
-        # C Matrix
-        Cq = np.array([...])
-        # Gravitational matrix 
-        Gq = np.array([...])
-        # Friction Force
-        ks = 0
-        Fa = ks * np.array([[dq1],[dq1]])
-        # Atuator
-        U_gain =  tau1 = tau2 = 0
-        Eu = U_gain * np.array([[tau1],[tau2]])
-        # Init Model
-        xdot = np.zeros(4,)
+% Dito isso, usaremos o exemplo do braço robótico da Fig. \ref{fig:2dof-robot} para exrpressar o sistema em equações de estado, conforme a código abaixo:
+
+% \begin{equation*}
+%     \mathbf{X} = 
+%     \begin{bmatrix}
+%         \mathbf{q_1 q_2, \dot{q}_1, \dot{q}_2}.  
+%     \end{bmatrix}
+% \end{equation*}
+
+% \begin{lstlisting}[language=Python]
+%     def robot2dof(t,X):
+%         q1  = X[0]
+%         q2  = X[1]
+%         dq1 = X[2] 
+%         dq2 = X[3]
+%         # Inertial matrix
+%         Mq = np.array([...]) 
+%         # C Matrix
+%         Cq = np.array([...])
+%         # Gravitational matrix 
+%         Gq = np.array([...])
+%         # Friction Force
+%         ks = 0
+%         Fa = ks * np.array([[dq1],[dq1]])
+%         # Atuator
+%         U_gain =  tau1 = tau2 = 0
+%         Eu = U_gain * np.array([[tau1],[tau2]])
+%         # Init Model
+%         xdot = np.zeros(4,)
         
-        #dinamic
-        q2dot = inv(Mq).dot(-Cq-Fa-Gq)
-        # states
-        xdot[0] = dq1
-        xdot[1] = dq2
-        xdot[2] = q2dot[0]
-        xdot[3] = q2dot[1]
+%         #dinamic
+%         q2dot = inv(Mq).dot(-Cq-Fa-Gq)
+%         # states
+%         xdot[0] = dq1
+%         xdot[1] = dq2
+%         xdot[2] = q2dot[0]
+%         xdot[3] = q2dot[1]
 
-        return xdot
-\end{lstlisting}
+%         return xdot
+% \end{lstlisting}
+
+No entanto as aplicações de robótica móvel, como citado acima, em especial o robô diferencial, possuem restrições ao movimento. Tais restrições onde o número de restrições é superior ao grau de liberdade do sistema, ou seja,
+ $(m>n)$, classifica o sistema com Não-Holonômicos. Assim, faz se necessário incluir estas restrições no modelo.
+
 
 \subsection{Sistemas Não-Holonômicos}
 
+Analogicamente ao Sistema Holonômicos, apresentados na anteriormente, Sistemas Não-Holonômicos possuem restrições alêm da restrições de vínculo, sendo assim, podemos reformular equação de restrições, contendo
+agora restrições em relação as velocidades, conforme mostrado pela \eq{eq:nonhomo}.
 
-\section{Modelagem de Robô Móvel com restrições de Movimento}
+\begin{equation}
+    f(\mathbf{q}, \dot{\mathbf{q}}) = f(q_1, \cdots, q_n, \dot{q}_1, \cdots, \dot{q}_n) = 0
+    \label{eq:nonhomo}
+\end{equation}
 
+As restrições cinemáticas apresentadas pela \eq{eq:nonhomo}, apenas farão parte de um sistema holonômico, conforme \cite{klancar2017wheeled}, se $f(\mathbf{q}, \dot{\mathbf{q}})$ for integrável, assim sendo, as velocidades
+$\dot{q}_k$ serão eliminadas da equações e \eq{eq:nonhomo} podendo ser expressa na forma de \eq{eq:homo}.
 
-\begin{figure}
+Tais restrições, com já comentado, estão diretamente associadas as modelos de rodas utilizas no projeto de robô móvel. A \fig{fig:rodas} demonstra a variedade de opções que atendem a um leque de aplicações.
+Cada modelo, impõe um restrição que poderá ser descrita geometricamente.
+
+\begin{figure}[!ht]
+    \centering
     \includegraphics[width=0.8\textwidth]{chapters/chapter1/figures/tipo_de_rodas.png}
-    % \cite{siegwart2011introduction}
-    \caption{ (a) Standard wheel: two degrees of freedom. (b) castor wheel. (c) Swedish wheel: three degrees of freedom. (d) Ball or spherical wheel: realization technically difficult.}
+    \caption{ (a) Rodas convencionais (b) Rodas Castor (c) Roda sueca (d) Roda Esférica. \\ Fonte: \cite{klancar2017wheeled}}
+    \label{fig:rodas}
 \end{figure}
 
+Assim, retornamos ao modelo do Robô Diferencial, mostrado na \fig{fig:car01}. Como já foi discutido, as restrições impostas pelas rodas convencionais, fixadas na laterais do chassi,
+possibilitam a locomoção apenas no eixo $x$, conforme demonstrado. Diante disto, temos nosso modelo cinemático do robô diferencial na \eq{eq:modcinematico}.
 
- Restrição não-holonômica
+\begin{equation}
+    \begin{bmatrix}
+        \dot{X}(t) \\ \dot{Y}(t) \\ \dot{\phi}(t)
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        \cos(\phi(t)) & 0 \\
+        \sin(\phi(t)) & 0 \\
+        0             & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+        v_M(t) \\ \omega(t)
+    \end{bmatrix}
+    \label{eq:modcinematico}
+\end{equation}
 
- O robô pode mover-se apenas na direção normal ao eixo das rodas motrizes
+Sujeito as restrições de movimento impostas pelo modelo de roda, descrito na \eq{eq:rstricoes}.
 
+\begin{equation}
+    -\dot{x}\sin(\phi) + \dot{y}\cos(\phi) = 0
+    \label{eq:rstricoes}
+\end{equation}
 
-\begin{equation*}
-    \dot{x}\sin(\phi) - \dot{y}\cos(\phi) = 0
-\end{equation*}
-
-As próprias rodas já inserem as restrições!
-
-
-\begin{figure}
-    \input{chapters/chapter1/figures/car_3_image.tex}
-\end{figure}
-
-
-\begin{figure}
-    \includegraphics[width=0.6\textwidth]{chapters/chapter1/figures/wheels_const.png}    
-    \caption{A fixed standard wheel and its parameters.}
-\end{figure}
-
-
-
-
-
-
-
-
-
-
-Restrições - Robô Diferencial
-
-\input{chapters/chapter1/figures/car_0a_image.tex}
+\noindent ou na forma matricial, as restrição são expressas por $\textbf{A}$, conforme:
 
 \begin{equation}
     \mathbf{A} = 
     \begin{bmatrix}
-        -\sin(\phi) & \cos(\phi) & 0
+        - \sin(\phi) & \cos(\phi) & 0
     \end{bmatrix}
+    \label{eq:rstricoesmat}
 \end{equation}
 
+De forma, análoga, a \fig{fig:gocar} nos mostra as possibilidades deslocamento do Robô diferencial, bem como, percebe-se que o vetor de movimento $v'$ não é um opção valida, 
+diante das restrições das rodas.
 
-Equilíbrio de Energias:
+\begin{figure}[!ht]
+    \centering
+    \input{chapters/chapter1/figures/car_3_image.tex}
+    \caption{Restrições de Movimento das Rodas do Robô Diferencial}
+    \label{fig:gocar}
+\end{figure}
 
-\begin{equation}
+Apresentadas as restrições, pode-se então propor o sistema dinâmico do Robô diferencial, inciando pela Formulação de Lagrange:
+
+\begin{equation*}
     \mathcal{L}= \mathcal{T} - \mathcal{V}
-\end{equation}
+\end{equation*}
 
 A equação de energia cinética ($\mathcal{T}$) é dada por:
 
@@ -602,102 +627,78 @@ A equação de energia cinética ($\mathcal{T}$) é dada por:
     \mathcal{T} = \sum\limits_{i=0}^{N-1} \frac{1}{2} {}_{i}^{i+1}\dot{\mathbf{P}}^T\cdot m_{i}\cdot {}_{i}^{i+1}\dot{\mathbf{P}}+ \mathbf{\omega}_i^T\cdot \mathbf{J}_i \cdot \mathbf{\omega}_i
 \end{equation}
 
-ou para um robô em uma superfície:
 
-\begin{equation*}
-    \boxed{
-        \mathcal{T} = \frac{m}{2}\left(\dot{x}^2+\dot{y}^2 \right)+ \frac{J}{2}\dot{\phi}^2}
-    \text{, e  }
-    \boxed{\mathcal{V} = 0}
-\end{equation*}
-               
-    onde:
-    \begin{tabular}{l|l}
-        $m$               & Massa              \\
-        $\mathbf{\omega}$ & Velocidade Angular \\
-        $J$               & Inércia            \\
-    \end{tabular}
-              
-
-Formulação de Lagrange
-
-Para Sistemas Holonômicos:
-
+Para Sistemas Não-Holonômicos temos então a \eq{eq:lagrangenonhomo}, onde $k$ é o index das coordenadas generalizadas de $q_k$, $P$ representas as energias dissipativas (Atrito),
+$\tau_d$ representa qualquer distúrbio no sistema, $f_k$ são as forças externas que agem no sistema e $a_{jk}$ são os coeficientes das restrições de movimento, que para o caso do 
+robô diferencial, foram apresentados na \eq{eq:rstricoesmat}.
 \begin{equation}
     \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\dot{q}_k}\right)
-    -\parcial{}{\mathcal{L}}{q_k}
-    +\tau_{d_k}
-    = f_k, \quad k = 1,2,...,n
-\end{equation}
-
-Para Sistemas Não-Holonômicos \footnote{onde $k$ é o index das coordenadas generalizadas de $g_k$, $P$ representas as energias dissipativas (Atrito),
-$\tau_d$ representa qualquer disturbio no sistema, $f_k$ são as forças externas que agem no sistema e $a_{jk}$ são os coeficientes das restrições de movimento.}
-\begin{equation}
-    \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\dot{q}_k}\right)
-    -\parcial{}{\mathcal{L}}{q_k}
+    -\parcial{}{\mathcal{L}}{q_k} 
+    + \parcial{}{P}{\dot{q}_k}
     +\tau_{d_k}
     = f_k - \sum\limits^{m}_{j=1}\lambda_j a_{jk}
+    \label{eq:lagrangenonhomo}
 \end{equation}
 
-O modelo dinâmico de um robô movel com restrições de movimento pode ser expresso pelo sistema de matrizes abaixo:
+O modelo dinâmico de um robô móvel com restrições de movimento pode ser expresso pelo sistema de matrizes abaixo:
 
 \begin{equation}
     \mathbf{M(q)\ddot{q}+ C(q, \dot{q})+ F(\dot{q})+G(q) = E(q)u -A}^T\mathbf{(q)}\boldsymbol{\lambda}
 \end{equation}
 
-onde:
+\noindent onde:
+
 \begin{tabular}{ r | l }
     $\mathbf{q}$               & Vetor das coordenadas generalizadas   \\
     $\mathbf{M(q)}$            & Matriz de massa e inercia             \\
     $\mathbf{C(q, \dot{q})}$   & Vetor de força Coriolis e centrifuga  \\
     $\mathbf{F(\dot{q})}$      & Vetor de atrito                       \\
     $\mathbf{G(q)}$            & Vector da força gravitacional         \\
-    $\mathbf{E(q)}$            & Matriz dos tranformação dos atuadores \\
+    $\mathbf{E(q)}$            & Matriz dos transformação dos atuadores \\
     $\mathbf{u}$               & Vetor de entrada                      \\
     $\mathbf{A}^T\mathbf{(q)}$ & Matriz de restrições de movimento     \\
     $\boldsymbol{\lambda}$     & Multiplicador de Lagrange             \\
 \end{tabular}
 
 
-A solução para $\lambda_i$ pode ser encontrada por:
-\begin{itemize}
-    \item Método 1: Pseudo-velocidades
-    \item Método 2: Redução de Order 
-    \item Método 3: Equações de Euler-Lagrange Modificadas 
-    \item Método 4: Calculo das Forças de restrições 
-\end{itemize}
+A solução para $\lambda_i$ que se opta aqui é através da pseudo-velocidades. O objetivo, em questão, é resolver as restrições de $\lambda_i$ do 
+sistema de equações expresso por \eq{eq:rmrestri}.
 
-
-Formulação de Lagrange - Pseudo-velocidades
-
-O objetivo é resolver as restrições de $\lambda_i$:
-
-\begin{equation}\label{eq:rmrestri}
+\begin{equation}
     \mathbf{M(q)\ddot{q}+ C(q, \dot{q})+ F(\dot{q})+G(q) = E(q)u} - \textcolor{red}{\cancel{\mathbf{A}\mathbf{(q)}^T\boldsymbol{\lambda}}}
+    \label{eq:rmrestri}
 \end{equation}
 
-reelembrando:
+A equação apresentada em \eq{eq:modcinematico}, apresenta o modelo cinemático, podemos então reescreve-lo no formato matricial, conforme demonstrado na \eq{eq:modcinematicomat}.
 
-\begin{equation*}
+\begin{equation}
     \mathbf{\dot{q}} = \mathbf{S}(q)\mathbf{v}
-\end{equation*}
+    \label{eq:modcinematicomat}
+\end{equation}
 
-bem como:
+\eq{eq:modcinematicomat}, $\mathbf{S}(q)$ representa a matriz jacobina do modelo cinemático, já o termo $\mathbf{v}$ representa as velocidades 
+que atuam no modelo. Podemos então, derivar a \eq{eq:modcinematicomat} para encontrar as equações relacionadas as acelerações do sistema.
 
 \begin{equation}\label{eq:aprox_accel}
     \mathbf{\ddot{q}} = \mathbf{\dot{S}}(q)\mathbf{v} + \mathbf{S}(q)\mathbf{\dot{v}}
 \end{equation}
 
-Subustituindo \eqref{eq:rmrestri} em \eqref{eq:aprox_accel} e aplicando a relãção $\mathbf{A}(q)\mathbf{S}(q)=0$, temos a equação de aceleração do sistema:
+Substituindo a \eq{eq:rmrestri} pela \eq{eq:aprox_accel} e aplicando a relação $\mathbf{A}(q)\mathbf{S}(q)=0$, temos a equação de aceleração do sistema expressa pela \eq{eq:pseudovelo}.
 
-\begin{equation}\label{eq:pseudovelo}
+\begin{equation}
     \mathbf{\dot{v}} = \mathbf{\tilde{M}}^{-1}\left(\mathbf{\tilde{E}u - \tilde{V}} \right)
+    \label{eq:pseudovelo}
 \end{equation}
 
+Se $\mathbf{S}^T\mathbf{E} \neq 0$, temos também como verdade a \eq{eq:pseudovelo2}
 
-Formulação de Lagrange - Pseudo-velocidades
+\begin{equation}
+    \mathbf{u} = \mathbf{\tilde{E}}^{-1}\left( \mathbf{\tilde{M}\dot{v}} + \mathbf{\tilde{V}} \right)
+    \label{eq:pseudovelo2}
+\end{equation}
 
-\eqref{eq:pseudovelo} na forma de equação:
+Desta forma, podemos agora reescrever o sistema apresentado acima no formato $\mathbf{\dot{x}} = f(\mathbf{x})+ g(\mathbf{x})\mathbf{u}$,
+onde $\mathbf{x} = \left[ \mathbf{q}^T \, \mathbf{v}^T \right]^T$, representando assim, o sistema em espaço de estados, conforme a \eq{eq:statespace}.
 
 \begin{equation*}
     \mathbf{\dot{x}} =
@@ -710,10 +711,10 @@ Formulação de Lagrange - Pseudo-velocidades
         \mathbf{0} \\
         \mathbf{\tilde{M}}^{-1}\mathbf{\tilde{E}}
     \end{bmatrix} \mathbf{u}
+    \label{eq:statespace}
 \end{equation*}
 
-onde:
-
+\noindent onde:
 \begin{equation*}
     \begin{split}
         \mathbf{\tilde{V}} & =
@@ -723,29 +724,155 @@ onde:
     \end{split}
 \end{equation*}
 
-onde:
+\noindent sendo:
 \begin{tabular}{ r | l }
     $\mathbf{x}$ & Vetor de estados \\
     $\mathbf{S}$ & Matriz Jacobiana \\
 \end{tabular}
 
+Definidas as equações para um Sistema Não-Holonômico, como o caso do Robô Diferencial apresentado na \fig{fig:car01}, podemos então definir 
+as equações da dinâmica. O primeiro passo é a definição das energia cinética $\mathcal{T}$ e potêncial $\mathcal{V}$, conforme a \eq{eq:lag1}.
+
+\begin{equation}
+    \mathcal{T} = \frac{m}{2}\left(\dot{x}^2+\dot{y}^2\right)+ \frac{J}{2}\phi^2
+    \label{eq:diffcardin}
+\end{equation}
+
+Para equação da energia potencial, temos $\mathcal{V} = 0$. Desta forma, o funcional pode ser definido por:
+
+\begin{equation}
+    \mathcal{L} = \mathcal{T} - \mathcal{V} = \frac{m}{2}\left(\dot{x}^2+\dot{y}^2\right)+ \frac{J}{2}\phi^2
+    \label{eq:diffcardin2}
+\end{equation}
+
+As forças não conservativa não são consideradas na formulação do lagrange, podendo assim, ser adicionadas ao final da formulação. Temos então a \eq{eq:diffcardin3}.
+
+\begin{equation}
+    \begin{split}
+        \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\dot{x}}\right) = m\ddot{x} \\
+        \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\dot{y}}\right) = m\ddot{y} \\
+        \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\dot{\phi}}\right) = J\ddot{\phi} 
+    \end{split}
+    \label{eq:diffcardin3}
+\end{equation}
 
 
+\noindent bem como,
 
+\begin{equation}
+    \begin{split}
+        \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{x}\right) = 0 \\
+        \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{y}\right) = 0 \\
+        \frac{d}{\df{t}}\left( \parcial{}{\mathcal{L}}{\phi}\right) = 0
+    \end{split}
+    \label{eq:diffcardin4}
+\end{equation}
 
+Adicionando as forças que atuam no robô diferencial, temos então:
 
+\begin{equation}
+    \begin{split}
+    m\ddot{x} - \lambda_1 \sin(\phi) = F_x \\
+    m\ddot{y} - \lambda_2 \cos(\phi) = F_y \\
+    J\ddot{\phi} = \mathbb{T}
+    \end{split}
+\end{equation}
 
-% \section{Glossary}
-% \begin{Glossary}
-% \item[360 Degree Review] Performance review that includes feedback from superiors, peers, subordinates, and clients.
-% \item[Abnormal Variation] Changes in process performance that cannot be accounted for by typical day-to-day variation. Also referred to as
-% non-random variation.
-% \item[Acceptable Quality Level (AQL)] The minimum number of parts that must comply with quality standards, usually stated as a percentage.
-% \item[Activity] The tasks performed to change inputs into outputs.
-% \item[Adaptable] An adaptable process is designed to maintain effectiveness and efficiency as requirements change. The process is
-% deemed adaptable when there is agreement among suppliers, owners, and customers that the process will meet
-% requirements throughout the strategic period.
-% \end{Glossary}
+Temos então $F_x = 1/r\left( \tau_{d}+ \tau_{e}\right)\cos(\phi)$, sendo $\tau_d, \tau_e$ o torque da roda direita e esquerda, respectivamente.
+Bem como, $F_y = 1/r\left( \tau_{d}+ \tau_{e}\right)\sin(\phi)$, sendo a força aplicada no eixo $y$. O torque aplicado no veículo é dado por $\mathbb{T}= L/(2r)\left( \tau_d - \tau_e \right)$,
+temos então:
 
+\begin{equation}
+    \begin{split}
+        m\ddot{x} - \lambda_1 \sin(\phi) - \frac{1}{r}\left( \tau_d + \tau_e \right) \cos(\phi)= 0 \\
+        m\ddot{y} - \lambda_2 \cos(\phi) - \frac{1}{r}\left( \tau_d + \tau_e \right) \sin(\phi)= 0 \\
+        J\ddot{\phi} - \frac{L}{2r}\left( \tau_d - \tau_e \right)= 0
+    \end{split}
+\end{equation}
 
+O sistema de equações do Robô Diferencial, pode agora, ser reescrito no formato matricial, definido na \eq{eq:rmrestri}, conforme a \eq{eq:rmrestri2}.
+
+\begin{equation}
+    \mathbf{M(q)\ddot{q}}+ \mathbf{C(q, \dot{q})}+ \mathbf{F(\dot{q})}+ \mathbf{G(q)} = \mathbf{E(q)u}
+    - \mathbf{A(q)^T}\boldsymbol{\lambda}
+    \label{eq:rmrestri2}
+\end{equation}
+
+sendo as matrizes definidas por:
+
+\begin{equation*}
+    \mathbf{M} = 
+    \begin{bmatrix}
+        m & 0 & 0 \\
+        0 & m & 0 \\
+        0 & 0 & J
+    \end{bmatrix}, \quad
+    \mathbf{E} = \frac{1}{r}
+    \begin{bmatrix}
+        \cos(\phi) & \cos(\phi) \\
+        \sin(\phi) & \sin(\phi) \\
+        \frac{L}{1} & -\frac{L}{2}
+    \end{bmatrix}, \quad 
+    \mathbf{u} = 
+    \begin{bmatrix}
+        \tau_1 \\
+        \tau_2
+    \end{bmatrix}, \quad \text{e}
+\end{equation*}
+
+\noindent a matriz de restrição,
+
+\begin{equation*}
+    \mathbf{A} = 
+    \begin{bmatrix}
+        -\sin(\phi) & \cos(\phi) & 0
+    \end{bmatrix}
+\end{equation*}
+
+Aplicando a relação demonstrada pela \eq{eq:pseudovelo}, podemos então resolver as restrições do sistema de equação.
+
+\begin{equation*}
+    \mathbf{\tilde{M}} = 
+    \begin{bmatrix}
+        m & 0 \\
+        0 & J
+    \end{bmatrix}, \quad
+    \mathbf{\tilde{V}} = 
+    \begin{bmatrix}
+        0 \\ 0
+    \end{bmatrix}, \quad \text{e} \quad
+    \mathbf{\tilde{E}} = \frac{1}{r}
+    \begin{bmatrix}
+        1 & 1\\
+        \displaystyle\frac{L}{2} & - \displaystyle\frac{L}{2}
+    \end{bmatrix}
+\end{equation*}
+
+Desta forma, o sistema em espaço de estados na forma $\mathbf{x} = f(\mathbf{\dot{x}}) + g(\mathbf{x})\mathbf{u}$, conforme mostrado
+pela \eq{eq:fullmodel}.
+
+\begin{equation}
+    \begin{bmatrix}
+        \dot{x} \\ \dot{y} \\ \dot{\phi} \\ \dot{v} \\ \dot{\omega}
+    \end{bmatrix} = 
+    \begin{bmatrix}
+        v\cos(\phi) \\ v\sin(\phi) \\ \omega \\ 0 \\ 0
+    \end{bmatrix} + 
+    \begin{bmatrix}
+        0 & 0 \\
+        0 & 0 \\
+        0 & 0 \\
+        \frac{1}{mr} & \frac{1}{mr} \\
+        \frac{L}{2Jr} & -\frac{L}{2Jr}
+    \end{bmatrix}
+    \begin{bmatrix}
+        \tau_d \\ \tau_e
+    \end{bmatrix}
+    \label{eq:fullmodel}
+\end{equation}
+
+Assim é definido o modelo dinâmico do Robô Diferencial, conforme demostrado acima.
+Embora o modelo represente a dinâmica do robô, certas incertezas, quanto ao modelo ou mesmo ao sensores
+envolvidos no modelo, podem então fazer com que o sistema real divirja consideravelmente do modelo.
+Desta forma, serão apresentados alguns métodos não determinísticos para melhorar a proposta de robô diferencial.
 

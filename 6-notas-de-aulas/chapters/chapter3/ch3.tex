@@ -360,20 +360,18 @@ o modelo do sistema e o modelo dos sensores.
 %     \caption{Curva experimental de corrente vs tensão Resistor}
 % \end{figure}
 
-
-
 O método de linearização se da ao encontrar a função linear do sistema no ponto $\textcolor{red}{a}$ (Fig. \ref{fig:taylor}) através da Expansão da Série de Taylor, conforme demonstrado na figura \fig{fig:taylor}.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{chapters/chapter3/figures/taylor.png}
+    \includegraphics[width=0.8\textwidth]{chapters/chapter3/figures/taylor.pdf}
     \caption{Série de Taylor - Linearização}
     \label{fig:taylor}
 \end{figure}
 
 \begin{equation}
     \label{eq:taylor1}
-    f(x) = \textcolor{red}{f(a) + \left. \frac{\partial f(x)}{\partial x} \right\vert_{x=a}(x-a)}
+    f(x,a) = \textcolor{red}{f(a) + \left. \frac{\partial f(x)}{\partial x} \right\vert_{x=a}(x-a)}
     \textcolor{gray}{+\frac{1}{2!}\left. \frac{\partial^2 f(x)}{\partial^2 x} \right\vert_{x=a}(x-a)^2 + \cdots}
 \end{equation}
 

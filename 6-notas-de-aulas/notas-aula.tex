@@ -10,15 +10,17 @@
 \usepackage{graphicx,pgfplots}
 \usepackage{catchfile}
 \usepackage[noend]{algpseudocode}
-
-
+\usepackage{mathtools}
+ 
 \newcommand{\df}[1]{\,\mathrm{d}#1}
 \newcommand{\parcial}[3]{\dfrac{\partial^{#1}#2}{\partial #3^{#1}}}
 \newcommand{\getenv}[2][]{%
     \CatchFileEdef{\temp}{"|kpsewhich --var-value #2"}{\endlinechar=-1}%
     \if\relax\detokenize{#1}\relax\temp\else\let#1\temp\fi}
-
 \getenv[\BIBREF]{RM_REFERENCES}
+
+\newcommand{\eq}[1]{Equação (\ref{#1})}
+\newcommand{\fig}[1]{Figura (\ref{#1})}
 
 \usepackage{tikz}
 \usepackage{xcolor}
@@ -43,6 +45,11 @@
 %	numbers=left,
 	tabsize=2,
 	morekeywords={models, lambda, forms}}
+
+\algrenewcommand\algorithmicprocedure{\textbf{função}}
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmo}
+\makeatother
 
  
 \frenchspacing
@@ -78,18 +85,18 @@
 \mainmatter
 
 
-\part{Introdução a Robótica Móvel}
-\include{chapters/chapter0/ch0}
+% \part{Introdução a Robótica Móvel}
+% \include{chapters/chapter0/ch0}
 
 \part{Cinemática e Dinâmica de Robôs Móveis}
 \include{chapters/chapter1/ch1}
 
-\part{Controle Moderno para Robótica Móvel}
-\include{chapters/chapter2/ch2}
+% \part{Controle Moderno para Robótica Móvel}
+% \include{chapters/chapter2/ch2}
 
 \part{Eventos Não Determinísticos em Robótica Móvel}
 \include{chapters/chapter3/ch3}
-% \part{Ambiente de Simulação}
+% % \part{Ambiente de Simulação}
 
 % \part{Localização e Mapeamento Simultâneos}
 
@@ -113,7 +120,7 @@
 % 2. Cinemática e Dinâmica de Robôs Móveis com Rodas
 % 	2.1 Rotação, Translação e Transformação Homogênea
 % 		2.2.1 Orientação e Rotação
-% 		2.2.2 Tranlação e Rotação
+% 		2.2.2 Translação e Rotação
 % 		2.2.3 Transformação Homogênea
 % 	2.2 Cinemática Direta e Inversa
 % 		3.2.1 Cinemática Direta e Inversa
