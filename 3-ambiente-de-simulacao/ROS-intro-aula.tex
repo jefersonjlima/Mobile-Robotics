@@ -32,7 +32,7 @@
 
 \usepackage{tikz}
 \usetikzlibrary{automata,positioning}
-\usepackage{xcolor}
+\usepackage{xcolor} 
 \usetikzlibrary{scopes}
 \usepackage{verbatim}
 \usetikzlibrary{patterns}
@@ -53,7 +53,7 @@
 	stringstyle=\color{codepurple},
 	basicstyle=\fontsize{8}{11}\ttfamily,
 	frame=lines,
-%	numbers=left,
+%	numbers=left, 
 	tabsize=2,
 	morekeywords={models, lambda, forms},
 	showstringspaces=false}
@@ -63,7 +63,7 @@
 	\CatchFileEdef{\temp}{"|kpsewhich --var-value #2"}{\endlinechar=-1}%
 	\if\relax\detokenize{#1}\relax\temp\else\let#1\temp\fi}
 
-\getenv[\BIBREF]{RM_REFERENCES}
+\getenv[\BIBREF]{RM_REFERENCES} 
 
 % --------------------------------------------------------------------------------------------
 
@@ -78,22 +78,20 @@
 \maketitle
 \justify
 
-
 \begin{frame}{Useful Information}
 
 	\begin{block}{License}
         \doclicenseThis
     \end{block}
-
+ 
 	\begin{block}{links:}
 		\begin{enumerate}
-			\item \href{https://moodle.utfpr.edu.br/course/view.php?id=14218}{Moodle}
+			\item \href{}{Moodle}
 			\item \href{https://gitlab.com/cursoseaulas/robotica-movel/-/wikis/home}{Mobile Robots - Gitlab Page}
 			\item \href{http://www.rsl.ethz.ch/education-students/lectures/ros.html}{ETH Programming for Robotics - ROS}
 		\end{enumerate}
 	\end{block}
 \end{frame}
-
 
 \begin{frame}{What is ROS?}
 	\framesubtitle{ROS - Robot Operating System}
@@ -116,8 +114,7 @@
 		\item Today used by many robots, universities and companies\footnote[frame]{\textcolor{purple}{ https://rosindustrial.org/about/description }};
 		\item De facto standard for robot programming;
 	\end{itemize}
-\end{frame}
-
+\end{frame} 
 
 \begin{frame}{ROS Philosophy}
 	\framesubtitle{}
@@ -125,51 +122,9 @@
 		
 		\item \textbf{Peer to peer}: Individual programs communicate over defined API (ROS messages, services, etc.).
 		\item \textbf{Distributed}: Programs can be run on multiple computers and communicate over the network.
-		\item \textbf{Multi-lingual}: ROS modules can be written in any language for which a client library exists (C++, Python, MATLAB, Java, etc.).
+		\item \textbf{Multi-lingual}: ROS modules can be written in any language for which a client library exists (C++, Python, Julia, MATLAB, Java, etc.).
 		\item \textbf{Light-weight}: Stand-alone libraries are wrapped around with a thin ROS layer.
 		\item \textbf{Free and open-source}: Most ROS software is open-source and free to use.
-
-	\end{itemize}
-\end{frame}
-
-
-\begin{frame}[fragile]{catkin Build System}
-	\framesubtitle{ }
-    \begin{itemize}
-        \item The \textbf{catkin} workspace contains the following spaces
-
-		\begin{lstlisting}[style=ascii-tree]
-		~/catkin_ws $ tree -L 1
-		├── build				<-------- do not touch
-		├── devel				<-------- do not touch
-		└── src					<-------- work here
-			├── turtlebot3
-			├── YOUR_PROJECT
-			└── ...
-		\end{lstlisting}
-
-		\item \textbf{/src}: \textcolor{blue}{The source space contains the source code. This is where you can clone, create, and edit source code for the packages you want to build}
-		\item \textbf{/build}: \textcolor{red}{The build space is where CMake is invoked to build the packages in the source space. Cache information and other intermediate files are kept here.}
-		\item \textbf{/devel}: \textcolor{red}{The development (devel) space is where built targets are placed (prior to being installed)}
-		\end{itemize}
-\end{frame}
-
-
-\begin{frame}[fragile]{Creating a ROS Package}
-	\framesubtitle{ }
-    \begin{itemize}
-        \item First of all, you need to change to the source space directory of the catkin workspace
-		\begin{lstlisting}[language=bash]
-	$ cd ~/catkin_ws/src
-		\end{lstlisting}
-		\item catkin\_create\_pkg requires that you give it a package\_name and optionally a list of dependencies on which that package depends:
-		\begin{lstlisting}[language=bash]
-	$ catkin_create_pkg <package_name> [depend1] [depend2] [depend3]
-		\end{lstlisting}
-		\item This is an example:
-		\begin{lstlisting}[language=bash]
-			$ catkin_create_pkg beginner_tutorials std_msgs rospy roscpp
-		\end{lstlisting}
 
 	\end{itemize}
 \end{frame}
@@ -205,7 +160,6 @@
 	\end{minipage}
 \end{frame}
 
-
 \begin{frame}[fragile]{ROS Nodes}
 	\framesubtitle{ }
 	\begin{minipage}{0.6\textwidth}
@@ -237,8 +191,6 @@
 \end{minipage}
 \end{frame}
 
-
-
 \begin{frame}[fragile]{ROS Topics}
 	\framesubtitle{ }
 	\begin{minipage}{0.6\textwidth}
@@ -268,7 +220,6 @@
 	\input{./images/rosnodes_image.tex}
 \end{minipage}
 \end{frame}
-
 
 \begin{frame}[fragile]{ROS Messages}
 	\framesubtitle{ }
@@ -303,60 +254,78 @@
 \end{frame}
 
 
-\begin{frame}[fragile]{ROS Messages}
-	\framesubtitle{Creating a ROS msg}
+\begin{frame}[fragile]{catkin Build System}
+	\framesubtitle{ }
     \begin{itemize}
-        \item Let's define a new msg in the package. Save the MyMessage.msg file in \$PROJECT\_NAME/msg:
-		\begin{lstlisting}[language=bash]
-	$ echo "string name
-	> int32 temperature" > msg/MyMessage.msg
-		\end{lstlisting}
-		\item Open package.xml, and make sure these two lines are in it and uncommented:
-		\begin{lstlisting}[language=bash]
-	<build_depend>message_generation</build_depend>
-	<exec_depend>message_runtime</exec_depend>
-		\end{lstlisting}
-		\item Add the message\_generation dependency to the find\_package call which already exists in your CMakeLists.txt so that you can generate messages
-		\begin{lstlisting}[language=bash]
-	find_package(catkin REQUIRED COMPONENTS
-		roscpp
-		rospy
-		std_msgs
-		message_generation
-	)
+        \item The \textbf{catkin} workspace contains the following spaces
+
+		\begin{lstlisting}[style=ascii-tree]
+		~/catkin_ws $ tree -L 1
+		├── build				<-------- do not touch
+		├── devel				<-------- do not touch
+		└── src					<-------- work here
+			├── turtlebot3
+			├── YOUR_PACKAGE
+			└── ...
 		\end{lstlisting}
 
-	
-    \end{itemize}
-% \footnote[frame]{\textbf{More info}: \href{http://wiki.ros.org/ROS/Tutorials/CreatingMsgAndSrv}{ROS/Tutorials/CreatingMsgAndSrv}}
+		\item \textbf{/src}: \textcolor{blue}{The source space contains the source code. This is where you can clone, create, and edit source code for the packages you want to build}
+		\item \textbf{/build}: \textcolor{red}{The build space is where CMake is invoked to build the packages in the source space. Cache information and other intermediate files are kept here.}
+		\item \textbf{/devel}: \textcolor{red}{The development (devel) space is where built targets are placed (prior to being installed)}
+		\end{itemize}
+\end{frame}
+
+
+\begin{frame}[fragile]{Creating a ROS Package}
+	\framesubtitle{ }
+    \begin{itemize}
+        \item First of all, you need to change to the source space directory of the catkin workspace
+		\begin{lstlisting}[language=bash]
+	$ cd ~/catkin_ws/src
+		\end{lstlisting}
+		\item catkin\_create\_pkg requires that you give it a package\_name and optionally a list of dependencies on which that package depends:
+		\begin{lstlisting}[language=bash]
+	$ catkin_create_pkg <package_name> [depend1] [depend2] [depend3]
+		\end{lstlisting}
+		\item This is an example:
+		\begin{lstlisting}[language=bash]
+			$ catkin_create_pkg beginner_tutorials std_msgs rospy roscpp
+		\end{lstlisting}
+
+	\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{ROS Messages}
-	\framesubtitle{Creating a ROS msg\footnote[frame]{\textcolor{purple}{\textbf{More info}: \href{http://wiki.ros.org/ROS/Tutorials/CreatingMsgAndSrv}{ROS/Tutorials/CreatingMsgAndSrv}}}}
+	\framesubtitle{ }
+	\begin{minipage}{0.6\textwidth}
     \begin{itemize}
-        \item Uncomment it by removing the \# symbols and then replace for MyMessage.msg:
+        \item Data structure defining the type of a topic
+		\item Comprised of a nested structure of integers, floats, booleans, strings etc. and arrays of objects
+		\item Defined in *.msg files
 		\begin{lstlisting}[language=bash]
-		add_message_files(
-			FILES
-			MyMessage.msg
-			)
+	$ rosmsg list
 		\end{lstlisting}
-		\item For ROS Hydro and later, you need to uncomment these lines:
+		\item you can type rosmsg to look up its fields:
 		\begin{lstlisting}[language=bash]
-	# generate_messages(
-		#   DEPENDENCIES
-		#   std_msgs
-		# )
+	$ rosmsg info PROJECT_NAME/MESSAGE_NAME
+	...
 		\end{lstlisting}
-		\item Compile and test it:
+
+		\item An example:
 		\begin{lstlisting}[language=bash]
-		$ cd ~/catkin_ws && catkin_make
-		$ python -c "from PROJECT_NAME.msg import MyMessage; print(MyMessage)"
+	$ rosmsg info ros_examples/Sensor 
+	string name
+	float32 temperature
+	float32 humidity	
 		\end{lstlisting}
+
     \end{itemize}
 
+\end{minipage}
+\begin{minipage}{0.4\textwidth}
+	\input{./images/rosnodes_image.tex}
+\end{minipage}
 \end{frame}
-
 
 \begin{frame}[t,fragile]{ROS Exercice}
 	\framesubtitle{\textcolor{purple}{Create a Temperature Sensor Node. Use your favorite language C++ or Python}}
@@ -460,6 +429,62 @@ int main(int argc, char **argv)
 \end{frame}
 
 
+\begin{frame}[fragile]{ROS Messages}
+	\framesubtitle{Creating a ROS msg}
+    \begin{itemize}
+        \item Let's define a new msg in the package. Save the MyMessage.msg file in \$PROJECT\_NAME/msg:
+		\begin{lstlisting}[language=bash]
+	$ echo "string name
+	> int32 temperature" > msg/MyMessage.msg
+		\end{lstlisting}
+		\item Open package.xml, and make sure these two lines are in it and uncommented:
+		\begin{lstlisting}[language=bash]
+	<build_depend>message_generation</build_depend>
+	<exec_depend>message_runtime</exec_depend>
+		\end{lstlisting}
+		\item Add the message\_generation dependency to the find\_package call which already exists in your CMakeLists.txt so that you can generate messages
+		\begin{lstlisting}[language=bash]
+	find_package(catkin REQUIRED COMPONENTS
+		roscpp
+		rospy
+		std_msgs
+		message_generation
+	)
+		\end{lstlisting}
+
+	
+    \end{itemize}
+% \footnote[frame]{\textbf{More info}: \href{http://wiki.ros.org/ROS/Tutorials/CreatingMsgAndSrv}{ROS/Tutorials/CreatingMsgAndSrv}}
+\end{frame}
+
+\begin{frame}[fragile]{ROS Messages}
+	\framesubtitle{Creating a ROS msg\footnote[frame]{\textcolor{purple}{\textbf{More info}: \href{http://wiki.ros.org/ROS/Tutorials/CreatingMsgAndSrv}{ROS/Tutorials/CreatingMsgAndSrv}}}}
+    \begin{itemize}
+        \item Uncomment it by removing the \# symbols and then replace for MyMessage.msg:
+		\begin{lstlisting}[language=bash]
+		add_message_files(
+			FILES
+			MyMessage.msg
+			)
+		\end{lstlisting}
+		\item For ROS Hydro and later, you need to uncomment these lines:
+		\begin{lstlisting}[language=bash]
+	# generate_messages(
+		#   DEPENDENCIES
+		#   std_msgs
+		# )
+		\end{lstlisting}
+		\item Compile and test it:
+		\begin{lstlisting}[language=bash]
+		$ cd ~/catkin_ws && catkin_make
+		$ python -c "from PROJECT_NAME.msg import MyMessage; print(MyMessage)"
+		\end{lstlisting}
+    \end{itemize}
+
+\end{frame}
+
+
+
 \begin{frame}{ROS}
 	\framesubtitle{But ...}
 	\centering
@@ -543,7 +568,6 @@ int main(int argc, char **argv)
 	\end{itemize}
 
 \end{frame}
-
 
 \begin{frame}[t, allowframebreaks]
 	\frametitle{Referências}
