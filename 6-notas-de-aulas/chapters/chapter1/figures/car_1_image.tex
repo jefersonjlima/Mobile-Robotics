@@ -23,11 +23,12 @@
         % Draw axes and help lines
         {[axis,->]
             \draw (M) -- ++(0,2) node(y1_axis)[right] {$y'$};
+            \draw (M) -- ++(2,0) node[yshift=-5] {$x'$};
         }
         % Forces
         {[force,->]
             % Assuming that Mg = 1. The normal force will therefore be cos(alpha)
-            \draw (M.east) -- ++(1,0) node[above, blue] {$\mathbf{v}_{t-1}$};
+            \draw (M.east) -- ++(1,0) node[above, blue] {$\mathbf{p}_{t-1}$};
         }
         \draw[wheel, fill=gray] (M.south west) rectangle ++(.4,-.1) node[]{};
         \draw[wheel, fill=gray] (M.north west) rectangle ++(.4,.1)  node[]{};
@@ -49,7 +50,7 @@
         % Forces
         {[force,->]
             % Assuming that Mg = 1. The normal force will therefore be cos(alpha)
-            \draw (M.east) -- ++(1,0) node[above, blue] {$\mathbf{v}_t$};
+            \draw (M.east) -- ++(1,0) node[above, blue] {$\mathbf{p}_t$};
         }
         \draw[wheel] (M.south west) rectangle ++(.4,-.1) node[below]{$v_D$};
         \draw[wheel] (M.north west) rectangle ++(.4,.1)  node[left]{$v_E$};
@@ -62,6 +63,6 @@
     %%
     \draw[, ->] (-2,-1) -- ++(4,0) node[below] {$x$};
     \draw[, ->] (-2,-1) -- ++(0,3) node(y_axis)[right] {$y$};
-    \draw[gray, ->] (-2,-1) -- ++(-.5,-.5) node[left] {$z$};
+    \draw[gray, dotted, ->] (-2,-1) -- ++(-.5,-.5) node[left] {$z$};
     \node[left, gray,font=\small, xshift=-10] at (y_axis) {$\{A\}$};
 \end{tikzpicture}

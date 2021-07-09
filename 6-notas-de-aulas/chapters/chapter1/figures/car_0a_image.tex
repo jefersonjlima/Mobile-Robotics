@@ -33,20 +33,21 @@
         % Forces
         {[force,->]
             % Assuming that Mg = 1. The normal force will therefore be cos(alpha)
-            \draw (M.east) -- ++(1,0) node[above, blue] {$v_M$};
+            \draw (M.east) -- ++(1,0) node[above, blue] {$v_R$};
         }
         \draw[wheel] (M.south west) rectangle ++(.4,-.1) node[below]{$v_{D}$};
         \draw[wheel] (M.north west) rectangle ++(.4,.1)  node[left]{$v_{E}$};
-        \draw [-](M) -- ++(0,2) node(CIR)[above] {CIR};
+        \draw [dotted, -](M) -- ++(0,2) node(CIR)[above] {CIR};
+        \node[below,  yshift=-10, xshift=-5] at (CIR) {$\omega$};
     \end{scope}
     % Draw gravity force. The code is put outside the rotated
     % scope for simplicity. No need to do any angle calculations. 
     \draw[axis,] (M.center) -- ++(1,0) node[below] {};
     %%
-    \node[right, gray,font=\small, xshift=8] at (y1_axis) {$\{M\}$};
+    \node[right, gray,font=\small, xshift=8] at (y1_axis) {$\{R\}$};
     %%
     \draw[, ->] (-2,-1) -- ++(4,0) node[below] {$X$};
     \draw[, ->] (-2,-1) -- ++(0,3) node(y_axis)[right] {$Y$};
     \draw[gray, ->] (-2,-1) -- ++(-.5,-.5) node[left] {$Z$};
-    \node[left, gray,font=\small, xshift=-10] at (y_axis) {$\{I\}$};
+    \node[left, gray,font=\small, xshift=-10] at (y_axis) {$\{M\}$};
 \end{tikzpicture}
