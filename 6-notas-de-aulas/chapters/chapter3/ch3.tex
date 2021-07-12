@@ -421,13 +421,13 @@ Desta forma, pode-se reescrever o \algo{algo:kf} através da linearização do s
     \Procedure{Predição}{$\mu_{t-1}, {\textstyle\sum}_{t-1}, u_t$}
         \State $\overline{\mu}_t = g(u_t, \mu_{t-1})$
         \State $ \overline{\textstyle\sum}_t = G_t {\textstyle\sum}_{t-1} G_t^T+ Q_t$ 
-        \State \textbf{Return} $\left(\overline{\mu}_t, \overline{\textstyle\sum}_t\right)$
+        \State \textbf{Returne} $\left(\overline{\mu}_t, \overline{\textstyle\sum}_t\right)$
     \EndProcedure
     \Procedure{Correção}{$\overline{\mu}_{t}, \overline{\textstyle\sum}_{t}, z_t$}
         \State $K_t = \overline{\textstyle\sum}_tH_t^T(H_t\overline{\textstyle\sum}_tH_t^T+R_t)^{-1}$
         \State $\mu_t  = \overline{\mu}_t + K_t(z_t -h(\overline\mu_t))$
         \State{$\textstyle\sum_t = (I-K_t H_t)\overline{\textstyle\sum}_t$}
-        \State \textbf{Return} $\left(\mu_t, \textstyle\sum_t\right)$
+        \State \textbf{Returne} $\left(\mu_t, \textstyle\sum_t\right)$
     \EndProcedure
     \end{algorithmic}
     \label{algo:ekf}
