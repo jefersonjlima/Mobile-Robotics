@@ -9,6 +9,7 @@ pdf_stage:
   stage: pdf
   image: timnn/texlive  # use a Docker image for LaTeX from https://hub.docker.com/
   script:
+    - git submodule update --remote --recursive
     - tex --version
     # - export RM_REFERENCES=$(find $PWD -type f | grep "references.bib")
     - export RM_HOME_PATH=$PWD
