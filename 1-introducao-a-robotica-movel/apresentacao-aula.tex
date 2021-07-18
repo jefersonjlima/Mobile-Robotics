@@ -52,8 +52,7 @@
 \newcommand{\getenv}[2][]{%
   \CatchFileEdef{\temp}{"|kpsewhich --var-value #2"}{\endlinechar=-1}%
   \if\relax\detokenize{#1}\relax\temp\else\let#1\temp\fi}
-
-\getenv[\BIBREF]{RM_REFERENCES}
+\getenv[\RMHOME]{RM_HOME_PATH}
 
 % --------------------------------------------------------------------------------------------
 
@@ -409,7 +408,7 @@
 
 \begin{frame}[t, allowframebreaks]
 	\frametitle{Referências}
-	\bibliography{\BIBREF}
+	\bibliography{\RMHOME/references.bib}
 \end{frame}
 
 \end{document}
