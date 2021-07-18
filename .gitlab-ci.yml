@@ -7,7 +7,8 @@ pdf_stage:
   image: timnn/texlive  # use a Docker image for LaTeX from https://hub.docker.com/
   script:
     - tex --version
-    - export RM_REFERENCES=$(find $PWD -type f | grep "references.bib")
+    # - export RM_REFERENCES=$(find $PWD -type f | grep "references.bib")
+    - export RM_HOME_PATH=$PWD
     - mkdir ./images
     - find ./ -name '*_image.tex' -exec mv -t ./images {} \;
     - find ./ -name '*.jpeg' -exec mv -t ./images {} \;
