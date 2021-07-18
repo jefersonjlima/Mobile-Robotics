@@ -58,8 +58,7 @@
 \newcommand{\getenv}[2][]{%
     \CatchFileEdef{\temp}{"|kpsewhich --var-value #2"}{\endlinechar=-1}%
     \if\relax\detokenize{#1}\relax\temp\else\let#1\temp\fi}
-
-\getenv[\BIBREF]{RM_REFERENCES}
+\getenv[\RMHOME]{RM_HOME_PATH}
 
 % --------------------------------------------------------------------------------------------
 
@@ -80,15 +79,13 @@
         \doclicenseThis
     \end{block}
 
-    \begin{block}{Material disponível em:}
-        \href{Robótica Móvel - Wiki}{https://gitlab.com/cursoseaulas/robotica-movel/-/wikis/home}
-    \end{block}
-
-    \begin{block}{Materiais e Recursos de Aula}
-        \begin{itemize}
-            \item Python - Jupyter Notebook (Colab)
-        \end{itemize}
-    \end{block}
+	\begin{block}{links:}
+		\begin{enumerate}
+			\item \href{https://moodle.utfpr.edu.br/course/view.php?id=14218}{Moodle}
+			\item \href{https://gitlab.com/cursoseaulas/robotica-movel/-/wikis/home}{Mobile Robots - Gitlab Page}
+		\end{enumerate}
+	\end{block}
+    
 \end{frame}
 
 
@@ -913,7 +910,7 @@
   
 \begin{frame}[t, allowframebreaks]
 	\frametitle{Referências}
-	\bibliography{\BIBREF}
+	\bibliography{\RMHOME/references.bib}
 \end{frame}
   
 
