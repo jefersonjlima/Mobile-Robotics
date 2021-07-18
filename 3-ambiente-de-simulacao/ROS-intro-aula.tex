@@ -62,8 +62,7 @@
 \newcommand{\getenv}[2][]{%
 	\CatchFileEdef{\temp}{"|kpsewhich --var-value #2"}{\endlinechar=-1}%
 	\if\relax\detokenize{#1}\relax\temp\else\let#1\temp\fi}
-
-\getenv[\BIBREF]{RM_REFERENCES} 
+\getenv[\RMHOME]{RM_HOME_PATH}
 
 % --------------------------------------------------------------------------------------------
 
@@ -222,13 +221,16 @@
 \end{frame}
 
 \begin{frame}[fragile]{ROS Topics}
+
+	
+
 	\framesubtitle{\textcolor{blue}{CLOCK\_NODE} Example}
 	Make sure you include the header file  \textit{rosgraph\_msgs\/Clock.h}.
-	\lstinputlisting[language=c++, linerange={1-2}]{../examples/Chapter03/ros_examples/src/clock_node.cpp}
+	\lstinputlisting[language=c++, linerange={1-2}]{\RMHOME/examples/Chapter03/ros_examples/src/clock_node.cpp}
 	Next that you need to create the \textit{clock\_sys} variable.
-	\lstinputlisting[language=c++, linerange={4-6}]{../examples/Chapter03/ros_examples/src/clock_node.cpp}
+	\lstinputlisting[language=c++, linerange={4-6}]{\RMHOME/examples/Chapter03/ros_examples/src/clock_node.cpp}
 	Now the node configuration:
-	\lstinputlisting[language=c++, linerange={8-14}]{../examples/Chapter03/ros_examples/src/clock_node.cpp}
+	\lstinputlisting[language=c++, linerange={8-14}]{\RMHOME/examples/Chapter03/ros_examples/src/clock_node.cpp}
 
 \end{frame}
 
@@ -603,7 +605,7 @@ int main(int argc, char **argv)
 
 \begin{frame}[t, allowframebreaks]
 	\frametitle{Referências}
-	\bibliography{\BIBREF}
+	\bibliography{\RMHOME/references.bib}
 \end{frame}
 
 \end{document}
