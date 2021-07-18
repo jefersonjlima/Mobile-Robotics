@@ -37,8 +37,6 @@
 \newcommand{\tikzShowrobot}{0}
 \newcommand{\tikzOneCenter}{0}
 
-
-
 \usepackage{tikz}
 \usetikzlibrary{automata,positioning}
 \usepackage{xcolor}
@@ -74,8 +72,7 @@
 \newcommand{\getenv}[2][]{%
 	\CatchFileEdef{\temp}{"|kpsewhich --var-value #2"}{\endlinechar=-1}%
 	\if\relax\detokenize{#1}\relax\temp\else\let#1\temp\fi}
-
-\getenv[\BIBREF]{RM_REFERENCES}
+\getenv[\RMHOME]{RM_HOME_PATH}
 
 
 % --------------------------------------------------------------------------------------------
@@ -99,27 +96,23 @@
 
 	\begin{block}{links:}
 		\begin{enumerate}
+			\item \href{https://moodle.utfpr.edu.br/course/view.php?id=14218}{Moodle}
 			\item \href{https://gitlab.com/cursoseaulas/robotica-movel/-/wikis/home}{Mobile Robots - Gitlab Page}
-			\item \BIBREF
 		\end{enumerate}
 	\end{block}
 \end{frame}
-
-
 
 \begin{frame}[fragile, t]{Pose Estimation}
 	\framesubtitle{ICP - Associate}
 
 	\textbf{k-nearest neighbors algorithm}
-
 \end{frame}
-
 
 
  
 \begin{frame}[t, allowframebreaks]
 	\frametitle{References}
-	\bibliography{\BIBREF}
+	\bibliography{\RMHOME/references.bib}
 \end{frame}
 
 
