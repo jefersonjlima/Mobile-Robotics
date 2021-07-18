@@ -1,3 +1,3 @@
 [submodule "examples"]
 	path = examples
-	url = git@github.com:jefersonjlima/examples.git
+	url = https://github.com/jefersonjlima/examples.git
