@@ -221,6 +221,18 @@
 \end{minipage}
 \end{frame}
 
+\begin{frame}[fragile]{ROS Topics}
+	\framesubtitle{\textcolor{blue}{CLOCK\_NODE} Example}
+	Make sure you include the header file  \textit{rosgraph\_msgs\/Clock.h}.
+	\lstinputlisting[language=c++, linerange={1-2}]{../examples/Chapter03/ros_examples/src/clock_node.cpp}
+	Next that you need to create the \textit{clock\_sys} variable.
+	\lstinputlisting[language=c++, linerange={4-6}]{../examples/Chapter03/ros_examples/src/clock_node.cpp}
+	Now the node configuration:
+	\lstinputlisting[language=c++, linerange={8-14}]{../examples/Chapter03/ros_examples/src/clock_node.cpp}
+
+\end{frame}
+
+
 \begin{frame}[fragile]{ROS Messages}
 	\framesubtitle{ }
 	\begin{minipage}{0.6\textwidth}
@@ -291,7 +303,6 @@
 		\begin{lstlisting}[language=bash]
 			$ catkin_create_pkg beginner_tutorials std_msgs rospy roscpp
 		\end{lstlisting}
-
 	\end{itemize}
 \end{frame}
 
@@ -483,8 +494,6 @@ int main(int argc, char **argv)
 
 \end{frame}
 
-
-
 \begin{frame}{ROS}
 	\framesubtitle{But ...}
 	\centering
@@ -495,7 +504,6 @@ int main(int argc, char **argv)
 		\end{figure}
 	\end{block}
 \end{frame}
-
 
 \begin{frame}[fragile]{ROS Launch}
 	\framesubtitle{Evaluates the XML file in a single pass}
@@ -517,7 +525,6 @@ int main(int argc, char **argv)
 		$ roslaunch roslaunch package_name file_name.launch
 	\end{lstlisting}
 \end{frame}
-
 
 \begin{frame}[fragile]{ROS Launch}
 	\framesubtitle{Evaluates the XML file in a single pass}
@@ -570,7 +577,7 @@ int main(int argc, char **argv)
 \end{frame}
 
 \begin{frame}[fragile]{ROS Best Practices}
-	This is an example of best practices sharing your Robot Operating System (ROS).
+	This is an example of best practices sharing your Robot Operating System (ROS) Package.
 
 	\begin{lstlisting}[style=ascii-tree]
 		~/catkin_ws $ tree -L 1
@@ -583,7 +590,7 @@ int main(int argc, char **argv)
 			└── ...
 		\end{lstlisting}
 
-	Create a new repository on the command line
+	Create a new repository on the command line:
 
 		\begin{lstlisting}[language=bash]
 	$ cd ~/catkin_ws/src
@@ -591,8 +598,7 @@ int main(int argc, char **argv)
 	$ git remote add origin git@github.com:YOURUSER/PACKAGE_NAME.git
 	$ git ... [add, commit, push]
 		\end{lstlisting}
-
-\end{frame}
+	\end{frame}
 
 
 \begin{frame}[t, allowframebreaks]
