@@ -560,29 +560,29 @@ int main(int argc, char **argv)
 
 \end{frame}
 
-\begin{frame}[fragile]{ROS Best Practices}
-	This is an example of best practices sharing your Robot Operating System (ROS) Package.
+% \begin{frame}[fragile]{ROS Best Practices}
+% 	This is an example of best practices sharing your Robot Operating System (ROS) Package.
 
-	\begin{lstlisting}[style=ascii-tree]
-		~/catkin_ws $ tree -L 1
-		├── build				<-------- "do not add this folder"
-		├── devel				<-------- "do not add this folder"
-		└── src					<-------- "your packages are here"
-			├── CMakeLists.txt
-			├── YOUR_PACKAGE_CORE
-			├── YOUR_CONTROL_PACKAGE
-			└── ...
-		\end{lstlisting}
+% 	\begin{lstlisting}[style=ascii-tree]
+% 		~/catkin_ws $ tree -L 1
+% 		├── build				<-------- "do not add this folder"
+% 		├── devel				<-------- "do not add this folder"
+% 		└── src					<-------- "your packages are here"
+% 			├── CMakeLists.txt
+% 			├── YOUR_PACKAGE_CORE
+% 			├── YOUR_CONTROL_PACKAGE
+% 			└── ...
+% 		\end{lstlisting}
 
-	Create a new repository on the command line:
+% 	Create a new repository on the command line:
 
-		\begin{lstlisting}[language=bash]
-	$ cd ~/catkin_ws/src
-	$ git init
-	$ git remote add origin git@github.com:YOURUSER/PACKAGE_NAME.git
-	$ git ... [add, commit, push]
-		\end{lstlisting}
-	\end{frame}
+% 		\begin{lstlisting}[language=bash]
+% 	$ cd ~/catkin_ws/src
+% 	$ git init
+% 	$ git remote add origin git@github.com:YOURUSER/PACKAGE_NAME.git
+% 	$ git ... [add, commit, push]
+% 		\end{lstlisting}
+% \end{frame}
 
 \begin{frame}[t, allowframebreaks]
 	\frametitle{Referências}
