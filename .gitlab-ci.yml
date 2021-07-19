@@ -12,6 +12,7 @@ pdf_stage:
     # upadate submodules
     - git submodule update --remote --recursive
     # install external latex package
+    - tlmgr init-usertree
     - $(which tlmgr) install fontawesome5
     - tex --version
     # - export RM_REFERENCES=$(find $PWD -type f | grep "references.bib")
