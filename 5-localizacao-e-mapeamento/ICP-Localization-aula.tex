@@ -5,7 +5,7 @@
 \usepackage{lmodern}
 \usepackage{ragged2e}
 \usefonttheme[onlymath]{serif} 
-\usepackage[scale=2]{ccicons} 
+\usepackage[scale=2]{ccicons}  
 % \setbeamertemplate{caption}[numbered]
 \usepackage{copyrightbox}
 \DeclareMathOperator*{\argmin}{arg\,min}
@@ -35,8 +35,6 @@
 \newcommand{\tikzTrans}{(0,0)}
 \newcommand{\tikzShowrobot}{0}
 \newcommand{\tikzOneCenter}{0}
-
-
 
 \usepackage{tikz}
 \usetikzlibrary{automata,positioning}
@@ -74,8 +72,6 @@
 	\CatchFileEdef{\temp}{"|kpsewhich --var-value #2"}{\endlinechar=-1}%
 	\if\relax\detokenize{#1}\relax\temp\else\let#1\temp\fi}
 \getenv[\RMHOME]{RM_HOME_PATH}
-
-
 
 % --------------------------------------------------------------------------------------------
 
