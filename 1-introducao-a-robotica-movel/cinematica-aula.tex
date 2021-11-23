@@ -604,7 +604,7 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Cinemática de Robôs}
+\begin{frame}{Robot kinematics}
     \framesubtitle{Conceitos}
     \begin{itemize}
         \item O modelo cinemático não leva em conta a inércia do robô, deformações em
@@ -621,7 +621,7 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Cinemática de Robôs}
+\begin{frame}{Robot kinematics}
     \framesubtitle{Diversos modelos de cinemática}
     \begin{itemize}
         \item \textbf{Cinemática Externa} descreve a posição do robô e orientação com relação ao sistema de referência externo, como por exemplo a relacao entre o robô e as coordenadas de um mapa global.
@@ -631,7 +631,7 @@
 \end{frame}
 
 
-\begin{frame}{Cinemática de Robôs}
+\begin{frame}{Robot kinematics}
     \framesubtitle{Cinemática Externa}
     \begin{itemize}
         \item O deslocamento de um robô deve ser expresso em relação a um sistema de
@@ -677,7 +677,7 @@
 \end{frame}
 
 
-\begin{frame}{Cinemática de Robôs}
+\begin{frame}{Robot kinematics}
     \framesubtitle{Cinemática Interna}
     \begin{columns}
         \begin{column}[c]{0.5\textwidth}
@@ -713,7 +713,7 @@
 \end{frame}
 
 
-\begin{frame}{Cinemática de Robôs}
+\begin{frame}{Robot kinematics}
     \framesubtitle{Robô Diferencial}
     \begin{itemize}
         \item Analisando a velocidade angular de $\omega$, temos:
@@ -744,7 +744,7 @@
 
 
 
-\begin{frame}{Cinemática de Robôs}
+\begin{frame}{Robot kinematics}
     \framesubtitle{Robô Diferencial}
     \begin{itemize}
         \item As velocidades tangenciais $v_L(t)=r\omega_L(t)$ e $v_R(t)=r\omega_R(t)$, temos então a cinemática interna do robô (\textcolor{red}{coordenadas locais}):
@@ -802,7 +802,7 @@
 \end{frame}
 
 
-\begin{frame}{Cinemática de Robôs}
+\begin{frame}{Robot kinematics}
     \framesubtitle{ From Continuous-Time Domain to Microcontroller Code}
     \begin{itemize}
         \item  We can be written in discrete form using Euler integration and evaluated at discrete time
@@ -819,7 +819,7 @@
 \end{frame}
 
 
-\begin{frame}{Cinemática de Robôs}
+\begin{frame}{Robot Kinematics}
     \framesubtitle{Motion Control - Open Loop Control}
     \begin{columns}
         \begin{column}[c]{0.5\textwidth}
@@ -839,7 +839,7 @@
     \end{columns}
 \end{frame}
 
-\begin{frame}{Cinemática de Robôs}
+\begin{frame}{Robot Kinematics}
     \framesubtitle{Kinematic Control - Feedback Control}
     \begin{columns}
         \begin{column}[c]{0.5\textwidth}
@@ -861,7 +861,7 @@
 \end{frame}
 
 
-\begin{frame}{Cinemática de Robôs}
+\begin{frame}{Robot Kinematics}
     \framesubtitle{Kinematic Control - Feedback Control}
     \begin{columns}
         \begin{column}[c]{0.4\textwidth}
@@ -890,19 +890,27 @@
                 \end{equation*}
                 
                 \textcolor{purple}{where $K_{p_1}$ and $K_{p_2}$ is the Proportional Gain}
-               
-
             \end{itemize}
         \end{column}
     \end{columns}
 \end{frame}
 
-\begin{frame}{Cinemática de Robôs}
+\begin{frame}[fragile]{Robot kinematics}
+    \framesubtitle{Kinematic Control - Code Examples: Feedback Control}
+
+    \textbf{Project Example}:
+    \begin{itemize}
+        \item \href{https://gitlab.com/jeferson.lima/diff_drive_controller}{\textcolor{blue}{\textbf{Differential Drive Controller}}}
+    \end{itemize}   
+\end{frame}
+
+
+\begin{frame}{Robot kinematics}
     \framesubtitle{Robôs Omnidirecional}
     continuar ...
 \end{frame}
 
-\begin{frame}{Cinemática de Robôs}
+\begin{frame}{Robot kinematics}
     \framesubtitle{Robôs Com Esteiras}
     continuar ...
 \end{frame}
