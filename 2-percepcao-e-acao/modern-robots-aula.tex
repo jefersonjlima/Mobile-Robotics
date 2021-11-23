@@ -277,6 +277,26 @@
 
 
 \begin{frame}[fragile]{Modern Robots}
+	\framesubtitle{\textcolor{purple}{ANYmal C} - IMU LIDAR}
+	\begin{minipage}{0.3\textwidth}
+        \cpright{\href{https://www.anybotics.com/anymal-legged-robot/}
+        {\includegraphics[width=1\textwidth]{./images/ANYmal.png}}}
+        {https://www.anybotics.com/anymal-legged-robot/}
+    \end{minipage}
+    \begin{minipage}{0.7\textwidth}
+            \textcolor{purple}{\textbf{LIDAR ([LI]ght [D]etection [A]nd [R]anging)}}:
+            \begin{itemize}
+                \item LIDAR devices produce a range estimate based on the time needed for the light to reach the target and return.
+            \end{itemize}
+            \begin{figure}
+                \cpright{\includegraphics[width=0.9\textwidth]{./images/blackmore-lidar.png}}
+                {https://www.zdnet.com/article/am-vs-fm-the-battle-brewing-in-lidar-technology/}
+                \caption{Street Map Example.}
+            \end{figure}
+    \end{minipage}
+\end{frame}
+
+\begin{frame}[fragile]{Modern Robots}
 	\framesubtitle{\textcolor{purple}{ANYmal C} - Stereo Cameras}
 	\begin{minipage}{0.3\textwidth}
         \cpright{\href{https://www.anybotics.com/anymal-legged-robot/}
@@ -331,11 +351,12 @@
                 \item In Structured light depth camera systems there is a \textit{light projectors} or \textit{illuminators}, devices in which each pixel $p_A$ illuminates a scene point $P$ by its specific light value thus creating a spatial pattern.
             \end{itemize}
             \begin{figure}
-                \cpright{\includegraphics[width=0.6\textwidth]{./images/depth_cam.png}}
+                \cpright{\includegraphics[width=0.5\textwidth]{./images/depth_cam.png}}
                 {\cite{zanuttigh2016time}}
                 \caption{Active triangulation by a system made of a camera $C$ and a light projector $A$.}
             \end{figure}
     \end{minipage}
+    \href {https://www.zivid.com/3d-point-cloud-examples/}{\faPlay(ZIVID) }
 \end{frame}
 
 
@@ -417,12 +438,39 @@
                 {https://www.anybotics.com/anymal-legged-robot/}
             \end{figure}
     \end{minipage}
+    \href{https://leggedrobotics.github.io/rl-blindloco/}{\small(ANYmal Learning to walk)}
     \href{https://www.youtube.com/watch?v=lKYh6uuCwRY}{\small(\faPlay Learning to walk)}
 \end{frame}
 
 
 \begin{frame}[fragile]{Modern Robots}
-	\framesubtitle{ROS Packages for CHAMP Quadruped Controller}
+	\framesubtitle{\textcolor{purple}{ANYmal C} - Real Robot}
+	\begin{minipage}{0.3\textwidth}
+        \cpright{\href{https://www.anybotics.com/anymal-legged-robot/}
+        {\includegraphics[width=1\textwidth]{./images/ANYmal.png}}}
+        {https://www.anybotics.com/anymal-legged-robot/}
+    \end{minipage}
+    \begin{minipage}{0.7\textwidth}
+            \textcolor{purple}{\textbf{Learning to Walk via Deep Reinforcement Learning}}:
+            \begin{itemize}
+                \item MDPs:  Markov Decision Processes
+            \end{itemize}
+            MDP Problem Formulation $\langle \mathcal{S, A, T, R}, \gamma \rangle$.
+
+            \begin{figure}
+                \cpright{\includegraphics[width=0.8\textwidth]{./images/rl_diagram.png}}
+                {}
+            \end{figure}
+    \end{minipage}
+    \href{https://leggedrobotics.github.io/rl-blindloco/}{\small(ANYmal Learning to walk)}
+    \href{https://www.youtube.com/watch?v=lKYh6uuCwRY}{\small(\faPlay Learning to walk)}
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{Modern Robots}
+    \framesubtitle{ROS Packages for CHAMP Quadruped Controller}
         \begin{figure}
             \cpright{\includegraphics[width=0.8\textwidth]{./images/champ.png}}
                 {https://github.com/chvmp/champ}
