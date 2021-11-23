@@ -80,35 +80,34 @@
 
 
 \begin{frame}{Useful Information}
-
-	\begin{block}{License}
+    \begin{block}{License}
         \doclicenseThis
     \end{block}
 
-	\begin{block}{links:}
-		\begin{enumerate}
-			\item \href{https://moodle.utfpr.edu.br/course/view.php?id=14218}{Moodle}
-			\item \href{https://gitlab.com/cursoseaulas/robotica-movel/-/wikis/home}{Mobile Robots - Gitlab Page}
-		\end{enumerate}
-	\end{block}
+    \begin{block}{links:}
+        \begin{enumerate}
+            \item \href{https://moodle.utfpr.edu.br/course/view.php?id=14218}{Moodle}
+            \item \href{https://gitlab.com/cursoseaulas/robotica-movel/-/wikis/home}{Mobile Robots - Gitlab Page}
+        \end{enumerate}
+    \end{block}
 \end{frame}
 
 
 \begin{frame}{Quaternions}
-	\framesubtitle{What is a quaternion?}
+    \framesubtitle{What is a quaternion?}
     \begin{itemize}
-        \item What is a quaternion
-        \item Representing rotation
-        \item Geometric view
-        \item Transformations to other representations
+        \item What is a quaternion?
+        \item Representing rotation ...
+        \item Geometric view ...
+        \item Transformations to other representations!
         \item Topological and metric properties
-        \end{itemize}
+    \end{itemize}
 
 \end{frame}
 
 
 \begin{frame}{Quaternions}
-	\framesubtitle{Why can't we invert vectors in $\mathbf{R}^3$?}
+    \framesubtitle{Why can't we invert vectors in $\mathbf{R}^3$?}
 
     \begin{itemize}
         \item We can invert reals.  $x \times \displaystyle\frac{1}{x} = 1$.
@@ -123,124 +122,110 @@
 \end{frame}
 
 \begin{frame}{Quaternions}
-	\framesubtitle{Complex numbers versus quaternions}
+    \framesubtitle{Complex numbers versus Quaternions}
 
     \begin{itemize}
-    \item To define complex numbers  \cite{jeffcourse_2007}:
-    \begin{itemize}
-        \item Basis elements $1$ and $i$;
-        \item Vector space over reals:  elements have the form $x+i y$;
-        \item One more axiom required:  $i^2$ = -1.
+        \item To define complex numbers  \cite{jeffcourse_2007}:
+              \begin{itemize}
+                  \item Basis elements $1$ and $i$;
+                  \item Vector space over reals:  elements have the form $x+i y$;
+                  \item One more axiom required:  $i^2$ = -1.
+              \end{itemize}
+        \item To define quaternions:
+              \begin{itemize}
+                  \item Basis elements $1$, $i$, $j$, $k$;
+                  \item Vector space over reals:  elements have the form $q_0 + q_1 i + q_2 j + q_3 k$;
+                  \item Six more axioms:
+                        \begin{align*}
+                            i^2 & = j^2 = k^2 = -1 \\
+                            ij  & = k              \\
+                            jk  & = i              \\
+                            ki  & = j
+                        \end{align*}
+              \end{itemize}
     \end{itemize}
-    \item To define quaternions:
-    \begin{itemize}
-        \item Basis elements $1$, $i$, $j$, $k$;
-        \item Vector space over reals:  elements have the form $q_0 + q_1 i + q_2 j + q_3 k$;
-        \item Six more axioms:
-        \begin{align*}
-        i^2 &= j^2 = k^2 = -1 \\
-        ij &= k \\
-        jk &= i \\
-        ki &= j
-        \end{align*}
-    \end{itemize}
-\end{itemize}
 \end{frame}
 
 \begin{frame}{Quaternions}
-	\framesubtitle{Quaternion notation}
+    \framesubtitle{Quaternion notation}
 
     We can write a quaternion several ways:
     \begin{align*}
-        q &= q_0 + q_1 i + q_2 j + q_3 k\\
-        q &= (q_0, q_1, q_2, q_3)\\
-        q &= q_0 + \mathbf{q}
+        q & = q_0 + q_1 i + q_2 j + q_3 k \\
+        q & = (q_0, q_1, q_2, q_3)        \\
+        q & = q_0 + \mathbf{q}
     \end{align*}
     where $q_0$ is the \emph{scalar part} and $\mathbf{q}$ is the \emph{vector part}
 \end{frame}
 
 
 \begin{frame}{Quaternions}
-	\framesubtitle{Quaternion product}
+    \framesubtitle{Quaternion product}
 
     We can write a quaternion product several ways:
     \begin{align*}
-      pq &= (p_0 + p_1 i + p_2 j + p_3 k)  (q_0 + q_1 i + q_2 j + q_3 k)\\
-            &= (p_0 q_0 - p_1 q_1 - p_2 q_2 - p_3 q_3) + \ldots i + \ldots j + \ldots k \\
-      pq &= (p_0 + \mathbf{p}) (q_0 + \mathbf{q}) \\
-            &= (p_0 q_0 + p_0 \mathbf{q} + q_0 \mathbf{p} + \mathbf{p} \mathbf{q})
+        pq & = (p_0 + p_1 i + p_2 j + p_3 k)  (q_0 + q_1 i + q_2 j + q_3 k)             \\
+           & = (p_0 q_0 - p_1 q_1 - p_2 q_2 - p_3 q_3) + \ldots i + \ldots j + \ldots k \\
+        pq & = (p_0 + \mathbf{p}) (q_0 + \mathbf{q})                                    \\
+           & = (p_0 q_0 + p_0 \mathbf{q} + q_0 \mathbf{p} + \mathbf{p} \mathbf{q})
     \end{align*}
     So what is $\mathbf{p} \mathbf{q}$?  Cross product?  Dot product?
-    
+
     Both!  Cross product minus dot product!
-    
+
     \begin{equation}
-        pq = (p_0 q_0 - \mathbf{p} \cdot \mathbf{q} + p_0 \mathbf{q} + q_0 \mathbf{p} + \mathbf{p} \times \mathbf{q}) 
+        pq = (p_0 q_0 - \mathbf{p} \cdot \mathbf{q} + p_0 \mathbf{q} + q_0 \mathbf{p} + \mathbf{p} \times \mathbf{q})
     \end{equation}
 
 \end{frame}
 
 
-
-
 \begin{frame}{Quaternions}
-	\framesubtitle{Conjugate, length}
+    \framesubtitle{Conjugate, length}
 
     \begin{itemize}
         \item Quaternion \textbf{conjugate}:
-        \begin{equation}
-        q^* = q_0 - q_1 i - q_2 j - q_3 k
-        \end{equation}
+              \begin{equation}
+                  q^* = q_0 - q_1 i - q_2 j - q_3 k
+              \end{equation}
         \item Note that
-        \begin{align*}
-        q q^* &= (q_0 + \mathbf{q})(q_0 - \mathbf{q}) \\
-                    &= q_0^2 + q_0 \mathbf{q} - q_0 \mathbf{q} - \mathbf{q} \mathbf{q}  \\
-                    &= q_0^2 + \mathbf{q} \cdot \mathbf{q} - \mathbf{q} \times \mathbf{q}  \\
-                    &= q_0^2 + q_1^2 + q_2^2 + q_3^2
-        \end{align*}
+              \begin{align*}
+                  q q^* & = (q_0 + \mathbf{q})(q_0 - \mathbf{q})                               \\
+                        & = q_0^2 + q_0 \mathbf{q} - q_0 \mathbf{q} - \mathbf{q} \mathbf{q}    \\
+                        & = q_0^2 + \mathbf{q} \cdot \mathbf{q} - \mathbf{q} \times \mathbf{q} \\
+                        & = q_0^2 + q_1^2 + q_2^2 + q_3^2
+              \end{align*}
         \item Quaternion \textbf{length}:
-        \begin{equation}
-            |q| = \sqrt{q q^*} = \sqrt{q_0^2 + q_1^2 + q_2^2 + q_3^2} 
-        \end{equation}
+              \begin{equation}
+                  |q| = \sqrt{q q^*} = \sqrt{q_0^2 + q_1^2 + q_2^2 + q_3^2}
+              \end{equation}
     \end{itemize}
 \end{frame}
 
 
 \begin{frame}{Quaternions}
-	\framesubtitle{Quaternion inverse}
+    \framesubtitle{Quaternion inverse}
     \begin{itemize}
         \item[]Note that every quaternion other than the additive identity $0$ has an inverse:
-        \[ q^{-1} = \frac{q^*}{|q|^2} \]
+              \[ q^{-1} = \frac{q^*}{|q|^2} \]
     \end{itemize}
-        That means quaternions are a linear algebra and a field.  Hamilton's dream.  Quaternions are the only extension of  complex numbers that is both a linear algebra and a field.  If 1D numbers are the reals, and 2D numbers are the complex numbers, then 4D numbers are quaternions, and that's all there is.  (Frobenius?)
-    \end{frame}
+    That means quaternions are a linear algebra and a field.  Hamilton's dream.  Quaternions are the only extension of  complex numbers that is both a linear algebra and a field.  If 1D numbers are the reals, and 2D numbers are the complex numbers, then 4D numbers are quaternions, and that's all there is.  (Frobenius?)
+\end{frame}
 
 \begin{frame}{Quaternions}
     \framesubtitle{Rotation using unit quaternions}
 
     \begin{itemize}
         \item Let $q$ be a unit quaternion, i.e. $|q|=1$.
-        \begin{itemize}
-        \item  It can be expressed as
-        \begin{equation}
-            q = \cos \frac{\theta}{2} + \sin \frac{\theta}{2} \hat{\mathbf{n}} 
-        \end{equation}
-        \end{itemize}
+              \begin{itemize}
+                  \item  It can be expressed as
+                        \begin{equation}
+                            q = \cos \frac{\theta}{2} + \sin \frac{\theta}{2} \hat{\mathbf{n}}
+                        \end{equation}
+              \end{itemize}
         \item Let $x = 0 + \mathbf{x}$ be a "pure vector".
         \item Let $x^\prime = qxq^*$.
         \item Then $x^\prime$ is the pure vector $\operatorname(\theta,\hat{\mathbf{n}}) \mathbf{x}$!!!
-    \end{itemize}
-
-\end{frame}
-
-
-\begin{frame}{Quaternions}
-    \framesubtitle{Proof that unit quaternions work}
-    \begin{itemize}
-        \item[] Expand the product $qxq^*$;
-        \item[] Apply half angle formulas;
-        \item[] Simplify;
-        \item[] to obtain Rodrigues's formula.
     \end{itemize}
 \end{frame}
 
@@ -249,22 +234,22 @@
     \framesubtitle{Why $\theta / 2$?  Why $qxq^*$ instead of $qx$?}
 
     Two puzzling things.  In analogy with complex numbers, why not use
-    \begin{align*} 
-           p &= \cos\theta + \hat{\mathbf{n}}\sin\theta \\
-           \mathbf{x}^\prime &= p\mathbf{x}
+    \begin{align*}
+        p                 & = \cos\theta + \hat{\mathbf{n}}\sin\theta \\
+        \mathbf{x}^\prime & = p\mathbf{x}
     \end{align*}
     To explore that idea, define a map $L_p(q) = pq$ with $p$ a unit pure vector.
     Note that $L_p(q)$ can be written:
     \begin{equation*}
-            L_p(q) = \left(\begin{array}{cccc}
-                             p_0 & -p_1 & -p_2 & -p_3 \\
-                             p_1 &  p_0 & -p_3 &  p_2 \\
-                             p_2 &  p_3 &  p_0 & -p_1 \\
-                             p_3 & -p_2 &  p_1 &  p_0 \\
-                     \end{array}\right)
-                     \left(\begin{array}{c}
-                            q_0 \\ q_1 \\ q_2 \\ q_3 \\
-                     \end{array}\right)
+        L_p(q) = \left(\begin{array}{cccc}
+            p_0 & -p_1 & -p_2 & -p_3 \\
+            p_1 & p_0  & -p_3 & p_2  \\
+            p_2 & p_3  & p_0  & -p_1 \\
+            p_3 & -p_2 & p_1  & p_0  \\
+        \end{array}\right)
+        \left(\begin{array}{c}
+            q_0 \\ q_1 \\ q_2 \\ q_3 \\
+        \end{array}\right)
     \end{equation*}
     Note that the matrix above is orthonormal.  $L_p$ is a rotation of
     Euclidean 4 space!
@@ -279,8 +264,8 @@
 
     Consider an example using $p = i$.  Is it a rotation about $i$ of $\pi/2$?
     \begin{figure}[h!]
-    \centerline{
-    \includegraphics[height = 5cm]{images/quatrot.png}}
+        \centerline{
+            \includegraphics[height = 5cm]{images/quatrot.png}}
     \end{figure}
 \end{frame}
 
@@ -297,16 +282,16 @@
     Convert to other representations:
     \begin{itemize}
         \item  From axis-angle to quaternion:
-        \begin{equation}
-            q = \cos \frac{\theta}{2} + \sin \frac{\theta}{2} \hat{\mathbf{n}}
-        \end{equation}
+              \begin{equation}
+                  q = \cos \frac{\theta}{2} + \sin \frac{\theta}{2} \hat{\mathbf{n}}
+              \end{equation}
 
         \item  From quaternion to axis-angle:
-        \begin{align*}
-            \theta &= 2 \tan^{-1}(|{\mathbf{q}}|, q_0) \\
-            \hat{\mathbf{n}} &= {\mathbf{q}}/|{\mathbf{q}}|
-        \end{align*}
-        assuming $\theta$ is nonzero. 
+              \begin{align*}
+                  \theta           & = 2 \tan^{-1}(|{\mathbf{q}}|, q_0) \\
+                  \hat{\mathbf{n}} & = {\mathbf{q}}/|{\mathbf{q}}|
+              \end{align*}
+              assuming $\theta$ is nonzero.
     \end{itemize}
 \end{frame}
 
@@ -314,21 +299,21 @@
 \begin{frame}{Quaternions}
     \framesubtitle{From quaternion to rotation matrix}
 
-        Just expand the product
-        \begin{equation}
-        qxq^* = 
+    Just expand the product
+    \begin{equation}
+        qxq^* =
         \left( \begin{array}{ccc}
-                q_0^2 + q_1^2 - q_2^2 - q_3^2 
-                        & 2(q_1 q_2 - q_0 q_3) 
-                        & 2(q_1 q_3 + q_0 q_2) \\
-                2(q_1 q_2 + q_0 q_3) 
-                        & q_0^2 - q_1^2 + q_2^2 - q_3^2 
-                        & 2 (q_2 q_3 - q_0 q_1) \\
-                2(q_1 q_3 - q_0 q_2) 
-                        & 2 (q_2 q_3 + q_0 q_1)
-                        & q_0^2 - q_1^2 - q_2^2 + q_3^2 \\
-                        \end{array}\right) \mathbf{x}
-        \end{equation}
+                q_0^2 + q_1^2 - q_2^2 - q_3^2
+                 & 2(q_1 q_2 - q_0 q_3)
+                 & 2(q_1 q_3 + q_0 q_2)          \\
+                2(q_1 q_2 + q_0 q_3)
+                 & q_0^2 - q_1^2 + q_2^2 - q_3^2
+                 & 2 (q_2 q_3 - q_0 q_1)         \\
+                2(q_1 q_3 - q_0 q_2)
+                 & 2 (q_2 q_3 + q_0 q_1)
+                 & q_0^2 - q_1^2 - q_2^2 + q_3^2 \\
+            \end{array}\right) \mathbf{x}
+    \end{equation}
 \end{frame}
 
 
@@ -338,35 +323,35 @@
 
     \begin{itemize}
         \item Given $R = (r_{ij})$, solve expression on previous page for
-        quaternion elements $q_i$ 
+              quaternion elements $q_i$
         \item Linear combinations of diagonal elements seem to solve the problem:
-        \begin{align*}
-                q_0^2 =& \frac{1}{4} (1 + r_{11} + r_{22} + r_{33}) \\
-                q_1^2 =& \frac{1}{4} (1 + r_{11} - r_{22} - r_{33}) \\
-                q_2^2 =& \frac{1}{4} (1 - r_{11} + r_{22} - r_{33}) \\
-                q_3^2 =& \frac{1}{4} (1 - r_{11} - r_{22} + r_{33})   
-        \end{align*}
-        
-        so take four square roots and you're done?  You have to figure the
-        signs out.  There is a better way $\ldots$
+              \begin{align*}
+                  q_0^2 = & \frac{1}{4} (1 + r_{11} + r_{22} + r_{33}) \\
+                  q_1^2 = & \frac{1}{4} (1 + r_{11} - r_{22} - r_{33}) \\
+                  q_2^2 = & \frac{1}{4} (1 - r_{11} + r_{22} - r_{33}) \\
+                  q_3^2 = & \frac{1}{4} (1 - r_{11} - r_{22} + r_{33})
+              \end{align*}
+
+              so take four square roots and you're done?  You have to figure the
+              signs out.  There is a better way $\ldots$
     \end{itemize}
 
 \end{frame}
 
 \begin{frame}{Quaternions}
     \framesubtitle{Look at the off-diagonal elements}
-\begin{itemize}
-    \item[]
-    \begin{align*}
-            q_0 q_1 =& \frac{1}{4}(r_{32} - r_{23}) \\
-            q_0 q_2 =& \frac{1}{4}(r_{13} - r_{31}) \\
-            q_0 q_3 =& \frac{1}{4}(r_{21} - r_{12}) \\
-            q_1 q_2 =& \frac{1}{4}(r_{12} + r_{21}) \\
-            q_1 q_3 =& \frac{1}{4}(r_{13} + r_{31}) \\
-            q_2 q_3 =& \frac{1}{4}(r_{23} + r_{32})
-    \end{align*}
-    
-    \item[]  Given any one $q_i$, could solve the above for the other three.
+    \begin{itemize}
+        \item[]
+              \begin{align*}
+                  q_0 q_1 = & \frac{1}{4}(r_{32} - r_{23}) \\
+                  q_0 q_2 = & \frac{1}{4}(r_{13} - r_{31}) \\
+                  q_0 q_3 = & \frac{1}{4}(r_{21} - r_{12}) \\
+                  q_1 q_2 = & \frac{1}{4}(r_{12} + r_{21}) \\
+                  q_1 q_3 = & \frac{1}{4}(r_{13} + r_{31}) \\
+                  q_2 q_3 = & \frac{1}{4}(r_{23} + r_{32})
+              \end{align*}
+
+        \item[]  Given any one $q_i$, could solve the above for the other three.
     \end{itemize}
 \end{frame}
 
@@ -379,15 +364,13 @@
 %         \begin{equation}
 %             \begin{bmatrix}\phi \\\theta \\\psi \end{bmatrix}}={\begin{bmatrix}{\mbox{arctan}}{\frac {2(q_{0}q_{1}+q_{2}q_{3})}{1-2(q_{1}^{2}+q_{2}^{2})}}\\{\mbox{arcsin}}(2(q_{0}q_{2}-q_{3}q_{1}))\\{\mbox{arctan}}{\frac {2(q_{0}q_{3}+q_{1}q_{2})}{1-2(q_{2}^{2}+q_{3}^{2})}}\end{bmatrix}
 %         \end{equation}
-        
+
 %         Note, however, that the arctan and arcsin functions implemented in computer languages only produce results between −π/2 and π/2, and for three rotations between −π/2 and π/2 one does not obtain all possible orientations. To generate all the orientations one needs to replace the arctan functions in computer code by atan2:
 
 %         \begin{equation}
 %             \begin{bmatrix}\phi \\\theta \\\psi \end{bmatrix}}={\begin{bmatrix}{\mbox{atan2}}(2(q_{0}q_{1}+q_{2}q_{3}),1-2(q_{1}^{2}+q_{2}^{2}))\\{\mbox{asin}}(2(q_{0}q_{2}-q_{3}q_{1}))\\{\mbox{atan2}}(2(q_{0}q_{3}+q_{1}q_{2}),1-2(q_{2}^{2}+q_{3}^{2}))\end{bmatrix}}
 %         \end{equation}
 % \end{frame}
-
-
 
 
 \begin{frame}{Quaternions}
@@ -397,8 +380,8 @@
 
 
 \begin{frame}[t, allowframebreaks]
-	\frametitle{Bibliography}
-	\bibliography{\BIBREF}
+    \frametitle{Bibliography}
+    \bibliography{\BIBREF}
 \end{frame}
 
 \end{document}
