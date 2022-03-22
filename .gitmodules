@@ -1,4 +1,0 @@
-[submodule "examples"]
-	path = examples
-	url = https://github.com/jefersonjlima/examples.git
-	branch = main
