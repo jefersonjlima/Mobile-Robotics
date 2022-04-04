@@ -332,11 +332,11 @@
 		\end{itemize}
 	\begin{lstlisting}
 	import rospy
-	from std_msgs.msg import Int32
+	from std_msgs.msg import Float64
 
 	def sensor():
 		pub = rospy.Publisher('sensor/value', 
-								Int32, queue_size=10)
+								Float64, queue_size=10)
 		rospy.init_node('sensor_node',
 						anonymous=False)
 		rate = rospy.Rate(1) # Hz
@@ -392,9 +392,9 @@
 	\end{itemize}
 	\begin{lstlisting}[language=C++]
 #include "ros/ros.h"
-#include "std_msgs/Int32.h"
+#include "std_msgs/Float64.h"
 
-void callback(const std_msgs::Int32::ConstPtr& msg)
+void callback(const std_msgs::Float64::ConstPtr& msg)
 {
 	ROS_INFO("I heard: %d", msg->data);
 }

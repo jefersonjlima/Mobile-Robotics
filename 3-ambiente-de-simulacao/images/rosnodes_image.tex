@@ -10,6 +10,6 @@
     \node[state,below left=of MASTER] (LISTENER) {\textbf{Listener} \\ \textbf{ Sensor} \\ \textbf{Node}};
     \draw (LISTENER) edge[->,bend left=15] node[left] {Subscribe \\ Registration} (MASTER);
     \draw (SENSOR) edge[->,bend right=15] node[right] {Publish \\ Registration} (MASTER);
-    \draw (LISTENER) edge[-, dashed] node[blue] {\textbf{/sensor/value}} node[below, red] {std\_msg/Int32} (SENSOR);
+    \draw (LISTENER) edge[-, dashed] node[blue] {\textbf{/sensor/value}} node[below, red] {std\_msg/Float64} (SENSOR);
 
 \end{tikzpicture}}
