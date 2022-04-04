@@ -335,18 +335,16 @@
 	from std_msgs.msg import Float64
 
 	def sensor():
-		pub = rospy.Publisher('sensor/value', 
-								Float64, queue_size=10)
-		rospy.init_node('sensor_node',
-						anonymous=False)
+		rospy.init_node('sensor_node', anonymous=False)
+		pub = rospy.Publisher('sensor/value', Float64, queue_size=10)
 		rate = rospy.Rate(1) # Hz
-		i = 0
+		i = Float64()
 		while not rospy.is_shutdown():
-			sensor_msg = "value %s" % i
+			sensor_msg = "value %s" % i.data
 			rospy.loginfo(sensor_msg)
 			pub.publish(i)
 			rate.sleep()
-			i = i + 1
+			i.data = i.data + 1
 			...
     \end{lstlisting}
 \end{minipage}
@@ -403,8 +401,7 @@ int main(int argc, char **argv)
 {
 	ros::init(argc, argv, "listener");
 	ros::NodeHandle n;
-	ros::Subscriber sub=n.subscribe("/sensor/value", 
-							1000, callback);
+	ros::Subscriber sub=n.subscribe("/sensor/value", 10, callback);
 	ros::spin();
 	return 0;
 }
