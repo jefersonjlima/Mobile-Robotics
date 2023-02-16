@@ -20,8 +20,8 @@ pdf_stage:
     - find ./ -name '*.jpg' -exec mv  -t ./images {} \;
     - find ./ -name '*.png' -exec mv  -t ./images {} \;
 #    - find ./ -name '*.ipynb' -exec mv  -t ./public {} \;
-    - cp 1-introducao-a-robotica-movel/beamerthemesimple.sty ./
-    - cp 6-notas-de-aulas/krantz.cls ./
+    - cp 1-introduction-mobile-robots/beamerthemesimple.sty ./
+    - cp notes/krantz.cls ./
     - ls
     - find ./ -name '*aula.tex' -exec pdflatex {} \;
     - find ./ -name '*aula.aux' -exec bibtex {} \;
