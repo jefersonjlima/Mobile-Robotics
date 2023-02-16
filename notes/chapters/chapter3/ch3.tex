@@ -1,0 +1,432 @@
+\chapterauthor{Jeferson J. Lima}{Departamento de Informática (DAINF) \\Universidade Tecnológica Federal do Paraná (UTFPR)}
+\chapter{Conceitos Básicos}
+
+\section{Introdução}\label{intro::cap3}
+
+A modelagem cinemática e dinâmica fornece uma estimativa dos estados de um sistema real em relação aos valores inciais. No caso da robótica móvel, essa estimativa aplica-se principalmente na determinação da posição de um robô em relação as coordenas iniciais, sendo estas um mapa ou qualquer outro sistema de referência.
+
+A percepção destas coordenadas se dá através de uma série de sensores que fornecem uma estimativa da localização do robô durante determinado movimento. Esta predição dos estados é executada interativamente em intervalos de tempo, determinados pela frequência de operação dos sensores. 
+
+Assim, a crença do estado atual do robô é determinada em função dos dados dos sensores, bem como, do modelo de sistema atribuído ao robô. A integração entre os dados observáveis e integração de estados do modelo é feita através da proposta de alguns filtros que serão discutidos na sequência. 
+
+subsection{Filtro de Bayes}
+
+O Filtro de Bayes é um dos algoritmos mais utilizados em diversas técnicas de auto-localização onde pretende-se resolver a manutenção da crença da posição de um robô. O algoritmo calcula a densidade de probabilidade que se traduz na crença do robô a partir de dados dos sensores e o modelo de controle do robô  \cite{thrun2006probalistic}. A solução deste problema de auto-localização, utilizando-se da inferência bayesiana com objetivo de encontrar o valor esperado da posição em cada instante de tempo, conforme a \eq{eq:bayes1}.
+
+\begin{equation}
+    \label{eq:bayes1}
+    \hat X_t = E\left[X_t| z_t, u_t\right] = \displaystyle \int\limits_x x P(X_t = x| z_t, u_t)\text{d}x
+\end{equation}
+
+Para este problema, o algoritmo do Filtro de Bayes apresenta-se como uma forma recursiva, conforme a \eq{eq:bayes2}, onde $\text{Bel}(x_t)$ representa a função densidade da crença no tempo $t$ e $\text{Bel}(x_{t-1})$ a função no intervalo de tempo anterior. A relação entre o intervalo de tempo das interações do filtro será definida, conforme citado acima, pela velocidade de operação dos sensores envolvidos, aqui apresentados como $z_t$. O termo $u_t$ representa a variável de ação do modelo ou variável de controle.
+
+\begin{equation}
+    \label{eq:bayes2}
+    \text{\text{Bel}}(x_t) = \eta P(z_t| x_t) \int P(x_t| u_t, x_{t-1}) \text{Bel}(x_{t-1})\text{d}x_{t-1}
+\end{equation}
+
+A esta primeira fase do algoritmo, a qual calcula a distribuição em relação à crença dos estados $x_{t-1}$ e $u_t$, é chamada de predição e o resultado da função crença é dada por $\overline{\text{Bel}}(x_t)$.
+
+Na segunda fase, chamada aqui de correção, a crença $\overline{\text{Bel}}(x_t)$ é multiplicada pela probabilidade dos estados observados em relação aos sensores $z_t$.
+
+\begin{algorithm}[H]
+    \caption{Filtro de Bayes}
+    \begin{algorithmic}[1]
+    \Procedure{predição}{$\text{Bel}, u_t$}
+        \State $\overline{\text{Bel}}= \displaystyle\int P(x_t| u_t, x_{t-1})\text{Bel}(x_{t-1})\text{d}x_t$
+    \EndProcedure
+    \Procedure{Correção}{$\overline{\text{Bel}}, z_t$}
+        \State ${\text{Bel}}= \displaystyle\textcolor{white}{\int}  \eta P(z_t| x_{t})\overline{\text{Bel}}(x_{t})$
+    \EndProcedure
+    \State Normatiza $\eta \displaystyle\int \text{Bel}(x_t)\text{d}x_t = 1$
+    \State \textbf{Retorne} $\text{Bel}(x_t)$
+    \end{algorithmic}
+    \label{algo:bayes}
+\end{algorithm}
+
+O \algo{algo:bayes} finaliza com a crença normatizada e a estimativa da posição do robô é calculada. O algoritmo do Filtro de Bayes apresentado aqui é aplicável apenas a uma classe de problemas simples, no entanto, serve de base para implementações mais complexas onde a cinemática e dinâmica dos sistemas são consideradas, como no exemplo do Filtro de Kalman a ser apresentado abaixo.
+
+\subsection{Filtro de Kalman}
+
+O Filtro de Kalman é provavelmente a implementação mais aplicada com base no Filtro de Bayes. Proposto por Rudolph Emil Kalman, em 1950 como técnica para filtragem e predição de sistemas lineares. O Filtro proposto por Kalman resolve o problema de observação dos sensores externos do robô, considerando inerentes a leitura dos sensores. \cite{thrun2006probalistic,romero2014robotica}.
+
+A garantia da densidade de probabilidade, apresentada em \eq{eq:bayes2}, é dada por uma aproximação do método apresentado anteriormente. Nesta aproximação o modelo de movimento do robô e o modelo do observador, com base nos sensores, é representado por densidades gaussianas multivariáveis.
+
+A função de densidade gaussiana $P(X = x)$, sendo $X$ um vetor, pode ser expressa na seguinte forma ${P(X = x) \sim N(\mu, \sigma^2)}$, onde $\mu$ representa a média e $\sigma^2$ a variância da distribuição, conforme a  \eq{eq:gauss1}.
+
+\begin{equation}
+    \label{eq:gauss1}
+    P(X = x) = \dfrac{1}{\sqrt{2\pi\sigma^2}}\cdot 
+    \exp\left\{-\frac{(x-\mu)^2}{2\sigma^2}\right\}
+\end{equation}
+
+A \fig{fig::gauss1} apresenta três funções de densidade gaussiana, com os valores respectivamente para $\mu_i = \{0,0,-2\}$ e $\sigma^2_i = \{1,2,1\}$.
+
+\begin{figure}[!ht]
+    \centering
+    \input{chapters/chapter3/figures/gauss_1d_image.tex}
+    \caption{Representação de três funções de Distribuição Normal}
+    \label{fig::gauss1}
+\end{figure}
+
+Um dos requisitos para aplicação do Filtro de Kalman é que o modelo determinístico de observação seja linear para uma correta aproximação com a densidade de probabilidade, conforme é mostrado na  \eq{eq::linear1d}.
+
+\begin{equation}
+    \label{eq::linear1d}
+    \left.
+    \begin{aligned}
+            X & \sim N\left(\mu, \sigma^2\right)\\
+            Y & = aX + b\\
+    \end{aligned} \right\}
+    \quad \Rightarrow \quad Y \sim N\left(a\mu+b\right)
+\end{equation}
+
+Os coeficientes $a$ e $b$ são coeficientes lineares do modelo. A \eq{eq::linear1d} possui apenas um estado, no entanto, sistemas complexos são tipicamente representados diversos estados e diversos sensores.
+Sistemas robóticos possuem vários estados, sendo assim a densidade de probabilidade ${P(\mathbf{x}) \sim N(\boldsymbol{\mu}, \textstyle\sum)}$ é formada por uma  multivariável, onde $\boldsymbol{\mu}$ representa o vetor das médias e ${\textstyle\sum}$ a matriz de covariância, conforme pode ser visto na  \eq{eq::linearNd}.
+
+\begin{equation}
+    \label{eq::linearNd}
+    P(\mathbf{x}) =\frac{1}{\sqrt{(2\pi)^{d}|\sum|}}\exp\left\{-\frac{1}{2} (\mathbf{x}-\boldsymbol\mu)^T\textstyle\sum{}^{-1}(\mathbf{x}-\boldsymbol\mu)\right\}
+\end{equation}
+
+Desta forma, a \fig{fig::gauss2} apresenta a distribuição normal para um sistema bivariável.
+
+\begin{figure}[!ht]
+    \centering
+    \input{chapters/chapter3/figures/gauss_2d_image.tex}
+    \caption{Distribuição Normal Bivariável}
+    \label{fig::gauss2}
+\end{figure}
+
+A equação da função densidade de probabilidade e mostrada pela \eq{eq:multi}.
+
+\begin{equation}
+    \left.
+    \begin{aligned}
+            X & \sim N\left(\boldsymbol\mu, \textstyle\sum\right)\\
+            Y & = {A}_tX + {B_t}\\
+    \end{aligned} \right\}
+    \quad \Rightarrow \quad Y \sim N\left( {A_t}\boldsymbol\mu+B_t, {A_t}\textstyle\sum {A_t}^T \right)
+    \label{eq:multi}
+\end{equation}
+
+Para o caso multivariável, ${A_t}$ e ${B_t}$ são matrizes $n \times n$ e $n \times l$, respectivamente, sendo $n$ o número de estados e $l$ o número de variáveis de controle.
+
+Definida a funções de densidade de probabilidade para um sistema multivariável, tem-se agora que definir o modelo do sistema. No modelo estocástico do sistema do robô, as incertezas serão acrescentadas, conforme visto pela  \eq{eq::mdinamic}.
+
+    \begin{equation} 
+        \label{eq::mdinamic}
+        \begin{aligned}
+            x_t &= {A}_t x_{t-1} + {B}_t u_t +  w_t\\ 
+        z_t &= {C}_t x_t + v_t
+        \end{aligned}
+    \end{equation}
+
+\noindent sendo:
+
+\begin{center}
+    \begin{tabular}{ r | l }
+        ${A}_t$ & Matriz $(n \times n)$ que descreve os estados do modelo.      \\
+        ${B}_t$ & Matriz $(n \times l)$ que descreve os estados do controle.    \\
+        ${C}_t$ & Matriz $(k\times n)$ sendo os estados de $x_t$.               \\
+        $w_t$   & Variável aleatória com distribuição normal e covariância ${Q}$. \\
+        $v_t$   & Ruído aleatório com distribuição normal, covariância de ${R}$.
+    \end{tabular}
+\end{center}
+
+Definidas as variáveis do sistema, necessita-se agora desenvolver a metologia para proposta de filtro a ser aplicado. A evolução da proposta, com base na \eq{eq:bayes2}, segue os seguintes passos.
+
+\begin{equation*}
+    \begin{array}{ll}
+        \text{Teorema} & \Rightarrow\textcolor{white}{\displaystyle\int}\text{Equações} \\
+        Bel(x_t) & \Rightarrow\textcolor{white}{\displaystyle\int} P(x_t| u_1, z_1,  \cdots, z_t) \\
+        Bayes & \Rightarrow\textcolor{white}{\displaystyle\int} \eta P(z_t|x_t,  u_1, z_1,  \cdots,  u_t)P(x_t, u_1, z_1, \cdots, u_t) \\
+        Markov & \Rightarrow\textcolor{white}{\displaystyle\int} \eta P(z_t|x_t)P(x_t, u_1, z_1, \cdots, u_t) \\
+        P. Total & \Rightarrow\textcolor{white}{\displaystyle\int} \eta P(z_t|x_t)\displaystyle\int P(x_t| u_1, z_1, \cdots, u_t,x_{t-1})P(x_{t-1}| u_1, z_1, \cdots, u_t)\text{d}x_{t-1}\\
+        Markov & \Rightarrow\textcolor{white}{\displaystyle\int} \eta P(z_t|x_t) \displaystyle\int P(x_t| u_t,x_{t-1})P(x_{t-1}| u_1, z_1, \cdots, u_t)\text{d}x_{t-1} \\
+        Markov & \Rightarrow\textcolor{white}{\displaystyle\int} \eta P(z_t|x_t) \displaystyle\int P(x_t| u_t,x_{t-1}){P(x_{t-1}| u_1, z_1, \cdots, z_{t-1}}){\text{d}x_{t-1}} \\
+    \end{array}   
+\end{equation*}
+
+Temos então a equação resultante na \eq{eq:kalmbayes}.
+
+\begin{equation}
+    \textcolor{blue}{\text{Bel}(x_t)} =\eta \textcolor{purple}{P(z_t|x_t)}\displaystyle\int \textcolor{red}{P(x_t| u_t,x_{t-1})}\textcolor{gray}{\text{Bel}(x_{t-1})}\text{d}x_{t-1}
+    \label{eq:kalmbayes}
+\end{equation}
+
+A \fig{fig::kalm1} demonstra graficamente a \eq{eq:kalmbayes}, com relação função de densidade de probabilidade em relação aos estados do robô.
+    
+\begin{figure}[!ht]
+    \centering
+    \input{chapters/chapter3/figures/gauss_1da2_image.tex}
+    \caption{Exemplo Gráfico da Solução da \eq{eq:kalmbayes}}
+    \label{fig::kalm1}
+\end{figure}
+
+O estado inicial do sistema é fator crucial para convergência do algoritmo de Kalman, sendo definido por:
+
+\begin{equation}
+    \text{Bel}(x_0) = N\left(x_0, \mu_o, {\textstyle\sum} _0\right)
+\end{equation}
+
+A proposta de filtro é aplicável, apenas se o sistema é observável, desta forma a verificação de tal condição é dada pelo posto  da matriz $\mathcal {O}$ é igual a $n$, conforme mostrado abaixo.
+\begin{equation*}
+    \mathcal {O}={\begin{bmatrix}C_t\\C_tA_t\\C_tA^{2}_t\\\vdots \\C_tA^{n-1}_t\end{bmatrix}, \quad \text{se }(\text{posto}(\mathcal {O}})) = n
+\end{equation*}
+
+Dado que o sistema é observável, temos a função de probabilidade expressa pela \eq{eq:bayes01}:
+
+\begin{equation}
+    \label{eq:bayes01}
+        p(x_t| u_t, x_{t-1})= N\left(x_t; Ax_{t-1}+ Bu_t, Q\right)
+\end{equation}   
+
+Expandindo a equação, na sua forma completa, obtemos a \eq{eq:bayes02}:
+
+\begin{equation}   
+    \label{eq:bayes02}
+    \begin{matrix}
+        \overline{\text{Bel}}(x_t)  & = \displaystyle\int P(x_t|u_t, x_{t-1}) & \text{Bel}(x_{t-1})\text{d}x_{t-1} \\
+        & \quad\quad\quad\quad\quad \Downarrow & \quad\quad\quad\Downarrow \\
+        & \sim N\left(x_t; A_t x_{t-1}+ B_tu_t, Q_t\right) & \sim N\left(x_{t-1}; \mu_{t-1}, \textstyle\sum {}_{t-1}\right) \\
+    \end{matrix}
+\end{equation}
+
+O termo $\text{Bel}(x_{t-1})$ representa a função de crença do sistema a \textit{priori} e $\overline{\text{Bel}}(x_t)$ a \textit{posteriori}. Aqui podemos recorrendo à função de densidade de probabilidade para sistemas multivariáveis, temos então a expressão:
+
+\begin{equation}
+    \label{eq:bayes03}
+    P(\mathbf{x}) = \frac{1}{\sqrt{(2\pi)^{d}|\sum|}}\exp\left\{-\frac{1}{2} (\mathbf{x}-\mu)^T\textstyle\sum{}^{-1}(\mathbf{x}-\mu)\right\}
+\end{equation}        
+
+Aplicando a \eq{eq:bayes03} na \eq{eq:bayes02}, obtemos a \eq{eq:bayes04}.
+
+\begin{equation}
+    \begin{matrix}
+        \label{eq:bayes04}
+        \overline{\text{Bel}}(x_t)= &  \eta \displaystyle\int \exp\left\{  -\frac{1}{2} \left(x_t - A_t x_{t-1} - B_t u_t\right)^T Q_t \left(x_t - A_t x_{t-1} - B_t u_t\right)  \right\} \\
+        & \quad\exp\left\{ -\displaystyle\frac{1}{2} \left(x_{t-1} - \mu_{t-1}\right)^T \textstyle\sum {}_{t-1} \left(x_{t-1} - \mu_{t-1}\right)  \right\}\text{d}x_{t-1}
+    \end{matrix}
+\end{equation}
+
+Agora, a \eq{eq:bayes04} pode ser representada por:
+
+\begin{equation}
+    \overline{\text{Bel}}(x_t)= \eta \displaystyle\int \exp\left\{ -L_t \right\}\text{d}x_{t-1}
+\end{equation}
+
+O funcional $L_t$ é expresso por:
+
+\begin{equation}
+    \begin{matrix}
+        L_t&  = & \displaystyle\frac{1}{2} \left(x_t - A_t x_{t-1} - B_t u_t\right)^T Q_t \left(x_t - A_t x_{t-1} - B_t u_t\right) \\
+        & & \quad\quad + \displaystyle\frac{1}{2} \left(x_{t-1} - \mu_{t-1}\right)^T \textstyle\sum {}_{t-1} \left(x_{t-1} - \mu_{t-1}\right)
+    \end{matrix}
+\end{equation}
+
+Percebe-se que o funcional $L_t$ é uma função quadrática, representada pelos termos dentro da integral. A solução do funcional $L_t$ nos fornece dois termos importantes para o algoritmo do filtro de Kalman, o valor médio $\left(\mu_t\right)$ e a matriz de covariância $\left(\sum_t\right)$, conforme a \eq{eq:bayes05}.
+
+\begin{equation}
+    \overline{\text{Bel}} = 
+    \left\{
+    \begin{aligned}
+            \overline{\mu}_t & = A_t\mu_{t-1} + B_t u_t\\
+            \overline{\textstyle\sum}_t & = A_t {\textstyle\sum}_{t-1} A_t^T+ Q_t\\
+    \end{aligned} \right.
+    \label{eq:bayes05}
+\end{equation}
+
+Através da \eq{eq:bayes05}, definimos o primeiro passo do Filtro de Kalman, chamado aqui de correção. A parte de correção fez a estimativa dos estados do sistema em função do seu modelo.
+A segunda parte a ser definida é da fase de correção, onde o valores dos sensores $z_t$ terão a função de reduzir o erro de estimação definido no primeiro passo.
+
+Assim, relembrando as equações do sistema, definidas pela \eq{eq::mdinamic}, temos então a \eq{eq:bayes10} de saída do sistema.
+
+\begin{equation}
+    z_t = C_t x_t + v_t
+    \label{eq:bayes10}    
+\end{equation}
+
+Apresentada a equação linear da saída do observador de estados, temos a função de probabilidade na \eq{eq:bayes11}.
+
+\begin{equation}
+    P(z_t| x_t)= N\left(z_t; C_t x_t, R_t\right)
+    \label{eq:bayes11}
+\end{equation}   
+
+Utilizando-se do filtro de Bayes, temos a \eq{eq:bayes12}.
+
+\begin{equation}
+    \label{eq:bayes12}
+    \begin{matrix}
+        \text{Bel}(x_t) = &  \eta & P(z_t| x_t) & \overline{\text{Bel}}(x_t) \\
+        & & \quad \Downarrow & \quad\Downarrow \\
+        & & \sim N\left(z_t; C_t x_t, R_t\right) & \sim N\left(x_t; \overline{\mu}_t, \overline{\textstyle\sum}_t\right) \\
+    \end{matrix}
+\end{equation}
+
+Da mesma forma, pode-se então aplicar a \eq{eq:bayes12} na \eq{eq:bayes02}, onde obtemos a \eq{eq:bayes13}.
+
+\begin{equation}
+    \label{eq:bayes13}
+    \begin{matrix}
+        \text{Bel}(x_t)  & = \eta & \exp\left\{  -\displaystyle\frac{1}{2} \left(z_t - C_t x_t\right)^T R_t \left(z_t - C_t x_t\right)  \right\} \\
+        & & \exp\left\{ -\displaystyle\frac{1}{2} \left(x_t - \overline{\mu}_t\right)^T \overline{\textstyle\sum}_t^{-1} \left(x_t - \overline{\mu}_t\right) \right\}
+    \end{matrix}
+\end{equation}
+
+Podemos então, substituir a \eq{eq:bayes13} com o funcional $J_t$, conforme mostrado na \eq{eq:bayes15}.
+
+\begin{equation}
+    \text{Bel}(x_t)  = \eta  \exp\left\{-J_t\right\}
+    \label{eq:bayes15}
+\end{equation}
+
+\noindent sendo $J$ expresso por:
+
+\begin{equation}
+    J_t = \displaystyle\frac{1}{2} \left(z_t - C_t x_t\right)^T R_t \left(z_t - C_t x_t\right)  +
+    \displaystyle\frac{1}{2} \left(x_t - \overline{\mu}_t\right)^T \overline{\textstyle\sum}_t^{-1} \left(x_t - \overline{\mu}_t\right)
+\end{equation}
+
+A solução do funcional $J_t$ é expressa pela \eq{eq:bayes14}.
+
+\begin{equation}
+    \overline{\text{Bel}} = 
+    \left\{
+    \begin{aligned}
+            \mu_t & = \overline{\mu}_t + K_t(z_t -C_t \overline{\mu}_t)\\
+            \textstyle\sum_t & = (I-K_tC_t)\overline{\textstyle\sum}_t \\
+    \end{aligned} \right.
+    \label{eq:bayes14}
+\end{equation}
+
+A matriz $K_t$, representa o ganho do observador, a letra $K$ é utilizada aqui em homenagem a Rudolph Kalman. Desta forma, o ganho ótimo é obtido pela \eq{eq:bayes16}.
+
+\begin{equation}
+    \label{eq:bayes16}
+    K_t = \overline{\textstyle\sum}_tC_t^T(C_t\overline{\textstyle\sum}_tC_t^T+R_t)^{-1}
+\end{equation}
+
+A implementação do algoritmo do Filtro de Kalman pode ser vista no \algo{algo:kf}.
+
+\begin{algorithm}[H]
+    \caption{Kalman-Filter}
+    \begin{algorithmic}[1]
+    \Procedure{Predição}{$\mu_{t-1}, {\textstyle\sum}_{t-1}, u_t$}
+        \State $\overline{\mu}_t = A_t\mu_{t-1} + B_t u_t$
+        \State $ \overline{\textstyle\sum}_t = A_t {\textstyle\sum}_{t-1} A_t^T+ Q_t$ 
+        \State \textbf{Retorne} $\left(\overline{\mu}_t, \overline{\textstyle\sum}_t\right)$
+    \EndProcedure
+    \Procedure{Correção}{$\overline{\mu}_{t}, \overline{\textstyle\sum}_{t}, z_t$}
+        \State $K_t = \overline{\textstyle\sum}_tC_t^T(C_t\overline{\textstyle\sum}_tC_t^T+R_t)^{-1}$
+        \State $\mu_t  = \overline{\mu}_t + K_t(z_t -C_t\overline\mu_t)$
+        \State{$\textstyle\sum_t = (I-K_tC_t)\overline{\textstyle\sum}_t$}
+        \State \textbf{Retorne} $\left(\mu_t, \textstyle\sum_t\right)$
+    \EndProcedure
+    \end{algorithmic}
+    \label{algo:kf}
+\end{algorithm}
+
+Embora a implementação do \algo{algo:kf} seja relativamente simples, no que dizer respeito a implementação computacional, a maioria dos sistemas reais não são lineares. Desta forma, a proposta para solução do filtro em sistemas dinâmicos não lineares se apresenta como EKF (do inglês, \textit{Extended Kalman Filter}).
+
+
+\subsection{Extended Kalman Filter}
+
+A proposta do EKF se aplica também quando as equações que representam a dinâmica do sensor são representadas por equações não lineares.
+
+Neste caso, o filtro de Kalman pode não mais produzir uma estimativa de estado ideal. Para contornar o problema das não linearidades, propões se o método de linearização do sistema, conforme a \eq{eq:ekf1}.
+
+\begin{equation}
+    \begin{split}
+    x_t = & g(u_t, x_{t-1})\\
+    z_t = & h(x_t)
+    \end{split}
+    \label{eq:ekf1}
+\end{equation}
+    
+\noindent onde $g(u_t, x_{t-1})$ e $h(x_t)$ são funções não lineares que representam, consecutivamente, 
+o modelo do sistema e o modelo dos sensores.
+
+O método de linearização se da ao encontrar a função linear do sistema no ponto $\textcolor{red}{a}$ através da Expansão da Série de Taylor, conforme demonstrado na \eq{eq:taylor1}.
+
+\begin{equation}
+    f(x,a) = \textcolor{red}{f(a) + \left. \frac{\partial f(x)}{\partial x} \right\vert_{x=a}(x-a)}
+    \textcolor{gray}{+\frac{1}{2!}\left. \frac{\partial^2 f(x)}{\partial^2 x} \right\vert_{x=a}(x-a)^2 + \cdots}
+    \label{eq:taylor1}
+\end{equation}
+
+A \fig{fig:taylor} demonstra graficamente a linearização pelo primeiro termo da Série de Taylor.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{chapters/chapter3/figures/taylor.pdf}
+    \caption{Série de Taylor - Linearização}
+    \label{fig:taylor}
+\end{figure}
+
+Para o EKF, apenas a aproximação de primeira ordem é utilizada, conforme \eq{eq:taylor1} e \eq{eq:taylor2}.
+
+\begin{equation}
+    \label{eq:taylor2}
+    \begin{split}
+        g(u_t, x_{t-1}) \approx & g(u_t, \mu_{t-1}) + \frac{\partial g(u_t, \mu_{t-1}) }{\partial x_{t-1}}(x_{t-1}-\mu_{t-1}) \\
+        g(u_t, x_{t-1}) \approx & g(u_t, \mu_{t-1}) + \color{red}{G_t}(x_{t-1}-\mu_{t-1})
+    \end{split}
+\end{equation}
+
+\noindent onde $\color{red}G_t$ é calculado pela Matriz Jacobiana.
+
+O mesmo método é utilizado para equação que representa a saída do sistema, temos \eq{eq:taylor4}.
+
+\begin{equation}
+    \label{eq:taylor4}
+    \begin{split}
+        h(x_t) \approx & h(\overline{\mu}_t) + \frac{\partial h(\overline{\mu}_t) }{\partial x_{t}}(x_{t}-\overline{\mu}_{t}) \\
+        h(x_t) \approx & h(\overline{\mu}_t) + \color{blue}{H_t}(x_{t}-\overline{\mu}_{t})
+    \end{split}
+\end{equation}
+
+\noindent onde $\color{blue}H_t$ é calculado pela Matriz Jacobiana.
+
+A matriz Jacobiana demonstrada em $G_t$ e $H_t$ é expressa na forma generalizada pela \eq{eq:taylor5}.
+
+\begin{equation}
+    \label{eq:taylor5}
+    \mathbb{J}
+    =
+    \frac{d \mathbf{f}}{d \mathbf{x}}
+    =
+    \left[ \frac{\partial \mathbf{f}}{\partial q_1}
+        \cdots \frac{\partial \mathbf{f}}{\partial x_n} \right]
+    =
+    \begin{bmatrix}
+        \frac{\partial f_1}{\partial x_1} & \cdots &
+        \frac{\partial f_1}{\partial x_n}                   \\
+        \vdots                            & \ddots & \vdots \\
+        \frac{\partial f_m}{\partial x_1} & \cdots &
+        \frac{\partial f_m}{\partial x_n}
+    \end{bmatrix}
+\end{equation}
+
+Desta forma, pode-se reescrever o \algo{algo:kf} através da linearização do sistema pelo Algoritmo \ref{algo:ekf}.
+
+\begin{algorithm}[H]
+    \caption{Extended-Kalman-Filter}
+    \begin{algorithmic}[1]
+    \Procedure{Predição}{$\mu_{t-1}, {\textstyle\sum}_{t-1}, u_t$}
+        \State $\overline{\mu}_t = g(u_t, \mu_{t-1})$
+        \State $ \overline{\textstyle\sum}_t = G_t {\textstyle\sum}_{t-1} G_t^T+ Q_t$ 
+        \State \textbf{Returne} $\left(\overline{\mu}_t, \overline{\textstyle\sum}_t\right)$
+    \EndProcedure
+    \Procedure{Correção}{$\overline{\mu}_{t}, \overline{\textstyle\sum}_{t}, z_t$}
+        \State $K_t = \overline{\textstyle\sum}_tH_t^T(H_t\overline{\textstyle\sum}_tH_t^T+R_t)^{-1}$
+        \State $\mu_t  = \overline{\mu}_t + K_t(z_t -h(\overline\mu_t))$
+        \State{$\textstyle\sum_t = (I-K_t H_t)\overline{\textstyle\sum}_t$}
+        \State \textbf{Returne} $\left(\mu_t, \textstyle\sum_t\right)$
+    \EndProcedure
+    \end{algorithmic}
+    \label{algo:ekf}
+\end{algorithm}
+
+A implementação do \algo{algo:ekf} possibilita a implementação do Filtro de Kalman em sistemas não lineares, como os exemplos de robótica móvel apresentados nessa sessão. Além da modelagem do robô, linearização do modelo, faz-se necessário também a modelagem e linearização dos sensores utilizados no sistema. A implementação dos EKF minimizam as incertezas paramétricas da proposta de robô com um sistema de equações não lineares.
