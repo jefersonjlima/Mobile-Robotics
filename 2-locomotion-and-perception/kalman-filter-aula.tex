@@ -106,7 +106,6 @@
                 \item $\textcolor{purple}{z_t}$ sensor
                 \item Model: $P\left(\textcolor{purple}{z_t} | \textcolor{blue}{u_t}, x_{t-1}\right)$
             \end{itemize}
-            
 
             \cpright{\includegraphics[width=0.9\textwidth]{./images/prob_car2.png}}
             {https://courses.cs.washington.edu/courses/cse490r/19sp/}               
@@ -116,10 +115,10 @@
 \end{frame}
 
 
-\begin{frame}{Distribuição Normal (Gaussiana)}
+\begin{frame}{Normal distribution  (Gaussian)}
     \framesubtitle{Content Review}
     \begin{itemize}
-        \item \textbf{Uma Variável:} $\color{blue}{P(x) \sim N(\mu, \sigma^2)}$
+        \item \textbf{One Variable:} $\color{blue}{P(x) \sim N(\mu, \sigma^2)}$
     \end{itemize}
     \begin{block}{}
         \begin{equation*}
@@ -132,26 +131,24 @@
 \end{frame}
 
 
-\begin{frame}{Distribuição Normal (Gaussiana)}
-    \framesubtitle{Revisão}
+\begin{frame}{Normal distribution  (Gaussian)}
+    \framesubtitle{review}
     \begin{itemize}
-        \item Bivariável: $\color{blue}{P(\mathbf{x}) \sim N(\mu, \textstyle\sum)}$
+        \item Bivariate:$\color{blue}{P(\mathbf{x}) \sim N(\mu, \textstyle\sum)}$
     \end{itemize}
     \centering
     \input{./images/gauss_2d_image.tex}
 \end{frame}
 
-
-
-\begin{frame}{Distribuição Normal (Gaussiana)}
-    \framesubtitle{Revisão}
+\begin{frame}{Normal distribution  (Gaussian)}
+    \framesubtitle{review}
     \begin{itemize}
-        \item Bivariável: $\color{blue}{p(\mathbf{x}) \sim N(\mu, \textstyle\sum)}$
+        \item Bivariate: $\color{blue}{p(\mathbf{x}) \sim N(\mu, \textstyle\sum)}$
     \begin{equation*}
         P(\mathbf{x}) = \frac{1}{(2\pi)^{\frac{d}{2}\|\textstyle\sum\|^{\frac{1}{2}}}}\exp\left\{-\frac{1}{2} (\mathbf{x}-\mu)^T\textstyle\sum{}^{-1}(\mathbf{x}-\mu)\right\}
     \end{equation*}
     
-    \item Para um sistema de duas Variável:
+    \item For a two-variable system:
     
     \begin{equation*}
         p(\mathbf{x}) \sim N(\mu, \textstyle\sum)
@@ -172,10 +169,10 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Distribuição Normal (Gaussiana)}
-    \framesubtitle{Propriedades}
+\begin{frame}{Normal distribution  (Gaussian)}
+    \framesubtitle{Properties}
     \begin{itemize}
-        \item Caso Univariavel:
+        \item One variable Case:
         \begin{equation}
             \left.
             \begin{aligned}
@@ -184,7 +181,7 @@
             \end{aligned} \right\}
             \quad \Rightarrow \quad Y \sim N\left(a\mu+b\right)
         \end{equation}
-        \item Caso Multivariável:
+        \item Multivariable case:
         \begin{equation}
             \left.
             \begin{aligned}
@@ -196,45 +193,42 @@
     \end{itemize}
 \end{frame}
 
-
 \begin{frame}{Kalman Filter}
-    \framesubtitle{Modelo determinístico e estocástico}
+    \framesubtitle{Deterministic and stochastic models}
     \begin{itemize}
-        \item Num \textcolor{blue}{modelo determinístico} o resultado do sistema é pré determinado em função dos dados de entrada, exemplo:
+        \item Num \textcolor{blue}{deterministic model} the result of the system is predetermined according to the input data, e.g::
         \begin{align*} 
             x_t &= A_t x_{t-1} + B_t u_t\\ 
             z_t &= C_t x_t
         \end{align*}
-        \item Num \textcolor{blue}{modelo estocástico} o resultado do sistema não depende somente dos dados de entrada, mas também de outros fatores, normalmente
-        aleatórios:
+        \item Num \textcolor{blue}{stochastic model} the result of the system depends not only on the input data, but also on other, usually random:
         \begin{align} 
             x_t &= A_t x_{t-1} + B u_t +  w_t\\ 
             z_t &= C_t x_t + v_t
         \end{align}
         \begin{itemize}
-            \item $A_t$ Matriz $(n \times n)$ que descreve os estados do modelo.
-            \item $B_t$ Matriz $(n \times l)$ que descreve os estados do controle.
-            \item $C_t$ Matrix $(k\times n)$ sendo os estados de $x_t$.
-            \item $ w_t$ Variável aleatória do processo com distribuição normal e covariância $Q_t$.
+             \item $A_t$ Matrix $(n \times n)$ that describes the states of the model.
+             \item $B_t$ Matrix $(n \times l)$ that describes the control states.
+             \item $C_t$ Matrix $(k\times n)$ being the states of $x_t$.
+             \item $ w_t$ Random process variable with normal distribution and covariance $Q_t$.
             \item $v_t$ Rúido aleatório com distribuição normal e covariância de $R_t$.
         \end{itemize}
     \end{itemize}
 \end{frame}
 
-
 \begin{frame}{Kalman Filter}
-    \framesubtitle{Representação Grafica}
+    \framesubtitle{Graphic representation}
     \input{./images/gauss_1da_image.tex}
 \end{frame}
 
 \begin{frame}{Kalman Filter}
-    \framesubtitle{Revisão}
+    \framesubtitle{Review}
     \setlength\extrarowheight{5pt}
         \begin{tabular}{r l}
             $\color{blue}{\text{Bel}}(x_t)$ & = $P(x_t| u_1, z_1,  \cdots, z_t)$ \\
             Bayes & = $\eta P(z_t|x_t,  u_1, z_1,  \cdots,  u_t)P(x_t, u_1, z_1, \cdots, u_t)$ \\
             Markov & = $\eta P(z_t|x_t)P(x_t, u_1, z_1, \cdots, u_t)$ \\
-            Prob. Total & = $\eta P(z_t|x_t)\displaystyle\int P(x_t| u_1, z_1, \cdots, u_t,x_{t-1})$ \\
+            Prob.  & = $\eta P(z_t|x_t)\displaystyle\int P(x_t| u_1, z_1, \cdots, u_t,x_{t-1})$ \\
                         &  \quad \quad \quad $P(x_{t-1}| u_1, z_1, \cdots, u_t)\text{d}x_{t-1}$\\
             Markov & = $\eta P(z_t|x_t)$ $\displaystyle\int P(x_t| u_t,x_{t-1})P(x_{t-1}| u_1, z_1, \cdots, u_t)\text{d}x_{t-1}$ \\
             Markov & = $\eta P(z_t|x_t)$ $\displaystyle\int P(x_t| u_t,x_{t-1})\color{blue}{P(x_{t-1}| u_1, z_1, \cdots, z_{t-1}})\color{gray}{\text{d}x_{t-1}}$ \\
@@ -246,64 +240,61 @@
     \end{block}
 \end{frame}
 
-
 \begin{frame}[c]{Kalman Filter}
-    \framesubtitle{Algoritmo}
+    \framesubtitle{Algorithm}
     \begin{itemize}
-        \item Iniciando as Variável:
+        \item Starting the Variables:
         \begin{equation}
             \text{Bel}(x_0) = N\left(x_0, \mu_o, {\textstyle\sum} _0\right)
         \end{equation}
-        \item Tempo de convergência do filtro.
+        \item Filter convergence time.
     \end{itemize}
 \end{frame}
 
 \begin{frame}[c]{Kalman Filter}
-    \framesubtitle{Algoritmo}
+    \framesubtitle{Algorithm}
     \begin{itemize}
-        \item Com base na equação:
+        \item Based on the equation:
         \begin{equation*}
             \color{blue}{\text{Bel}}(x_t)  \color{gray}{=\eta P(z_t|x_t)\displaystyle\int P(x_t| u_t,x_{t-1})}\color{blue}{\color{blue}{\text{Bel}}(x_{t-1})}\color{gray}{)\text{d}x_{t-1}}
         \end{equation*}
-        \item E considerando que o sistema abaixo é linear e observável:
-        \begin{equation*}
+        \item And considering that the system below is linear and observable:
+          \begin{equation*}
             \begin{split}
                 x_t &= A_t x_{t-1} + B_t u_t\\ 
                 z_t &= C_t x_t
             \end{split}
         \end{equation*}
-        \item Um sistema é observável se o posto da matriz $\mathcal {O}$ é igual a $n$.
+        \item A system is observable if the rank of the matrix $\mathcal {O}$ is equal to $n$.
         \begin{equation*}
             \mathcal {O}={\begin{bmatrix}C_t\\C_tA_t\\C_tA^{2}_t\\\vdots \\C_tA^{n-1}_t\end{bmatrix}, \quad \text{rank}(\mathcal {O}}) = n
         \end{equation*}
     \end{itemize}
 \end{frame}
 
-
 \begin{frame}[c]{Kalman filter}
-    \framesubtitle{Algoritmo - Prediction}
+    \framesubtitle{Algorithm - Prediction}
     \begin{itemize}
-        \item Temos a função de probabilidade do sistema, expressa por:
+        \item We have the probability function of the system, expressed by:
         \begin{equation*}
             p(x_t| u_t, x_{t-1})= N\left(x_t; A_tx_{t-1}+ B_tu_t, Q_t\right)
         \end{equation*}   
-        \item ou seja:
+        \item i.e.:
         \begin{equation*}
             \overline{\text{Bel}}(x_t)  = \displaystyle\int\underbrace{P(x_t|u_t, x_{t-1})}_{\sim N\left(x_t; A_t x_{t-1}+ B_tu_t, Q_t\right)} \overbrace{\text{Bel}(x_{t-1})}^{\sim N\left(x_{t-1}; \mu_{t-1}, \textstyle\sum {}_{t-1}\right)}\text{d}x_{t-1}
         \end{equation*}
     \end{itemize}
 \end{frame}
 
-
 \begin{frame}[c]{Kalman Filter}
-    \framesubtitle{Algoritmo - Prediction}
+    \framesubtitle{Algorithm - Prediction}
     \begin{tabular}{p{1.5cm} l l}
         $\overline{\text{Bel}}(x_t)$  & = $\displaystyle\int P(x_t|u_t, x_{t-1})$ & $\text{Bel}(x_{t-1})\text{d}x_{t-1}$ \\
         & \quad\quad\quad\quad\quad $\Downarrow$ & \quad\quad\quad$\Downarrow$ \\
         & $\sim N\left(x_t; A_t x_{t-1}+ B_tu_t, Q_t\right)$ & $\sim N\left(x_{t-1}; \mu_{t-1}, \textstyle\sum {}_{t-1}\right)$ \\
         & \quad\quad\quad\quad\quad $\Downarrow$ & \\
     \end{tabular}
-    \begin{block}{Relembrando ...}
+    \begin{block}{Remembering ...}
         \begin{equation*}
             P(\mathbf{x}) = \frac{1}{(2\pi)^{\frac{d}{2}\|\sum\|^{\frac{1}{2}}}}\exp\left\{-\frac{1}{2} (\mathbf{x}-\mu)^T\textstyle\sum{}^{-1}(\mathbf{x}-\mu)\right\}
         \end{equation*}        
@@ -318,13 +309,11 @@
 
 \end{frame}
 
-
-
 \begin{frame}[c]{Kalman Filter}
     \framesubtitle{Algoritmo - Prediction}
 
     \begin{itemize}
-        \item Continuando ...
+        \item Continuing...
     \end{itemize}
 
     \begin{tabular}{p{1.2cm} l}      
@@ -349,13 +338,13 @@
 
 
 \begin{frame}[c]{Kalman Filter}
-    \framesubtitle{Algoritmo - Measurement Update}
+    \framesubtitle{Algorithm - Measurement Update}
     \begin{itemize}
-        \item Considerando a saída do sistema:
+        \item Considering the output of the system:
         \begin{equation*}
             z_t = C_t x_t + \delta_t
         \end{equation*}
-        \item Apresentadas as equações lineares do observador de estados, temos a função de probalilidade:
+        \item After presenting the linear equations of the state observer, the probability function is obtained:
         \begin{equation*}
             P(z_t| x_t)= N\left(z_t; C_t x_t, R_t\right)
         \end{equation*}   
@@ -368,7 +357,7 @@
 
 
 \begin{frame}[c]{Kalman Filter}
-    \framesubtitle{Algoritmo -  Measurement Update}
+    \framesubtitle{Algorithm -  Measurement Update}
     \begin{tabular}{p{1.5cm} l l l}
         $\text{Bel}(x_t)$  & = $\eta$ & $P(z_t| x_t)$ & $\overline{\text{Bel}}(x_t)$ \\
         & & $\quad \Downarrow$ & $\quad\Downarrow$ \\
@@ -395,7 +384,7 @@
         \end{equation}
 
         \begin{equation}
-            \text{Com }
+            \text{With }
             K_t = \overline{\textstyle\sum}_tC_t^T(C_t\overline{\textstyle\sum}_tC_t^T+R_t)^{-1}
         \end{equation}
     \end{block} 
@@ -425,16 +414,16 @@
 
 
 \begin{frame}[c]{Kalman Filter}
-    \framesubtitle{Exercício - Deslocamento Carro - Kalman Filter}    \begin{columns}
+    \framesubtitle{Exercices - Kalman Filter for Car Displacement}    \begin{columns}
         \begin{column}[c]{0.4\textwidth}
             \begin{figure}
                 \centering
                 \includegraphics[width=0.8\textwidth]{./images/kalman_car.png}
-                \caption{Exemplo Deslocamento Carro}
+                \caption{Kalman Filter for Car Displacement}
             \end{figure}
         
-        Tempo contínuo
-        \begin{equation*}
+        Continuous time
+          \begin{equation*}
            \left\{
             \begin{matrix}
                 s = & s_0 + vt \\
@@ -456,7 +445,7 @@
         \end{column}
         \begin{column}[c]{0.6\textwidth}
             
-            \textbf{Eq. Movimento - Tempo Discreto}:
+            \textbf{Eq. of Motion - Discrete Time}:
 
             \begin{equation*}
                 \mathbf{x}_t = 
@@ -473,7 +462,7 @@
                 \mathbf{w}_{t-1}
             \end{equation*}
 
-            \textbf{Eq. Sensor - Tempo Discreto}:
+            \textbf{Eq. Sensor - Discrete Time}:
 
             \begin{equation*}
                 \mathbf{z}_t = 
@@ -484,7 +473,7 @@
                 v_{t}
             \end{equation*}            
 
-            \textbf{Ruído}:
+            \textbf{noise}:
 
             $\mathbf{w}_t \sim \mathcal{N} 
                 \left(
@@ -505,11 +494,10 @@
 
 
 \begin{frame}[c]{Kalman Filter}
-    \framesubtitle{Exercício - Deslocamento Carro - Kalman Filter}
+    \framesubtitle{Exercices - Kalman Filter for Car Displacement}
     
     \begin{itemize}
-        \item 1) Dado o sistema que descreve o deslocamento do carro acima,
-        calcule o primeiro passo do algoritmo Kalman Filter.
+        \item 1) Calculate the first ten step of the Kalman Filter algorithm for the car displacement system described above.
     \end{itemize}
 
     \begin{columns}
@@ -517,13 +505,13 @@
             \begin{figure}
                 \centering
                 \includegraphics[width=0.8\textwidth]{./images/kalman_car.png}
-                \caption{Exemplo Deslocamento Carro}
+                \caption{Kalman Filter for Car Displacement}
             \end{figure}
             
         \end{column}
         \begin{column}[c]{0.6\textwidth}
             
-            \textbf{Condições Iniciais}:
+            \textbf{Initial conditions}:
 
             \begin{equation*}
                 \mu_0 \sim \mathcal{N} \left( 
@@ -546,11 +534,38 @@
     \end{columns}
 \end{frame}
 
+\begin{frame}[c]{Kalman Filter}
+  \framesubtitle{Biomedical Application Example: Measuring Human Gait with IMU}
+  \begin{columns}
+    \begin{column}[c]{0.4\textwidth}
+      \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{./images/gait.png}
+        \caption{Human Gait with IMU}
+      \end{figure}
+
+    \end{column}
+    \begin{column}[c]{0.6\textwidth}
+
+      \begin{itemize}
+        \item 1) How can the Kalman filter be applied to this problem?.
+        \item 2) Which sensors should be chosen?
+        \item 3) Which math model should be chosen? (Kinematic or dynamic model) 
+        \item \href{https://jeferson-lima.gitlab.io/me/pages/research/}{Another Example}
+      \end{itemize}
+
+    \end{column}
+  \end{columns}
+\end{frame}
+
+
 \begin{frame}[t]{Bibliography}
-    \begin{itemize}
-        \item Sebastian Thrun, Wolfram Burgard, Dieter Fox. Probabilistic Robotics (Intelligent Robotics and Autonomous Agents series). The MIT Press, 2005.
-        \item Roland Siegwart, Illah Reza Nourbakhsh, Davide Scaramuzza. Introduction to Autonomous Mobile Robots (Intelligent Robotics and Autonomous Agents series), 2nd ed. The MIT Press, 2011.
-    \end{itemize}
+  \begin{itemize}
+    \item Sebastian Thrun, Wolfram Burgard, Dieter Fox. Probabilistic Robotics (Intelligent Robotics and Autonomous Agents series). The MIT Press, 2005.
+    \item Roland Siegwart, Illah Reza Nourbakhsh, Davide Scaramuzza. Introduction to Autonomous Mobile Robots (Intelligent Robotics and Autonomous Agents series), 2nd ed. The MIT Press, 2011.
+    \item Buckley, Christopher, et al. "Gait asymmetry post-stroke: Determining valid and reliable methods using a single accelerometer located on the trunk." Sensors 20.1 (2019): 37.
+    \item LIMA, J. J. ; MARTINS, M. S. R. ; SCHLEDER, J. C. ; OKIDA, S. ; STEVAN JUNIOR, S. L. . Dispositivo para Analise Dinamica da Marcha Humana Utilizando Sensores Inerciais MEMS. Revista de Engenharia e Tecnologia, v. 5, p. 122, 2013. 
+  \end{itemize}
 
 \end{frame}
 \end{document}
